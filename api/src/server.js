@@ -3,12 +3,14 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 
+import authRoutes from './routes/auth.routes.js';
+import adminRoutes from './routes/admin.routes.js';
+
 // Load environment variables
 dotenv.config();
 
 // Connect to Database
-// Uncomment below when you have a valid MongoDB URI.
-// connectDB();
+connectDB();
 
 const app = express();
 
@@ -16,6 +18,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Basic health check route
 app.get('/api/health', (req, res) => {
