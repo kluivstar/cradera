@@ -1,42 +1,61 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+
 import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import UserDashboard from './pages/user/UserDashboard';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
-// Minimal App setup with routing
-function App() {
-  const [healthStatus, setHealthStatus] = useState('Checking...');
+// Redirects authenticated users away from login/register
+const GuestRoute = ({ children }) => {
+    const { isAuthenticated, isAdmin, loading } = useAuth();
 
-  useEffect(() => {
-    // Optionally ping backend
-    const checkHealth = async () => {
-      try {
-        const res = await fetch('http://localhost:5000/api/health');
-        const data = await res.json();
-        setHealthStatus(data.status === 'ok' ? 'API Online' : 'API Error');
-      } catch (err) {
-        setHealthStatus('API Offline');
-      }
-    };
-    checkHealth();
-  }, []);
+    if (loading) return null;
 
-  return (
-    <Router>
-      <div className="app-container">
-        <header>
-          <div className="logo">Cradera</div>
-          <div className="status-badge" style={{ fontSize: '0.8rem', padding: '0.3rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '20px', color: 'var(--color-text-secondary)' }}>
-            {healthStatus}
-          </div>
-        </header>
-        <main>
-          <Routes>
+    if (isAuthenticated) {
+        return <Navigate to={isAdmin ? '/admin' : '/dashboard'} replace />;
+    }
+
+    return children;
+};
+
+function AppRoutes() {
+    return (
+        <Routes>
             <Route path="/" element={<Home />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
-  );
+
+            <Route path="/login" element={
+                <GuestRoute><Login /></GuestRoute>
+            } />
+            <Route path="/register" element={
+                <GuestRoute><Register /></GuestRoute>
+            } />
+
+            <Route path="/dashboard" element={
+                <ProtectedRoute><UserDashboard /></ProtectedRoute>
+            } />
+
+            <Route path="/admin" element={
+                <ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>
+            } />
+
+            {/* Catch-all */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+    );
+}
+
+function App() {
+    return (
+        <Router>
+            <AuthProvider>
+                <AppRoutes />
+            </AuthProvider>
+        </Router>
+    );
 }
 
 export default App;
