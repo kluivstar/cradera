@@ -51,6 +51,9 @@ export const login = async (req, res) => {
             token,
         });
     } catch (err) {
+        if (err.message === 'Unauthorized access') {
+            return res.status(403).json({ error: 'This portal is for clients only. Please use the Staff Portal.' });
+        }
         if (err.message === 'Invalid email or password') {
             return res.status(401).json({ error: err.message });
         }
@@ -74,7 +77,10 @@ export const adminLogin = async (req, res) => {
             token,
         });
     } catch (err) {
-        if (err.message === 'Unauthorized access' || err.message === 'Invalid email or password') {
+        if (err.message === 'Unauthorized access') {
+            return res.status(401).json({ error: 'Access denied. Regular user accounts cannot access the admin portal.' });
+        }
+        if (err.message === 'Invalid email or password') {
             return res.status(401).json({ error: err.message });
         }
         res.status(500).json({ error: 'Server error during admin login' });

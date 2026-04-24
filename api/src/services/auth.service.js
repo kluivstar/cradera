@@ -31,7 +31,7 @@ export const loginUser = async ({ email, password, roleRequired = 'user' }) => {
         throw new Error('Invalid email or password');
     }
 
-    if (roleRequired === 'admin' && user.role !== 'admin') {
+    if (user.role !== roleRequired) {
         throw new Error('Unauthorized access');
     }
 

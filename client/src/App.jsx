@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AdminLogin from './pages/AdminLogin';
 import UserDashboard from './pages/user/UserDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
 
@@ -29,6 +30,9 @@ function AppRoutes() {
 
             <Route path="/login" element={
                 <GuestRoute><Login /></GuestRoute>
+            } />
+            <Route path="/admin/login" element={
+                <GuestRoute><AdminLogin /></GuestRoute>
             } />
             <Route path="/register" element={
                 <GuestRoute><Register /></GuestRoute>

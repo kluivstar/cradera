@@ -7,8 +7,9 @@ const Sidebar = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
+        const redirectPath = isAdmin ? '/admin/login' : '/login';
         logout();
-        navigate('/login');
+        navigate(redirectPath);
     };
 
     const userLinks = [
