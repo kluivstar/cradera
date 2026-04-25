@@ -8,8 +8,25 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminLogin from './pages/AdminLogin';
 import UserDashboard from './pages/user/UserDashboard';
+import Products from './pages/user/Products';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageDeposits from './pages/admin/ManageDeposits';
+import DashboardLayout from './components/DashboardLayout';
+
+const PlaceholderPage = ({ title }) => (
+    <DashboardLayout>
+        <div className="dashboard-content fade-in">
+            <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
+                <h1 style={{ fontSize: '2.25rem', fontWeight: '600', color: 'var(--color-primary)' }}>{title}</h1>
+                <p className="dashboard-subtitle">This feature is currently under development.</p>
+            </div>
+            <div className="dash-card" style={{ padding: '4rem', textAlign: 'center' }}>
+                <div style={{ fontSize: '4rem', marginBottom: '1.5rem', filter: 'grayscale(1)', opacity: 0.5 }}>🚧</div>
+                <p style={{ color: 'var(--color-text-secondary)' }}>We're working hard to bring you this service soon.</p>
+            </div>
+        </div>
+    </DashboardLayout>
+);
 
 // Redirects authenticated users away from login/register
 const GuestRoute = ({ children }) => {
@@ -39,15 +56,50 @@ function AppRoutes() {
                 <GuestRoute><Register /></GuestRoute>
             } />
 
+            {/* User Routes */}
             <Route path="/dashboard" element={
                 <ProtectedRoute><UserDashboard /></ProtectedRoute>
             } />
+            <Route path="/dashboard/products" element={
+                <ProtectedRoute><Products /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/transactions" element={
+                <ProtectedRoute><PlaceholderPage title="Transactions" /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/deposits" element={
+                <ProtectedRoute><PlaceholderPage title="Deposit Funds" /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/kyc" element={
+                <ProtectedRoute><PlaceholderPage title="KYC Verification" /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/referral" element={
+                <ProtectedRoute><PlaceholderPage title="Referral Program" /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/settings" element={
+                <ProtectedRoute><PlaceholderPage title="Account Settings" /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/support" element={
+                <ProtectedRoute><PlaceholderPage title="Help & Support" /></ProtectedRoute>
+            } />
 
+            {/* Admin Routes */}
             <Route path="/admin" element={
                 <ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>
             } />
+            <Route path="/admin/users" element={
+                <ProtectedRoute adminOnly><PlaceholderPage title="User Management" /></ProtectedRoute>
+            } />
             <Route path="/admin/deposits" element={
                 <ProtectedRoute adminOnly><ManageDeposits /></ProtectedRoute>
+            } />
+            <Route path="/admin/kyc" element={
+                <ProtectedRoute adminOnly><PlaceholderPage title="KYC Requests" /></ProtectedRoute>
+            } />
+            <Route path="/admin/transactions" element={
+                <ProtectedRoute adminOnly><PlaceholderPage title="System Transactions" /></ProtectedRoute>
+            } />
+            <Route path="/admin/settings" element={
+                <ProtectedRoute adminOnly><PlaceholderPage title="Platform Settings" /></ProtectedRoute>
             } />
 
             {/* Catch-all */}

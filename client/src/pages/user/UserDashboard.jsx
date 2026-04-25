@@ -1,77 +1,72 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import DashboardLayout from '../../components/DashboardLayout';
+import { Link } from 'react-router-dom';
 
 const UserDashboard = () => {
     const { user } = useAuth();
-
-    const formatDate = (dateStr) => {
-        if (!dateStr) return 'N/A';
-        return new Date(dateStr).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        });
-    };
+    const displayName = user?.email?.split('@')[0];
 
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div className="dashboard-header">
-                    <h1>Welcome back</h1>
-                    <p className="dashboard-subtitle">Here's your account overview</p>
+                <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
+                    <h1 style={{ fontSize: '2.25rem', fontWeight: '600', color: 'var(--color-primary)' }}>Hello, {displayName}</h1>
+                    <p className="dashboard-subtitle">Here's what's happening with your account today.</p>
                 </div>
 
-                <div className="dashboard-grid">
-                    {/* User Info Card */}
-                    <div className="dash-card">
-                        <div className="dash-card-header">
-                            <span className="dash-card-icon">👤</span>
-                            <h3>Account Info</h3>
+                <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: '1fr' }}>
+                    {/* Balance Card */}
+                    <div className="dash-card" style={{ 
+                        background: 'var(--color-primary)', 
+                        color: 'white', 
+                        padding: '2.5rem',
+                        borderRadius: '16px',
+                        position: 'relative',
+                        overflow: 'hidden'
+                    }}>
+                        <div style={{ position: 'relative', zIndex: 1 }}>
+                            <p style={{ fontSize: '0.9rem', opacity: 0.8, marginBottom: '0.5rem' }}>Total Balance</p>
+                            <h2 style={{ fontSize: '2.5rem', fontWeight: '700' }}>₦0.00</h2>
+                            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
+                                <Link to="/dashboard/deposits" className="btn btn-accent" style={{ padding: '0.6rem 1.5rem' }}>
+                                    Add Funds
+                                </Link>
+                                <button className="btn btn-secondary" style={{ background: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>
+                                    Withdraw
+                                </button>
+                            </div>
                         </div>
-                        <div className="dash-card-body">
-                            <div className="info-row">
-                                <span className="info-label">Email</span>
-                                <span className="info-value">{user?.email}</span>
-                            </div>
-                            <div className="info-row">
-                                <span className="info-label">Role</span>
-                                <span className="info-value capitalize">{user?.role}</span>
-                            </div>
-                            <div className="info-row">
-                                <span className="info-label">Member since</span>
-                                <span className="info-value">{formatDate(user?.createdAt)}</span>
-                            </div>
-                        </div>
+                        {/* Decorative circle */}
+                        <div style={{ 
+                            position: 'absolute', 
+                            top: '-50px', 
+                            right: '-50px', 
+                            width: '200px', 
+                            height: '200px', 
+                            borderRadius: '50%', 
+                            background: 'rgba(255,255,255,0.05)' 
+                        }}></div>
                     </div>
 
-                    {/* KYC Status Card */}
-                    <div className="dash-card">
-                        <div className="dash-card-header">
-                            <span className="dash-card-icon">🛡️</span>
-                            <h3>KYC Verification</h3>
-                        </div>
-                        <div className="dash-card-body">
-                            <div className="status-display">
-                                <span className="status-badge status-pending">Not Submitted</span>
+                    {/* Product Shortcuts */}
+                    <div>
+                        <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>Quick Services</h3>
+                        <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
+                            <Link to="/dashboard/products" className="dash-card" style={{ textDecoration: 'none', textAlign: 'center', padding: '2rem' }}>
+                                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🪙</div>
+                                <h4 style={{ color: 'var(--color-primary)', marginBottom: '0.5rem' }}>Crypto</h4>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Buy & Sell Assets</p>
+                            </Link>
+                            <div className="dash-card" style={{ textAlign: 'center', padding: '2rem', opacity: 0.7 }}>
+                                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🎁</div>
+                                <h4 style={{ color: 'var(--color-primary)', marginBottom: '0.5rem' }}>Gift Cards</h4>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Coming Soon</p>
                             </div>
-                            <p className="status-text">
-                                Complete your identity verification to unlock full platform access.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Deposit History Card */}
-                    <div className="dash-card dash-card-wide">
-                        <div className="dash-card-header">
-                            <span className="dash-card-icon">💰</span>
-                            <h3>Recent Deposits</h3>
-                        </div>
-                        <div className="dash-card-body">
-                            <div className="empty-state">
-                                <div className="empty-state-icon">📭</div>
-                                <p className="empty-state-text">No deposits yet</p>
-                                <p className="empty-state-sub">Your deposit history will appear here once you make your first transaction.</p>
+                            <div className="dash-card" style={{ textAlign: 'center', padding: '2rem', opacity: 0.7 }}>
+                                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>📱</div>
+                                <h4 style={{ color: 'var(--color-primary)', marginBottom: '0.5rem' }}>Airtime</h4>
+                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Coming Soon</p>
                             </div>
                         </div>
                     </div>

@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user',
+    },
+    kycStatus: {
+        type: String,
+        enum: ['unverified', 'pending', 'verified', 'rejected'],
+        default: 'unverified'
     }
 }, {
     timestamps: true

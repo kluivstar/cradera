@@ -3,40 +3,42 @@
 :root {
   /* Colors */
   --color-bg: #FFFFFF;
-  --color-primary: #38BDF8;
-  --color-primary-hover: #7dd3fc;
-  --color-text-primary: #1F2937;
+  --color-primary: #1E3A8A; /* Dark Blue */
+  --color-primary-hover: #1E40AF;
+  --color-accent: #38BDF8; /* Sky Blue */
+  --color-text-primary: #1F2937; /* Dark Grey */
   --color-text-secondary: #6B7280;
   --color-border: #E5E7EB;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F9FAFB;
   
   /* Status Colors */
-  --color-pending: #FBBF24;
-  --color-confirmed: #10B981;
-  --color-rejected: #EF4444;
-  
-  /* Typography */
-  --font-base: "Articulat CF", "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  
-  /* Layout & Spacing */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+
+  /* Spacing & Layout */
   --sidebar-width: 280px;
   --topbar-height: 72px;
+  --container-max: 1200px;
   --grid-unit: 8px;
-  --card-padding: 20px;
-  --container-max: 1280px;
+  
+  /* Typography */
+  --font-base: 'Articulat CF', 'Inter', -apple-system, sans-serif;
 }
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: var(--font-base);
   background-color: var(--color-bg);
   color: var(--color-text-primary);
-  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -214,11 +216,12 @@ main {
 
 .btn-primary:hover {
   background: var(--color-primary-hover);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--color-text-primary);
+  color: var(--color-primary);
   border: 1px solid var(--color-border);
 }
 
@@ -226,6 +229,16 @@ main {
   background: #F9FAFB;
   border-color: var(--color-primary);
   color: var(--color-primary);
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: white;
+}
+
+.btn-accent:hover {
+  background: #7dd3fc;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
 }
 
 /* ========================================
@@ -292,25 +305,47 @@ main {
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  margin: 0.25rem 1rem;
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-primary); /* Dark Blue text */
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
+.sidebar-link-icon {
+  color: #9CA3AF; /* Grey icons */
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
 .sidebar-link:hover {
-  background: #F3F4F6;
-  color: var(--color-primary);
+  /* NO hover background as per strict rules */
+  color: var(--color-primary-hover);
+}
+
+.sidebar-link:hover .sidebar-link-icon {
+  opacity: 1;
+  filter: grayscale(0);
 }
 
 .sidebar-link-active {
-  background: #F0F9FF;
-  color: var(--color-primary);
+  background: var(--color-primary); /* Dark blue background */
+  color: #FFFFFF !important; /* White text */
   font-weight: 600;
+}
+
+.sidebar-link-active .sidebar-link-icon {
+  color: #FFFFFF;
+  filter: grayscale(0);
+  opacity: 1;
 }
 
 .sidebar-bottom {
@@ -451,9 +486,14 @@ main {
   color: #92400E;
 }
 
-.status-confirmed, .status-approved {
+.status-confirmed, .status-approved, .status-verified {
   background: #D1FAE5;
   color: #065F46;
+}
+
+.status-unverified {
+  background: #F3F4F6;
+  color: #374151;
 }
 
 .status-rejected {

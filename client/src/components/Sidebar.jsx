@@ -13,15 +13,23 @@ const Sidebar = () => {
     };
 
     const userLinks = [
-        { to: '/dashboard', label: 'Dashboard', icon: '📊' },
-        { to: '/dashboard/kyc', label: 'Identity Status', icon: '🛡️' },
-        { to: '/dashboard/deposits', label: 'Deposits', icon: '💰' },
+        { to: '/dashboard', label: 'Home', icon: '⊞' },
+        { to: '/dashboard/products', label: 'Products', icon: '📦' },
+        { to: '/dashboard/transactions', label: 'Transactions', icon: '🧾' },
+        { to: '/dashboard/deposits', label: 'Deposit', icon: '💰' },
+        { to: '/dashboard/kyc', label: 'KYC', icon: '🛡️' },
+        { to: '/dashboard/referral', label: 'Referral', icon: '🎁' },
+        { to: '/dashboard/settings', label: 'Settings', icon: '⚙️' },
+        { to: '/dashboard/support', label: 'Help & Support', icon: '💬' },
     ];
 
     const adminLinks = [
-        { to: '/admin', label: 'Overview', icon: '📊' },
+        { to: '/admin', label: 'Home', icon: '⊞' },
         { to: '/admin/users', label: 'Users', icon: '👥' },
-        { to: '/admin/deposits', label: 'Manage Deposits', icon: '💰' },
+        { to: '/admin/deposits', label: 'Deposits', icon: '💰' },
+        { to: '/admin/kyc', label: 'KYC', icon: '🛡️' },
+        { to: '/admin/transactions', label: 'Transactions', icon: '🧾' },
+        { to: '/admin/settings', label: 'Settings', icon: '⚙️' },
     ];
 
     const links = isAdmin ? adminLinks : userLinks;

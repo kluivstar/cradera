@@ -34,7 +34,7 @@ const ManageDeposits = () => {
         <DashboardLayout>
             <div className="fade-in">
                 <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
-                    <h1 style={{ fontSize: '2.25rem', color: 'var(--color-text-primary)' }}>Manage Deposits</h1>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: '600', color: 'var(--color-primary)' }}>Manage Deposits</h1>
                     <p className="dashboard-subtitle">Review and authorize client funding requests</p>
                 </div>
 

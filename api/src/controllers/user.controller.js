@@ -13,6 +13,7 @@ export const getMe = async (req, res) => {
                 id: user._id,
                 email: user.email,
                 role: user.role,
+                kycStatus: user.kycStatus,
                 createdAt: user.createdAt,
             },
         });
