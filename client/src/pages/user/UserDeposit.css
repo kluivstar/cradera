@@ -1,0 +1,146 @@
+.deposit-page {
+    padding: 2rem;
+}
+
+.deposit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+    .deposit-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.instruction-card {
+    background: linear-gradient(135deg, rgba(138, 75, 238, 0.1) 0%, rgba(138, 75, 238, 0.02) 100%);
+    border: 1px solid rgba(138, 75, 238, 0.2);
+}
+
+.instruction-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.step-num {
+    background: var(--color-primary);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.wallet-display {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wallet-display label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.address-box {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
+}
+
+.address-box code {
+    color: var(--color-primary);
+    word-break: break-all;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.hint {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(138, 75, 238, 0.4);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.success-msg {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 0.8rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.error-msg {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    padding: 0.8rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.network-sub {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.tx-code {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-yellow { background: rgba(255, 193, 7, 0.15); color: #ffc107; }
+.badge-green { background: rgba(40, 167, 69, 0.15); color: #28a745; }
+.badge-red { background: rgba(220, 53, 69, 0.15); color: #dc3545; }

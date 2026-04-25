@@ -6,7 +6,7 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 import userRoutes from './routes/user.routes.js';
-import depositRoutes from './modules/deposits/deposit.routes.js';
+import depositRoutes from './routes/deposit.routes.js';
 
 // Load environment variables
 dotenv.config();

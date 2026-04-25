@@ -14,12 +14,12 @@ const Sidebar = () => {
 
     const userLinks = [
         { to: '/dashboard', label: 'Dashboard', icon: '📊' },
-        { to: '/dashboard/kyc', label: 'KYC Status', icon: '🛡️' },
-        { to: '/dashboard/deposits', label: 'Deposits', icon: '💰' },
+        { to: '/dashboard/deposits', label: 'Deposit', icon: '💰' },
     ];
 
     const adminLinks = [
         { to: '/admin', label: 'Overview', icon: '📊' },
+        { to: '/admin/deposits', label: 'Deposits', icon: '💰' },
         { to: '/admin/users', label: 'Users', icon: '👥' },
     ];
 

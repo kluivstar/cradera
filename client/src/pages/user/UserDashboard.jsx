@@ -16,13 +16,13 @@ const UserDashboard = () => {
 
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in">
+            <div className="main-container fade-in">
                 <div className="dashboard-header">
                     <h1>Welcome back</h1>
                     <p className="dashboard-subtitle">Here's your account overview</p>
                 </div>
 
-                <div className="dashboard-grid">
+                <div className="grid-2">
                     {/* User Info Card */}
                     <div className="dash-card">
                         <div className="dash-card-header">
