@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import AdminLogin from './pages/AdminLogin';
 import UserDashboard from './pages/user/UserDashboard';
 import Products from './pages/user/Products';
+import Deposit from './pages/user/Deposit';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageDeposits from './pages/admin/ManageDeposits';
 import DashboardLayout from './components/DashboardLayout';
@@ -67,7 +68,7 @@ function AppRoutes() {
                 <ProtectedRoute><PlaceholderPage title="Transactions" /></ProtectedRoute>
             } />
             <Route path="/dashboard/deposits" element={
-                <ProtectedRoute><PlaceholderPage title="Deposit Funds" /></ProtectedRoute>
+                <ProtectedRoute><Deposit /></ProtectedRoute>
             } />
             <Route path="/dashboard/kyc" element={
                 <ProtectedRoute><PlaceholderPage title="KYC Verification" /></ProtectedRoute>
