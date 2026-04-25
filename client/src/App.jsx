@@ -9,7 +9,6 @@ import Register from './pages/Register';
 import AdminLogin from './pages/AdminLogin';
 import UserDashboard from './pages/user/UserDashboard';
 import AdminDashboard from './pages/admin/AdminDashboard';
-import Deposits from './pages/user/Deposits';
 import ManageDeposits from './pages/admin/ManageDeposits';
 
 // Redirects authenticated users away from login/register
@@ -42,9 +41,6 @@ function AppRoutes() {
 
             <Route path="/dashboard" element={
                 <ProtectedRoute><UserDashboard /></ProtectedRoute>
-            } />
-            <Route path="/dashboard/deposits" element={
-                <ProtectedRoute><Deposits /></ProtectedRoute>
             } />
 
             <Route path="/admin" element={

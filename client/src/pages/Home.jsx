@@ -1,32 +1,42 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <div className="fade-in" style={{ textAlign: 'center', marginTop: '4rem' }}>
-      <h1 style={{ fontSize: '4rem', marginBottom: '1rem', background: 'linear-gradient(to right, #fff, var(--color-text-secondary))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-        Welcome to Cradera
+    <div className="fade-in" style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      minHeight: '80vh',
+      textAlign: 'center' 
+    }}>
+      <h1 style={{ 
+        fontSize: '4.5rem', 
+        marginBottom: '1.5rem', 
+        color: 'var(--color-text-primary)',
+        letterSpacing: '-0.02em'
+      }}>
+        Digital Assets, <br />
+        <span style={{ color: 'var(--color-primary)' }}>Reimagined.</span>
       </h1>
-      <p style={{ fontSize: '1.25rem', color: 'var(--color-text-secondary)', maxWidth: '600px', margin: '0 auto 3rem auto' }}>
-        A platform rebuilt from the ground up for maximum power and modern aesthetics.
+      <p style={{ 
+        fontSize: '1.25rem', 
+        color: 'var(--color-text-secondary)', 
+        maxWidth: '640px', 
+        margin: '0 auto 3rem auto',
+        lineHeight: '1.6'
+      }}>
+        Cradera is a premium digital asset platform tailored for institutional clients and elite users, built with modern aesthetics and maximum security.
       </p>
       
-      <button style={{
-        background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
-        color: 'white',
-        border: 'none',
-        padding: '1rem 2rem',
-        fontSize: '1.1rem',
-        fontWeight: '600',
-        borderRadius: '50px',
-        cursor: 'pointer',
-        boxShadow: '0 4px 15px rgba(150, 50, 255, 0.3)',
-        transition: 'all 0.3s ease'
-      }}
-      onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
-      onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
-      >
-        Get Started
-      </button>
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <Link to="/register" className="btn btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
+          Get Started
+        </Link>
+        <Link to="/login" className="btn btn-secondary" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
+          Sign In
+        </Link>
+      </div>
     </div>
   );
 };

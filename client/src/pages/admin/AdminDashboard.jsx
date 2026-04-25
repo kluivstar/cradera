@@ -35,7 +35,7 @@ const AdminDashboard = () => {
 
     return (
         <DashboardLayout>
-            <div className="main-container fade-in">
+            <div className="dashboard-content fade-in">
                 <div className="dashboard-header">
                     <h1>Admin Overview</h1>
                     <p className="dashboard-subtitle">Platform management console</p>
@@ -44,18 +44,18 @@ const AdminDashboard = () => {
                 {error && <div className="auth-error">{error}</div>}
 
                 {/* Stats Row */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '24px' }}>
-                    <div className="stat-card" style={{ padding: '24px', textAlign: 'center', border: '1px solid var(--color-border)', borderRadius: '12px', background: 'white' }}>
-                        <div className="stat-value" style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--color-primary)' }}>{users.length}</div>
-                        <div className="stat-label" style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', textTransform: 'uppercase' }}>Total Accounts</div>
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <div className="stat-value">{users.length}</div>
+                        <div className="stat-label">Total Accounts</div>
                     </div>
-                    <div className="stat-card" style={{ padding: '24px', textAlign: 'center', border: '1px solid var(--color-border)', borderRadius: '12px', background: 'white' }}>
-                        <div className="stat-value" style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--color-primary)' }}>{totalUsers}</div>
-                        <div className="stat-label" style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', textTransform: 'uppercase' }}>Users</div>
+                    <div className="stat-card">
+                        <div className="stat-value">{totalUsers}</div>
+                        <div className="stat-label">Users</div>
                     </div>
-                    <div className="stat-card" style={{ padding: '24px', textAlign: 'center', border: '1px solid var(--color-border)', borderRadius: '12px', background: 'white' }}>
-                        <div className="stat-value" style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--color-primary)' }}>{totalAdmins}</div>
-                        <div className="stat-label" style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', textTransform: 'uppercase' }}>Admins</div>
+                    <div className="stat-card">
+                        <div className="stat-value">{totalAdmins}</div>
+                        <div className="stat-label">Admins</div>
                     </div>
                 </div>
 

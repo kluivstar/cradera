@@ -14,13 +14,14 @@ const Sidebar = () => {
 
     const userLinks = [
         { to: '/dashboard', label: 'Dashboard', icon: '📊' },
-        { to: '/dashboard/deposits', label: 'Deposit', icon: '💰' },
+        { to: '/dashboard/kyc', label: 'Identity Status', icon: '🛡️' },
+        { to: '/dashboard/deposits', label: 'Deposits', icon: '💰' },
     ];
 
     const adminLinks = [
         { to: '/admin', label: 'Overview', icon: '📊' },
-        { to: '/admin/deposits', label: 'Deposits', icon: '💰' },
         { to: '/admin/users', label: 'Users', icon: '👥' },
+        { to: '/admin/deposits', label: 'Manage Deposits', icon: '💰' },
     ];
 
     const links = isAdmin ? adminLinks : userLinks;
@@ -29,9 +30,6 @@ const Sidebar = () => {
         <aside className="sidebar">
             <div className="sidebar-top">
                 <div className="sidebar-logo">Cradera</div>
-                <div className="sidebar-role-badge">
-                    {isAdmin ? 'Admin' : 'User'}
-                </div>
             </div>
 
             <nav className="sidebar-nav">
@@ -51,11 +49,8 @@ const Sidebar = () => {
             </nav>
 
             <div className="sidebar-bottom">
-                <div className="sidebar-user-info">
-                    <span className="sidebar-user-email">{user?.email}</span>
-                </div>
                 <button onClick={handleLogout} className="sidebar-logout-btn">
-                    Logout
+                    Sign Out
                 </button>
             </div>
         </aside>
