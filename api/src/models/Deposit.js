@@ -1,26 +1,41 @@
 import mongoose from 'mongoose';
 
 const depositSchema = new mongoose.Schema({
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true
+    },
+    assetType: {
+        type: String,
+        required: true
+    },
+    network: {
+        type: String,
         required: true
     },
     amount: {
         type: Number,
         required: true
     },
-    currency: {
+    txHash: {
         type: String,
-        default: 'USD'
+        required: true,
+        unique: true
     },
+    fromAddress: String,
+    toAddress: String,
     status: {
         type: String,
         enum: ['pending', 'confirmed', 'rejected'],
         default: 'pending'
     },
-    transactionHash: String,
-    notes: String
+    verifiedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    adminNotes: String,
+    verifiedAt: Date
 }, {
     timestamps: true
 });
