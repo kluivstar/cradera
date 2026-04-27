@@ -75,7 +75,7 @@ const UserDashboard = () => {
                                         Deposit Funds
                                     </Link>
                                     <button className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: 'white', padding: '0.875rem 2rem', fontWeight: '700', borderRadius: '14px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)' }}>
-                                        Send Money
+                                        Withdraw
                                     </button>
                                 </div>
                             </div>
