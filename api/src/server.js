@@ -8,6 +8,8 @@ import adminRoutes from './routes/admin.routes.js';
 import userRoutes from './routes/user.routes.js';
 import depositRoutes from './routes/deposit.routes.js';
 import assetRoutes from './routes/asset.routes.js';
+import kycRoutes from './routes/kyc.routes.js';
+import transactionRoutes from './routes/transaction.routes.js';
 
 // Load environment variables
 dotenv.config();
@@ -28,6 +30,8 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/deposits', depositRoutes);
 app.use('/api/assets', assetRoutes);
+app.use('/api/kyc', kycRoutes);
+app.use('/api/transactions', transactionRoutes);
 
 // Basic health check route
 app.get('/api/health', (req, res) => {

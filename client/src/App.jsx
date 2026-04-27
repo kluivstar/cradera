@@ -14,6 +14,10 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageDeposits from './pages/admin/ManageDeposits';
 import ManageAssets from './pages/admin/ManageAssets';
 import ManageUsers from './pages/admin/ManageUsers';
+import KYCSubmission from './pages/user/KYCSubmission';
+import ManageKYC from './pages/admin/ManageKYC';
+import Transactions from './pages/user/Transactions';
+import ManageTransactions from './pages/admin/ManageTransactions';
 import DashboardLayout from './components/DashboardLayout';
 
 const PlaceholderPage = ({ title }) => (
@@ -67,13 +71,13 @@ function AppRoutes() {
                 <ProtectedRoute><Products /></ProtectedRoute>
             } />
             <Route path="/dashboard/transactions" element={
-                <ProtectedRoute><PlaceholderPage title="Transactions" /></ProtectedRoute>
+                <ProtectedRoute><Transactions /></ProtectedRoute>
             } />
             <Route path="/dashboard/deposits" element={
                 <ProtectedRoute><Deposit /></ProtectedRoute>
             } />
             <Route path="/dashboard/kyc" element={
-                <ProtectedRoute><PlaceholderPage title="KYC Verification" /></ProtectedRoute>
+                <ProtectedRoute><KYCSubmission /></ProtectedRoute>
             } />
             <Route path="/dashboard/referral" element={
                 <ProtectedRoute><PlaceholderPage title="Referral Program" /></ProtectedRoute>
@@ -96,10 +100,10 @@ function AppRoutes() {
                 <ProtectedRoute adminOnly><ManageDeposits /></ProtectedRoute>
             } />
             <Route path="/admin/kyc" element={
-                <ProtectedRoute adminOnly><PlaceholderPage title="KYC Requests" /></ProtectedRoute>
+                <ProtectedRoute adminOnly><ManageKYC /></ProtectedRoute>
             } />
             <Route path="/admin/transactions" element={
-                <ProtectedRoute adminOnly><PlaceholderPage title="System Transactions" /></ProtectedRoute>
+                <ProtectedRoute adminOnly><ManageTransactions /></ProtectedRoute>
             } />
             <Route path="/admin/assets" element={
                 <ProtectedRoute adminOnly><ManageAssets /></ProtectedRoute>

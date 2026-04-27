@@ -1,17 +1,23 @@
 import User from '../models/User.js';
 import Deposit from '../models/Deposit.js';
+import KYC from '../models/KYC.js';
 
 export const getDashboardStats = async (req, res) => {
     try {
         const totalUsers = await User.countDocuments({ role: 'user' });
         const pendingDeposits = await Deposit.countDocuments({ status: 'pending' });
-        const pendingKYC = await User.countDocuments({ kycStatus: 'pending' });
+        const pendingKYC = await KYC.countDocuments({ status: 'pending' });
+        
+        // Calculate total volume from confirmed deposits
+        const confirmedDeposits = await Deposit.find({ status: 'confirmed' });
+        const totalVolume = confirmedDeposits.reduce((acc, curr) => acc + (curr.amount || 0), 0);
 
         res.status(200).json({
             stats: {
                 totalUsers,
                 pendingDeposits,
-                pendingKYC
+                pendingKYC,
+                totalVolume
             }
         });
     } catch (err) {

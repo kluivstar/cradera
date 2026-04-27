@@ -65,7 +65,6 @@ const ManageAssets = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log('Submitting asset data:', formData);
             if (editingAsset) {
                 await api.patch(`/assets/${editingAsset._id}`, formData);
             } else {
@@ -75,8 +74,7 @@ const ManageAssets = () => {
             resetForm();
             fetchAssets();
         } catch (err) {
-            console.error('Asset operation failed:', err);
-            alert(err.response?.data?.error || 'Operation failed. Check console for details.');
+            alert(err.response?.data?.error || 'Operation failed.');
         }
     };
 
@@ -196,7 +194,7 @@ const ManageAssets = () => {
                     </div>
                 )}
 
-                {/* Refined Modal Overlay */}
+                {/* Unified Flat Modal Overlay */}
                 {isModalOpen && (
                     <div style={{
                         position: 'fixed',
@@ -209,12 +207,21 @@ const ManageAssets = () => {
                         zIndex: 1000,
                         padding: '1.5rem'
                     }}>
-                        <div className="dash-card" style={{ width: '100%', maxWidth: '640px', maxHeight: '90vh', overflowY: 'auto', padding: '3rem', border: 'none', borderRadius: '24px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' }}>
+                        <div style={{ 
+                            background: 'white',
+                            width: '100%', 
+                            maxWidth: '600px', 
+                            maxHeight: '90vh', 
+                            overflowY: 'auto', 
+                            padding: '3rem', 
+                            borderRadius: '24px', 
+                            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' 
+                        }}>
                             <div style={{ marginBottom: '2.5rem' }}>
                                 <h2 style={{ fontSize: '1.75rem', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.5rem' }}>
-                                    {editingAsset ? 'Modify Asset' : 'Create New Asset'}
+                                    {editingAsset ? 'Modify Asset' : 'Add New Asset'}
                                 </h2>
-                                <p style={{ color: 'var(--color-text-secondary)' }}>Fill in the details below to configure the deposit asset.</p>
+                                <p style={{ color: 'var(--color-text-secondary)' }}>Fill in the details below to configure the asset.</p>
                             </div>
 
                             <form onSubmit={handleSubmit}>
@@ -224,51 +231,48 @@ const ManageAssets = () => {
                                         <input name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. Tether" required style={{ padding: '0.85rem 1rem', borderRadius: '12px' }} />
                                     </div>
                                     <div className="form-group">
-                                        <label style={{ fontWeight: '600', marginBottom: '0.6rem' }}>Symbol (Uppercase)</label>
+                                        <label style={{ fontWeight: '600', marginBottom: '0.6rem' }}>Symbol</label>
                                         <input name="symbol" value={formData.symbol} onChange={handleInputChange} placeholder="e.g. USDT" required style={{ padding: '0.85rem 1rem', borderRadius: '12px' }} />
                                     </div>
                                 </div>
                                 
-                                <div className="form-group" style={{ marginBottom: '2rem' }}>
+                                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                                     <label style={{ fontWeight: '600', marginBottom: '0.6rem' }}>Display Icon (Emoji)</label>
                                     <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. 💰" style={{ padding: '0.85rem 1rem', borderRadius: '12px', width: '100%' }} />
                                 </div>
 
-                                <div style={{ marginBottom: '2.5rem', background: '#F8FAFC', padding: '1.5rem', borderRadius: '16px' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                                        <h4 style={{ margin: 0, fontWeight: '700', color: 'var(--color-primary)' }}>Networks & Addresses</h4>
-                                        <button type="button" onClick={addNetwork} className="btn btn-accent" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', borderRadius: '8px' }}>
-                                            + Add Network
-                                        </button>
-                                    </div>
+                                <div style={{ borderTop: '1px solid var(--color-border)', pt: '1.5rem', marginTop: '1.5rem' }}>
+                                    <h4 style={{ marginBottom: '1.5rem', color: 'var(--color-primary)', fontWeight: '700' }}>Network Details</h4>
                                     
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                        {formData.networks.map((net, index) => (
-                                            <div key={index} style={{ background: 'white', padding: '1.25rem', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
-                                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '1rem', marginBottom: '0.5rem' }}>
-                                                    <div className="form-group" style={{ marginBottom: 0 }}>
-                                                        <label style={{ fontSize: '0.75rem', fontWeight: '700', opacity: 0.6 }}>NETWORK</label>
-                                                        <input value={net.name} onChange={(e) => handleNetworkChange(index, 'name', e.target.value)} placeholder="TRC20" required style={{ padding: '0.6rem 0.8rem', fontSize: '0.9rem' }} />
-                                                    </div>
-                                                    <div className="form-group" style={{ marginBottom: 0 }}>
-                                                        <label style={{ fontSize: '0.75rem', fontWeight: '700', opacity: 0.6 }}>DEPOSIT ADDRESS</label>
-                                                        <input value={net.address} onChange={(e) => handleNetworkChange(index, 'address', e.target.value)} placeholder="Wallet Address" required style={{ padding: '0.6rem 0.8rem', fontSize: '0.9rem' }} />
-                                                    </div>
+                                    {formData.networks.map((net, index) => (
+                                        <div key={index} style={{ marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '1rem' }}>
+                                                <div className="form-group">
+                                                    <label style={{ fontSize: '0.85rem', fontWeight: '600' }}>Network {index > 0 ? `#${index + 1}` : ''}</label>
+                                                    <input value={net.name} onChange={(e) => handleNetworkChange(index, 'name', e.target.value)} placeholder="e.g. TRC20" required style={{ padding: '0.85rem 1rem', borderRadius: '12px' }} />
                                                 </div>
-                                                {formData.networks.length > 1 && (
-                                                    <button type="button" onClick={() => removeNetwork(index)} style={{ color: 'var(--color-danger)', background: 'none', border: 'none', fontSize: '0.75rem', cursor: 'pointer', fontWeight: '700', marginTop: '0.5rem' }}>REMOVE NETWORK</button>
-                                                )}
+                                                <div className="form-group">
+                                                    <label style={{ fontSize: '0.85rem', fontWeight: '600' }}>Deposit Address</label>
+                                                    <input value={net.address} onChange={(e) => handleNetworkChange(index, 'address', e.target.value)} placeholder="Wallet Address" required style={{ padding: '0.85rem 1rem', borderRadius: '12px' }} />
+                                                </div>
                                             </div>
-                                        ))}
-                                    </div>
+                                            {formData.networks.length > 1 && (
+                                                <button type="button" onClick={() => removeNetwork(index)} style={{ color: 'var(--color-danger)', border: 'none', background: 'none', fontSize: '0.8rem', fontWeight: '700', textAlign: 'left', width: 'fit-content', cursor: 'pointer' }}>Remove Network</button>
+                                            )}
+                                        </div>
+                                    ))}
+
+                                    <button type="button" onClick={addNetwork} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '700', fontSize: '0.9rem', cursor: 'pointer', marginBottom: '2rem' }}>
+                                        + Add Another Network
+                                    </button>
                                 </div>
 
-                                <div style={{ display: 'flex', gap: '1rem' }}>
+                                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
                                     <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '1rem', borderRadius: '14px', fontSize: '1rem', fontWeight: '700' }}>
-                                        {editingAsset ? 'Save Asset Changes' : 'Create Asset Now'}
+                                        {editingAsset ? 'Update Asset' : 'Create Asset'}
                                     </button>
                                     <button type="button" className="btn btn-secondary" style={{ flex: 1, padding: '1rem', borderRadius: '14px', fontSize: '1rem', fontWeight: '700' }} onClick={() => setIsModalOpen(false)}>
-                                        Discard
+                                        Cancel
                                     </button>
                                 </div>
                             </form>
