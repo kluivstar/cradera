@@ -29,6 +29,7 @@ const Sidebar = () => {
         { to: '/admin/deposits', label: 'Deposits', icon: '💰' },
         { to: '/admin/kyc', label: 'KYC', icon: '🛡️' },
         { to: '/admin/transactions', label: 'Transactions', icon: '🧾' },
+        { to: '/admin/assets', label: 'Assets', icon: '🪙' },
         { to: '/admin/settings', label: 'Settings', icon: '⚙️' },
     ];
 
@@ -58,7 +59,8 @@ const Sidebar = () => {
 
             <div className="sidebar-bottom">
                 <button onClick={handleLogout} className="sidebar-logout-btn">
-                    Sign Out
+                    <span className="sidebar-link-icon">🚪</span>
+                    <span>Sign Out</span>
                 </button>
             </div>
         </aside>

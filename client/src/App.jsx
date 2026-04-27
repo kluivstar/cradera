@@ -12,6 +12,8 @@ import Products from './pages/user/Products';
 import Deposit from './pages/user/Deposit';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageDeposits from './pages/admin/ManageDeposits';
+import ManageAssets from './pages/admin/ManageAssets';
+import ManageUsers from './pages/admin/ManageUsers';
 import DashboardLayout from './components/DashboardLayout';
 
 const PlaceholderPage = ({ title }) => (
@@ -88,7 +90,7 @@ function AppRoutes() {
                 <ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>
             } />
             <Route path="/admin/users" element={
-                <ProtectedRoute adminOnly><PlaceholderPage title="User Management" /></ProtectedRoute>
+                <ProtectedRoute adminOnly><ManageUsers /></ProtectedRoute>
             } />
             <Route path="/admin/deposits" element={
                 <ProtectedRoute adminOnly><ManageDeposits /></ProtectedRoute>
@@ -98,6 +100,9 @@ function AppRoutes() {
             } />
             <Route path="/admin/transactions" element={
                 <ProtectedRoute adminOnly><PlaceholderPage title="System Transactions" /></ProtectedRoute>
+            } />
+            <Route path="/admin/assets" element={
+                <ProtectedRoute adminOnly><ManageAssets /></ProtectedRoute>
             } />
             <Route path="/admin/settings" element={
                 <ProtectedRoute adminOnly><PlaceholderPage title="Platform Settings" /></ProtectedRoute>

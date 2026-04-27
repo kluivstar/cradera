@@ -300,6 +300,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  overflow-y: auto;
 }
 
 .sidebar-link {
@@ -354,23 +355,27 @@ main {
 }
 
 .sidebar-logout-btn {
-  width: 100%;
-  padding: 0.75rem;
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  padding: 0.875rem 1.25rem;
   border: 1px solid var(--color-border);
   border-radius: 8px;
   background: transparent;
-  color: var(--color-text-secondary);
+  color: var(--color-danger); /* Use danger color for logout */
   font-family: var(--font-base);
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .sidebar-logout-btn:hover {
-  background: #F9FAFB;
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  background: #FEF2F2;
+  border-color: var(--color-danger);
+  color: var(--color-danger);
 }
 
 /* ========================================

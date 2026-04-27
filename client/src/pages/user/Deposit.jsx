@@ -3,6 +3,7 @@ import DashboardLayout from '../../components/DashboardLayout';
 import api from '../../utils/api';
 
 const Deposit = () => {
+    const [assets, setAssets] = useState([]);
     const [deposits, setDeposits] = useState([]);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -10,29 +11,56 @@ const Deposit = () => {
     const [success, setSuccess] = useState('');
 
     const [formData, setFormData] = useState({
-        assetType: 'USDT',
-        network: 'TRC20',
+        assetType: '',
+        network: '',
         amount: '',
         txHash: '',
         fromAddress: ''
     });
 
-    const walletAddress = "TXYZ1234567890ABCDEFGHIJKLMN"; // Placeholder platform wallet
+    const [selectedAsset, setSelectedAsset] = useState(null);
 
-    const fetchHistory = async () => {
+    const fetchData = async () => {
         try {
-            const res = await api.get('/deposits/me');
-            setDeposits(res.data.deposits);
+            setLoading(true);
+            const [assetsRes, depositsRes] = await Promise.all([
+                api.get('/assets'),
+                api.get('/deposits/me')
+            ]);
+            setAssets(assetsRes.data);
+            setDeposits(depositsRes.data.deposits);
+            
+            if (assetsRes.data.length > 0) {
+                const firstAsset = assetsRes.data[0];
+                setSelectedAsset(firstAsset);
+                setFormData(prev => ({
+                    ...prev,
+                    assetType: firstAsset.symbol,
+                    network: firstAsset.networks[0]?.name || ''
+                }));
+            }
         } catch (err) {
-            console.error('Failed to fetch deposits');
+            console.error('Failed to fetch data');
+            setError('Failed to load deposit information.');
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchHistory();
+        fetchData();
     }, []);
+
+    const handleAssetChange = (e) => {
+        const symbol = e.target.value;
+        const asset = assets.find(a => a.symbol === symbol);
+        setSelectedAsset(asset);
+        setFormData({ 
+            ...formData, 
+            assetType: symbol, 
+            network: asset?.networks[0]?.name || '' 
+        });
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -50,14 +78,14 @@ const Deposit = () => {
                 amount: parseFloat(formData.amount)
             });
             setSuccess('Deposit request submitted successfully!');
-            setFormData({
-                assetType: 'USDT',
-                network: 'TRC20',
+            setFormData(prev => ({
+                ...prev,
                 amount: '',
                 txHash: '',
                 fromAddress: ''
-            });
-            fetchHistory();
+            }));
+            const depositsRes = await api.get('/deposits/me');
+            setDeposits(depositsRes.data.deposits);
         } catch (err) {
             setError(err.response?.data?.error || 'Failed to submit deposit');
         } finally {
@@ -65,249 +93,239 @@ const Deposit = () => {
         }
     };
 
+    const getWalletAddress = () => {
+        if (!selectedAsset || !formData.network) return "Select network...";
+        const network = selectedAsset.networks.find(n => n.name === formData.network);
+        return network ? network.address : "Address not found";
+    };
+
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(walletAddress);
+        const addr = getWalletAddress();
+        if (addr === "Select network..." || addr === "Address not found") return;
+        navigator.clipboard.writeText(addr);
         alert('Address copied to clipboard!');
     };
 
+    if (loading) {
+        return (
+            <DashboardLayout>
+                <div className="loading-screen"><div className="loading-spinner"></div><p>Syncing with blockchain gateway...</p></div>
+            </DashboardLayout>
+        );
+    }
+
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in" style={{ maxWidth: '1400px', margin: '0 auto' }}>
-                <div className="dashboard-header" style={{ marginBottom: '3.5rem' }}>
-                    <h1 style={{ fontSize: '2.75rem', fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.75rem' }}>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
                         Fund Account
                     </h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '1.1rem' }}>
-                        Securely deposit assets using our multi-network institutional gateway.
+                    <p className="dashboard-subtitle" style={{ fontSize: '1rem', color: 'var(--color-text-secondary)' }}>
+                        Transfer assets to your unique platform wallet to begin trading.
                     </p>
                 </div>
 
-                <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
-                    gap: '2.5rem',
-                    alignItems: 'start'
-                }}>
-                    {/* Left Column: Flow & Form */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-                        
-                        {/* Step-by-Step Guide */}
-                        <div className="dash-card" style={{ 
-                            background: 'var(--color-primary)', 
-                            color: 'white',
-                            padding: '2.5rem',
-                            border: 'none',
-                            boxShadow: '0 20px 40px rgba(30, 58, 138, 0.15)'
-                        }}>
-                            <div style={{ marginBottom: '2rem' }}>
-                                <h3 style={{ color: 'white', fontSize: '1.5rem', marginBottom: '1rem' }}>How to deposit</h3>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                                    {[
-                                        { step: 1, text: "Copy the platform wallet address below." },
-                                        { step: 2, text: "Send funds from your external wallet/exchange." },
-                                        { step: 3, text: "Fill the submission form with transaction proof." }
-                                    ].map((item) => (
-                                        <div key={item.step} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                            <div style={{ 
-                                                width: '28px', 
-                                                height: '28px', 
-                                                borderRadius: '50%', 
-                                                background: 'rgba(255,255,255,0.2)', 
-                                                display: 'flex', 
-                                                alignItems: 'center', 
-                                                justifyContent: 'center',
-                                                fontSize: '0.75rem',
-                                                fontWeight: '700'
-                                            }}>
-                                                {item.step}
-                                            </div>
-                                            <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>{item.text}</p>
-                                        </div>
-                                    ))}
+                {assets.length === 0 ? (
+                    <div className="dash-card" style={{ padding: '4rem', textAlign: 'center' }}>
+                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>⚠️</div>
+                        <h3>No Assets Available</h3>
+                        <p>Deposits are currently unavailable. Please contact support.</p>
+                    </div>
+                ) : (
+                    <div style={{ 
+                        display: 'grid', 
+                        gridTemplateColumns: '1.2fr 0.8fr', 
+                        gap: '2rem',
+                        alignItems: 'start'
+                    }}>
+                        {/* Left Column: Form & Guide */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                            
+                            {/* Modern Deposit Form */}
+                            <div className="dash-card" style={{ padding: '2.5rem', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.04)' }}>
+                                <div style={{ marginBottom: '2rem' }}>
+                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1.25rem', fontWeight: '700' }}>1. Payment Details</h3>
+                                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>Choose your asset and copy the destination address.</p>
                                 </div>
-                            </div>
 
-                            <div style={{ 
-                                background: 'rgba(255,255,255,0.08)', 
-                                padding: '1.5rem', 
-                                borderRadius: '12px',
-                                border: '1px solid rgba(255,255,255,0.1)'
-                            }}>
-                                <label style={{ display: 'block', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem', opacity: 0.6 }}>
-                                    Your {formData.assetType} ({formData.network}) Deposit Address
-                                </label>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                    <code style={{ fontSize: '1rem', wordBreak: 'break-all', fontWeight: '500', flex: 1 }}>
-                                        {walletAddress}
-                                    </code>
-                                    <button 
-                                        onClick={copyToClipboard}
-                                        style={{ 
-                                            background: 'var(--color-accent)', 
-                                            color: 'var(--color-primary)', 
-                                            border: 'none', 
-                                            padding: '0.6rem 1.25rem', 
-                                            borderRadius: '8px', 
-                                            fontSize: '0.85rem', 
-                                            fontWeight: '700',
-                                            cursor: 'pointer',
-                                            transition: 'transform 0.2s'
-                                        }}
-                                    >
-                                        Copy
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Submission Form */}
-                        <div className="dash-card" style={{ padding: '2.5rem' }}>
-                            <div style={{ marginBottom: '2rem' }}>
-                                <h3 style={{ color: 'var(--color-primary)', fontSize: '1.25rem', fontWeight: '600' }}>Confirm Transaction</h3>
-                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>Notify our system once payment is sent.</p>
-                            </div>
-
-                            <form onSubmit={handleSubmit}>
-                                {error && <div className="auth-error" style={{ marginBottom: '1.5rem' }}>{error}</div>}
-                                {success && <div style={{ background: '#ECFDF5', color: '#059669', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.9rem', fontWeight: '500', border: '1px solid #10B98133' }}>{success}</div>}
-                                
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
                                     <div className="form-group">
-                                        <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Asset Type</label>
-                                        <select name="assetType" value={formData.assetType} onChange={handleChange} required style={{ width: '100%', padding: '0.85rem', borderRadius: '10px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB' }}>
-                                            <option value="USDT">USDT (Tether)</option>
-                                            <option value="BTC">Bitcoin</option>
-                                            <option value="ETH">Ethereum</option>
+                                        <label style={{ fontSize: '0.85rem', fontWeight: '600' }}>Select Asset</label>
+                                        <select 
+                                            name="assetType" 
+                                            value={formData.assetType} 
+                                            onChange={handleAssetChange} 
+                                            style={{ width: '100%', padding: '0.85rem', borderRadius: '10px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB', fontWeight: '500' }}
+                                        >
+                                            {assets.map(a => (
+                                                <option key={a.symbol} value={a.symbol}>{a.icon} {a.name} ({a.symbol})</option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Network</label>
-                                        <select name="network" value={formData.network} onChange={handleChange} required style={{ width: '100%', padding: '0.85rem', borderRadius: '10px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB' }}>
-                                            <option value="TRC20">Tron (TRC20)</option>
-                                            <option value="ERC20">Ethereum (ERC20)</option>
-                                            <option value="BEP20">BSC (BEP20)</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                                    <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Amount Sent (USD)</label>
-                                    <div style={{ position: 'relative' }}>
-                                        <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-secondary)', fontWeight: '600' }}>$</span>
-                                        <input 
-                                            type="number" 
-                                            name="amount" 
-                                            value={formData.amount} 
+                                        <label style={{ fontSize: '0.85rem', fontWeight: '600' }}>Network</label>
+                                        <select 
+                                            name="network" 
+                                            value={formData.network} 
                                             onChange={handleChange} 
-                                            placeholder="0.00" 
+                                            style={{ width: '100%', padding: '0.85rem', borderRadius: '10px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB', fontWeight: '500' }}
+                                        >
+                                            {selectedAsset?.networks.map(n => (
+                                                <option key={n.name} value={n.name}>{n.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div style={{ 
+                                    background: 'var(--color-primary)', 
+                                    color: 'white', 
+                                    padding: '1.75rem', 
+                                    borderRadius: '16px',
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    marginBottom: '2.5rem'
+                                }}>
+                                    <div style={{ position: 'absolute', right: '-20px', top: '-20px', fontSize: '8rem', opacity: 0.05 }}>🪙</div>
+                                    <label style={{ display: 'block', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem', opacity: 0.7, fontWeight: '700' }}>
+                                        Destination {formData.assetType} Address
+                                    </label>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', position: 'relative', zIndex: 1 }}>
+                                        <code style={{ fontSize: '1.1rem', wordBreak: 'break-all', fontWeight: '600', flex: 1, letterSpacing: '0.02em' }}>
+                                            {getWalletAddress()}
+                                        </code>
+                                        <button 
+                                            onClick={copyToClipboard}
+                                            style={{ 
+                                                background: 'var(--color-accent)', 
+                                                color: 'var(--color-primary)', 
+                                                border: 'none', 
+                                                padding: '0.75rem 1.5rem', 
+                                                borderRadius: '10px', 
+                                                fontSize: '0.85rem', 
+                                                fontWeight: '700',
+                                                cursor: 'pointer',
+                                                boxShadow: '0 4px 12px rgba(56, 189, 248, 0.3)'
+                                            }}
+                                        >
+                                            Copy
+                                        </button>
+                                    </div>
+                                    <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>
+                                        ⚠️ Only send {formData.assetType} via {formData.network} network. Other assets will be lost.
+                                    </p>
+                                </div>
+
+                                <div style={{ marginBottom: '2rem' }}>
+                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1.25rem', fontWeight: '700' }}>2. Confirmation Form</h3>
+                                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>Submit your transaction hash for verification.</p>
+                                </div>
+
+                                <form onSubmit={handleSubmit}>
+                                    {error && <div className="auth-error" style={{ marginBottom: '1.5rem' }}>{error}</div>}
+                                    {success && <div style={{ background: '#ECFDF5', color: '#059669', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.9rem', fontWeight: '500', border: '1px solid #10B98133' }}>{success}</div>}
+                                    
+                                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                                        <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Amount Sent (USD Value)</label>
+                                        <div style={{ position: 'relative' }}>
+                                            <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-secondary)', fontWeight: '700' }}>$</span>
+                                            <input 
+                                                type="number" 
+                                                name="amount" 
+                                                value={formData.amount} 
+                                                onChange={handleChange} 
+                                                placeholder="0.00" 
+                                                required 
+                                                style={{ width: '100%', padding: '1rem 1rem 1rem 2rem', borderRadius: '12px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB', fontSize: '1.1rem', fontWeight: '600' }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                                        <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Transaction Hash (TXID)</label>
+                                        <input 
+                                            type="text" 
+                                            name="txHash" 
+                                            value={formData.txHash} 
+                                            onChange={handleChange} 
+                                            placeholder="Paste the unique transaction ID" 
                                             required 
-                                            style={{ width: '100%', padding: '0.85rem 0.85rem 0.85rem 2rem', borderRadius: '10px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB' }}
+                                            style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB' }}
                                         />
                                     </div>
-                                </div>
 
-                                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                                    <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Transaction Hash (TXID)</label>
-                                    <input 
-                                        type="text" 
-                                        name="txHash" 
-                                        value={formData.txHash} 
-                                        onChange={handleChange} 
-                                        placeholder="Paste hash here" 
-                                        required 
-                                        style={{ width: '100%', padding: '0.85rem', borderRadius: '10px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB' }}
-                                    />
-                                </div>
+                                    <div className="form-group" style={{ marginBottom: '2.5rem' }}>
+                                        <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Your Sending Wallet Address</label>
+                                        <input 
+                                            type="text" 
+                                            name="fromAddress" 
+                                            value={formData.fromAddress} 
+                                            onChange={handleChange} 
+                                            placeholder="Address you sent from" 
+                                            required 
+                                            style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB' }}
+                                        />
+                                    </div>
 
-                                <div className="form-group" style={{ marginBottom: '2.5rem' }}>
-                                    <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Your Wallet Address (From)</label>
-                                    <input 
-                                        type="text" 
-                                        name="fromAddress" 
-                                        value={formData.fromAddress} 
-                                        onChange={handleChange} 
-                                        placeholder="Enter sending address" 
-                                        required 
-                                        style={{ width: '100%', padding: '0.85rem', borderRadius: '10px', border: '1.5px solid var(--color-border)', outline: 'none', background: '#F9FAFB' }}
-                                    />
-                                </div>
-
-                                <button 
-                                    type="submit" 
-                                    className="btn btn-accent" 
-                                    disabled={submitting} 
-                                    style={{ width: '100%', padding: '1.15rem', fontSize: '1rem', fontWeight: '700', borderRadius: '12px' }}
-                                >
-                                    {submitting ? 'Processing Transaction...' : 'I Have Made Payment'}
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    {/* Right Column: History */}
-                    <div className="dash-card" style={{ padding: '2rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
-                            <div>
-                                <h3 style={{ color: 'var(--color-primary)', fontSize: '1.25rem', fontWeight: '600' }}>Recent Deposits</h3>
-                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.85rem' }}>Status tracking for your funding requests.</p>
+                                    <button 
+                                        type="submit" 
+                                        className="btn btn-accent" 
+                                        disabled={submitting} 
+                                        style={{ width: '100%', padding: '1.25rem', fontSize: '1.1rem', fontWeight: '700', borderRadius: '14px', boxShadow: '0 10px 20px rgba(56, 189, 248, 0.2)' }}
+                                    >
+                                        {submitting ? 'Verifying on Node...' : 'Confirm Payment'}
+                                    </button>
+                                </form>
                             </div>
-                            <button onClick={fetchHistory} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '600', cursor: 'pointer', fontSize: '0.9rem' }}>Refresh</button>
                         </div>
 
-                        {loading ? (
-                            <div style={{ textAlign: 'center', padding: '5rem 0' }}>
-                                <div className="loading-spinner" style={{ margin: '0 auto' }}></div>
-                            </div>
-                        ) : deposits.length === 0 ? (
-                            <div style={{ textAlign: 'center', padding: '5rem 0' }}>
-                                <div style={{ fontSize: '3rem', marginBottom: '1.5rem', opacity: 0.2 }}>📦</div>
-                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>No transaction history available yet.</p>
-                            </div>
-                        ) : (
-                            <div className="table-wrapper">
-                                <table className="data-table">
-                                    <thead>
-                                        <tr style={{ borderBottom: '2px solid #F3F4F6' }}>
-                                            <th style={{ padding: '1rem 0' }}>Asset Details</th>
-                                            <th style={{ padding: '1rem 0' }}>Value</th>
-                                            <th style={{ padding: '1rem 0' }}>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {deposits.map((d) => (
-                                            <tr key={d._id} style={{ borderBottom: '1px solid #F9FAFB' }}>
-                                                <td style={{ padding: '1.25rem 0' }}>
-                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                        <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '1rem' }}>{d.assetType}</span>
-                                                        <span style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>{d.network}</span>
+                        {/* Right Column: History */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                            <div className="dash-card" style={{ padding: '2rem', border: 'none' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
+                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1.2rem', fontWeight: '700' }}>Recent Deposits</h3>
+                                    <button onClick={fetchData} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '700', cursor: 'pointer', fontSize: '0.85rem' }}>Refresh</button>
+                                </div>
+
+                                {deposits.length === 0 ? (
+                                    <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+                                        <div style={{ fontSize: '3rem', marginBottom: '1.5rem', opacity: 0.1 }}>🧾</div>
+                                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>No funding history found.</p>
+                                    </div>
+                                ) : (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                        {deposits.slice(0, 8).map((d) => (
+                                            <div key={d._id} style={{ 
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                justifyContent: 'space-between', 
+                                                padding: '1.25rem', 
+                                                borderRadius: '12px', 
+                                                background: '#F9FAFB',
+                                                border: '1px solid var(--color-border)'
+                                            }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                                    <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'white', display: 'flex', alignItems: 'center', justifySelf: 'center', fontSize: '1.2rem', border: '1px solid var(--color-border)', justifyContent: 'center' }}>
+                                                        {assets.find(a => a.symbol === d.assetType)?.icon || '💰'}
                                                     </div>
-                                                </td>
-                                                <td style={{ padding: '1.25rem 0' }}>
-                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                        <span style={{ fontWeight: '700', color: 'var(--color-primary)' }}>${d.amount.toLocaleString()}</span>
-                                                        <span style={{ fontSize: '0.75rem', color: '#9CA3AF' }}>{new Date(d.createdAt).toLocaleDateString()}</span>
+                                                    <div>
+                                                        <div style={{ fontWeight: '700', fontSize: '0.95rem' }}>{d.assetType}</div>
+                                                        <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{new Date(d.createdAt).toLocaleDateString()}</div>
                                                     </div>
-                                                </td>
-                                                <td style={{ padding: '1.25rem 0' }}>
-                                                    <span className={`status-badge status-${d.status}`} style={{ 
-                                                        padding: '0.4rem 0.8rem', 
-                                                        borderRadius: '6px', 
-                                                        fontSize: '0.75rem', 
-                                                        fontWeight: '700',
-                                                        textTransform: 'uppercase',
-                                                        letterSpacing: '0.02em'
-                                                    }}>
-                                                        {d.status}
-                                                    </span>
-                                                </td>
-                                            </tr>
+                                                </div>
+                                                <div style={{ textAlign: 'right' }}>
+                                                    <div style={{ fontWeight: '700', fontSize: '1rem', color: 'var(--color-primary)' }}>${d.amount.toLocaleString()}</div>
+                                                    <span className={`status-badge status-${d.status}`} style={{ fontSize: '0.65rem', padding: '0.2rem 0.5rem' }}>{d.status}</span>
+                                                </div>
+                                            </div>
                                         ))}
-                                    </tbody>
-                                </table>
+                                    </div>
+                                )}
                             </div>
-                        )}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </DashboardLayout>
     );

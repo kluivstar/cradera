@@ -25,7 +25,7 @@ const ManageDeposits = () => {
 
     const handleAction = async (id, action) => {
         if (!window.confirm(`Are you sure you want to ${action} this deposit?`)) return;
-        
+
         setActionLoading(id);
         try {
             await api.post(`/deposits/${id}/${action}`);
@@ -115,10 +115,10 @@ const ManageDeposits = () => {
                                                 </div>
                                             </td>
                                             <td style={{ padding: '1.5rem' }}>
-                                                <span className={`status-badge status-${d.status}`} style={{ 
-                                                    padding: '0.5rem 1rem', 
-                                                    borderRadius: '8px', 
-                                                    fontSize: '0.75rem', 
+                                                <span className={`status-badge status-${d.status}`} style={{
+                                                    padding: '0.5rem 1rem',
+                                                    borderRadius: '8px',
+                                                    fontSize: '0.75rem',
                                                     fontWeight: '700',
                                                     textTransform: 'uppercase',
                                                     letterSpacing: '0.02em'
@@ -140,7 +140,7 @@ const ManageDeposits = () => {
                                                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                                                     {d.status === 'pending' ? (
                                                         <>
-                                                            <button 
+                                                            <button
                                                                 onClick={() => handleAction(d._id, 'confirm')}
                                                                 disabled={actionLoading === d._id}
                                                                 className="btn btn-accent"
@@ -148,16 +148,16 @@ const ManageDeposits = () => {
                                                             >
                                                                 {actionLoading === d._id ? '...' : 'Confirm'}
                                                             </button>
-                                                            <button 
+                                                            <button
                                                                 onClick={() => handleAction(d._id, 'reject')}
                                                                 disabled={actionLoading === d._id}
-                                                                style={{ 
-                                                                    background: '#FEE2E2', 
-                                                                    color: '#DC2626', 
-                                                                    border: 'none', 
-                                                                    padding: '0.5rem 1rem', 
-                                                                    fontSize: '0.8rem', 
-                                                                    borderRadius: '8px', 
+                                                                style={{
+                                                                    background: '#FEE2E2',
+                                                                    color: '#DC2626',
+                                                                    border: 'none',
+                                                                    padding: '0.5rem 1rem',
+                                                                    fontSize: '0.8rem',
+                                                                    borderRadius: '8px',
                                                                     fontWeight: '700',
                                                                     cursor: 'pointer'
                                                                 }}
