@@ -111,10 +111,10 @@ const ManageAssets = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-8)' }}>
                     <div>
-                        <h1 style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Asset Management</h1>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem' }}>Configure the assets and networks available for user deposits.</p>
+                        <h1 style={{ color: 'var(--color-primary)', marginBottom: 'var(--spacing-1)' }}>Asset Management</h1>
+                        <p className="dashboard-subtitle">Configure the assets and networks available for user deposits.</p>
                     </div>
                     <button 
                         className="btn btn-primary"
@@ -122,68 +122,68 @@ const ManageAssets = () => {
                             resetForm();
                             setIsModalOpen(true);
                         }}
-                        style={{ padding: '0.875rem 1.75rem', borderRadius: '12px', fontSize: '1rem' }}
+                        style={{ padding: '0.65rem 1.25rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)' }}
                     >
-                        + Add New Asset
+                        + ADD NEW ASSET
                     </button>
                 </div>
 
                 {loading ? (
-                    <div className="loading-screen"><div className="loading-spinner"></div><p>Fetching assets...</p></div>
+                    <div className="loading-screen"><div className="loading-spinner"></div><p className="dashboard-subtitle">Fetching assets...</p></div>
                 ) : (
-                    <div className="table-wrapper" style={{ border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.04)', borderRadius: '16px' }}>
+                    <div className="table-wrapper" style={{ border: 'none' }}>
                         <table className="data-table">
                             <thead style={{ background: '#F8FAFC' }}>
                                 <tr>
-                                    <th style={{ padding: '1.25rem 2rem' }}>Asset</th>
-                                    <th>Supported Networks</th>
-                                    <th>Status</th>
-                                    <th style={{ textAlign: 'right', paddingRight: '2rem' }}>Actions</th>
+                                    <th style={{ padding: 'var(--spacing-3) var(--spacing-4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Asset</th>
+                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Supported Networks</th>
+                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Status</th>
+                                    <th style={{ textAlign: 'right', paddingRight: 'var(--spacing-4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {assets.length === 0 ? (
                                     <tr>
-                                        <td colSpan="4" style={{ textAlign: 'center', padding: '5rem' }}>
-                                            <div style={{ fontSize: '3rem', marginBottom: '1.5rem', opacity: 0.2 }}>💰</div>
-                                            <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem' }}>No assets configured yet.</p>
+                                        <td colSpan="4" style={{ textAlign: 'center', padding: 'var(--spacing-12)' }}>
+                                            <div style={{ fontSize: '2.5rem', marginBottom: 'var(--spacing-4)', opacity: 0.1 }}>💰</div>
+                                            <p className="dashboard-subtitle">No assets configured yet.</p>
                                         </td>
                                     </tr>
                                 ) : (
                                     assets.map((asset) => (
                                         <tr key={asset._id}>
-                                            <td style={{ padding: '1.5rem 2rem' }}>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-                                                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.75rem' }}>
+                                            <td style={{ padding: 'var(--spacing-3) var(--spacing-4)' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-3)' }}>
+                                                    <div style={{ width: '32px', height: '32px', borderRadius: 'var(--radius-sm)', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'var(--font-size-lg)' }}>
                                                         {asset.icon}
                                                     </div>
                                                     <div>
-                                                        <div style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '1.1rem' }}>{asset.name}</div>
-                                                        <div style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', fontWeight: '600' }}>{asset.symbol}</div>
+                                                        <div style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: 'var(--font-size-xs)' }}>{asset.name}</div>
+                                                        <div style={{ fontSize: '9px', color: '#94A3B8', fontWeight: '700' }}>{asset.symbol}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-2)' }}>
                                                     {asset.networks.map((n, i) => (
-                                                        <span key={i} className="status-badge" style={{ background: 'white', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontSize: '0.75rem', fontWeight: '600', padding: '0.35rem 0.75rem' }}>
+                                                        <span key={i} className="status-badge" style={{ background: 'white', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontSize: '9px', fontWeight: '700', padding: '0.15rem 0.4rem' }}>
                                                             {n.name}
                                                         </span>
                                                     ))}
                                                 </div>
                                             </td>
                                             <td>
-                                                <span className={`status-badge ${asset.isActive ? 'status-confirmed' : 'status-pending'}`} style={{ padding: '0.4rem 1rem', borderRadius: '8px', fontSize: '0.75rem', fontWeight: '700' }}>
+                                                <span className={`status-badge status-${asset.isActive ? 'confirmed' : 'pending'}`} style={{ padding: '0.2rem 0.5rem', fontSize: '9px' }}>
                                                     {asset.isActive ? 'ACTIVE' : 'DISABLED'}
                                                 </span>
                                             </td>
-                                            <td style={{ textAlign: 'right', paddingRight: '2rem' }}>
-                                                <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
-                                                    <button onClick={() => handleEdit(asset)} className="btn btn-secondary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem', fontWeight: '700' }}>Edit</button>
-                                                    <button onClick={() => toggleStatus(asset)} className="btn btn-secondary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem', fontWeight: '700' }}>
-                                                        {asset.isActive ? 'Disable' : 'Enable'}
+                                            <td style={{ textAlign: 'right', paddingRight: 'var(--spacing-4)' }}>
+                                                <div style={{ display: 'flex', gap: 'var(--spacing-2)', justifyContent: 'flex-end' }}>
+                                                    <button onClick={() => handleEdit(asset)} className="btn" style={{ padding: '0.4rem 0.8rem', fontSize: '10px', background: '#F1F5F9', border: '1px solid var(--color-border)' }}>EDIT</button>
+                                                    <button onClick={() => toggleStatus(asset)} className="btn" style={{ padding: '0.4rem 0.8rem', fontSize: '10px', background: '#F1F5F9', border: '1px solid var(--color-border)' }}>
+                                                        {asset.isActive ? 'DISABLE' : 'ENABLE'}
                                                     </button>
-                                                    <button onClick={() => handleDelete(asset._id)} className="btn btn-secondary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem', fontWeight: '700', color: 'var(--color-danger)', borderColor: 'rgba(239, 68, 68, 0.1)' }}>Delete</button>
+                                                    <button onClick={() => handleDelete(asset._id)} className="btn" style={{ padding: '0.4rem 0.8rem', fontSize: '10px', background: '#FEF2F2', color: 'var(--color-danger)', border: '1px solid rgba(239, 68, 68, 0.1)' }}>DELETE</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -199,86 +199,89 @@ const ManageAssets = () => {
                     <div style={{
                         position: 'fixed',
                         top: 0, left: 0, right: 0, bottom: 0,
-                        background: 'rgba(15, 23, 42, 0.6)',
-                        backdropFilter: 'blur(8px)',
+                        background: 'rgba(15, 23, 42, 0.4)',
+                        backdropFilter: 'blur(4px)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         zIndex: 1000,
                         padding: '1.5rem'
                     }}>
-                        <div style={{ 
-                            background: 'white',
+                        <div className="dash-card" style={{ 
                             width: '100%', 
-                            maxWidth: '600px', 
+                            maxWidth: '500px', 
                             maxHeight: '90vh', 
                             overflowY: 'auto', 
-                            padding: '3rem', 
-                            borderRadius: '24px', 
-                            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' 
+                            padding: 'var(--spacing-6)', 
+                            borderRadius: 'var(--radius-md)', 
+                            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
                         }}>
-                            <div style={{ marginBottom: '2.5rem' }}>
-                                <h2 style={{ fontSize: '1.75rem', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.5rem' }}>
+                            <div style={{ marginBottom: 'var(--spacing-6)' }}>
+                                <h2 style={{ fontSize: 'var(--font-size-lg)', color: 'var(--color-primary)', marginBottom: 'var(--spacing-1)' }}>
                                     {editingAsset ? 'Modify Asset' : 'Add New Asset'}
                                 </h2>
-                                <p style={{ color: 'var(--color-text-secondary)' }}>Fill in the details below to configure the asset.</p>
+                                <p className="dashboard-subtitle">Configure asset parameters and networks.</p>
                             </div>
 
                             <form onSubmit={handleSubmit}>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-4)', marginBottom: 'var(--spacing-4)' }}>
                                     <div className="form-group">
-                                        <label style={{ fontWeight: '600', marginBottom: '0.6rem' }}>Asset Name</label>
-                                        <input name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. Tether" required style={{ padding: '0.85rem 1rem', borderRadius: '12px' }} />
+                                        <label style={{ fontSize: '10px', fontWeight: '700', marginBottom: 'var(--spacing-1)' }}>Asset Name</label>
+                                        <input name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. Tether" required style={{ padding: '0.65rem 0.85rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)' }} />
                                     </div>
                                     <div className="form-group">
-                                        <label style={{ fontWeight: '600', marginBottom: '0.6rem' }}>Symbol</label>
-                                        <input name="symbol" value={formData.symbol} onChange={handleInputChange} placeholder="e.g. USDT" required style={{ padding: '0.85rem 1rem', borderRadius: '12px' }} />
+                                        <label style={{ fontSize: '10px', fontWeight: '700', marginBottom: 'var(--spacing-1)' }}>Symbol</label>
+                                        <input name="symbol" value={formData.symbol} onChange={handleInputChange} placeholder="e.g. USDT" required style={{ padding: '0.65rem 0.85rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)' }} />
                                     </div>
                                 </div>
                                 
-                                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                                    <label style={{ fontWeight: '600', marginBottom: '0.6rem' }}>Display Icon (Emoji)</label>
-                                    <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. 💰" style={{ padding: '0.85rem 1rem', borderRadius: '12px', width: '100%' }} />
+                                <div className="form-group" style={{ marginBottom: 'var(--spacing-4)' }}>
+                                    <label style={{ fontSize: '10px', fontWeight: '700', marginBottom: 'var(--spacing-1)' }}>Display Icon (Emoji)</label>
+                                    <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. 💰" style={{ padding: '0.65rem 0.85rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)', width: '100%' }} />
                                 </div>
 
-                                <div style={{ borderTop: '1px solid var(--color-border)', pt: '1.5rem', marginTop: '1.5rem' }}>
-                                    <h4 style={{ marginBottom: '1.5rem', color: 'var(--color-primary)', fontWeight: '700' }}>Network Details</h4>
+                                <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 'var(--spacing-4)', marginTop: 'var(--spacing-4)' }}>
+                                    <h4 style={{ fontSize: '11px', marginBottom: 'var(--spacing-4)', color: 'var(--color-primary)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Network Details</h4>
                                     
                                     {formData.networks.map((net, index) => (
-                                        <div key={index} style={{ marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '1rem' }}>
+                                        <div key={index} style={{ marginBottom: 'var(--spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-3)' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 'var(--spacing-3)' }}>
                                                 <div className="form-group">
-                                                    <label style={{ fontSize: '0.85rem', fontWeight: '600' }}>Network {index > 0 ? `#${index + 1}` : ''}</label>
-                                                    <input value={net.name} onChange={(e) => handleNetworkChange(index, 'name', e.target.value)} placeholder="e.g. TRC20" required style={{ padding: '0.85rem 1rem', borderRadius: '12px' }} />
+                                                    <label style={{ fontSize: '10px', fontWeight: '700' }}>Network {index > 0 ? `#${index + 1}` : ''}</label>
+                                                    <input value={net.name} onChange={(e) => handleNetworkChange(index, 'name', e.target.value)} placeholder="e.g. TRC20" required style={{ padding: '0.65rem 0.85rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)' }} />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label style={{ fontSize: '0.85rem', fontWeight: '600' }}>Deposit Address</label>
-                                                    <input value={net.address} onChange={(e) => handleNetworkChange(index, 'address', e.target.value)} placeholder="Wallet Address" required style={{ padding: '0.85rem 1rem', borderRadius: '12px' }} />
+                                                    <label style={{ fontSize: '10px', fontWeight: '700' }}>Deposit Address</label>
+                                                    <input value={net.address} onChange={(e) => handleNetworkChange(index, 'address', e.target.value)} placeholder="Wallet Address" required style={{ padding: '0.65rem 0.85rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)' }} />
                                                 </div>
                                             </div>
                                             {formData.networks.length > 1 && (
-                                                <button type="button" onClick={() => removeNetwork(index)} style={{ color: 'var(--color-danger)', border: 'none', background: 'none', fontSize: '0.8rem', fontWeight: '700', textAlign: 'left', width: 'fit-content', cursor: 'pointer' }}>Remove Network</button>
+                                                <button type="button" onClick={() => removeNetwork(index)} style={{ color: 'var(--color-danger)', border: 'none', background: 'none', fontSize: '10px', fontWeight: '700', textAlign: 'left', width: 'fit-content', cursor: 'pointer' }}>REMOVE NETWORK</button>
                                             )}
                                         </div>
                                     ))}
 
-                                    <button type="button" onClick={addNetwork} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '700', fontSize: '0.9rem', cursor: 'pointer', marginBottom: '2rem' }}>
-                                        + Add Another Network
+                                    <button type="button" onClick={addNetwork} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '700', fontSize: '10px', cursor: 'pointer', marginBottom: 'var(--spacing-6)' }}>
+                                        + ADD ANOTHER NETWORK
                                     </button>
                                 </div>
 
-                                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                                    <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '1rem', borderRadius: '14px', fontSize: '1rem', fontWeight: '700' }}>
-                                        {editingAsset ? 'Update Asset' : 'Create Asset'}
+                                <div style={{ display: 'flex', gap: 'var(--spacing-3)', marginTop: 'var(--spacing-2)' }}>
+                                    <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '0.75rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)', fontWeight: '700' }}>
+                                        {editingAsset ? 'UPDATE ASSET' : 'CREATE ASSET'}
                                     </button>
-                                    <button type="button" className="btn btn-secondary" style={{ flex: 1, padding: '1rem', borderRadius: '14px', fontSize: '1rem', fontWeight: '700' }} onClick={() => setIsModalOpen(false)}>
-                                        Cancel
+                                    <button type="button" className="btn" style={{ flex: 1, padding: '0.75rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)', fontWeight: '700', background: '#F1F5F9', border: '1px solid var(--color-border)' }} onClick={() => setIsModalOpen(false)}>
+                                        CANCEL
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 )}
+            </div>
+        </DashboardLayout>
+    );
+};
             </div>
         </DashboardLayout>
     );

@@ -51,18 +51,18 @@ const ManageUsers = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-8)' }}>
                     <div>
-                        <h1 style={{ fontSize: '2.25rem', fontWeight: '700', color: 'var(--color-primary)' }}>User Management</h1>
-                        <p style={{ color: 'var(--color-text-secondary)' }}>View and manage platform users and their verification status.</p>
+                        <h1 style={{ color: 'var(--color-primary)', marginBottom: 'var(--spacing-1)' }}>User Management</h1>
+                        <p className="dashboard-subtitle">View and manage platform users and their verification status.</p>
                     </div>
-                    <div className="form-group" style={{ marginBottom: 0, width: '300px' }}>
+                    <div className="form-group" style={{ marginBottom: 0, width: '260px' }}>
                         <input 
                             type="text" 
                             placeholder="Search by email or ID..." 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            style={{ padding: '0.75rem 1rem', borderRadius: '10px' }}
+                            style={{ padding: '0.65rem 0.85rem', borderRadius: 'var(--radius-sm)', fontSize: 'var(--font-size-xs)' }}
                         />
                     </div>
                 </div>
@@ -70,65 +70,65 @@ const ManageUsers = () => {
                 {loading ? (
                     <div className="loading-screen">
                         <div className="loading-spinner"></div>
-                        <p>Loading users...</p>
+                        <p className="dashboard-subtitle">Loading users...</p>
                     </div>
                 ) : (
-                    <div className="table-wrapper" style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.05)', border: 'none' }}>
+                    <div className="table-wrapper" style={{ border: 'none' }}>
                         <table className="data-table">
-                            <thead>
+                            <thead style={{ background: '#F8FAFC' }}>
                                 <tr>
-                                    <th>User Details</th>
-                                    <th>Account Role</th>
-                                    <th>KYC Status</th>
-                                    <th>Joined Date</th>
-                                    <th>Actions</th>
+                                    <th style={{ padding: 'var(--spacing-3) var(--spacing-4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>User Details</th>
+                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Account Role</th>
+                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>KYC Status</th>
+                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Joined Date</th>
+                                    <th style={{ textAlign: 'right', paddingRight: 'var(--spacing-4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filteredUsers.length === 0 ? (
                                     <tr>
-                                        <td colSpan="5" style={{ textAlign: 'center', padding: '4rem' }}>
-                                            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>👥</div>
-                                            <p style={{ color: 'var(--color-text-secondary)' }}>No users found.</p>
+                                        <td colSpan="5" style={{ textAlign: 'center', padding: 'var(--spacing-12)' }}>
+                                            <div style={{ fontSize: '2rem', marginBottom: 'var(--spacing-4)', opacity: 0.1 }}>👥</div>
+                                            <p className="dashboard-subtitle">No users found.</p>
                                         </td>
                                     </tr>
                                 ) : (
                                     filteredUsers.map((user) => (
                                         <tr key={user.id}>
-                                            <td style={{ padding: '1.5rem' }}>
-                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)' }}>{user.email}</span>
-                                                    <span style={{ fontSize: '0.7rem', color: '#9CA3AF', fontFamily: 'monospace' }}>ID: {user.id}</span>
+                                            <td style={{ padding: 'var(--spacing-3) var(--spacing-4)' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: 'var(--font-size-xs)' }}>{user.email}</span>
+                                                    <span style={{ fontSize: '9px', color: '#94A3B8', fontFamily: 'monospace' }}>ID: {user.id.substring(0, 12)}...</span>
                                                 </div>
                                             </td>
                                             <td>
-                                                <span className={`role-badge role-${user.role}`}>
-                                                    {user.role}
+                                                <span className={`role-badge role-${user.role}`} style={{ fontSize: '9px', padding: '0.1rem 0.4rem' }}>
+                                                    {user.role.toUpperCase()}
                                                 </span>
                                             </td>
                                             <td>
-                                                <span className={`status-badge status-${user.kycStatus === 'verified' ? 'confirmed' : 'pending'}`}>
-                                                    {user.kycStatus}
+                                                <span className={`status-badge status-${user.kycStatus === 'verified' ? 'confirmed' : 'pending'}`} style={{ fontSize: '9px', padding: '0.1rem 0.4rem' }}>
+                                                    {user.kycStatus.toUpperCase()}
                                                 </span>
                                             </td>
-                                            <td style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>
+                                            <td style={{ color: 'var(--color-text-secondary)', fontSize: '10px' }}>
                                                 {new Date(user.createdAt).toLocaleDateString()}
                                             </td>
-                                            <td>
-                                                <div style={{ display: 'flex', gap: '0.75rem' }}>
+                                            <td style={{ textAlign: 'right', paddingRight: 'var(--spacing-4)' }}>
+                                                <div style={{ display: 'flex', gap: 'var(--spacing-2)', justifyContent: 'flex-end' }}>
                                                     <button 
                                                         onClick={() => handleVerifyUser(user.id, user.kycStatus)}
-                                                        className="btn btn-secondary"
-                                                        style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', borderRadius: '6px' }}
+                                                        className="btn"
+                                                        style={{ padding: '0.4rem 0.8rem', fontSize: '10px', background: '#F1F5F9', color: 'var(--color-primary)', border: '1px solid var(--color-border)' }}
                                                     >
-                                                        {user.kycStatus === 'verified' ? 'Revoke KYC' : 'Verify KYC'}
+                                                        {user.kycStatus === 'verified' ? 'REVOKE' : 'VERIFY'}
                                                     </button>
                                                     <button 
                                                         onClick={() => handleDeleteUser(user.id)}
-                                                        className="btn btn-secondary"
-                                                        style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', borderRadius: '6px', color: 'var(--color-danger)', borderColor: 'rgba(239, 68, 68, 0.2)' }}
+                                                        className="btn"
+                                                        style={{ padding: '0.4rem 0.8rem', fontSize: '10px', background: '#FEF2F2', color: 'var(--color-danger)', border: '1px solid rgba(239, 68, 68, 0.1)' }}
                                                     >
-                                                        Delete
+                                                        DELETE
                                                     </button>
                                                 </div>
                                             </td>

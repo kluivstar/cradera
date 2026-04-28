@@ -11,31 +11,29 @@ const Home = () => {
       textAlign: 'center' 
     }}>
       <h1 style={{ 
-        fontSize: '3.5rem', 
-        marginBottom: '1rem', 
+        fontSize: '4.5rem', 
+        marginBottom: '1.5rem', 
         color: 'var(--color-text-primary)',
-        letterSpacing: '-0.04em',
-        fontWeight: '800'
+        letterSpacing: '-0.02em'
       }}>
         Digital Assets, <br />
         <span style={{ color: 'var(--color-primary)' }}>Reimagined.</span>
       </h1>
       <p style={{ 
-        fontSize: '1.1rem', 
+        fontSize: '1.25rem', 
         color: 'var(--color-text-secondary)', 
-        maxWidth: '560px', 
-        margin: '0 auto 2.5rem auto',
-        lineHeight: '1.5',
-        fontWeight: '500'
+        maxWidth: '640px', 
+        margin: '0 auto 3rem auto',
+        lineHeight: '1.6'
       }}>
         Cradera is a premium digital asset platform tailored for institutional clients and elite users, built with modern aesthetics and maximum security.
       </p>
       
-      <div style={{ display: 'flex', gap: '0.75rem' }}>
-        <Link to="/register" className="btn btn-primary" style={{ padding: '0.75rem 2rem', fontSize: '1rem', fontWeight: '800' }}>
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <Link to="/register" className="btn btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
           Get Started
         </Link>
-        <Link to="/login" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', fontSize: '1rem', fontWeight: '800' }}>
+        <Link to="/login" className="btn btn-secondary" style={{ padding: '1rem 2.5rem', fontSize: '1.1rem' }}>
           Sign In
         </Link>
       </div>
