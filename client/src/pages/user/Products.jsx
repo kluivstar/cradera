@@ -55,57 +55,58 @@ const Products = () => {
 
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <div className="dashboard-header" style={{ marginBottom: '3.5rem', textAlign: 'center' }}>
-                    <h1 style={{ fontSize: '2.75rem', fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '1rem' }}>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+                <div className="dashboard-header" style={{ marginBottom: '2.5rem', textAlign: 'center' }}>
+                    <h1 style={{ fontSize: '1.85rem', fontWeight: '800', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
                         Platform Services
                     </h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto' }}>
+                    <p className="dashboard-subtitle" style={{ fontSize: '0.9rem', maxWidth: '500px', margin: '0 auto' }}>
                         Institutional-grade financial tools designed for speed, security, and simplicity.
                     </p>
                 </div>
 
                 <div className="dashboard-grid" style={{ 
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-                    gap: '2rem'
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                    gap: '1.25rem'
                 }}>
                     {products.map((product) => (
                         <div key={product.id} className="dash-card" style={{ 
-                            padding: '2rem',
+                            padding: '1.5rem',
                             display: 'flex',
                             flexDirection: 'column',
                             height: '100%',
-                            minHeight: '320px',
+                            minHeight: '260px',
                             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                             position: 'relative',
                             overflow: 'hidden',
                             border: '1px solid var(--color-border)',
+                            borderRadius: '12px',
                             cursor: product.status === 'Active' ? 'pointer' : 'default'
                         }}>
                             {/* Category Badge */}
                             <div style={{ 
                                 position: 'absolute',
-                                top: '2rem',
-                                right: '2rem',
-                                fontSize: '0.7rem',
+                                top: '1.5rem',
+                                right: '1.5rem',
+                                fontSize: '0.65rem',
                                 fontWeight: '700',
                                 textTransform: 'uppercase',
                                 color: 'var(--color-text-secondary)',
-                                letterSpacing: '0.1em'
+                                letterSpacing: '0.05em'
                             }}>
                                 {product.category}
                             </div>
 
                             <div style={{ 
-                                width: '64px', 
-                                height: '64px', 
-                                borderRadius: '16px', 
+                                width: '48px', 
+                                height: '48px', 
+                                borderRadius: '12px', 
                                 background: product.status === 'Active' ? 'rgba(56, 189, 248, 0.08)' : '#F9FAFB',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                fontSize: '2rem',
-                                marginBottom: '1.75rem',
+                                fontSize: '1.5rem',
+                                marginBottom: '1.25rem',
                                 filter: product.status === 'Active' ? 'none' : 'grayscale(1)',
                                 opacity: product.status === 'Active' ? 1 : 0.5,
                                 flexShrink: 0,
@@ -115,20 +116,20 @@ const Products = () => {
                             </div>
                             
                             <h3 style={{ 
-                                fontSize: '1.35rem', 
-                                fontWeight: '600',
-                                marginBottom: '0.75rem', 
+                                fontSize: '1.1rem', 
+                                fontWeight: '700',
+                                marginBottom: '0.5rem', 
                                 color: 'var(--color-primary)' 
                             }}>
                                 {product.title}
                             </h3>
                             
                             <p style={{ 
-                                fontSize: '1rem', 
+                                fontSize: '0.85rem', 
                                 color: 'var(--color-text-secondary)', 
-                                lineHeight: '1.6', 
+                                lineHeight: '1.5', 
                                 marginBottom: 'auto',
-                                paddingBottom: '2rem'
+                                paddingBottom: '1.5rem'
                             }}>
                                 {product.description}
                             </p>
@@ -138,19 +139,19 @@ const Products = () => {
                                 alignItems: 'center', 
                                 justifyContent: 'space-between',
                                 borderTop: '1px solid var(--color-border)',
-                                paddingTop: '1.5rem',
+                                paddingTop: '1rem',
                                 marginTop: 'auto'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                                     <div style={{ 
-                                        width: '8px', 
-                                        height: '8px', 
+                                        width: '6px', 
+                                        height: '6px', 
                                         borderRadius: '50%', 
                                         background: product.status === 'Active' ? '#10B981' : '#D1D5DB' 
                                     }}></div>
                                     <span style={{ 
-                                        fontSize: '0.85rem', 
-                                        fontWeight: '600', 
+                                        fontSize: '0.75rem', 
+                                        fontWeight: '700', 
                                         color: product.status === 'Active' ? 'var(--color-primary)' : 'var(--color-text-secondary)'
                                     }}>
                                         {product.status}
@@ -159,14 +160,14 @@ const Products = () => {
 
                                 {product.status === 'Active' ? (
                                     <button className="btn btn-accent" style={{ 
-                                        padding: '0.5rem 1.25rem', 
-                                        fontSize: '0.9rem',
-                                        fontWeight: '600'
+                                        padding: '0.4rem 1rem', 
+                                        fontSize: '0.8rem',
+                                        fontWeight: '700'
                                     }}>
                                         Open App
                                     </button>
                                 ) : (
-                                    <span style={{ fontSize: '0.8rem', color: '#9CA3AF', fontWeight: '500' }}>Notify Me</span>
+                                    <span style={{ fontSize: '0.75rem', color: '#9CA3AF', fontWeight: '600' }}>Notify Me</span>
                                 )}
                             </div>
                         </div>

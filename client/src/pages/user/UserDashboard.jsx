@@ -27,12 +27,12 @@ const UserDashboard = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div className="dashboard-header" style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                <div className="dashboard-header" style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                     <div>
-                        <h1 style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>
+                        <h1 style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
                             Welcome back, <span style={{ color: 'var(--color-accent)' }}>{displayName}</span>
                         </h1>
-                        <p className="dashboard-subtitle">Monitor your assets and manage your trades with ease.</p>
+                        <p className="dashboard-subtitle" style={{ fontSize: '0.9rem' }}>Monitor your assets and manage your trades with ease.</p>
                     </div>
                     {user?.kycStatus !== 'verified' && (
                         <Link to="/dashboard/kyc" style={{ 
@@ -50,89 +50,89 @@ const UserDashboard = () => {
                     )}
                 </div>
 
-                <div style={{ display: 'grid', gap: '2.5rem', gridTemplateColumns: 'repeat(12, 1fr)' }}>
+                <div style={{ display: 'grid', gap: '1.5rem', gridTemplateColumns: 'repeat(12, 1fr)' }}>
                     
                     {/* Main Balance Card (8 cols) */}
                     <div style={{ gridColumn: 'span 8' }}>
                         <div className="dash-card" style={{ 
                             background: 'linear-gradient(135deg, #1E3A8A 0%, #38BDF8 100%)', 
                             color: 'white', 
-                            padding: '3rem',
-                            borderRadius: '24px',
+                            padding: '2rem',
+                            borderRadius: '16px',
                             position: 'relative',
                             overflow: 'hidden',
-                            boxShadow: '0 20px 40px rgba(30, 58, 138, 0.2)',
-                            minHeight: '280px',
+                            boxShadow: '0 15px 30px rgba(30, 58, 138, 0.15)',
+                            minHeight: '220px',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center'
                         }}>
                             <div style={{ position: 'relative', zIndex: 1 }}>
-                                <p style={{ fontSize: '1rem', opacity: 0.9, marginBottom: '0.75rem', fontWeight: '500' }}>Available Balance</p>
-                                <h2 style={{ fontSize: '3.5rem', fontWeight: '800', marginBottom: '2.5rem' }}>₦0.00</h2>
-                                <div style={{ display: 'flex', gap: '1.25rem' }}>
-                                    <Link to="/dashboard/deposits" className="btn" style={{ background: 'white', color: 'var(--color-primary)', padding: '0.875rem 2rem', fontWeight: '700', borderRadius: '14px' }}>
+                                <p style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '1.5rem' }}>₦0.00</h2>
+                                <div style={{ display: 'flex', gap: '1rem' }}>
+                                    <Link to="/dashboard/deposits" className="btn" style={{ background: 'white', color: 'var(--color-primary)', padding: '0.6rem 1.5rem', fontWeight: '700', borderRadius: '10px' }}>
                                         Deposit Funds
                                     </Link>
-                                    <button className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: 'white', padding: '0.875rem 2rem', fontWeight: '700', borderRadius: '14px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)' }}>
+                                    <button className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: 'white', padding: '0.6rem 1.5rem', fontWeight: '700', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)' }}>
                                         Withdraw
                                     </button>
                                 </div>
                             </div>
-                            <div style={{ position: 'absolute', top: '-10%', right: '-5%', fontSize: '15rem', opacity: 0.05, transform: 'rotate(-15deg)' }}>C</div>
+                            <div style={{ position: 'absolute', top: '-10%', right: '-5%', fontSize: '10rem', opacity: 0.05, transform: 'rotate(-15deg)' }}>C</div>
                         </div>
                     </div>
 
                     {/* Quick Stats (4 cols) */}
-                    <div style={{ gridColumn: 'span 4', display: 'grid', gridTemplateRows: '1fr 1fr', gap: '1.5rem' }}>
-                        <div className="dash-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
-                            <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>📈</div>
+                    <div style={{ gridColumn: 'span 4', display: 'grid', gridTemplateRows: '1fr 1fr', gap: '1rem' }}>
+                        <div className="dash-card" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '1rem', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                            <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>📈</div>
                             <div>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.2rem' }}>Portfolio Change</p>
-                                <p style={{ fontWeight: '700', color: 'var(--color-accent)', fontSize: '1.1rem' }}>+₦0.00 (0%)</p>
+                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '0.1rem' }}>Portfolio Change</p>
+                                <p style={{ fontWeight: '700', color: 'var(--color-accent)', fontSize: '1rem' }}>+₦0.00 (0%)</p>
                             </div>
                         </div>
-                        <div className="dash-card" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
-                            <div style={{ width: '56px', height: '56px', borderRadius: '16px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>💎</div>
+                        <div className="dash-card" style={{ padding: '1rem 1.25rem', display: 'flex', alignItems: 'center', gap: '1rem', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+                            <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>💎</div>
                             <div>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.2rem' }}>Referral Earnings</p>
-                                <p style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '1.1rem' }}>₦0.00</p>
+                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '0.1rem' }}>Referral Earnings</p>
+                                <p style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '1rem' }}>₦0.00</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Services Row (Full Width) */}
                     <div style={{ gridColumn: 'span 12' }}>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>Our Services</h3>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
-                            <Link to="/dashboard/products" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '2.5rem 1.5rem' }}>
-                                <div style={{ fontSize: '3rem', marginBottom: '1.25rem' }}>🪙</div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Buy/Sell Crypto</h4>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Instant settlement in Naira</p>
+                        <h3 style={{ fontSize: '1.25rem', fontWeight: '700', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Our Services</h3>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.25rem' }}>
+                            <Link to="/dashboard/products" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🪙</div>
+                                <h4 style={{ color: 'var(--color-primary)', fontSize: '1rem', marginBottom: '0.25rem' }}>Buy/Sell Crypto</h4>
+                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Instant settlement in Naira</p>
                             </Link>
-                            <div className="dash-card" style={{ textAlign: 'center', padding: '2.5rem 1.5rem', opacity: 0.7 }}>
-                                <div style={{ fontSize: '3rem', marginBottom: '1.25rem' }}>🎁</div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Gift Cards</h4>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
+                            <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7 }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🎁</div>
+                                <h4 style={{ color: 'var(--color-primary)', fontSize: '1rem', marginBottom: '0.25rem' }}>Gift Cards</h4>
+                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
                             </div>
-                            <div className="dash-card" style={{ textAlign: 'center', padding: '2.5rem 1.5rem', opacity: 0.7 }}>
-                                <div style={{ fontSize: '3rem', marginBottom: '1.25rem' }}>📱</div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Bill Payments</h4>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Airtime, Data & Power</p>
+                            <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7 }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>📱</div>
+                                <h4 style={{ color: 'var(--color-primary)', fontSize: '1rem', marginBottom: '0.25rem' }}>Bill Payments</h4>
+                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Airtime, Data & Power</p>
                             </div>
-                            <div className="dash-card" style={{ textAlign: 'center', padding: '2.5rem 1.5rem', opacity: 0.7 }}>
-                                <div style={{ fontSize: '3rem', marginBottom: '1.25rem' }}>🔒</div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Vault</h4>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>Save in USD & Earn</p>
+                            <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7 }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🔒</div>
+                                <h4 style={{ color: 'var(--color-primary)', fontSize: '1rem', marginBottom: '0.25rem' }}>Vault</h4>
+                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Save in USD & Earn</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Recent Transactions (Full Width) */}
                     <div style={{ gridColumn: 'span 12' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                            <h3 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--color-primary)' }}>Recent Activity</h3>
-                            <Link to="/dashboard/transactions" style={{ fontSize: '0.9rem', color: 'var(--color-accent)', fontWeight: '700', textDecoration: 'none' }}>View All Activity</Link>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                            <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--color-primary)' }}>Recent Activity</h3>
+                            <Link to="/dashboard/transactions" style={{ fontSize: '0.85rem', color: 'var(--color-accent)', fontWeight: '700', textDecoration: 'none' }}>View All Activity</Link>
                         </div>
                         <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
                             {loading ? (
@@ -147,22 +147,22 @@ const UserDashboard = () => {
                                         <tbody>
                                             {transactions.map(tx => (
                                                 <tr key={tx.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                                                    <td style={{ padding: '1.25rem 1.5rem', width: '60px' }}>
-                                                        <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--color-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>
+                                                    <td style={{ padding: '0.875rem 1rem', width: '50px' }}>
+                                                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--color-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
                                                             {tx.type === 'deposit' ? '💰' : '💸'}
                                                         </div>
                                                     </td>
-                                                    <td style={{ padding: '1.25rem 1.5rem' }}>
-                                                        <p style={{ fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.2rem' }}>{tx.type === 'deposit' ? 'Wallet Top-up' : tx.type}</p>
-                                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>{new Date(tx.date).toLocaleString()}</p>
+                                                    <td style={{ padding: '0.875rem 1rem' }}>
+                                                        <p style={{ fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.1rem', fontSize: '0.9rem' }}>{tx.type === 'deposit' ? 'Wallet Top-up' : tx.type}</p>
+                                                        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{new Date(tx.date).toLocaleString()}</p>
                                                     </td>
-                                                    <td style={{ padding: '1.25rem 1.5rem' }}>
-                                                        <p style={{ fontWeight: '600' }}>{tx.asset}</p>
-                                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>{tx.details?.network}</p>
+                                                    <td style={{ padding: '0.875rem 1rem' }}>
+                                                        <p style={{ fontWeight: '600', fontSize: '0.9rem' }}>{tx.asset}</p>
+                                                        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{tx.details?.network}</p>
                                                     </td>
-                                                    <td style={{ padding: '1.25rem 1.5rem', textAlign: 'right' }}>
-                                                        <p style={{ fontWeight: '800', color: 'var(--color-primary)' }}>₦{tx.amount.toLocaleString()}</p>
-                                                        <p style={{ fontSize: '0.75rem', fontWeight: '700', color: tx.status === 'confirmed' ? 'var(--color-accent)' : '#F59E0B' }}>
+                                                    <td style={{ padding: '0.875rem 1rem', textAlign: 'right' }}>
+                                                        <p style={{ fontWeight: '800', color: 'var(--color-primary)', fontSize: '0.95rem' }}>₦{tx.amount.toLocaleString()}</p>
+                                                        <p style={{ fontSize: '0.7rem', fontWeight: '700', color: tx.status === 'confirmed' ? 'var(--color-accent)' : '#F59E0B' }}>
                                                             {tx.status.toUpperCase()}
                                                         </p>
                                                     </td>
