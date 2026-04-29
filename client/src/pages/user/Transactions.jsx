@@ -35,7 +35,7 @@ const Transactions = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
-                    <h1 style={{ fontWeight: '600', color: 'var(--color-primary)' }}>Transaction History</h1>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>Transaction History</h1>
                     <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your deposit and activity history.</p>
                 </div>
 
@@ -78,13 +78,13 @@ const Transactions = () => {
                                                         }}>
                                                             {tx.type === 'deposit' ? '↓' : '↑'}
                                                         </div>
-                                                        <span style={{ fontWeight: '600', textTransform: 'capitalize', fontSize: '0.875rem' }}>{tx.type}</span>
+                                                        <span style={{ fontWeight: '500', textTransform: 'capitalize', fontSize: '0.875rem' }}>{tx.type}</span>
                                                     </div>
                                                 </td>
-                                                <td style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{tx.asset}</td>
-                                                <td style={{ fontWeight: '600', fontSize: '0.875rem' }}>{tx.amount.toLocaleString()}</td>
+                                                <td style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{tx.asset}</td>
+                                                <td style={{ fontWeight: '500', fontSize: '0.875rem' }}>{tx.amount.toLocaleString()}</td>
                                                 <td>
-                                                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '600' }}>
+                                                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '500' }}>
                                                         {tx.details?.network}
                                                     </span>
                                                 </td>
@@ -94,7 +94,7 @@ const Transactions = () => {
                                                         padding: '0.25rem 0.6rem',
                                                         borderRadius: '4px',
                                                         fontSize: '0.7rem',
-                                                        fontWeight: '600'
+                                                        fontWeight: '500'
                                                     }}>
                                                         {tx.status.toUpperCase()}
                                                     </span>

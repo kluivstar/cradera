@@ -47,7 +47,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-text-primary);
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -83,7 +83,7 @@ header {
 
 .logo {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -141,7 +141,7 @@ main {
 
 .auth-logo {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-primary);
   margin-bottom: 0.15rem;
 }
@@ -190,7 +190,7 @@ main {
   color: white;
   font-family: var(--font-base);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -208,7 +208,7 @@ main {
 
 .auth-footer a {
   color: var(--color-primary);
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -232,7 +232,7 @@ main {
   border-radius: 6px;
   font-family: var(--font-base);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   gap: 0.5rem;
@@ -318,7 +318,7 @@ main {
 
 .sidebar-logo {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-primary);
 }
 
@@ -368,7 +368,7 @@ main {
 .sidebar-link-active {
   background: var(--color-primary); /* Dark blue background */
   color: #FFFFFF !important; /* White text */
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .sidebar-link-active .sidebar-link-icon {
@@ -390,7 +390,7 @@ main {
   color: var(--color-danger);
   font-family: var(--font-base);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -460,7 +460,7 @@ main {
 
 .dash-card-header h3 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* ========================================
@@ -482,7 +482,7 @@ main {
   padding: 0.625rem 1rem;
   text-align: left;
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--color-text-secondary);
@@ -513,7 +513,7 @@ main {
   padding: 0.2rem 0.625rem;
   border-radius: 4px;
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: capitalize;
 }
 
@@ -544,7 +544,7 @@ main {
   padding: 0.15rem 0.625rem;
   border-radius: 4px;
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: capitalize;
 }
 
@@ -588,7 +588,7 @@ main {
 
 .stat-value {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-text-primary);
 }
 
@@ -619,7 +619,7 @@ main {
 
 .empty-state-text {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-text-primary);
   margin-bottom: 0.4rem;
 }

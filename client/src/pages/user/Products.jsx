@@ -81,7 +81,7 @@ const Products = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <div className="dashboard-header" style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                    <h1 style={{ fontWeight: '600', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
                         Platform Services
                     </h1>
                     <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', maxWidth: '500px', margin: '0 auto' }}>
@@ -112,7 +112,7 @@ const Products = () => {
                                 top: '1.25rem',
                                 right: '1.25rem',
                                 fontSize: '0.625rem',
-                                fontWeight: '600',
+                                fontWeight: '500',
                                 textTransform: 'uppercase',
                                 color: 'var(--color-text-secondary)',
                                 letterSpacing: '0.1em'
@@ -141,7 +141,7 @@ const Products = () => {
                             
                             <h3 style={{ 
                                 fontSize: '1.1rem', 
-                                fontWeight: '600',
+                                fontWeight: '500',
                                 marginBottom: '0.5rem', 
                                 color: 'var(--color-primary)' 
                             }}>
@@ -175,7 +175,7 @@ const Products = () => {
                                     }}></div>
                                     <span style={{ 
                                         fontSize: '0.75rem', 
-                                        fontWeight: '600', 
+                                        fontWeight: '500', 
                                         color: product.status === 'Active' ? 'var(--color-primary)' : 'var(--color-text-secondary)'
                                     }}>
                                         {product.status}
@@ -186,7 +186,7 @@ const Products = () => {
                                     <button className="btn btn-accent" style={{ 
                                         padding: '0.4rem 1rem', 
                                         fontSize: '0.8125rem',
-                                        fontWeight: '600'
+                                        fontWeight: '500'
                                     }}>
                                         Open App
                                     </button>

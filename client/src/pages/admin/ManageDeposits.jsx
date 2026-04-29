@@ -46,7 +46,7 @@ const ManageDeposits = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1600px', margin: '0 auto' }}>
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
-                    <h1 style={{ fontWeight: '600', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
                         Deposit Management
                     </h1>
                     <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>
@@ -61,13 +61,13 @@ const ManageDeposits = () => {
                         <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead>
                                 <tr style={{ background: '#F9FAFB', borderBottom: '1px solid #F3F4F6' }}>
-                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '600', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>User Details</th>
-                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '600', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Asset & Network</th>
-                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '600', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Amount</th>
-                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '600', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TX Hash</th>
-                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '600', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Status</th>
-                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '600', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verification</th>
-                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '600', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>User Details</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Asset & Network</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Amount</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TX Hash</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Status</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verification</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,19 +90,19 @@ const ManageDeposits = () => {
                                         <tr key={d._id} style={{ borderBottom: '1px solid #F9FAFB', transition: 'background 0.2s' }}>
                                             <td style={{ padding: '0.75rem 1rem' }}>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                                                     <span style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{d.userId?.fullName || 'Unknown User'}</span>
+                                                     <span style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{d.userId?.fullName || 'Unknown User'}</span>
                                                     <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{d.userId?.email}</span>
                                                 </div>
                                             </td>
                                             <td style={{ padding: '0.75rem 1rem' }}>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                                                    <span style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '0.8125rem' }}>{d.assetType}</span>
+                                                    <span style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.8125rem' }}>{d.assetType}</span>
                                                     <span style={{ fontSize: '0.625rem', color: '#9CA3AF', textTransform: 'uppercase' }}>{d.network}</span>
                                                 </div>
                                             </td>
                                             <td style={{ padding: '0.75rem 1rem' }}>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                                                    <span style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '0.9rem' }}>${d.amount.toLocaleString()}</span>
+                                                    <span style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.9rem' }}>${d.amount.toLocaleString()}</span>
                                                     <span style={{ fontSize: '0.625rem', color: '#9CA3AF' }}>{new Date(d.createdAt).toLocaleDateString()}</span>
                                                 </div>
                                             </td>
@@ -119,7 +119,7 @@ const ManageDeposits = () => {
                                                     padding: '0.25rem 0.625rem',
                                                     borderRadius: '4px',
                                                     fontSize: '0.625rem',
-                                                    fontWeight: '700',
+                                                    fontWeight: '500',
                                                     textTransform: 'uppercase',
                                                     letterSpacing: '0.02em'
                                                 }}>
@@ -129,11 +129,11 @@ const ManageDeposits = () => {
                                             <td style={{ padding: '0.75rem 1rem' }}>
                                                 {d.verifiedBy ? (
                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                                                        <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#10B981' }}>Verified</span>
+                                                        <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#10B981' }}>Verified</span>
                                                         <span style={{ fontSize: '0.625rem', color: '#9CA3AF' }}>{new Date(d.verifiedAt).toLocaleDateString()}</span>
                                                     </div>
                                                 ) : (
-                                                    <span style={{ fontSize: '0.75rem', color: '#F59E0B', fontWeight: '600' }}>Pending</span>
+                                                    <span style={{ fontSize: '0.75rem', color: '#F59E0B', fontWeight: '500' }}>Pending</span>
                                                 )}
                                             </td>
                                             <td style={{ padding: '0.75rem 1rem' }}>
@@ -144,7 +144,7 @@ const ManageDeposits = () => {
                                                                 onClick={() => handleAction(d._id, 'confirm')}
                                                                 disabled={actionLoading === d._id}
                                                                 className="btn btn-accent"
-                                                                style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', borderRadius: '4px', fontWeight: '600' }}
+                                                                style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', borderRadius: '4px', fontWeight: '500' }}
                                                             >
                                                                 {actionLoading === d._id ? '...' : 'Confirm'}
                                                             </button>
@@ -158,7 +158,7 @@ const ManageDeposits = () => {
                                                                     padding: '0.35rem 0.75rem',
                                                                     fontSize: '0.75rem',
                                                                     borderRadius: '4px',
-                                                                    fontWeight: '600',
+                                                                    fontWeight: '500',
                                                                     cursor: 'pointer'
                                                                 }}
                                                             >
@@ -166,7 +166,7 @@ const ManageDeposits = () => {
                                                             </button>
                                                         </>
                                                     ) : (
-                                                        <span style={{ fontSize: '0.7rem', fontWeight: '600', color: '#9CA3AF', textTransform: 'uppercase' }}>Locked</span>
+                                                        <span style={{ fontSize: '0.7rem', fontWeight: '500', color: '#9CA3AF', textTransform: 'uppercase' }}>Locked</span>
                                                     )}
                                                 </div>
                                             </td>

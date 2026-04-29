@@ -18,6 +18,7 @@ import KYCSubmission from './pages/user/KYCSubmission';
 import ManageKYC from './pages/admin/ManageKYC';
 import Transactions from './pages/user/Transactions';
 import ManageTransactions from './pages/admin/ManageTransactions';
+import Convert from './pages/user/Convert';
 import DashboardLayout from './components/DashboardLayout';
 
 const PlaceholderPage = ({ title }) => (
@@ -78,6 +79,9 @@ function AppRoutes() {
             } />
             <Route path="/dashboard/kyc" element={
                 <ProtectedRoute><KYCSubmission /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/convert" element={
+                <ProtectedRoute><Convert /></ProtectedRoute>
             } />
             <Route path="/dashboard/referral" element={
                 <ProtectedRoute><PlaceholderPage title="Referral Program" /></ProtectedRoute>

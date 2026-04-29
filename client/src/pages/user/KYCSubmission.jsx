@@ -57,7 +57,7 @@ const KYCSubmission = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '800px', margin: '0 auto' }}>
                 <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-primary)' }}>Identity Verification</h1>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>Identity Verification</h1>
                     <p className="dashboard-subtitle">Complete your KYC to unlock all platform features and higher limits.</p>
                 </div>
 
@@ -80,20 +80,20 @@ const KYCSubmission = () => {
                         <div style={{ background: '#F9FAFB', padding: '1.5rem', borderRadius: '12px', textAlign: 'left', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '700', color: '#9CA3AF' }}>FULL NAME</label>
-                                    <p style={{ fontWeight: '600' }}>{kycData.fullName}</p>
+                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>FULL NAME</label>
+                                    <p style={{ fontWeight: '500' }}>{kycData.fullName}</p>
                                 </div>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '700', color: '#9CA3AF' }}>ID TYPE</label>
-                                    <p style={{ fontWeight: '600' }}>{kycData.idType}</p>
+                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>ID TYPE</label>
+                                    <p style={{ fontWeight: '500' }}>{kycData.idType}</p>
                                 </div>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '700', color: '#9CA3AF' }}>ID NUMBER</label>
-                                    <p style={{ fontWeight: '600' }}>{kycData.idNumber}</p>
+                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>ID NUMBER</label>
+                                    <p style={{ fontWeight: '500' }}>{kycData.idNumber}</p>
                                 </div>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '700', color: '#9CA3AF' }}>SUBMITTED ON</label>
-                                    <p style={{ fontWeight: '600' }}>{new Date(kycData.createdAt).toLocaleDateString()}</p>
+                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>SUBMITTED ON</label>
+                                    <p style={{ fontWeight: '500' }}>{new Date(kycData.createdAt).toLocaleDateString()}</p>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@ const KYCSubmission = () => {
                             {success && <div className="auth-success" style={{ marginBottom: '1.5rem' }}>{success}</div>}
 
                             <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                                <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>Full Legal Name</label>
+                                <label style={{ fontWeight: '500', marginBottom: '0.5rem' }}>Full Legal Name</label>
                                 <input 
                                     type="text" 
                                     name="fullName" 
@@ -129,7 +129,7 @@ const KYCSubmission = () => {
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
                                 <div className="form-group">
-                                    <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>ID Document Type</label>
+                                    <label style={{ fontWeight: '500', marginBottom: '0.5rem' }}>ID Document Type</label>
                                     <select 
                                         name="idType" 
                                         value={formData.idType} 
@@ -143,7 +143,7 @@ const KYCSubmission = () => {
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label style={{ fontWeight: '600', marginBottom: '0.5rem' }}>ID Number</label>
+                                    <label style={{ fontWeight: '500', marginBottom: '0.5rem' }}>ID Number</label>
                                     <input 
                                         type="text" 
                                         name="idNumber" 
@@ -157,7 +157,7 @@ const KYCSubmission = () => {
                             </div>
 
                             <div style={{ marginBottom: '2.5rem' }}>
-                                <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>Upload ID Document (Front)</label>
+                                <label style={{ display: 'block', fontWeight: '500', marginBottom: '1rem' }}>Upload ID Document (Front)</label>
                                 <div style={{ 
                                     background: '#F9FAFB',
                                     borderRadius: '16px', 
@@ -176,7 +176,7 @@ const KYCSubmission = () => {
                                 type="submit" 
                                 className="btn btn-primary" 
                                 disabled={submitting} 
-                                style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', fontWeight: '700', borderRadius: '12px' }}
+                                style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', fontWeight: '500', borderRadius: '12px' }}
                             >
                                 {submitting ? 'Submitting Documents...' : 'Submit for Verification'}
                             </button>

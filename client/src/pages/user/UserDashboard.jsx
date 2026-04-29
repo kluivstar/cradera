@@ -29,7 +29,7 @@ const UserDashboard = () => {
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                        <h1 style={{ fontWeight: '600', color: 'var(--color-primary)' }}>
+                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>
                             Welcome back, <span style={{ color: 'var(--color-accent)' }}>{displayName}</span>
                         </h1>
                         <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your assets and manage your trades with ease.</p>
@@ -41,7 +41,7 @@ const UserDashboard = () => {
                             padding: '0.6rem 1.2rem', 
                             borderRadius: '10px', 
                             fontSize: '0.85rem', 
-                            fontWeight: '600',
+                            fontWeight: '500',
                             textDecoration: 'none',
                             display: 'flex',
                             alignItems: 'center',
@@ -74,17 +74,17 @@ const UserDashboard = () => {
                         }}>
                             <div style={{ position: 'relative', zIndex: 1 }}>
                                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
-                                <h2 style={{ fontSize: '2.5rem', fontWeight: '600', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦0.00</h2>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦0.00</h2>
                                 <div style={{ display: 'flex', gap: '0.75rem' }}>
-                                    <Link to="/dashboard/deposits" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '600', borderRadius: '10px' }}>
+                                    <Link to="/dashboard/deposits" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none' }}>
                                         + Deposit
                                     </Link>
-                                    <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '600', borderRadius: '10px' }}>
+                                    <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px' }}>
                                         - Withdrawal
                                     </button>
-                                    <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '600', borderRadius: '10px' }}>
+                                    <Link to="/dashboard/convert" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none' }}>
                                         Convert
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                             <div style={{ position: 'absolute', top: '-5%', right: '-2%', fontSize: '8rem', opacity: 0.03, transform: 'rotate(-15deg)', color: 'var(--color-primary)' }}>C</div>
@@ -92,14 +92,7 @@ const UserDashboard = () => {
                     </div>
 
                     {/* Quick Stats (4 cols) */}
-                    <div style={{ gridColumn: 'span 4', display: 'grid', gridTemplateRows: '1fr 1fr', gap: '1rem' }}>
-                        <div className="dash-card" style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', border: 'none', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
-                            <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem' }}>📈</div>
-                            <div>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '0.1rem' }}>Portfolio Change</p>
-                                <p style={{ fontWeight: '600', color: 'var(--color-accent)', fontSize: '1rem' }}>+₦0.00 (0%)</p>
-                            </div>
-                        </div>
+                    <div style={{ gridColumn: 'span 4', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <div className="dash-card" style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', border: 'none', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
                             <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -108,14 +101,14 @@ const UserDashboard = () => {
                             </div>
                             <div>
                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '0.1rem' }}>Referral Earnings</p>
-                                <p style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '1rem' }}>₦0.00</p>
+                                <p style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '1rem' }}>₦0.00</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Services Row (Full Width) */}
                     <div style={{ gridColumn: 'span 12' }}>
-                        <h3 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '1rem', color: 'var(--color-primary)' }}>Our Services</h3>
+                        <h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '1rem', color: 'var(--color-primary)' }}>Our Services</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
                             <Link to="/dashboard/products" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
                                 <div style={{ 
@@ -179,8 +172,8 @@ const UserDashboard = () => {
                     {/* Recent Transactions (Full Width) */}
                     <div style={{ gridColumn: 'span 12' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                            <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--color-primary)' }}>Recent Activity</h3>
-                            <Link to="/dashboard/transactions" style={{ fontSize: '0.85rem', color: 'var(--color-accent)', fontWeight: '600', textDecoration: 'none' }}>View All</Link>
+                            <h3 style={{ fontSize: '1.1rem', fontWeight: '500', color: 'var(--color-primary)' }}>Recent Activity</h3>
+                            <Link to="/dashboard/transactions" style={{ fontSize: '0.85rem', color: 'var(--color-accent)', fontWeight: '500', textDecoration: 'none' }}>View All</Link>
                         </div>
                         <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
                             {loading ? (
@@ -211,16 +204,16 @@ const UserDashboard = () => {
                                                         </div>
                                                     </td>
                                                     <td style={{ padding: '0.75rem 1rem' }}>
-                                                        <p style={{ fontWeight: '600', color: 'var(--color-primary)', marginBottom: '0.1rem', fontSize: '0.875rem' }}>{tx.type === 'deposit' ? 'Wallet Top-up' : tx.type}</p>
+                                                        <p style={{ fontWeight: '500', color: 'var(--color-primary)', marginBottom: '0.1rem', fontSize: '0.875rem' }}>{tx.type === 'deposit' ? 'Wallet Top-up' : tx.type}</p>
                                                         <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{new Date(tx.date).toLocaleString()}</p>
                                                     </td>
                                                     <td style={{ padding: '0.75rem 1rem' }}>
-                                                        <p style={{ fontWeight: '600', fontSize: '0.875rem' }}>{tx.asset}</p>
+                                                        <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>{tx.asset}</p>
                                                         <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{tx.details?.network}</p>
                                                     </td>
                                                     <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
-                                                        <p style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '0.875rem' }}>₦{tx.amount.toLocaleString()}</p>
-                                                        <p style={{ fontSize: '0.7rem', fontWeight: '600', color: tx.status === 'confirmed' ? 'var(--color-accent)' : '#F59E0B' }}>
+                                                        <p style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>₦{tx.amount.toLocaleString()}</p>
+                                                        <p style={{ fontSize: '0.7rem', fontWeight: '500', color: tx.status === 'confirmed' ? 'var(--color-accent)' : '#F59E0B' }}>
                                                             {tx.status.toUpperCase()}
                                                         </p>
                                                     </td>
