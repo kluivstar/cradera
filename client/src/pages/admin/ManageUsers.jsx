@@ -53,7 +53,7 @@ const ManageUsers = () => {
             <div className="dashboard-content fade-in">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '700', color: 'var(--color-primary)' }}>User Management</h1>
+                        <h1 style={{ fontWeight: '600', color: 'var(--color-primary)' }}>User Management</h1>
                         <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>View and manage platform users and their verification status.</p>
                     </div>
                     <div className="form-group" style={{ marginBottom: 0, width: '260px' }}>
@@ -97,7 +97,7 @@ const ManageUsers = () => {
                                         <tr key={user.id}>
                                             <td style={{ padding: '0.75rem 1rem' }}>
                                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{user.email}</span>
+                                                    <span style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{user.email}</span>
                                                     <span style={{ fontSize: '0.625rem', color: '#9CA3AF', fontFamily: 'monospace' }}>ID: {user.id}</span>
                                                 </div>
                                             </td>

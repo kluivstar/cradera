@@ -113,7 +113,7 @@ const ManageAssets = () => {
             <div className="dashboard-content fade-in">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Asset Management</h1>
+                        <h1 style={{ fontWeight: '600', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Asset Management</h1>
                         <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Configure the assets and networks available for user deposits.</p>
                     </div>
                     <button 
@@ -158,7 +158,7 @@ const ManageAssets = () => {
                                                         {asset.icon}
                                                     </div>
                                                     <div>
-                                                        <div style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '0.9rem' }}>{asset.name}</div>
+                                                        <div style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '0.9rem' }}>{asset.name}</div>
                                                         <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '600' }}>{asset.symbol}</div>
                                                     </div>
                                                 </div>
@@ -173,17 +173,17 @@ const ManageAssets = () => {
                                                 </div>
                                             </td>
                                             <td>
-                                                <span className={`status-badge ${asset.isActive ? 'status-confirmed' : 'status-pending'}`} style={{ padding: '0.25rem 0.625rem', borderRadius: '4px', fontSize: '0.65rem', fontWeight: '700' }}>
+                                                <span className={`status-badge ${asset.isActive ? 'status-confirmed' : 'status-pending'}`} style={{ padding: '0.25rem 0.625rem', borderRadius: '4px', fontSize: '0.65rem', fontWeight: '600' }}>
                                                     {asset.isActive ? 'ACTIVE' : 'DISABLED'}
                                                 </span>
                                             </td>
                                             <td style={{ textAlign: 'right', paddingRight: '1.25rem' }}>
                                                 <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                                                    <button onClick={() => handleEdit(asset)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '700', borderRadius: '4px' }}>Edit</button>
-                                                    <button onClick={() => toggleStatus(asset)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '700', borderRadius: '4px' }}>
+                                                    <button onClick={() => handleEdit(asset)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '600', borderRadius: '4px' }}>Edit</button>
+                                                    <button onClick={() => toggleStatus(asset)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '600', borderRadius: '4px' }}>
                                                         {asset.isActive ? 'Disable' : 'Enable'}
                                                     </button>
-                                                    <button onClick={() => handleDelete(asset._id)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '700', borderRadius: '4px', color: 'var(--color-danger)', borderColor: 'rgba(239, 68, 68, 0.1)' }}>Delete</button>
+                                                    <button onClick={() => handleDelete(asset._id)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '600', borderRadius: '4px', color: 'var(--color-danger)', borderColor: 'rgba(239, 68, 68, 0.1)' }}>Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -218,7 +218,7 @@ const ManageAssets = () => {
                             boxShadow: '0 20px 40px rgba(0,0,0,0.1)' 
                         }}>
                             <div style={{ marginBottom: '1.5rem' }}>
-                                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--color-primary)', marginBottom: '0.25rem' }}>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--color-primary)', marginBottom: '0.25rem' }}>
                                     {editingAsset ? 'Modify Asset' : 'Add New Asset'}
                                 </h3>
                                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Fill in the details below to configure the asset.</p>
@@ -239,38 +239,38 @@ const ManageAssets = () => {
                                 <div className="form-group" style={{ marginBottom: '1rem' }}>
                                     <label style={{ fontWeight: '600', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Display Icon (Emoji)</label>
                                     <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. 💰" style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', width: '100%', fontSize: '0.875rem' }} />
-                                                         <div style={{ borderTop: '1px solid var(--color-border)', pt: '1rem', marginTop: '1rem' }}>
-                                    <h4 style={{ margin: '1rem 0', color: 'var(--color-primary)', fontWeight: '700', fontSize: '0.9rem' }}>Network Details</h4>
-                                    
-                                    {formData.networks.map((net, index) => (
-                                        <div key={index} style={{ marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '0.75rem' }}>
-                                                <div className="form-group">
-                                                    <label style={{ fontSize: '0.75rem', fontWeight: '600' }}>Network {index > 0 ? `#${index + 1}` : ''}</label>
-                                                    <input value={net.name} onChange={(e) => handleNetworkChange(index, 'name', e.target.value)} placeholder="e.g. TRC20" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }} />
+                                    <div style={{ borderTop: '1px solid var(--color-border)', pt: '1rem', marginTop: '1rem' }}>
+                                        <h4 style={{ margin: '1rem 0', color: 'var(--color-primary)', fontWeight: '600', fontSize: '0.9rem' }}>Network Details</h4>
+                                        
+                                        {formData.networks.map((net, index) => (
+                                            <div key={index} style={{ marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '0.75rem' }}>
+                                                    <div className="form-group">
+                                                        <label style={{ fontSize: '0.75rem', fontWeight: '600' }}>Network {index > 0 ? `#${index + 1}` : ''}</label>
+                                                        <input value={net.name} onChange={(e) => handleNetworkChange(index, 'name', e.target.value)} placeholder="e.g. TRC20" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }} />
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <label style={{ fontSize: '0.75rem', fontWeight: '600' }}>Deposit Address</label>
+                                                        <input value={net.address} onChange={(e) => handleNetworkChange(index, 'address', e.target.value)} placeholder="Wallet Address" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }} />
+                                                    </div>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label style={{ fontSize: '0.75rem', fontWeight: '600' }}>Deposit Address</label>
-                                                    <input value={net.address} onChange={(e) => handleNetworkChange(index, 'address', e.target.value)} placeholder="Wallet Address" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }} />
-                                                </div>
+                                                {formData.networks.length > 1 && (
+                                                    <button type="button" onClick={() => removeNetwork(index)} style={{ color: 'var(--color-danger)', border: 'none', background: 'none', fontSize: '0.7rem', fontWeight: '600', textAlign: 'left', width: 'fit-content', cursor: 'pointer' }}>Remove</button>
+                                                )}
                                             </div>
-                                            {formData.networks.length > 1 && (
-                                                <button type="button" onClick={() => removeNetwork(index)} style={{ color: 'var(--color-danger)', border: 'none', background: 'none', fontSize: '0.7rem', fontWeight: '700', textAlign: 'left', width: 'fit-content', cursor: 'pointer' }}>Remove</button>
-                                            )}
-                                        </div>
-                                    ))}
-                                    
-                                    <button type="button" onClick={addNetwork} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '700', fontSize: '0.8125rem', cursor: 'pointer', marginBottom: '1rem' }}>
-                                        + Add Another Network
-                                    </button>
+                                        ))}
+                                        
+                                        <button type="button" onClick={addNetwork} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '600', fontSize: '0.8125rem', cursor: 'pointer', marginBottom: '1rem' }}>
+                                            + Add Another Network
+                                        </button>
+                                    </div>
                                 </div>
-        </div>
 
                                 <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
-                                    <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', fontSize: '0.875rem', fontWeight: '700' }}>
+                                    <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', fontSize: '0.875rem', fontWeight: '600' }}>
                                         {editingAsset ? 'Update Asset' : 'Create Asset'}
                                     </button>
-                                    <button type="button" className="btn btn-secondary" style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', fontSize: '0.875rem', fontWeight: '700' }} onClick={() => setIsModalOpen(false)}>
+                                    <button type="button" className="btn btn-secondary" style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', fontSize: '0.875rem', fontWeight: '600' }} onClick={() => setIsModalOpen(false)}>
                                         Cancel
                                     </button>
                                 </div>

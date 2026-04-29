@@ -118,7 +118,7 @@ const Deposit = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
-                    <h1 style={{ fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
+                    <h1 style={{ fontWeight: '600', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
                         Fund Account
                     </h1>
                     <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)' }}>
@@ -145,7 +145,7 @@ const Deposit = () => {
                             {/* Modern Deposit Form */}
                             <div className="dash-card" style={{ padding: '1.5rem', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
                                 <div style={{ marginBottom: '1.25rem' }}>
-                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '700' }}>1. Payment Details</h3>
+                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '600' }}>1. Payment Details</h3>
                                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.8125rem' }}>Choose your asset and copy the destination address.</p>
                                 </div>
 
@@ -188,7 +188,7 @@ const Deposit = () => {
                                     marginBottom: '1.5rem'
                                 }}>
                                     <div style={{ position: 'absolute', right: '-15px', top: '-15px', fontSize: '5rem', opacity: 0.05 }}>🪙</div>
-                                    <label style={{ display: 'block', fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem', opacity: 0.7, fontWeight: '700' }}>
+                                    <label style={{ display: 'block', fontSize: '0.625rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem', opacity: 0.7, fontWeight: '600' }}>
                                         Destination {formData.assetType} Address
                                     </label>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', position: 'relative', zIndex: 1 }}>
@@ -204,7 +204,7 @@ const Deposit = () => {
                                                 padding: '0.5rem 1rem', 
                                                 borderRadius: '8px', 
                                                 fontSize: '0.8125rem', 
-                                                fontWeight: '700',
+                                                fontWeight: '600',
                                                 cursor: 'pointer',
                                                 boxShadow: '0 2px 8px rgba(56, 189, 248, 0.3)'
                                             }}
@@ -218,7 +218,7 @@ const Deposit = () => {
                                 </div>
 
                                 <div style={{ marginBottom: '1.25rem' }}>
-                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '700' }}>2. Confirmation Form</h3>
+                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '600' }}>2. Confirmation Form</h3>
                                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.8125rem' }}>Submit your transaction hash for verification.</p>
                                 </div>
 
@@ -229,7 +229,7 @@ const Deposit = () => {
                                     <div className="form-group" style={{ marginBottom: '1rem' }}>
                                         <label style={{ fontWeight: '600', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Amount Sent (USD Value)</label>
                                         <div style={{ position: 'relative' }}>
-                                            <span style={{ position: 'absolute', left: '0.875rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-secondary)', fontWeight: '700', fontSize: '0.875rem' }}>$</span>
+                                            <span style={{ position: 'absolute', left: '0.875rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-secondary)', fontWeight: '600', fontSize: '0.875rem' }}>$</span>
                                             <input 
                                                 type="number" 
                                                 name="amount" 
@@ -272,7 +272,7 @@ const Deposit = () => {
                                         type="submit" 
                                         className="btn btn-accent" 
                                         disabled={submitting} 
-                                        style={{ width: '100%', padding: '0.75rem', fontSize: '0.95rem', fontWeight: '700', borderRadius: '10px', boxShadow: '0 4px 12px rgba(56, 189, 248, 0.2)' }}
+                                        style={{ width: '100%', padding: '0.75rem', fontSize: '0.95rem', fontWeight: '600', borderRadius: '10px', boxShadow: '0 4px 12px rgba(56, 189, 248, 0.2)' }}
                                     >
                                         {submitting ? 'Verifying...' : 'Confirm Payment'}
                                     </button>
@@ -284,8 +284,8 @@ const Deposit = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                             <div className="dash-card" style={{ padding: '1.25rem', border: 'none' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '700' }}>Recent Deposits</h3>
-                                    <button onClick={fetchData} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '700', cursor: 'pointer', fontSize: '0.8125rem' }}>Refresh</button>
+                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '600' }}>Recent Deposits</h3>
+                                    <button onClick={fetchData} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '600', cursor: 'pointer', fontSize: '0.8125rem' }}>Refresh</button>
                                 </div>
 
                                 {deposits.length === 0 ? (
@@ -310,12 +310,12 @@ const Deposit = () => {
                                                         {assets.find(a => a.symbol === d.assetType)?.icon || '💰'}
                                                     </div>
                                                     <div>
-                                                        <div style={{ fontWeight: '700', fontSize: '0.875rem' }}>{d.assetType}</div>
+                                                        <div style={{ fontWeight: '600', fontSize: '0.875rem' }}>{d.assetType}</div>
                                                         <div style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>{new Date(d.createdAt).toLocaleDateString()}</div>
                                                     </div>
                                                 </div>
                                                 <div style={{ textAlign: 'right' }}>
-                                                    <div style={{ fontWeight: '700', fontSize: '0.875rem', color: 'var(--color-primary)' }}>${d.amount.toLocaleString()}</div>
+                                                    <div style={{ fontWeight: '600', fontSize: '0.875rem', color: 'var(--color-primary)' }}>${d.amount.toLocaleString()}</div>
                                                     <span className={`status-badge status-${d.status}`} style={{ fontSize: '0.6rem', padding: '0.15rem 0.4rem' }}>{d.status}</span>
                                                 </div>
                                             </div>

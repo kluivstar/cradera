@@ -57,7 +57,7 @@ const Products = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <div className="dashboard-header" style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                    <h1 style={{ fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
+                    <h1 style={{ fontWeight: '600', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
                         Platform Services
                     </h1>
                     <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', maxWidth: '500px', margin: '0 auto' }}>
@@ -88,7 +88,7 @@ const Products = () => {
                                 top: '1.25rem',
                                 right: '1.25rem',
                                 fontSize: '0.625rem',
-                                fontWeight: '700',
+                                fontWeight: '600',
                                 textTransform: 'uppercase',
                                 color: 'var(--color-text-secondary)',
                                 letterSpacing: '0.1em'
