@@ -149,9 +149,10 @@ const Products = () => {
                             </h3>
                             
                             <p style={{ 
-                                fontSize: '0.875rem', 
-                                color: 'var(--color-text-secondary)', 
-                                lineHeight: '1.5', 
+                                fontSize: '16px', 
+                                color: 'rgb(11, 34, 83)', 
+                                fontWeight: '500',
+                                lineHeight: '28px', 
                                 marginBottom: 'auto',
                                 paddingBottom: '1rem'
                             }}>
