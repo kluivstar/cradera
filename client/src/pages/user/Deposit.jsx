@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 import api from '../../utils/api';
+import CurrencyIcon from '../../components/CurrencyIcon';
 
 const Deposit = () => {
     const [assets, setAssets] = useState([]);
@@ -118,9 +119,16 @@ const Deposit = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
-                        Fund Account
-                    </h1>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
+                        <div style={{ color: 'var(--color-accent)' }}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                        </div>
+                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em', margin: 0 }}>
+                            Fund Account
+                        </h1>
+                    </div>
                     <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)' }}>
                         Transfer assets to your unique platform wallet to begin trading.
                     </p>
@@ -150,9 +158,16 @@ const Deposit = () => {
                             
                             {/* Modern Deposit Form */}
                             <div className="dash-card" style={{ padding: '1.5rem', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-                                <div style={{ marginBottom: '1.25rem' }}>
-                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '500' }}>1. Payment Details</h3>
-                                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.8125rem' }}>Choose your asset and copy the destination address.</p>
+                                <div style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(56, 189, 248, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-accent)' }}>
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '500', margin: 0 }}>1. Payment Details</h3>
+                                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.8125rem', margin: 0 }}>Choose your asset and copy the destination address.</p>
+                                    </div>
                                 </div>
 
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.25rem' }}>
@@ -165,7 +180,7 @@ const Deposit = () => {
                                             style={{ width: '100%', padding: '0.625rem', borderRadius: '8px', border: '1px solid var(--color-border)', outline: 'none', background: '#F9FAFB', fontSize: '0.875rem', fontWeight: '500' }}
                                         >
                                             {assets.map(a => (
-                                                <option key={a.symbol} value={a.symbol}>{a.icon} {a.name} ({a.symbol})</option>
+                                                <option key={a.symbol} value={a.symbol}>{a.name} ({a.symbol})</option>
                                             ))}
                                         </select>
                                     </div>
@@ -230,9 +245,16 @@ const Deposit = () => {
                                     </p>
                                 </div>
 
-                                <div style={{ marginBottom: '1.25rem' }}>
-                                    <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '500' }}>2. Confirmation Form</h3>
-                                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.8125rem' }}>Submit your transaction hash for verification.</p>
+                                <div style={{ marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(56, 189, 248, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-accent)' }}>
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 style={{ color: 'var(--color-primary)', fontSize: '1rem', fontWeight: '500', margin: 0 }}>2. Confirmation Form</h3>
+                                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.8125rem', margin: 0 }}>Submit your transaction hash for verification.</p>
+                                    </div>
                                 </div>
 
                                 <form onSubmit={handleSubmit}>
@@ -287,7 +309,14 @@ const Deposit = () => {
                                         disabled={submitting} 
                                         style={{ width: '100%', padding: '0.75rem', fontSize: '0.95rem', fontWeight: '500', borderRadius: '10px', boxShadow: '0 4px 12px rgba(56, 189, 248, 0.2)' }}
                                     >
-                                        {submitting ? 'Verifying...' : 'Confirm Payment'}
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                                            {!submitting && (
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                                </svg>
+                                            )}
+                                            {submitting ? 'Verifying...' : 'Confirm Payment'}
+                                        </div>
                                     </button>
                                 </form>
                             </div>
@@ -323,8 +352,8 @@ const Deposit = () => {
                                                 background: '#F9FAFB'
                                             }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'white', display: 'flex', alignItems: 'center', justifySelf: 'center', fontSize: '1rem', justifyContent: 'center', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-                                                        {assets.find(a => a.symbol === d.assetType)?.icon || '💰'}
+                                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'white', display: 'flex', alignItems: 'center', justifySelf: 'center', fontSize: '1rem', justifyContent: 'center', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', color: 'var(--color-primary)' }}>
+                                                        <CurrencyIcon symbol={d.assetType} size={18} />
                                                     </div>
                                                     <div>
                                                         <div style={{ fontWeight: '500', fontSize: '0.875rem' }}>{d.assetType}</div>
