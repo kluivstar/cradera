@@ -75,18 +75,24 @@ const Transactions = () => {
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                         <div style={{ 
                                                             width: '28px', height: '28px', borderRadius: '6px', 
-                                                            background: tx.type === 'deposit' ? 'rgba(56, 189, 248, 0.1)' : 'rgba(30, 58, 138, 0.1)',
+                                                            background: tx.status === 'confirmed' ? 'rgba(16, 185, 129, 0.08)' : (tx.type === 'deposit' ? 'rgba(56, 189, 248, 0.1)' : 'rgba(30, 58, 138, 0.1)'),
                                                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                                            color: tx.type === 'deposit' ? 'var(--color-accent)' : 'var(--color-primary)',
+                                                            color: tx.status === 'confirmed' ? '#10B981' : (tx.type === 'deposit' ? 'var(--color-accent)' : 'var(--color-primary)'),
                                                             fontSize: '0.875rem'
                                                         }}>
-                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                                                {tx.type === 'deposit' ? (
-                                                                    <path d="M12 5v14M5 12l7 7 7-7"/>
-                                                                ) : (
-                                                                    <path d="M12 19V5M5 12l7-7 7 7"/>
-                                                                )}
-                                                            </svg>
+                                                            {tx.status === 'confirmed' ? (
+                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                                    <polyline points="20 6 9 17 4 12"/>
+                                                                </svg>
+                                                            ) : (
+                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                                    {tx.type === 'deposit' ? (
+                                                                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                                                                    ) : (
+                                                                        <path d="M12 19V5M5 12l7-7 7 7"/>
+                                                                    )}
+                                                                </svg>
+                                                            )}
                                                         </div>
                                                         <span style={{ fontWeight: '500', textTransform: 'capitalize', fontSize: '0.875rem' }}>{tx.type}</span>
                                                     </div>

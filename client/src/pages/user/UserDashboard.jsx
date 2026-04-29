@@ -190,17 +190,24 @@ const UserDashboard = () => {
                                                 <tr key={tx.id}>
                                                     <td style={{ padding: '0.75rem 1rem', width: '50px' }}>
                                                         <div style={{ 
-                                                            width: '32px', height: '32px', borderRadius: '8px', background: 'white', 
+                                                            width: '32px', height: '32px', borderRadius: '8px', 
+                                                            background: tx.status === 'confirmed' ? 'rgba(16, 185, 129, 0.08)' : 'white', 
                                                             display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                                            color: 'var(--color-primary)', boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+                                                            color: 'var(--color-primary)', boxShadow: tx.status === 'confirmed' ? 'none' : '0 2px 6px rgba(0,0,0,0.04)'
                                                         }}>
-                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                                {tx.type === 'deposit' ? (
-                                                                    <path d="M12 5v14M5 12l7 7 7-7"/>
-                                                                ) : (
-                                                                    <path d="M12 19V5M5 12l7-7 7 7"/>
-                                                                )}
-                                                            </svg>
+                                                            {tx.status === 'confirmed' ? (
+                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                                    <polyline points="20 6 9 17 4 12"/>
+                                                                </svg>
+                                                            ) : (
+                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                                    {tx.type === 'deposit' ? (
+                                                                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                                                                    ) : (
+                                                                        <path d="M12 19V5M5 12l7-7 7 7"/>
+                                                                    )}
+                                                                </svg>
+                                                            )}
                                                         </div>
                                                     </td>
                                                     <td style={{ padding: '0.75rem 1rem' }}>
