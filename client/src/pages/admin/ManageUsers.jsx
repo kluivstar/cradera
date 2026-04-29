@@ -53,7 +53,7 @@ const ManageUsers = () => {
             <div className="dashboard-content fade-in">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '600', color: 'var(--color-primary)' }}>User Management</h1>
+                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>User Management</h1>
                         <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>View and manage platform users and their verification status.</p>
                     </div>
                     <div className="form-group" style={{ marginBottom: 0, width: '260px' }}>
@@ -88,7 +88,11 @@ const ManageUsers = () => {
                                 {filteredUsers.length === 0 ? (
                                     <tr>
                                         <td colSpan="5" style={{ textAlign: 'center', padding: '4rem' }}>
-                                            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>👥</div>
+                                            <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', opacity: 0.1 }}>
+                                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                                </svg>
+                                            </div>
                                             <p style={{ color: 'var(--color-text-secondary)' }}>No users found.</p>
                                         </td>
                                     </tr>
@@ -97,7 +101,7 @@ const ManageUsers = () => {
                                         <tr key={user.id}>
                                             <td style={{ padding: '0.75rem 1rem' }}>
                                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                    <span style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{user.email}</span>
+                                                    <span style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{user.email}</span>
                                                     <span style={{ fontSize: '0.625rem', color: '#9CA3AF', fontFamily: 'monospace' }}>ID: {user.id}</span>
                                                 </div>
                                             </td>

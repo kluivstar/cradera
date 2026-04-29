@@ -17,7 +17,7 @@ const Topbar = () => {
                     alignItems: 'center', 
                     justifyContent: 'center',
                     color: 'white',
-                    fontWeight: '600',
+                    fontWeight: '500',
                     fontSize: '0.8rem'
                 }}>
                     {user?.email?.charAt(0).toUpperCase()}

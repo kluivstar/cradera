@@ -25,11 +25,15 @@ const PlaceholderPage = ({ title }) => (
     <DashboardLayout>
         <div className="dashboard-content fade-in">
             <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
-                <h1 style={{ fontSize: '2.25rem', fontWeight: '600', color: 'var(--color-primary)' }}>{title}</h1>
+                <h1 style={{ fontSize: '2.25rem', fontWeight: '500', color: 'var(--color-primary)' }}>{title}</h1>
                 <p className="dashboard-subtitle">This feature is currently under development.</p>
             </div>
             <div className="dash-card" style={{ padding: '4rem', textAlign: 'center' }}>
-                <div style={{ fontSize: '4rem', marginBottom: '1.5rem', filter: 'grayscale(1)', opacity: 0.5 }}>🚧</div>
+                <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', color: 'var(--color-primary)', opacity: 0.1 }}>
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                    </svg>
+                </div>
                 <p style={{ color: 'var(--color-text-secondary)' }}>We're working hard to bring you this service soon.</p>
             </div>
         </div>

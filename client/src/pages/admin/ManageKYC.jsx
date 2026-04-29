@@ -50,7 +50,7 @@ const ManageKYC = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
-                    <h1 style={{ fontWeight: '600', color: 'var(--color-primary)' }}>KYC Management</h1>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>KYC Management</h1>
                     <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Review and verify user identity documents.</p>
                 </div>
 
@@ -79,7 +79,7 @@ const ManageKYC = () => {
                                     kycRequests.map((kyc) => (
                                         <tr key={kyc._id}>
                                             <td style={{ padding: '0.625rem 1rem', fontSize: '0.8125rem' }}>{kyc.user?.email}</td>
-                                            <td style={{ padding: '0.625rem 1rem', fontWeight: '600', fontSize: '0.8125rem' }}>{kyc.fullName}</td>
+                                            <td style={{ padding: '0.625rem 1rem', fontWeight: '500', fontSize: '0.8125rem' }}>{kyc.fullName}</td>
                                             <td style={{ padding: '0.625rem 1rem', fontSize: '0.8125rem' }}>{kyc.idType}</td>
                                             <td style={{ padding: '0.625rem 1rem', fontSize: '0.8125rem' }}>{kyc.idNumber}</td>
                                             <td style={{ padding: '0.625rem 1rem' }}>
@@ -122,31 +122,31 @@ const ManageKYC = () => {
                     }}>
                         <div className="dash-card" style={{ width: '100%', maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto', padding: '1.5rem' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                                <h3 style={{ color: 'var(--color-primary)', fontSize: '1.1rem', fontWeight: '600' }}>KYC Verification Details</h3>
+                                <h3 style={{ color: 'var(--color-primary)', fontSize: '1.1rem', fontWeight: '500' }}>KYC Verification Details</h3>
                                 <button onClick={() => setIsModalOpen(false)} style={{ background: 'none', border: 'none', fontSize: '1.25rem', cursor: 'pointer' }}>×</button>
                             </div>
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.5rem' }}>
                                 <div>
-                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '600', color: '#9CA3AF', marginBottom: '0.25rem', textTransform: 'uppercase' }}>User Email</h4>
-                                    <p style={{ fontWeight: '600', fontSize: '0.875rem' }}>{selectedKYC.user?.email}</p>
+                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '500', color: '#9CA3AF', marginBottom: '0.25rem', textTransform: 'uppercase' }}>User Email</h4>
+                                    <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>{selectedKYC.user?.email}</p>
                                 </div>
                                 <div>
-                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '600', color: '#9CA3AF', marginBottom: '0.25rem', textTransform: 'uppercase' }}>Full Legal Name</h4>
-                                    <p style={{ fontWeight: '600', fontSize: '0.875rem' }}>{selectedKYC.fullName}</p>
+                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '500', color: '#9CA3AF', marginBottom: '0.25rem', textTransform: 'uppercase' }}>Full Legal Name</h4>
+                                    <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>{selectedKYC.fullName}</p>
                                 </div>
                                 <div>
-                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '600', color: '#9CA3AF', marginBottom: '0.25rem', textTransform: 'uppercase' }}>ID Type</h4>
-                                    <p style={{ fontWeight: '600', fontSize: '0.875rem' }}>{selectedKYC.idType}</p>
+                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '500', color: '#9CA3AF', marginBottom: '0.25rem', textTransform: 'uppercase' }}>ID Type</h4>
+                                    <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>{selectedKYC.idType}</p>
                                 </div>
                                 <div>
-                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '600', color: '#9CA3AF', marginBottom: '0.25rem', textTransform: 'uppercase' }}>ID Number</h4>
-                                    <p style={{ fontWeight: '600', fontSize: '0.875rem' }}>{selectedKYC.idNumber}</p>
+                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '500', color: '#9CA3AF', marginBottom: '0.25rem', textTransform: 'uppercase' }}>ID Number</h4>
+                                    <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>{selectedKYC.idNumber}</p>
                                 </div>
                             </div>
 
                             <div style={{ marginBottom: '1.5rem' }}>
-                                <h4 style={{ fontSize: '0.625rem', fontWeight: '600', color: '#9CA3AF', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Document Image (Front)</h4>
+                                <h4 style={{ fontSize: '0.625rem', fontWeight: '500', color: '#9CA3AF', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Document Image (Front)</h4>
                                 <img 
                                     src={selectedKYC.idFrontImage} 
                                     alt="ID Front" 
@@ -157,7 +157,7 @@ const ManageKYC = () => {
                             {selectedKYC.status === 'pending' ? (
                                 <div>
                                     <div className="form-group" style={{ marginBottom: '1rem' }}>
-                                        <label style={{ fontWeight: '600', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Rejection Reason (only if rejecting)</label>
+                                        <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Rejection Reason (only if rejecting)</label>
                                         <textarea 
                                             value={rejectionReason} 
                                             onChange={(e) => setRejectionReason(e.target.value)} 
@@ -184,7 +184,7 @@ const ManageKYC = () => {
                                 </div>
                             ) : (
                                 <div style={{ background: '#F9FAFB', padding: '1.5rem', borderRadius: '12px', textAlign: 'center' }}>
-                                    <p style={{ fontWeight: '600', color: selectedKYC.status === 'approved' ? 'var(--color-accent)' : 'var(--color-danger)' }}>
+                                    <p style={{ fontWeight: '500', color: selectedKYC.status === 'approved' ? 'var(--color-accent)' : 'var(--color-danger)' }}>
                                         THIS REQUEST WAS {selectedKYC.status.toUpperCase()} ON {new Date(selectedKYC.verifiedAt).toLocaleDateString()}
                                     </p>
                                     {selectedKYC.status === 'rejected' && (

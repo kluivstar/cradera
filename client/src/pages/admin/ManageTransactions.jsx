@@ -63,7 +63,7 @@ const ManageTransactions = () => {
                                 ) : (
                                     transactions.map((tx) => (
                                         <tr key={tx.id}>
-                                            <td style={{ fontWeight: '600' }}>{tx.user || 'Unknown'}</td>
+                                            <td style={{ fontWeight: '500' }}>{tx.user || 'Unknown'}</td>
                                             <td style={{ textTransform: 'capitalize' }}>{tx.type}</td>
                                             <td style={{ fontWeight: '700', color: 'var(--color-primary)' }}>{tx.asset}</td>
                                             <td>{tx.amount.toLocaleString()}</td>
