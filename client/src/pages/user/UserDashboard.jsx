@@ -36,16 +36,21 @@ const UserDashboard = () => {
                     </div>
                     {user?.kycStatus !== 'verified' && (
                         <Link to="/dashboard/kyc" style={{ 
-                            background: 'rgba(245, 158, 11, 0.1)', 
-                            color: '#D97706', 
+                            background: 'rgba(56, 189, 248, 0.05)', 
+                            color: 'var(--color-primary)', 
                             padding: '0.6rem 1.2rem', 
                             borderRadius: '10px', 
                             fontSize: '0.85rem', 
                             fontWeight: '600',
                             textDecoration: 'none',
-                            background: 'rgba(245, 158, 11, 0.05)'
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem'
                         }}>
-                            ⚠️ Verify Identity
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Complete KYC
                         </Link>
                     )}
                 </div>
@@ -55,31 +60,34 @@ const UserDashboard = () => {
                     {/* Main Balance Card (8 cols) */}
                     <div style={{ gridColumn: 'span 8' }}>
                         <div className="dash-card" style={{ 
-                            background: 'linear-gradient(135deg, #1E3A8A 0%, #38BDF8 100%)', 
-                            color: 'white', 
+                            background: 'white', 
+                            color: 'var(--color-primary)', 
                             padding: '1.5rem 2rem',
                             borderRadius: '16px',
                             position: 'relative',
                             overflow: 'hidden',
-                            boxShadow: '0 10px 25px rgba(30, 58, 138, 0.15)',
+                            boxShadow: '0 10px 25px rgba(0, 0, 0, 0.03)',
                             minHeight: '180px',
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center'
                         }}>
                             <div style={{ position: 'relative', zIndex: 1 }}>
-                                <p style={{ fontSize: '0.875rem', opacity: 0.9, marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
-                                <h2 style={{ fontSize: '2rem', fontWeight: '600', marginBottom: '1.25rem', color: 'white' }}>₦0.00</h2>
-                                <div style={{ display: 'flex', gap: '1rem' }}>
-                                    <Link to="/dashboard/deposits" className="btn" style={{ background: 'white', color: 'var(--color-primary)', padding: '0.5rem 1.25rem', fontWeight: '600', borderRadius: '10px' }}>
-                                        Deposit
+                                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '600', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦0.00</h2>
+                                <div style={{ display: 'flex', gap: '0.75rem' }}>
+                                    <Link to="/dashboard/deposits" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '600', borderRadius: '10px' }}>
+                                        + Deposit
                                     </Link>
-                                    <button className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: 'white', padding: '0.5rem 1.25rem', fontWeight: '600', borderRadius: '10px', backdropFilter: 'blur(10px)' }}>
-                                        Withdraw
+                                    <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '600', borderRadius: '10px' }}>
+                                        - Withdrawal
+                                    </button>
+                                    <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '600', borderRadius: '10px' }}>
+                                        Convert
                                     </button>
                                 </div>
                             </div>
-                            <div style={{ position: 'absolute', top: '-5%', right: '-2%', fontSize: '8rem', opacity: 0.05, transform: 'rotate(-15deg)' }}>C</div>
+                            <div style={{ position: 'absolute', top: '-5%', right: '-2%', fontSize: '8rem', opacity: 0.03, transform: 'rotate(-15deg)', color: 'var(--color-primary)' }}>C</div>
                         </div>
                     </div>
 
@@ -93,7 +101,11 @@ const UserDashboard = () => {
                             </div>
                         </div>
                         <div className="dash-card" style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', border: 'none', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
-                            <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem' }}>💎</div>
+                            <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"/>
+                                </svg>
+                            </div>
                             <div>
                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '0.1rem' }}>Referral Earnings</p>
                                 <p style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '1rem' }}>₦0.00</p>
@@ -184,8 +196,18 @@ const UserDashboard = () => {
                                             {transactions.map(tx => (
                                                 <tr key={tx.id}>
                                                     <td style={{ padding: '0.75rem 1rem', width: '50px' }}>
-                                                        <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--color-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
-                                                            {tx.type === 'deposit' ? '💰' : '💸'}
+                                                        <div style={{ 
+                                                            width: '32px', height: '32px', borderRadius: '8px', background: 'white', 
+                                                            display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                                            color: 'var(--color-primary)', boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+                                                        }}>
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                                {tx.type === 'deposit' ? (
+                                                                    <path d="M12 5v14M5 12l7 7 7-7"/>
+                                                                ) : (
+                                                                    <path d="M12 19V5M5 12l7-7 7 7"/>
+                                                                )}
+                                                            </svg>
                                                         </div>
                                                     </td>
                                                     <td style={{ padding: '0.75rem 1rem' }}>

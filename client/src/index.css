@@ -438,6 +438,14 @@ main {
    ======================================== */
 .dash-card {
   background: var(--color-bg);
+  background-image: linear-gradient(30deg, rgba(229, 231, 235, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(229, 231, 235, 0.1) 87.5%, rgba(229, 231, 235, 0.1)),
+                    linear-gradient(150deg, rgba(229, 231, 235, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(229, 231, 235, 0.1) 87.5%, rgba(229, 231, 235, 0.1)),
+                    linear-gradient(30deg, rgba(229, 231, 235, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(229, 231, 235, 0.1) 87.5%, rgba(229, 231, 235, 0.1)),
+                    linear-gradient(150deg, rgba(229, 231, 235, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(229, 231, 235, 0.1) 87.5%, rgba(229, 231, 235, 0.1)),
+                    linear-gradient(60deg, rgba(229, 231, 235, 0.2) 25%, transparent 25.5%, transparent 75%, rgba(229, 231, 235, 0.2) 75%, rgba(229, 231, 235, 0.2)),
+                    linear-gradient(60deg, rgba(229, 231, 235, 0.2) 25%, transparent 25.5%, transparent 75%, rgba(229, 231, 235, 0.2) 75%, rgba(229, 231, 235, 0.2));
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
   border-radius: 10px;
   padding: var(--card-padding);
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
