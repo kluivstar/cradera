@@ -303,10 +303,10 @@ const Deposit = () => {
                                                 padding: '0.75rem', 
                                                 borderRadius: '10px', 
                                                 background: '#F9FAFB',
-                                                border: '1px solid var(--color-border)'
+                                                background: '#F9FAFB'
                                             }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'white', display: 'flex', alignItems: 'center', justifySelf: 'center', fontSize: '1rem', border: '1px solid var(--color-border)', justifyContent: 'center' }}>
+                                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'white', display: 'flex', alignItems: 'center', justifySelf: 'center', fontSize: '1rem', justifyContent: 'center', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
                                                         {assets.find(a => a.symbol === d.assetType)?.icon || '💰'}
                                                     </div>
                                                     <div>

@@ -43,7 +43,7 @@ const UserDashboard = () => {
                             fontSize: '0.85rem', 
                             fontWeight: '600',
                             textDecoration: 'none',
-                            border: '1px solid rgba(245, 158, 11, 0.2)'
+                            background: 'rgba(245, 158, 11, 0.05)'
                         }}>
                             ⚠️ Verify Identity
                         </Link>
@@ -74,7 +74,7 @@ const UserDashboard = () => {
                                     <Link to="/dashboard/deposits" className="btn" style={{ background: 'white', color: 'var(--color-primary)', padding: '0.5rem 1.25rem', fontWeight: '600', borderRadius: '10px' }}>
                                         Deposit
                                     </Link>
-                                    <button className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: 'white', padding: '0.5rem 1.25rem', fontWeight: '600', borderRadius: '10px', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.2)' }}>
+                                    <button className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: 'white', padding: '0.5rem 1.25rem', fontWeight: '600', borderRadius: '10px', backdropFilter: 'blur(10px)' }}>
                                         Withdraw
                                     </button>
                                 </div>
@@ -146,7 +146,7 @@ const UserDashboard = () => {
                                     <table className="data-table">
                                         <tbody>
                                             {transactions.map(tx => (
-                                                <tr key={tx.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                                                <tr key={tx.id}>
                                                     <td style={{ padding: '0.75rem 1rem', width: '50px' }}>
                                                         <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--color-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
                                                             {tx.type === 'deposit' ? '💰' : '💸'}
@@ -179,7 +179,7 @@ const UserDashboard = () => {
             </div>
             <style>{`
                 .service-hover { transition: all 0.3s ease; }
-                .service-hover:hover { transform: translateY(-8px); border-color: var(--color-accent); box-shadow: 0 12px 30px rgba(56, 189, 248, 0.1); }
+                .service-hover:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(56, 189, 248, 0.1); }
             `}</style>
         </DashboardLayout>
     );

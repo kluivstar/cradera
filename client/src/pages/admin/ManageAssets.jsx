@@ -166,7 +166,7 @@ const ManageAssets = () => {
                                             <td>
                                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                                                     {asset.networks.map((n, i) => (
-                                                        <span key={i} className="status-badge" style={{ background: 'white', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontSize: '0.65rem', fontWeight: '600', padding: '0.25rem 0.5rem' }}>
+                                                        <span key={i} className="status-badge" style={{ background: 'white', color: 'var(--color-text-primary)', fontSize: '0.65rem', fontWeight: '600', padding: '0.25rem 0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
                                                             {n.name}
                                                         </span>
                                                     ))}

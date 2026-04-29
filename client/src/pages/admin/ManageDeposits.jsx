@@ -56,7 +56,7 @@ const ManageDeposits = () => {
 
                 {error && <div className="auth-error" style={{ marginBottom: '2rem', padding: '1rem', borderRadius: '12px' }}>{error}</div>}
 
-                <div className="dash-card" style={{ padding: '0', overflow: 'hidden', border: '1px solid #F3F4F6' }}>
+                <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
                     <div className="table-wrapper">
                         <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
                             <thead>

@@ -77,7 +77,7 @@ const KYCSubmission = () => {
                              'We are currently reviewing your documents. This usually takes 24-48 hours.'}
                         </p>
 
-                        <div style={{ background: '#F9FAFB', padding: '1.5rem', borderRadius: '12px', textAlign: 'left', border: '1px solid var(--color-border)' }}>
+                        <div style={{ background: '#F9FAFB', padding: '1.5rem', borderRadius: '12px', textAlign: 'left', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                                 <div>
                                     <label style={{ fontSize: '0.75rem', fontWeight: '700', color: '#9CA3AF' }}>FULL NAME</label>
@@ -135,7 +135,7 @@ const KYCSubmission = () => {
                                         value={formData.idType} 
                                         onChange={handleChange} 
                                         required 
-                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', border: '1px solid var(--color-border)', outline: 'none', background: 'white' }}
+                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', outline: 'none', background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}
                                     >
                                         <option value="ID Card">National ID Card</option>
                                         <option value="Passport">International Passport</option>
@@ -159,7 +159,7 @@ const KYCSubmission = () => {
                             <div style={{ marginBottom: '2.5rem' }}>
                                 <label style={{ display: 'block', fontWeight: '600', marginBottom: '1rem' }}>Upload ID Document (Front)</label>
                                 <div style={{ 
-                                    border: '2px dashed var(--color-border)', 
+                                    background: '#F9FAFB',
                                     borderRadius: '16px', 
                                     padding: '3rem', 
                                     textAlign: 'center',
