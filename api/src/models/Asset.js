@@ -29,6 +29,10 @@ const assetSchema = new mongoose.Schema({
             trim: true
         }
     }],
+    rate: {
+        type: Number,
+        default: 0
+    },
     isActive: {
         type: Boolean,
         default: true

@@ -29,7 +29,7 @@ export const getAllAssets = async (req, res) => {
 // @access  Private (Admin)
 export const createAsset = async (req, res) => {
     try {
-        const { name, symbol, icon, networks } = req.body;
+        const { name, symbol, icon, networks, rate } = req.body;
         
         const existingAsset = await Asset.findOne({ symbol: symbol.toUpperCase() });
         if (existingAsset) {
@@ -40,7 +40,8 @@ export const createAsset = async (req, res) => {
             name,
             symbol,
             icon,
-            networks
+            networks,
+            rate
         });
 
         await asset.save();
