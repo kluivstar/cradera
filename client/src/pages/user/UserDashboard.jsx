@@ -76,8 +76,8 @@ const UserDashboard = () => {
                                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
                                 <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦0.00</h2>
                                 <div style={{ display: 'flex', gap: '0.75rem' }}>
-                                    <Link to="/dashboard/deposits" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none' }}>
-                                        + Deposit
+                                    <Link to="/dashboard/sell-crypto" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none' }}>
+                                        + Sell Crypto
                                     </Link>
                                     <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px' }}>
                                         - Withdrawal
@@ -110,7 +110,7 @@ const UserDashboard = () => {
                     <div style={{ gridColumn: 'span 12' }}>
                         <h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '1rem', color: 'var(--color-primary)' }}>Our Services</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
-                            <Link to="/dashboard/products" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
+                            <Link to="/dashboard/sell-crypto" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
                                 <div style={{ 
                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
                                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
@@ -121,7 +121,7 @@ const UserDashboard = () => {
                                         <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
                                     </svg>
                                 </div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Buy/Sell Crypto</h4>
+                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Sell Crypto</h4>
                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Instant settlement in Naira</p>
                             </Link>
                             <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7 }}>

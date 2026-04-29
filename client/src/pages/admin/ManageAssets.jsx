@@ -11,6 +11,7 @@ const ManageAssets = () => {
         name: '',
         symbol: '',
         icon: '💰',
+        rate: '',
         networks: [{ name: '', address: '' }]
     });
 
@@ -35,6 +36,7 @@ const ManageAssets = () => {
             name: '',
             symbol: '',
             icon: '💰',
+            rate: '',
             networks: [{ name: '', address: '' }]
         });
         setEditingAsset(null);
@@ -84,6 +86,7 @@ const ManageAssets = () => {
             name: asset.name,
             symbol: asset.symbol,
             icon: asset.icon || '💰',
+            rate: asset.rate || '',
             networks: asset.networks.length > 0 ? [...asset.networks] : [{ name: '', address: '' }]
         });
         setIsModalOpen(true);
@@ -136,6 +139,7 @@ const ManageAssets = () => {
                             <thead style={{ background: '#F8FAFC' }}>
                                 <tr>
                                     <th style={{ padding: '0.75rem 1.25rem' }}>Asset</th>
+                                    <th>Rate (₦/$)</th>
                                     <th>Supported Networks</th>
                                     <th>Status</th>
                                     <th style={{ textAlign: 'right', paddingRight: '1.25rem' }}>Actions</th>
@@ -166,6 +170,9 @@ const ManageAssets = () => {
                                                         <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '500' }}>{asset.symbol}</div>
                                                     </div>
                                                 </div>
+                                            </td>
+                                            <td style={{ fontWeight: '500', color: 'var(--color-primary)' }}>
+                                                ₦{asset.rate || 0}
                                             </td>
                                             <td>
                                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
@@ -240,9 +247,14 @@ const ManageAssets = () => {
                                     </div>
                                 </div>
                                 
-                                <div className="form-group" style={{ marginBottom: '1rem' }}>
-                                    <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Display Icon (Emoji)</label>
-                                    <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. 💰" style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', width: '100%', fontSize: '0.875rem' }} />
+                                    <div className="form-group">
+                                        <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Display Icon (Emoji)</label>
+                                        <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. 💰" style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', width: '100%', fontSize: '0.875rem' }} />
+                                    </div>
+                                    <div className="form-group">
+                                        <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Exchange Rate (₦/$)</label>
+                                        <input type="number" name="rate" value={formData.rate} onChange={handleInputChange} placeholder="e.g. 1500" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', width: '100%', fontSize: '0.875rem' }} />
+                                    </div>
                                     <div style={{ borderTop: '1px solid var(--color-border)', pt: '1rem', marginTop: '1rem' }}>
                                         <h4 style={{ margin: '1rem 0', color: 'var(--color-primary)', fontWeight: '500', fontSize: '0.9rem' }}>Network Details</h4>
                                         
