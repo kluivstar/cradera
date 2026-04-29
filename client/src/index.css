@@ -443,9 +443,10 @@ main {
 
 .sell-crypto-grid {
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 1.5rem;
+  grid-template-columns: 320px 480px;
+  gap: 2rem;
   align-items: start;
+  justify-content: center;
 }
 
 .stats-grid {
@@ -460,8 +461,16 @@ main {
   gap: 1.25rem;
 }
 
+@media (max-width: 900px) {
+  .sell-crypto-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 768px) {
-  .sell-crypto-grid, .stats-grid, .admin-main-grid {
+  .stats-grid, .admin-main-grid {
     grid-template-columns: 1fr;
   }
   .grid-span-8, .grid-span-6, .grid-span-4 {

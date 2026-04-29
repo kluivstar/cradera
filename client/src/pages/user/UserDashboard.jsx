@@ -82,7 +82,10 @@ const UserDashboard = () => {
                                     <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px' }}>
                                         - Withdrawal
                                     </button>
-                                    <Link to="/dashboard/convert" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none' }}>
+                                    <Link to="/dashboard/convert" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M16 3L21 8L16 13"/><path d="M21 8H9C6.23858 8 4 10.2386 4 13V15"/><path d="M8 21L3 16L8 11"/><path d="M3 16H15C17.7614 16 20 13.7614 20 11V9"/>
+                                        </svg>
                                         Convert
                                     </Link>
                                 </div>
@@ -124,48 +127,51 @@ const UserDashboard = () => {
                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Buy/Sell Crypto</h4>
                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Trade assets instantly</p>
                             </Link>
-                            <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7 }}>
-                                <div style={{ 
-                                    width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                    marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
-                                    color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                                }}>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
-                                    </svg>
-                                </div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Gift Cards</h4>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
-                            </div>
-                            <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7 }}>
-                                <div style={{ 
-                                    width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                    marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
-                                    color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                                }}>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-                                    </svg>
-                                </div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Bill Payments</h4>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Airtime, Data & Power</p>
-                            </div>
-                            <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7 }}>
-                                <div style={{ 
-                                    width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                    marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
-                                    color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                                }}>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                    </svg>
-                                </div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Vault</h4>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Save in USD & Earn</p>
-                            </div>
+                             <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
+                                 <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                                 <div style={{ 
+                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                     marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                     color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                                 }}>
+                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                         <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                                     </svg>
+                                 </div>
+                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Gift Cards</h4>
+                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
+                             </div>
+                             <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
+                                 <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                                 <div style={{ 
+                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                     marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                     color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                                 }}>
+                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                                     </svg>
+                                 </div>
+                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Bill Payments</h4>
+                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
+                             </div>
+                             <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
+                                 <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                                 <div style={{ 
+                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                     marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                     color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                                 }}>
+                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                     </svg>
+                                 </div>
+                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Vault</h4>
+                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
+                             </div>
                         </div>
                     </div>
 
