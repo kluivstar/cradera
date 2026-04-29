@@ -108,7 +108,7 @@ const SellCrypto = () => {
                     </p>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '1.5rem', alignItems: 'start' }}>
+                <div className="sell-crypto-grid">
                     {/* LEFT SIDE: ASSET LIST */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                         <h3 style={{ fontSize: '0.875rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.25rem', paddingLeft: '0.25rem' }}>

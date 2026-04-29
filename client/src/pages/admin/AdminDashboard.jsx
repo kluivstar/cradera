@@ -41,7 +41,7 @@ const AdminDashboard = () => {
                 {error && <div className="auth-error" style={{ marginBottom: '2rem' }}>{error}</div>}
 
                 {/* Performance Highlights */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
+                <div className="stats-grid" style={{ marginBottom: '2rem' }}>
                     <div className="dash-card" style={{ padding: '1.25rem' }}>
                         <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Users</p>
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem' }}>
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '1.25rem' }}>
+                <div className="admin-main-grid">
                     
                     {/* Recent Transactions List */}
                     <div>

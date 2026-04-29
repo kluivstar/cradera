@@ -3,18 +3,13 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ isOpen, onClose }) => {
-    const { user, logout, isAdmin } = useAuth();
+    const { logout, isAdmin } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = () => {
         const redirectPath = isAdmin ? '/admin/login' : '/login';
         logout();
         navigate(redirectPath);
-        if (onClose) onClose();
-    };
-
-    const handleLinkClick = () => {
-        if (onClose) onClose();
     };
 
     const userLinks = [
@@ -40,12 +35,12 @@ const Sidebar = ({ isOpen, onClose }) => {
     const links = isAdmin ? adminLinks : userLinks;
 
     return (
-        <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
+        <aside className={`sidebar ${isOpen ? 'sidebar-open-mobile' : ''}`}>
             <div className="sidebar-top">
                 <div className="sidebar-logo">Cradera</div>
                 <button className="sidebar-close-btn" onClick={onClose}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/>
                     </svg>
                 </button>
             </div>
@@ -56,7 +51,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                         key={link.to}
                         to={link.to}
                         end
-                        onClick={handleLinkClick}
+                        onClick={onClose}
                         className={({ isActive }) =>
                             `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
                         }
@@ -80,4 +75,5 @@ const Sidebar = ({ isOpen, onClose }) => {
         </aside>
     );
 };
+
 export default Sidebar;

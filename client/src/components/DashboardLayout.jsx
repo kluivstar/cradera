@@ -5,24 +5,21 @@ import Topbar from './Topbar';
 const DashboardLayout = ({ children }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-    const closeSidebar = () => setIsSidebarOpen(false);
-
     return (
-        <div className="dashboard-layout">
-            <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
-            
-            {/* Backdrop for mobile */}
-            {isSidebarOpen && (
-                <div className="sidebar-backdrop" onClick={closeSidebar}></div>
-            )}
-
+        <div className={`dashboard-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <div className="dashboard-main">
-                <Topbar onMenuClick={toggleSidebar} />
+                <Topbar onMenuClick={() => setIsSidebarOpen(true)} />
                 <div className="dashboard-content-inner">
                     {children}
                 </div>
             </div>
+            {isSidebarOpen && (
+                <div 
+                    className="sidebar-overlay" 
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
         </div>
     );
 };
