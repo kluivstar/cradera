@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
     const { user, logout, isAdmin } = useAuth();
     const navigate = useNavigate();
 
@@ -10,6 +10,11 @@ const Sidebar = () => {
         const redirectPath = isAdmin ? '/admin/login' : '/login';
         logout();
         navigate(redirectPath);
+        if (onClose) onClose();
+    };
+
+    const handleLinkClick = () => {
+        if (onClose) onClose();
     };
 
     const userLinks = [
@@ -35,9 +40,14 @@ const Sidebar = () => {
     const links = isAdmin ? adminLinks : userLinks;
 
     return (
-        <aside className="sidebar">
+        <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''}`}>
             <div className="sidebar-top">
                 <div className="sidebar-logo">Cradera</div>
+                <button className="sidebar-close-btn" onClick={onClose}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
             </div>
 
             <nav className="sidebar-nav">
@@ -46,6 +56,7 @@ const Sidebar = () => {
                         key={link.to}
                         to={link.to}
                         end
+                        onClick={handleLinkClick}
                         className={({ isActive }) =>
                             `sidebar-link ${isActive ? 'sidebar-link-active' : ''}`
                         }
@@ -69,5 +80,4 @@ const Sidebar = () => {
         </aside>
     );
 };
-
 export default Sidebar;
