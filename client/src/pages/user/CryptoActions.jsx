@@ -11,7 +11,7 @@ const CryptoActions = () => {
             title: 'Sell Crypto',
             description: 'Convert your digital assets to instant Naira cash.',
             icon: (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                 </svg>
             ),
@@ -23,8 +23,8 @@ const CryptoActions = () => {
             title: 'Buy Crypto',
             description: 'Purchase top assets with competitive market rates.',
             icon: (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 19V5M5 12l7-7 7 7"/>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                 </svg>
             ),
             active: false,
@@ -105,17 +105,28 @@ const CryptoActions = () => {
                             )}
 
                             <div style={{ 
-                                width: '64px', 
-                                height: '64px', 
-                                borderRadius: '18px', 
-                                background: action.active ? 'rgba(11, 34, 83, 0.05)' : '#F9FAFB',
+                                width: '72px', 
+                                height: '72px', 
+                                borderRadius: '22px', 
+                                background: '#F3F4F6',
                                 color: action.active ? 'var(--color-primary)' : '#9CA3AF',
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 justifyContent: 'center',
-                                marginBottom: '1.5rem'
+                                marginBottom: '1.75rem'
                             }}>
-                                {action.icon}
+                                <div style={{
+                                    width: '44px',
+                                    height: '44px',
+                                    borderRadius: '50%',
+                                    background: '#FFFFFF',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                                }}>
+                                    {action.icon}
+                                </div>
                             </div>
 
                             <h3 style={{ 
