@@ -10,6 +10,7 @@ const ManageAssets = () => {
     const [formData, setFormData] = useState({
         name: '',
         symbol: '',
+        icon: '',
         currentRate: '',
         active: true,
         supportedNetworks: [{ networkName: '', walletAddress: '', active: true }]
@@ -35,6 +36,7 @@ const ManageAssets = () => {
         setFormData({
             name: '',
             symbol: '',
+            icon: '',
             currentRate: '',
             active: true,
             supportedNetworks: [{ networkName: '', walletAddress: '', active: true }]
@@ -103,6 +105,7 @@ const ManageAssets = () => {
         setFormData({
             name: asset.name,
             symbol: asset.symbol,
+            icon: asset.icon || '',
             currentRate: asset.currentRate || '',
             active: asset.active !== undefined ? asset.active : true,
             supportedNetworks: asset.supportedNetworks?.length > 0 
@@ -178,7 +181,14 @@ const ManageAssets = () => {
                                         assets.map((asset) => (
                                             <tr key={asset._id}>
                                                 <td style={{ padding: '0.875rem 1.25rem' }}>
-                                                    <div style={{ fontWeight: '500', color: 'var(--color-primary)' }}>{asset.name}</div>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                                        {asset.icon ? (
+                                                            <img src={asset.icon} alt={asset.name} style={{ width: '24px', height: '24px', borderRadius: '50%' }} />
+                                                        ) : (
+                                                            <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.65rem' }}>{asset.symbol[0]}</div>
+                                                        )}
+                                                        <div style={{ fontWeight: '500', color: 'var(--color-primary)' }}>{asset.name}</div>
+                                                    </div>
                                                 </td>
                                                 <td style={{ fontWeight: '500', fontSize: '0.8125rem' }}>{asset.symbol}</td>
                                                 <td style={{ fontWeight: '500', color: 'var(--color-primary)' }}>₦{asset.currentRate?.toLocaleString()} / $</td>
@@ -256,6 +266,11 @@ const ManageAssets = () => {
                                         <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Symbol</label>
                                         <input name="symbol" value={formData.symbol} onChange={handleInputChange} placeholder="e.g. BTC" required style={{ padding: '0.625rem', borderRadius: '8px', border: '1px solid var(--color-border)', outline: 'none', fontSize: '0.875rem' }} />
                                     </div>
+                                </div>
+
+                                <div className="form-group" style={{ marginBottom: '1rem' }}>
+                                    <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Asset Icon URL (Picture)</label>
+                                    <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. https://example.com/btc.png" style={{ width: '100%', padding: '0.625rem', borderRadius: '8px', border: '1px solid var(--color-border)', outline: 'none', fontSize: '0.875rem' }} />
                                 </div>
                                 
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
