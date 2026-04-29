@@ -10,15 +10,15 @@ const ManageAssets = () => {
     const [formData, setFormData] = useState({
         name: '',
         symbol: '',
-        icon: '💰',
-        rate: '',
-        networks: [{ name: '', address: '' }]
+        currentRate: '',
+        active: true,
+        supportedNetworks: [{ networkName: '', walletAddress: '', active: true }]
     });
 
     const fetchAssets = async () => {
         try {
             setLoading(true);
-            const res = await api.get('/assets/admin');
+            const res = await api.get('/assets');
             setAssets(res.data);
         } catch (err) {
             console.error('Failed to fetch assets', err);
@@ -35,46 +35,64 @@ const ManageAssets = () => {
         setFormData({
             name: '',
             symbol: '',
-            icon: '💰',
-            rate: '',
-            networks: [{ name: '', address: '' }]
+            currentRate: '',
+            active: true,
+            supportedNetworks: [{ networkName: '', walletAddress: '', active: true }]
         });
         setEditingAsset(null);
     };
 
     const handleInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value, type, checked } = e.target;
+        setFormData({ 
+            ...formData, 
+            [name]: type === 'checkbox' ? checked : value 
+        });
     };
 
     const handleNetworkChange = (index, field, value) => {
-        const newNetworks = [...formData.networks];
-        newNetworks[index] = { ...newNetworks[index], [field]: value };
-        setFormData({ ...formData, networks: newNetworks });
+        const newNetworks = [...formData.supportedNetworks];
+        newNetworks[index] = { 
+            ...newNetworks[index], 
+            [field]: field === 'active' ? value : value 
+        };
+        setFormData({ ...formData, supportedNetworks: newNetworks });
     };
 
     const addNetwork = () => {
         setFormData({
             ...formData,
-            networks: [...formData.networks, { name: '', address: '' }]
+            supportedNetworks: [...formData.supportedNetworks, { networkName: '', walletAddress: '', active: true }]
         });
     };
 
     const removeNetwork = (index) => {
-        const newNetworks = formData.networks.filter((_, i) => i !== index);
-        setFormData({ ...formData, networks: newNetworks });
+        const newNetworks = formData.supportedNetworks.filter((_, i) => i !== index);
+        setFormData({ ...formData, supportedNetworks: newNetworks });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const data = {
+                ...formData,
+                symbol: formData.symbol.toUpperCase(),
+                currentRate: parseFloat(formData.currentRate)
+            };
+            
+            let response;
             if (editingAsset) {
-                await api.patch(`/assets/${editingAsset._id}`, formData);
+                response = await api.patch(`/assets/${editingAsset._id}`, data);
             } else {
-                await api.post('/assets', formData);
+                response = await api.post('/assets', data);
             }
+            
+            console.log('Asset operation successful:', response.data);
             setIsModalOpen(false);
             resetForm();
-            fetchAssets();
+            
+            // Re-fetch immediately to sync with backend
+            await fetchAssets();
         } catch (err) {
             alert(err.response?.data?.error || 'Operation failed.');
         }
@@ -85,16 +103,18 @@ const ManageAssets = () => {
         setFormData({
             name: asset.name,
             symbol: asset.symbol,
-            icon: asset.icon || '💰',
-            rate: asset.rate || '',
-            networks: asset.networks.length > 0 ? [...asset.networks] : [{ name: '', address: '' }]
+            currentRate: asset.currentRate || '',
+            active: asset.active !== undefined ? asset.active : true,
+            supportedNetworks: asset.supportedNetworks?.length > 0 
+                ? asset.supportedNetworks.map(n => ({ ...n })) 
+                : [{ networkName: '', walletAddress: '', active: true }]
         });
         setIsModalOpen(true);
     };
 
     const toggleStatus = async (asset) => {
         try {
-            await api.patch(`/assets/${asset._id}`, { isActive: !asset.isActive });
+            await api.patch(`/assets/${asset._id}`, { active: !asset.active });
             fetchAssets();
         } catch (err) {
             alert('Failed to update status');
@@ -117,7 +137,7 @@ const ManageAssets = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                     <div>
                         <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Asset Management</h1>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Configure the assets and networks available for user deposits.</p>
+                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Configure trading assets, exchange rates, and wallet networks.</p>
                     </div>
                     <button 
                         className="btn btn-primary"
@@ -134,159 +154,158 @@ const ManageAssets = () => {
                 {loading ? (
                     <div className="loading-screen"><div className="loading-spinner"></div><p>Fetching assets...</p></div>
                 ) : (
-                    <div className="table-wrapper" style={{ border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.04)', borderRadius: '16px' }}>
-                        <table className="data-table">
-                            <thead style={{ background: '#F8FAFC' }}>
-                                <tr>
-                                    <th style={{ padding: '0.75rem 1.25rem' }}>Asset</th>
-                                    <th>Rate (₦/$)</th>
-                                    <th>Supported Networks</th>
-                                    <th>Status</th>
-                                    <th style={{ textAlign: 'right', paddingRight: '1.25rem' }}>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {assets.length === 0 ? (
+                    <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
+                        <div className="table-wrapper">
+                            <table className="data-table">
+                                <thead style={{ background: '#F8FAFC' }}>
                                     <tr>
-                                        <td colSpan="4" style={{ textAlign: 'center', padding: '5rem' }}>
-                                            <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center', opacity: 0.1 }}>
-                                                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
-                                                </svg>
-                                            </div>
-                                            <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem' }}>No assets configured yet.</p>
-                                        </td>
+                                        <th style={{ padding: '1rem 1.25rem' }}>Asset</th>
+                                        <th>Symbol</th>
+                                        <th>Exchange Rate</th>
+                                        <th>Networks</th>
+                                        <th>Status</th>
+                                        <th style={{ textAlign: 'right', paddingRight: '1.25rem' }}>Actions</th>
                                     </tr>
-                                ) : (
-                                    assets.map((asset) => (
-                                        <tr key={asset._id}>
-                                            <td style={{ padding: '0.75rem 1.25rem' }}>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem' }}>
-                                                        {asset.icon}
-                                                    </div>
-                                                    <div>
-                                                        <div style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.9rem' }}>{asset.name}</div>
-                                                        <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '500' }}>{asset.symbol}</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td style={{ fontWeight: '500', color: 'var(--color-primary)' }}>
-                                                ₦{asset.rate || 0}
-                                            </td>
-                                            <td>
-                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                                                    {asset.networks.map((n, i) => (
-                                                        <span key={i} className="status-badge" style={{ background: 'white', color: 'var(--color-text-primary)', fontSize: '0.65rem', fontWeight: '500', padding: '0.25rem 0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
-                                                            {n.name}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <span className={`status-badge ${asset.isActive ? 'status-confirmed' : 'status-pending'}`} style={{ padding: '0.25rem 0.625rem', borderRadius: '4px', fontSize: '0.65rem', fontWeight: '500' }}>
-                                                    {asset.isActive ? 'ACTIVE' : 'DISABLED'}
-                                                </span>
-                                            </td>
-                                            <td style={{ textAlign: 'right', paddingRight: '1.25rem' }}>
-                                                <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
-                                                    <button onClick={() => handleEdit(asset)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '500', borderRadius: '4px' }}>Edit</button>
-                                                    <button onClick={() => toggleStatus(asset)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '500', borderRadius: '4px' }}>
-                                                        {asset.isActive ? 'Disable' : 'Enable'}
-                                                    </button>
-                                                    <button onClick={() => handleDelete(asset._id)} className="btn btn-secondary" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', fontWeight: '500', borderRadius: '4px', color: 'var(--color-danger)', borderColor: 'rgba(239, 68, 68, 0.1)' }}>Delete</button>
-                                                </div>
+                                </thead>
+                                <tbody>
+                                    {assets.length === 0 ? (
+                                        <tr>
+                                            <td colSpan="6" style={{ textAlign: 'center', padding: '5rem' }}>
+                                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>No assets configured yet.</p>
                                             </td>
                                         </tr>
-                                    ))
-                                )}
-                            </tbody>
-                        </table>
+                                    ) : (
+                                        assets.map((asset) => (
+                                            <tr key={asset._id}>
+                                                <td style={{ padding: '0.875rem 1.25rem' }}>
+                                                    <div style={{ fontWeight: '500', color: 'var(--color-primary)' }}>{asset.name}</div>
+                                                </td>
+                                                <td style={{ fontWeight: '500', fontSize: '0.8125rem' }}>{asset.symbol}</td>
+                                                <td style={{ fontWeight: '500', color: 'var(--color-primary)' }}>₦{asset.currentRate?.toLocaleString()} / $</td>
+                                                <td>
+                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                                                        {asset.supportedNetworks?.map((n, i) => (
+                                                            <span key={i} style={{ 
+                                                                fontSize: '0.65rem', 
+                                                                padding: '0.15rem 0.45rem', 
+                                                                background: n.active ? '#F3F4F6' : '#FEE2E2', 
+                                                                color: n.active ? '#374151' : '#B91C1C',
+                                                                borderRadius: '4px',
+                                                                fontWeight: '500'
+                                                            }}>
+                                                                {n.networkName}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span style={{ 
+                                                        fontSize: '0.65rem', 
+                                                        padding: '0.25rem 0.6rem', 
+                                                        borderRadius: '6px',
+                                                        fontWeight: '600',
+                                                        background: asset.active ? '#DEF7EC' : '#F3F4F6',
+                                                        color: asset.active ? '#03543F' : '#6B7280'
+                                                    }}>
+                                                        {asset.active ? 'ACTIVE' : 'DISABLED'}
+                                                    </span>
+                                                </td>
+                                                <td style={{ textAlign: 'right', paddingRight: '1.25rem' }}>
+                                                    <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+                                                        <button onClick={() => handleEdit(asset)} style={{ background: 'none', border: '1px solid var(--color-border)', padding: '0.35rem 0.75rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '500', cursor: 'pointer' }}>Edit</button>
+                                                        <button onClick={() => toggleStatus(asset)} style={{ background: 'none', border: '1px solid var(--color-border)', padding: '0.35rem 0.75rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '500', cursor: 'pointer' }}>
+                                                            {asset.active ? 'Disable' : 'Enable'}
+                                                        </button>
+                                                        <button onClick={() => handleDelete(asset._id)} style={{ background: '#FEF2F2', border: 'none', color: '#B91C1C', padding: '0.35rem 0.75rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '500', cursor: 'pointer' }}>Delete</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 )}
 
-                {/* Unified Flat Modal Overlay */}
+                {/* MODAL */}
                 {isModalOpen && (
                     <div style={{
-                        position: 'fixed',
-                        top: 0, left: 0, right: 0, bottom: 0,
-                        background: 'rgba(15, 23, 42, 0.6)',
-                        backdropFilter: 'blur(8px)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        zIndex: 1000,
-                        padding: '1.5rem'
+                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                        background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(4px)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1.5rem'
                     }}>
                         <div style={{ 
-                            background: 'white',
-                            width: '100%', 
-                            maxWidth: '500px', 
-                            maxHeight: '90vh', 
-                            overflowY: 'auto', 
-                            padding: '1.5rem', 
-                            borderRadius: '16px', 
-                            boxShadow: '0 20px 40px rgba(0,0,0,0.1)' 
+                            background: 'white', width: '100%', maxWidth: '540px', maxHeight: '90vh', overflowY: 'auto', 
+                            padding: '1.75rem', borderRadius: '20px', boxShadow: '0 20px 50px rgba(0,0,0,0.1)' 
                         }}>
                             <div style={{ marginBottom: '1.5rem' }}>
-                                <h3 style={{ fontSize: '1.25rem', fontWeight: '500', color: 'var(--color-primary)', marginBottom: '0.25rem' }}>
-                                    {editingAsset ? 'Modify Asset' : 'Add New Asset'}
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: '500', color: 'var(--color-primary)' }}>
+                                    {editingAsset ? 'Edit Asset' : 'Add New Asset'}
                                 </h3>
-                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Fill in the details below to configure the asset.</p>
+                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Configure asset properties and wallet networks.</p>
                             </div>
 
                             <form onSubmit={handleSubmit}>
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                                     <div className="form-group">
                                         <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Asset Name</label>
-                                        <input name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. Tether" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }} />
+                                        <input name="name" value={formData.name} onChange={handleInputChange} placeholder="e.g. Bitcoin" required style={{ padding: '0.625rem', borderRadius: '8px', border: '1px solid var(--color-border)', outline: 'none', fontSize: '0.875rem' }} />
                                     </div>
                                     <div className="form-group">
                                         <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Symbol</label>
-                                        <input name="symbol" value={formData.symbol} onChange={handleInputChange} placeholder="e.g. USDT" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }} />
+                                        <input name="symbol" value={formData.symbol} onChange={handleInputChange} placeholder="e.g. BTC" required style={{ padding: '0.625rem', borderRadius: '8px', border: '1px solid var(--color-border)', outline: 'none', fontSize: '0.875rem' }} />
                                     </div>
                                 </div>
                                 
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
                                     <div className="form-group">
-                                        <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Display Icon (Emoji)</label>
-                                        <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. 💰" style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', width: '100%', fontSize: '0.875rem' }} />
+                                        <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Current Rate (₦/$)</label>
+                                        <input name="currentRate" type="number" value={formData.currentRate} onChange={handleInputChange} placeholder="e.g. 1500" required style={{ padding: '0.625rem', borderRadius: '8px', border: '1px solid var(--color-border)', outline: 'none', fontSize: '0.875rem' }} />
                                     </div>
-                                    <div className="form-group">
-                                        <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Exchange Rate (₦/$)</label>
-                                        <input type="number" name="rate" value={formData.rate} onChange={handleInputChange} placeholder="e.g. 1500" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', width: '100%', fontSize: '0.875rem' }} />
-                                    </div>
-                                    <div style={{ borderTop: '1px solid var(--color-border)', pt: '1rem', marginTop: '1rem' }}>
-                                        <h4 style={{ margin: '1rem 0', color: 'var(--color-primary)', fontWeight: '500', fontSize: '0.9rem' }}>Network Details</h4>
-                                        
-                                        {formData.networks.map((net, index) => (
-                                            <div key={index} style={{ marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '0.75rem' }}>
-                                                    <div className="form-group">
-                                                        <label style={{ fontSize: '0.75rem', fontWeight: '500' }}>Network {index > 0 ? `#${index + 1}` : ''}</label>
-                                                        <input value={net.name} onChange={(e) => handleNetworkChange(index, 'name', e.target.value)} placeholder="e.g. TRC20" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }} />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label style={{ fontSize: '0.75rem', fontWeight: '500' }}>Deposit Address</label>
-                                                        <input value={net.address} onChange={(e) => handleNetworkChange(index, 'address', e.target.value)} placeholder="Wallet Address" required style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }} />
-                                                    </div>
-                                                </div>
-                                                {formData.networks.length > 1 && (
-                                                    <button type="button" onClick={() => removeNetwork(index)} style={{ color: 'var(--color-danger)', border: 'none', background: 'none', fontSize: '0.7rem', fontWeight: '500', textAlign: 'left', width: 'fit-content', cursor: 'pointer' }}>Remove</button>
-                                                )}
-                                            </div>
-                                        ))}
-                                        
-                                        <button type="button" onClick={addNetwork} style={{ background: 'none', border: 'none', color: 'var(--color-accent)', fontWeight: '500', fontSize: '0.8125rem', cursor: 'pointer', marginBottom: '1rem' }}>
-                                            + Add Another Network
-                                        </button>
+                                    <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', paddingTop: '1.5rem' }}>
+                                        <input type="checkbox" name="active" checked={formData.active} onChange={handleInputChange} id="assetActive" />
+                                        <label htmlFor="assetActive" style={{ fontSize: '0.875rem', fontWeight: '500', cursor: 'pointer' }}>Active Asset</label>
                                     </div>
                                 </div>
 
-                                <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
-                                    <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', fontSize: '0.875rem', fontWeight: '500' }}>
-                                        {editingAsset ? 'Update Asset' : 'Create Asset'}
+                                <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '1.25rem', marginBottom: '1.5rem' }}>
+                                    <h4 style={{ fontSize: '0.9rem', fontWeight: '600', color: 'var(--color-primary)', marginBottom: '1rem' }}>Wallet Networks</h4>
+                                    
+                                    {formData.supportedNetworks.map((net, index) => (
+                                        <div key={index} style={{ marginBottom: '1.25rem', padding: '1rem', background: '#F9FAFB', borderRadius: '12px', position: 'relative' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                                                <div className="form-group">
+                                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: '0.25rem' }}>Network Name</label>
+                                                    <input value={net.networkName} onChange={(e) => handleNetworkChange(index, 'networkName', e.target.value)} placeholder="e.g. ERC20" required style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '0.8125rem' }} />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: '0.25rem' }}>Wallet Address</label>
+                                                    <input value={net.walletAddress} onChange={(e) => handleNetworkChange(index, 'walletAddress', e.target.value)} placeholder="0x..." required style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '0.8125rem' }} />
+                                                </div>
+                                            </div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                                    <input type="checkbox" checked={net.active} onChange={(e) => handleNetworkChange(index, 'active', e.target.checked)} id={`netActive-${index}`} />
+                                                    <label htmlFor={`netActive-${index}`} style={{ fontSize: '0.75rem', fontWeight: '500' }}>Active Network</label>
+                                                </div>
+                                                {formData.supportedNetworks.length > 1 && (
+                                                    <button type="button" onClick={() => removeNetwork(index)} style={{ color: '#EF4444', border: 'none', background: 'none', fontSize: '0.7rem', fontWeight: '600', cursor: 'pointer' }}>Remove Network</button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                    
+                                    <button type="button" onClick={addNetwork} style={{ background: 'var(--color-primary)', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '8px', fontSize: '0.8125rem', fontWeight: '500', cursor: 'pointer', width: '100%' }}>
+                                        + Add Network
                                     </button>
-                                    <button type="button" className="btn btn-secondary" style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', fontSize: '0.875rem', fontWeight: '500' }} onClick={() => setIsModalOpen(false)}>
+                                </div>
+
+                                <div style={{ display: 'flex', gap: '1rem' }}>
+                                    <button type="submit" style={{ flex: 2, padding: '0.75rem', borderRadius: '10px', background: 'var(--color-primary)', color: 'white', border: 'none', fontSize: '0.875rem', fontWeight: '600', cursor: 'pointer' }}>
+                                        {editingAsset ? 'Update Asset Configuration' : 'Create Asset'}
+                                    </button>
+                                    <button type="button" onClick={() => setIsModalOpen(false)} style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', background: 'white', border: '1px solid var(--color-border)', fontSize: '0.875rem', fontWeight: '500', cursor: 'pointer' }}>
                                         Cancel
                                     </button>
                                 </div>

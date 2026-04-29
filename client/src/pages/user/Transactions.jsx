@@ -4,16 +4,14 @@ import api from '../../utils/api';
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
-    const [filteredTransactions, setFilteredTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
     const fetchTransactions = async () => {
         try {
             setLoading(true);
             const res = await api.get('/transactions');
             setTransactions(res.data);
-            setFilteredTransactions(res.data);
         } catch (err) {
             console.error('Failed to fetch transactions');
         } finally {
@@ -25,15 +23,14 @@ const Transactions = () => {
         fetchTransactions();
     }, []);
 
-    useEffect(() => {
-        const filtered = transactions.filter(tx => 
-            tx.asset.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            tx.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            tx.amount.toString().includes(searchTerm) ||
-            tx.details?.hash?.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredTransactions = transactions.filter(tx => {
+        const query = searchQuery.toLowerCase();
+        return (
+            tx.asset?.toLowerCase().includes(query) ||
+            tx.status?.toLowerCase().includes(query) ||
+            tx.details?.hash?.toLowerCase().includes(query)
         );
-        setFilteredTransactions(filtered);
-    }, [searchTerm, transactions]);
+    });
 
     const getStatusStyle = (status) => {
         switch (status) {
@@ -47,71 +44,68 @@ const Transactions = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div className="dashboard-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    <div>
-                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>Transaction History</h1>
-                        <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your deposit and activity history.</p>
-                    </div>
-                    <div style={{ position: 'relative', width: '300px' }}>
-                        <svg 
-                            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
-                            style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#9CA3AF' }}
-                        >
-                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                        </svg>
-                        <input 
-                            type="text" 
-                            placeholder="Search assets, type, amount..." 
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            style={{ 
-                                width: '100%', 
-                                padding: '0.75rem 1rem 0.75rem 2.75rem', 
-                                borderRadius: '12px', 
-                                border: '1px solid var(--color-border)', 
-                                background: 'white', 
-                                fontSize: '0.875rem',
-                                outline: 'none',
-                                transition: 'all 0.2s',
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
-                            }} 
-                        />
-                    </div>
+                <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>Transaction History</h1>
+                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your deposit and activity history.</p>
                 </div>
 
                 {loading ? (
                     <div className="loading-screen"><div className="loading-spinner"></div></div>
                 ) : (
-                    <div className="dash-card" style={{ padding: '0', overflow: 'hidden', border: 'none', boxShadow: '0 2px 15px rgba(0,0,0,0.03)' }}>
-                        <div className="table-wrapper">
-                            <table className="data-table">
-                                <thead style={{ background: '#F9FAFB' }}>
-                                    <tr>
-                                        <th style={{ padding: '0.75rem 1rem' }}>Type</th>
-                                        <th>Asset</th>
-                                        <th>Amount</th>
-                                        <th>Network</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th style={{ textAlign: 'right', paddingRight: '1rem' }}>ID/Hash</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {filteredTransactions.length === 0 ? (
+                    <>
+                        <div style={{ marginBottom: '1.25rem', display: 'flex', justifyContent: 'flex-start' }}>
+                            <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
+                                <svg style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9CA3AF' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                </svg>
+                                <input 
+                                    type="text" 
+                                    placeholder="Search by hash, asset, status..." 
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    style={{ 
+                                        width: '100%', 
+                                        padding: '0.5rem 1rem 0.5rem 2.25rem', 
+                                        fontSize: '0.8125rem', 
+                                        borderRadius: '8px', 
+                                        border: '1px solid var(--color-border)',
+                                        background: '#FFFFFF',
+                                        outline: 'none',
+                                        fontFamily: 'var(--font-base)',
+                                        fontWeight: '500'
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
+                            <div className="table-wrapper">
+                                <table className="data-table">
+                                    <thead style={{ background: '#F9FAFB' }}>
                                         <tr>
-                                            <td colSpan="7" style={{ textAlign: 'center', padding: '3rem' }}>
-                                                <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center', opacity: 0.1 }}>
-                                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-                                                    </svg>
-                                                </div>
-                                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
-                                                    {searchTerm ? 'No matches found for your search.' : 'No transactions found yet.'}
-                                                </p>
-                                            </td>
+                                            <th style={{ padding: '0.75rem 1rem' }}>Type</th>
+                                            <th>Asset</th>
+                                            <th>Amount</th>
+                                            <th>Network</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                            <th style={{ textAlign: 'right', paddingRight: '1rem' }}>ID/Hash</th>
                                         </tr>
-                                    ) : (
-                                        filteredTransactions.map((tx) => (
+                                    </thead>
+                                    <tbody>
+                                        {filteredTransactions.length === 0 ? (
+                                            <tr>
+                                                <td colSpan="7" style={{ textAlign: 'center', padding: '3rem' }}>
+                                                    <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center', opacity: 0.1 }}>
+                                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                                                        </svg>
+                                                    </div>
+                                                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>No matching transactions found.</p>
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                            filteredTransactions.map((tx) => (
                                             <tr key={tx.id}>
                                                 <td style={{ padding: '0.625rem 1rem' }}>
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -172,8 +166,9 @@ const Transactions = () => {
                             </table>
                         </div>
                     </div>
-                )}
-            </div>
+                </>
+            )}
+        </div>
         </DashboardLayout>
     );
 };

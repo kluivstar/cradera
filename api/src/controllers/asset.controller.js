@@ -1,19 +1,34 @@
 import Asset from '../models/Asset.js';
 
 // @desc    Get all active assets for users
-// @route   GET /api/assets
-// @access  Public
+// @route   GET /api/assets/active
+// @access  Private
 export const getActiveAssets = async (req, res) => {
     try {
-        const assets = await Asset.find({ isActive: true });
+        const assets = await Asset.find({ active: true });
         res.status(200).json(assets);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch assets' });
     }
 };
 
+// @desc    Get asset by ID
+// @route   GET /api/assets/:id
+// @access  Private
+export const getAssetById = async (req, res) => {
+    try {
+        const asset = await Asset.findById(req.params.id);
+        if (!asset) {
+            return res.status(404).json({ error: 'Asset not found' });
+        }
+        res.status(200).json(asset);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch asset' });
+    }
+};
+
 // @desc    Get all assets for admin
-// @route   GET /api/assets/admin
+// @route   GET /api/assets
 // @access  Private (Admin)
 export const getAllAssets = async (req, res) => {
     try {
@@ -29,7 +44,7 @@ export const getAllAssets = async (req, res) => {
 // @access  Private (Admin)
 export const createAsset = async (req, res) => {
     try {
-        const { name, symbol, icon, networks, rate } = req.body;
+        const { name, symbol, icon, currentRate, supportedNetworks } = req.body;
         
         const existingAsset = await Asset.findOne({ symbol: symbol.toUpperCase() });
         if (existingAsset) {
@@ -40,8 +55,8 @@ export const createAsset = async (req, res) => {
             name,
             symbol,
             icon,
-            networks,
-            rate
+            currentRate,
+            supportedNetworks
         });
 
         await asset.save();

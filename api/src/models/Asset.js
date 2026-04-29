@@ -14,29 +14,33 @@ const assetSchema = new mongoose.Schema({
         trim: true
     },
     icon: {
-        type: String, // Emoji or URL
-        default: '💰'
+        type: String, // SVG path or identifier
+        default: ''
     },
-    networks: [{
-        name: {
+    currentRate: {
+        type: Number,
+        default: 0
+    },
+    active: {
+        type: Boolean,
+        default: true
+    },
+    supportedNetworks: [{
+        networkName: {
             type: String,
             required: true,
             trim: true
         },
-        address: {
+        walletAddress: {
             type: String,
             required: true,
             trim: true
+        },
+        active: {
+            type: Boolean,
+            default: true
         }
-    }],
-    rate: {
-        type: Number,
-        default: 0
-    },
-    isActive: {
-        type: Boolean,
-        default: true
-    }
+    }]
 }, {
     timestamps: true
 });

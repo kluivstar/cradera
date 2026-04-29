@@ -42,7 +42,7 @@ const AdminDashboard = () => {
 
                 {/* Performance Highlights */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
-                    <div className="dash-card" style={{ padding: '1.25rem', border: 'none', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+                    <div className="dash-card" style={{ padding: '1.25rem' }}>
                         <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Users</p>
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem' }}>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>{stats.totalUsers}</h2>
@@ -50,18 +50,18 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                     <Link to="/admin/deposits" style={{ textDecoration: 'none' }}>
-                        <div className="dash-card" style={{ padding: '1.25rem', border: 'none', boxShadow: '0 2px 10px rgba(0,0,0,0.02)', background: stats.pendingDeposits > 0 ? 'rgba(56, 189, 248, 0.05)' : 'white' }}>
+                        <div className="dash-card" style={{ padding: '1.25rem', background: stats.pendingDeposits > 0 ? 'rgba(56, 189, 248, 0.05)' : 'white' }}>
                             <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Pending Deposits</p>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '500', color: stats.pendingDeposits > 0 ? 'var(--color-accent)' : 'var(--color-primary)' }}>{stats.pendingDeposits}</h2>
                         </div>
                     </Link>
                     <Link to="/admin/kyc" style={{ textDecoration: 'none' }}>
-                        <div className="dash-card" style={{ padding: '1.25rem', border: 'none', boxShadow: '0 2px 10px rgba(0,0,0,0.02)', background: stats.pendingKYC > 0 ? 'rgba(245, 158, 11, 0.05)' : 'white' }}>
+                        <div className="dash-card" style={{ padding: '1.25rem', background: stats.pendingKYC > 0 ? 'rgba(245, 158, 11, 0.05)' : 'white' }}>
                             <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>KYC Requests</p>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '500', color: stats.pendingKYC > 0 ? '#F59E0B' : 'var(--color-primary)' }}>{stats.pendingKYC}</h2>
                         </div>
                     </Link>
-                    <div className="dash-card" style={{ padding: '1.25rem', border: 'none', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+                    <div className="dash-card" style={{ padding: '1.25rem' }}>
                         <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Platform Volume</p>
                         <h2 style={{ fontSize: '1.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>₦{(stats.totalVolume || 0).toLocaleString()}</h2>
                     </div>
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
                             <h3 style={{ fontSize: '1rem', fontWeight: '500', color: 'var(--color-primary)' }}>Recent System Activity</h3>
                             <Link to="/admin/transactions" style={{ fontSize: '0.8125rem', color: 'var(--color-accent)', fontWeight: '500', textDecoration: 'none' }}>View Audit Log</Link>
                         </div>
-                        <div className="dash-card" style={{ padding: '0', overflow: 'hidden', border: 'none', boxShadow: '0 2px 15px rgba(0,0,0,0.03)' }}>
+                        <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
                             {loading ? (
                                 <div style={{ padding: '4rem', textAlign: 'center' }}><div className="loading-spinner"></div></div>
                             ) : recentActivity.length === 0 ? (

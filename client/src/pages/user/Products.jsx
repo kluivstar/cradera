@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../components/DashboardLayout';
 
 const Products = () => {
     const products = [
         {
-            id: 'crypto',
-            title: 'Sell Crypto',
-            description: 'Instantly sell your digital assets at the best market rates and get paid in Naira.',
+            id: 'sell-crypto',
+            title: 'Buy/Sell Crypto',
+            description: 'Buy or sell Bitcoin, USDT, and other digital assets instantly.',
             status: 'Active',
             icon: (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -15,12 +15,12 @@ const Products = () => {
                 </svg>
             ),
             category: 'Finance',
-            path: '/dashboard/sell-crypto'
+            to: '/dashboard/crypto-actions'
         },
         {
             id: 'giftcards',
-            title: 'Gift Cards',
-            description: 'Sell your gift cards at the best market rates and get paid instantly in Naira.',
+            title: 'Buy Gift Card',
+            description: 'Purchase global gift cards at the best rates with your wallet balance.',
             status: 'Coming Soon',
             icon: (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -30,21 +30,9 @@ const Products = () => {
             category: 'Assets'
         },
         {
-            id: 'airtime',
-            title: 'Airtime & Data',
-            description: 'Instant mobile recharge for all major networks globally with exclusive discounts.',
-            status: 'Coming Soon',
-            icon: (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/>
-                </svg>
-            ),
-            category: 'Utility'
-        },
-        {
             id: 'esim',
-            title: 'Global eSIM',
-            description: 'Stay connected across 150+ countries with our instant activation eSIM services.',
+            title: 'eSIM',
+            description: 'Instant global connectivity with our low-cost eSIM data plans.',
             status: 'Coming Soon',
             icon: (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -54,9 +42,33 @@ const Products = () => {
             category: 'Travel'
         },
         {
-            id: 'bills',
-            title: 'Bill Payments',
-            description: 'Pay electricity, cable TV, and other utilities conveniently from your wallet.',
+            id: 'buy-airtime',
+            title: 'Buy Airtime',
+            description: 'Top up your mobile phone instantly across all major networks.',
+            status: 'Coming Soon',
+            icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/>
+                </svg>
+            ),
+            category: 'Utility'
+        },
+        {
+            id: 'sell-airtime',
+            title: 'Sell Airtime',
+            description: 'Convert your excess airtime to cash in your Naira wallet.',
+            status: 'Coming Soon',
+            icon: (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 1v22M5 8l7-7 7 7M5 16l7 7 7-7"/>
+                </svg>
+            ),
+            category: 'Finance'
+        },
+        {
+            id: 'buy-data',
+            title: 'Buy Data',
+            description: 'Purchase internet data bundles for your mobile and home devices.',
             status: 'Coming Soon',
             icon: (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -64,140 +76,103 @@ const Products = () => {
                 </svg>
             ),
             category: 'Utility'
-        },
-        {
-            id: 'virtual-cards',
-            title: 'Virtual Cards',
-            description: 'Create USD virtual cards for global online shopping and subscriptions.',
-            status: 'Coming Soon',
-            icon: (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
-                </svg>
-            ),
-            category: 'Finance'
         }
     ];
 
+    const navigate = useNavigate();
+
+    const handleProductClick = (product) => {
+        if (product.status === 'Active' && product.to) {
+            navigate(product.to);
+        }
+    };
+
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <div className="dashboard-header" style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
-                        Platform Services
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+                <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
+                        Products
                     </h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', maxWidth: '500px', margin: '0 auto' }}>
-                        Institutional-grade financial tools designed for speed, security, and simplicity.
+                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>
+                        Access our wide range of digital financial services.
                     </p>
                 </div>
 
                 <div className="dashboard-grid" style={{ 
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: '1.5rem'
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                    gap: '1.25rem'
                 }}>
                     {products.map((product) => (
-                        <div key={product.id} className="dash-card" style={{ 
-                            padding: '1.5rem',
+                        <div key={product.id} onClick={() => handleProductClick(product)} className="dash-card" style={{ 
+                            padding: '1.25rem',
                             display: 'flex',
                             flexDirection: 'column',
-                            height: '220px',
+                            minHeight: '180px',
                             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                            position: 'relative',
-                            overflow: 'hidden',
                             cursor: product.status === 'Active' ? 'pointer' : 'default',
-                            boxShadow: '0 4px 15px rgba(0,0,0,0.02)'
+                            background: '#FFFFFF'
                         }}>
-                            {/* Category Badge */}
-                            <div style={{ 
-                                position: 'absolute',
-                                top: '1.25rem',
-                                right: '1.25rem',
-                                fontSize: '0.625rem',
-                                fontWeight: '500',
-                                textTransform: 'uppercase',
-                                color: 'var(--color-text-secondary)',
-                                letterSpacing: '0.1em'
-                            }}>
-                                {product.category}
-                            </div>
-
-                            <div style={{ 
-                                width: '40px', 
-                                height: '40px', 
-                                borderRadius: '10px', 
-                                background: 'white',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '1.25rem',
-                                marginBottom: '1.25rem',
-                                filter: product.status === 'Active' ? 'none' : 'grayscale(1)',
-                                opacity: product.status === 'Active' ? 1 : 0.5,
-                                flexShrink: 0,
-                                color: 'var(--color-primary)',
-                                boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                            }}>
-                                {product.icon}
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                                <div style={{ 
+                                    width: '36px', 
+                                    height: '36px', 
+                                    borderRadius: '8px', 
+                                    background: '#F3F4F6',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'var(--color-primary)',
+                                    opacity: product.status === 'Active' ? 1 : 0.5
+                                }}>
+                                    {product.icon}
+                                </div>
+                                <span style={{ 
+                                    fontSize: '0.65rem', 
+                                    fontWeight: '500', 
+                                    padding: '0.2rem 0.5rem', 
+                                    borderRadius: '4px',
+                                    background: product.status === 'Active' ? 'rgba(56, 189, 248, 0.1)' : '#F3F4F6',
+                                    color: product.status === 'Active' ? 'var(--color-primary)' : '#9CA3AF',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em'
+                                }}>
+                                    {product.status}
+                                </span>
                             </div>
                             
                             <h3 style={{ 
-                                fontSize: '1.1rem', 
+                                fontSize: '0.95rem', 
                                 fontWeight: '500',
-                                marginBottom: '0.5rem', 
+                                marginBottom: '0.35rem', 
                                 color: 'var(--color-primary)' 
                             }}>
                                 {product.title}
                             </h3>
                             
                             <p style={{ 
-                                fontSize: '16px', 
-                                color: 'rgb(11, 34, 83)', 
-                                fontWeight: '500',
-                                lineHeight: '28px', 
-                                marginBottom: 'auto',
-                                paddingBottom: '1rem'
+                                fontSize: '0.8125rem', 
+                                color: 'var(--color-text-secondary)', 
+                                lineHeight: '1.4', 
+                                marginBottom: 'auto'
                             }}>
                                 {product.description}
                             </p>
                             
-                            <div style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                justifyContent: 'space-between',
-                                paddingTop: '1rem',
-                                marginTop: 'auto'
-                            }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <div style={{ 
-                                        width: '8px', 
-                                        height: '8px', 
-                                        borderRadius: '50%', 
-                                        background: product.status === 'Active' ? '#10B981' : '#D1D5DB' 
-                                    }}></div>
-                                    <span style={{ 
-                                        fontSize: '0.75rem', 
-                                        fontWeight: '500', 
-                                        color: product.status === 'Active' ? 'var(--color-primary)' : 'var(--color-text-secondary)'
+                            {product.status === 'Active' && (
+                                <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
+                                    <button className="btn" style={{ 
+                                        padding: '0.35rem 0.75rem', 
+                                        fontSize: '0.75rem',
+                                        background: 'var(--color-primary)',
+                                        color: '#FFFFFF',
+                                        borderRadius: '6px'
                                     }}>
-                                        {product.status}
-                                    </span>
+                                        Sell
+                                    </button>
                                 </div>
-
-                                {product.status === 'Active' ? (
-                                    <Link to={product.path || '#'} style={{ textDecoration: 'none' }}>
-                                        <button className="btn btn-accent" style={{ 
-                                            padding: '0.4rem 1rem', 
-                                            fontSize: '0.8125rem',
-                                            fontWeight: '500'
-                                        }}>
-                                            Open App
-                                        </button>
-                                    </Link>
-                                ) : (
-                                    <span style={{ fontSize: '0.75rem', color: '#9CA3AF', fontWeight: '500' }}>Notify Me</span>
-                                )}
-                            </div>
+                            )}
                         </div>
                     ))}
                 </div>

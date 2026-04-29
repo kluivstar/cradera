@@ -76,8 +76,8 @@ const UserDashboard = () => {
                                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
                                 <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦0.00</h2>
                                 <div style={{ display: 'flex', gap: '0.75rem' }}>
-                                    <Link to="/dashboard/sell-crypto" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none' }}>
-                                        + Sell Crypto
+                                    <Link to="/dashboard/crypto-actions" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none' }}>
+                                        + Deposit
                                     </Link>
                                     <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px' }}>
                                         - Withdrawal
@@ -93,7 +93,7 @@ const UserDashboard = () => {
 
                     {/* Quick Stats (4 cols) */}
                     <div style={{ gridColumn: 'span 4', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <div className="dash-card" style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', border: 'none', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
+                        <div className="dash-card" style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                             <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"/>
@@ -110,7 +110,7 @@ const UserDashboard = () => {
                     <div style={{ gridColumn: 'span 12' }}>
                         <h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '1rem', color: 'var(--color-primary)' }}>Our Services</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
-                            <Link to="/dashboard/sell-crypto" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
+                            <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
                                 <div style={{ 
                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
                                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
@@ -121,8 +121,8 @@ const UserDashboard = () => {
                                         <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
                                     </svg>
                                 </div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Sell Crypto</h4>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Instant settlement in Naira</p>
+                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Buy/Sell Crypto</h4>
+                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Trade assets instantly</p>
                             </Link>
                             <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7 }}>
                                 <div style={{ 

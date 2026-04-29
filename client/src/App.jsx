@@ -20,6 +20,7 @@ import Transactions from './pages/user/Transactions';
 import ManageTransactions from './pages/admin/ManageTransactions';
 import Convert from './pages/user/Convert';
 import SellCrypto from './pages/user/SellCrypto';
+import CryptoActions from './pages/user/CryptoActions';
 import DashboardLayout from './components/DashboardLayout';
 
 const PlaceholderPage = ({ title }) => (
@@ -84,6 +85,9 @@ function AppRoutes() {
             } />
             <Route path="/dashboard/sell-crypto" element={
                 <ProtectedRoute><SellCrypto /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/crypto-actions" element={
+                <ProtectedRoute><CryptoActions /></ProtectedRoute>
             } />
             <Route path="/dashboard/kyc" element={
                 <ProtectedRoute><KYCSubmission /></ProtectedRoute>
