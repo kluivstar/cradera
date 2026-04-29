@@ -34,77 +34,77 @@ const Transactions = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-primary)' }}>Transaction History</h1>
-                    <p className="dashboard-subtitle">Monitor your deposit and activity history.</p>
+                <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
+                    <h1 style={{ fontWeight: '700', color: 'var(--color-primary)' }}>Transaction History</h1>
+                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your deposit and activity history.</p>
                 </div>
 
                 {loading ? (
                     <div className="loading-screen"><div className="loading-spinner"></div></div>
                 ) : (
-                    <div className="dash-card" style={{ padding: '0', overflow: 'hidden', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                    <div className="dash-card" style={{ padding: '0', overflow: 'hidden', border: 'none', boxShadow: '0 2px 15px rgba(0,0,0,0.03)' }}>
                         <div className="table-wrapper">
                             <table className="data-table">
                                 <thead style={{ background: '#F9FAFB' }}>
                                     <tr>
-                                        <th style={{ padding: '1.25rem 1.5rem' }}>Type</th>
+                                        <th style={{ padding: '0.75rem 1rem' }}>Type</th>
                                         <th>Asset</th>
                                         <th>Amount</th>
                                         <th>Network</th>
                                         <th>Status</th>
                                         <th>Date</th>
-                                        <th style={{ textAlign: 'right', paddingRight: '1.5rem' }}>ID/Hash</th>
+                                        <th style={{ textAlign: 'right', paddingRight: '1rem' }}>ID/Hash</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {transactions.length === 0 ? (
                                         <tr>
-                                            <td colSpan="7" style={{ textAlign: 'center', padding: '5rem' }}>
-                                                <div style={{ fontSize: '3rem', marginBottom: '1rem', opacity: 0.2 }}>🧾</div>
-                                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem' }}>No transactions found yet.</p>
+                                            <td colSpan="7" style={{ textAlign: 'center', padding: '3rem' }}>
+                                                <div style={{ fontSize: '2rem', marginBottom: '0.75rem', opacity: 0.2 }}>🧾</div>
+                                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>No transactions found yet.</p>
                                             </td>
                                         </tr>
                                     ) : (
                                         transactions.map((tx) => (
                                             <tr key={tx.id}>
-                                                <td style={{ padding: '1.25rem 1.5rem' }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                                <td style={{ padding: '0.625rem 1rem' }}>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                         <div style={{ 
-                                                            width: '32px', height: '32px', borderRadius: '8px', 
+                                                            width: '28px', height: '28px', borderRadius: '6px', 
                                                             background: tx.type === 'deposit' ? 'rgba(56, 189, 248, 0.1)' : 'rgba(30, 58, 138, 0.1)',
                                                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                             color: tx.type === 'deposit' ? 'var(--color-accent)' : 'var(--color-primary)',
-                                                            fontSize: '1rem'
+                                                            fontSize: '0.875rem'
                                                         }}>
                                                             {tx.type === 'deposit' ? '↓' : '↑'}
                                                         </div>
-                                                        <span style={{ fontWeight: '600', textTransform: 'capitalize' }}>{tx.type}</span>
+                                                        <span style={{ fontWeight: '600', textTransform: 'capitalize', fontSize: '0.875rem' }}>{tx.type}</span>
                                                     </div>
                                                 </td>
-                                                <td style={{ fontWeight: '700', color: 'var(--color-primary)' }}>{tx.asset}</td>
-                                                <td style={{ fontWeight: '700' }}>{tx.amount.toLocaleString()}</td>
+                                                <td style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{tx.asset}</td>
+                                                <td style={{ fontWeight: '700', fontSize: '0.875rem' }}>{tx.amount.toLocaleString()}</td>
                                                 <td>
-                                                    <span style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', fontWeight: '600' }}>
+                                                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '600' }}>
                                                         {tx.details?.network}
                                                     </span>
                                                 </td>
                                                 <td>
                                                     <span className="status-badge" style={{ 
                                                         ...getStatusStyle(tx.status),
-                                                        padding: '0.4rem 0.8rem',
-                                                        borderRadius: '6px',
-                                                        fontSize: '0.75rem',
+                                                        padding: '0.25rem 0.6rem',
+                                                        borderRadius: '4px',
+                                                        fontSize: '0.7rem',
                                                         fontWeight: '700'
                                                     }}>
                                                         {tx.status.toUpperCase()}
                                                     </span>
                                                 </td>
-                                                <td style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>
+                                                <td style={{ color: 'var(--color-text-secondary)', fontSize: '0.8125rem' }}>
                                                     {new Date(tx.date).toLocaleDateString()}
                                                 </td>
-                                                <td style={{ textAlign: 'right', paddingRight: '1.5rem' }}>
-                                                    <code style={{ fontSize: '0.75rem', color: '#9CA3AF', background: '#F3F4F6', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
-                                                        {tx.details?.hash?.substring(0, 10)}...
+                                                <td style={{ textAlign: 'right', paddingRight: '1rem' }}>
+                                                    <code style={{ fontSize: '0.7rem', color: '#9CA3AF', background: '#F3F4F6', padding: '0.15rem 0.4rem', borderRadius: '4px' }}>
+                                                        {tx.details?.hash?.substring(0, 8)}...
                                                     </code>
                                                 </td>
                                             </tr>

@@ -29,7 +29,7 @@ const AdminLogin = () => {
 
     return (
         <div className="auth-page">
-            <div className="auth-card" style={{ boxShadow: '0 0 40px hsla(265, 89%, 68%, 0.15)', borderWidth: '2px', borderColor: 'var(--color-primary)' }}>
+            <div className="auth-card">
                 <div className="auth-header">
                     <h1 className="auth-logo">Cradera Hub</h1>
                     <p className="auth-subtitle">Platform Management Portal</p>

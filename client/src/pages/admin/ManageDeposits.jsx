@@ -44,125 +44,129 @@ const ManageDeposits = () => {
 
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in">
-                <div className="dashboard-header" style={{ marginBottom: 'var(--spacing-8)' }}>
-                    <h1 style={{ color: 'var(--color-primary)', marginBottom: 'var(--spacing-1)' }}>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1600px', margin: '0 auto' }}>
+                <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
+                    <h1 style={{ fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
                         Deposit Management
                     </h1>
-                    <p className="dashboard-subtitle">
+                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>
                         Review, verify, and authorize client funding requests globally.
                     </p>
                 </div>
 
-                {error && <div style={{ background: '#FEF2F2', color: 'var(--color-danger)', padding: 'var(--spacing-3)', borderRadius: 'var(--radius-sm)', marginBottom: 'var(--spacing-4)', fontSize: 'var(--font-size-xs)' }}>{error}</div>}
+                {error && <div className="auth-error" style={{ marginBottom: '2rem', padding: '1rem', borderRadius: '12px' }}>{error}</div>}
 
-                <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
+                <div className="dash-card" style={{ padding: '0', overflow: 'hidden', border: '1px solid #F3F4F6' }}>
                     <div className="table-wrapper">
-                        <table className="data-table">
-                            <thead style={{ background: '#F8FAFC' }}>
-                                <tr>
-                                    <th style={{ padding: 'var(--spacing-3) var(--spacing-4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>User Details</th>
-                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Asset & Network</th>
-                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Amount</th>
-                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TX Hash</th>
-                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Status</th>
-                                    <th style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verification</th>
-                                    <th style={{ textAlign: 'right', paddingRight: 'var(--spacing-4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
+                        <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <thead>
+                                <tr style={{ background: '#F9FAFB', borderBottom: '1px solid #F3F4F6' }}>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>User Details</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Asset & Network</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Amount</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>TX Hash</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Status</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Verification</th>
+                                    <th style={{ padding: '0.625rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {loading ? (
                                     <tr>
-                                        <td colSpan="7" style={{ textAlign: 'center', padding: 'var(--spacing-12)' }}>
-                                            <div className="loading-spinner" style={{ margin: '0 auto var(--spacing-4)' }}></div>
-                                            <p className="dashboard-subtitle">Synchronizing transactions...</p>
+                                        <td colSpan="7" style={{ textAlign: 'center', padding: '8rem' }}>
+                                            <div className="loading-spinner" style={{ margin: '0 auto 1.5rem' }}></div>
+                                            <p style={{ color: 'var(--color-text-secondary)', fontWeight: '500' }}>Synchronizing transactions...</p>
                                         </td>
                                     </tr>
                                 ) : deposits.length === 0 ? (
                                     <tr>
-                                        <td colSpan="7" style={{ textAlign: 'center', padding: 'var(--spacing-12)' }}>
-                                            <div style={{ fontSize: '3rem', marginBottom: 'var(--spacing-4)', opacity: 0.1 }}>🧾</div>
-                                            <p className="dashboard-subtitle">No deposit requests found.</p>
+                                        <td colSpan="7" style={{ textAlign: 'center', padding: '8rem' }}>
+                                            <div style={{ fontSize: '4rem', marginBottom: '1.5rem', opacity: 0.1 }}>🧾</div>
+                                            <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem', fontWeight: '500' }}>No deposit requests found in the system.</p>
                                         </td>
                                     </tr>
                                 ) : (
                                     deposits.map((d) => (
-                                        <tr key={d._id}>
-                                            <td style={{ padding: 'var(--spacing-3) var(--spacing-4)' }}>
-                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: 'var(--font-size-xs)' }}>{d.userId?.fullName || 'Unknown User'}</span>
-                                                    <span style={{ fontSize: '10px', color: 'var(--color-text-secondary)' }}>{d.userId?.email}</span>
+                                        <tr key={d._id} style={{ borderBottom: '1px solid #F9FAFB', transition: 'background 0.2s' }}>
+                                            <td style={{ padding: '0.75rem 1rem' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{d.userId?.fullName || 'Unknown User'}</span>
+                                                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{d.userId?.email}</span>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: 'var(--font-size-xs)' }}>{d.assetType}</span>
-                                                    <span style={{ fontSize: '10px', color: '#94A3B8', textTransform: 'uppercase' }}>{d.network}</span>
+                                            <td style={{ padding: '0.75rem 1rem' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '0.8125rem' }}>{d.assetType}</span>
+                                                    <span style={{ fontSize: '0.625rem', color: '#9CA3AF', textTransform: 'uppercase' }}>{d.network}</span>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: 'var(--font-size-sm)' }}>${d.amount.toLocaleString()}</span>
-                                                    <span style={{ fontSize: '10px', color: '#94A3B8' }}>{new Date(d.createdAt).toLocaleDateString()}</span>
+                                            <td style={{ padding: '0.75rem 1rem' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                                                    <span style={{ fontWeight: '700', color: 'var(--color-primary)', fontSize: '0.9rem' }}>${d.amount.toLocaleString()}</span>
+                                                    <span style={{ fontSize: '0.625rem', color: '#9CA3AF' }}>{new Date(d.createdAt).toLocaleDateString()}</span>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
-                                                    <code style={{ background: '#F1F5F9', padding: '0.2rem 0.4rem', borderRadius: 'var(--radius-sm)', fontSize: '10px', maxWidth: '80px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                            <td style={{ padding: '0.75rem 1rem' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                                                    <code style={{ background: '#F3F4F6', padding: '0.15rem 0.4rem', borderRadius: '4px', fontSize: '0.7rem', maxWidth: '80px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                                         {d.txHash}
                                                     </code>
-                                                    <button onClick={() => copyToClipboard(d.txHash)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '12px', opacity: 0.5 }}>📋</button>
+                                                    <button onClick={() => copyToClipboard(d.txHash)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.75rem', opacity: 0.5 }}>📋</button>
                                                 </div>
                                             </td>
-                                            <td>
+                                            <td style={{ padding: '0.75rem 1rem' }}>
                                                 <span className={`status-badge status-${d.status}`} style={{
-                                                    padding: '0.25rem 0.5rem',
-                                                    fontSize: '9px'
+                                                    padding: '0.25rem 0.625rem',
+                                                    borderRadius: '4px',
+                                                    fontSize: '0.625rem',
+                                                    fontWeight: '700',
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.02em'
                                                 }}>
-                                                    {d.status.toUpperCase()}
+                                                    {d.status}
                                                 </span>
                                             </td>
-                                            <td>
+                                            <td style={{ padding: '0.75rem 1rem' }}>
                                                 {d.verifiedBy ? (
-                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                                                        <span style={{ fontSize: '10px', fontWeight: '700', color: 'var(--color-success)' }}>VERIFIED</span>
-                                                        <span style={{ fontSize: '9px', color: '#94A3B8' }}>{new Date(d.verifiedAt).toLocaleDateString()}</span>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
+                                                        <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#10B981' }}>Verified</span>
+                                                        <span style={{ fontSize: '0.625rem', color: '#9CA3AF' }}>{new Date(d.verifiedAt).toLocaleDateString()}</span>
                                                     </div>
                                                 ) : (
-                                                    <span style={{ fontSize: '10px', color: '#F59E0B', fontWeight: '700' }}>PENDING</span>
+                                                    <span style={{ fontSize: '0.75rem', color: '#F59E0B', fontWeight: '600' }}>Pending</span>
                                                 )}
                                             </td>
-                                            <td style={{ textAlign: 'right', paddingRight: 'var(--spacing-4)' }}>
-                                                <div style={{ display: 'flex', gap: 'var(--spacing-2)', justifyContent: 'flex-end' }}>
+                                            <td style={{ padding: '0.75rem 1rem' }}>
+                                                <div style={{ display: 'flex', gap: '0.5rem' }}>
                                                     {d.status === 'pending' ? (
                                                         <>
                                                             <button
                                                                 onClick={() => handleAction(d._id, 'confirm')}
                                                                 disabled={actionLoading === d._id}
-                                                                className="btn"
-                                                                style={{ padding: '0.4rem 0.8rem', fontSize: '10px', background: 'var(--color-primary)', color: 'white' }}
+                                                                className="btn btn-accent"
+                                                                style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', borderRadius: '4px', fontWeight: '700' }}
                                                             >
-                                                                {actionLoading === d._id ? '...' : 'CONFIRM'}
+                                                                {actionLoading === d._id ? '...' : 'Confirm'}
                                                             </button>
                                                             <button
                                                                 onClick={() => handleAction(d._id, 'reject')}
                                                                 disabled={actionLoading === d._id}
                                                                 style={{
-                                                                    background: '#FEF2F2',
-                                                                    color: 'var(--color-danger)',
+                                                                    background: '#FEE2E2',
+                                                                    color: '#DC2626',
                                                                     border: 'none',
-                                                                    padding: '0.4rem 0.8rem',
-                                                                    fontSize: '10px',
-                                                                    borderRadius: 'var(--radius-sm)',
+                                                                    padding: '0.35rem 0.75rem',
+                                                                    fontSize: '0.75rem',
+                                                                    borderRadius: '4px',
                                                                     fontWeight: '700',
                                                                     cursor: 'pointer'
                                                                 }}
                                                             >
-                                                                {actionLoading === d._id ? '...' : 'REJECT'}
+                                                                {actionLoading === d._id ? '...' : 'Reject'}
                                                             </button>
                                                         </>
                                                     ) : (
-                                                        <span style={{ fontSize: '10px', fontWeight: '700', color: '#94A3B8' }}>LOCKED</span>
+                                                        <span style={{ fontSize: '0.7rem', fontWeight: '700', color: '#9CA3AF', textTransform: 'uppercase' }}>Locked</span>
                                                     )}
                                                 </div>
                                             </td>

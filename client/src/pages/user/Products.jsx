@@ -55,75 +55,80 @@ const Products = () => {
 
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in">
-                <div className="dashboard-header" style={{ marginBottom: 'var(--spacing-10)', textAlign: 'center' }}>
-                    <h1 style={{ color: 'var(--color-primary)', marginBottom: 'var(--spacing-2)' }}>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                <div className="dashboard-header" style={{ marginBottom: '2rem', textAlign: 'center' }}>
+                    <h1 style={{ fontWeight: '700', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.5rem' }}>
                         Platform Services
                     </h1>
-                    <p className="dashboard-subtitle" style={{ maxWidth: '500px', margin: '0 auto' }}>
+                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', maxWidth: '500px', margin: '0 auto' }}>
                         Institutional-grade financial tools designed for speed, security, and simplicity.
                     </p>
                 </div>
 
-                <div style={{ 
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-                    gap: 'var(--spacing-4)'
+                <div className="dashboard-grid" style={{ 
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                    gap: '1.25rem'
                 }}>
                     {products.map((product) => (
-                        <div key={product.id} className="dash-card product-card" style={{ 
-                            padding: 'var(--spacing-6)',
+                        <div key={product.id} className="dash-card" style={{ 
+                            padding: '1.25rem',
                             display: 'flex',
                             flexDirection: 'column',
                             height: '100%',
-                            minHeight: '260px',
-                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                            minHeight: '240px',
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                             position: 'relative',
+                            overflow: 'hidden',
+                            border: '1px solid var(--color-border)',
                             cursor: product.status === 'Active' ? 'pointer' : 'default'
                         }}>
                             {/* Category Badge */}
                             <div style={{ 
                                 position: 'absolute',
-                                top: 'var(--spacing-6)',
-                                right: 'var(--spacing-6)',
-                                fontSize: '10px',
+                                top: '1.25rem',
+                                right: '1.25rem',
+                                fontSize: '0.625rem',
                                 fontWeight: '700',
                                 textTransform: 'uppercase',
                                 color: 'var(--color-text-secondary)',
-                                letterSpacing: '0.05em'
+                                letterSpacing: '0.1em'
                             }}>
                                 {product.category}
                             </div>
 
                             <div style={{ 
-                                width: '40px', 
-                                height: '40px', 
-                                borderRadius: 'var(--radius-md)', 
-                                background: product.status === 'Active' ? 'rgba(14, 165, 233, 0.08)' : '#F1F5F9',
+                                width: '48px', 
+                                height: '48px', 
+                                borderRadius: '12px', 
+                                background: product.status === 'Active' ? 'rgba(56, 189, 248, 0.08)' : '#F9FAFB',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                fontSize: '1.25rem',
-                                marginBottom: 'var(--spacing-4)',
+                                fontSize: '1.5rem',
+                                marginBottom: '1rem',
                                 filter: product.status === 'Active' ? 'none' : 'grayscale(1)',
                                 opacity: product.status === 'Active' ? 1 : 0.5,
-                                border: product.status === 'Active' ? '1px solid rgba(14, 165, 233, 0.2)' : '1px solid var(--color-border)'
+                                flexShrink: 0,
+                                border: product.status === 'Active' ? '1px solid rgba(56, 189, 248, 0.2)' : '1px solid var(--color-border)'
                             }}>
                                 {product.icon}
                             </div>
                             
-                            <h4 style={{ 
-                                marginBottom: 'var(--spacing-2)', 
+                            <h3 style={{ 
+                                fontSize: '1.1rem', 
+                                fontWeight: '600',
+                                marginBottom: '0.5rem', 
                                 color: 'var(--color-primary)' 
                             }}>
                                 {product.title}
-                            </h4>
+                            </h3>
                             
                             <p style={{ 
-                                fontSize: 'var(--font-size-xs)', 
+                                fontSize: '0.875rem', 
                                 color: 'var(--color-text-secondary)', 
                                 lineHeight: '1.5', 
-                                marginBottom: 'var(--spacing-6)'
+                                marginBottom: 'auto',
+                                paddingBottom: '1rem'
                             }}>
                                 {product.description}
                             </p>
@@ -133,46 +138,41 @@ const Products = () => {
                                 alignItems: 'center', 
                                 justifyContent: 'space-between',
                                 borderTop: '1px solid var(--color-border)',
-                                paddingTop: 'var(--spacing-4)',
+                                paddingTop: '1rem',
                                 marginTop: 'auto'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                     <div style={{ 
-                                        width: '6px', 
-                                        height: '6px', 
+                                        width: '8px', 
+                                        height: '8px', 
                                         borderRadius: '50%', 
-                                        background: product.status === 'Active' ? 'var(--color-success)' : '#CBD5E1' 
+                                        background: product.status === 'Active' ? '#10B981' : '#D1D5DB' 
                                     }}></div>
                                     <span style={{ 
-                                        fontSize: 'var(--font-size-xs)', 
+                                        fontSize: '0.75rem', 
                                         fontWeight: '600', 
-                                        color: product.status === 'Active' ? 'var(--color-text-primary)' : 'var(--color-text-secondary)'
+                                        color: product.status === 'Active' ? 'var(--color-primary)' : 'var(--color-text-secondary)'
                                     }}>
                                         {product.status}
                                     </span>
                                 </div>
 
                                 {product.status === 'Active' ? (
-                                    <button className="btn" style={{ 
-                                        padding: '0.35rem 0.75rem', 
-                                        fontSize: 'var(--font-size-xs)',
-                                        background: 'var(--color-primary)',
-                                        color: 'white',
-                                        border: 'none'
+                                    <button className="btn btn-accent" style={{ 
+                                        padding: '0.4rem 1rem', 
+                                        fontSize: '0.8125rem',
+                                        fontWeight: '600'
                                     }}>
                                         Open App
                                     </button>
                                 ) : (
-                                    <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', fontWeight: '500' }}>Notify Me</span>
+                                    <span style={{ fontSize: '0.75rem', color: '#9CA3AF', fontWeight: '500' }}>Notify Me</span>
                                 )}
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-            <style>{`
-                .product-card:hover { transform: translateY(-3px); border-color: var(--color-accent); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.06); }
-            `}</style>
         </DashboardLayout>
     );
 };
