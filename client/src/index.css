@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.cdnfonts.com/css/general-sans');
 
 :root {
   /* Colors */
   --color-bg: #FFFFFF;
-  --color-primary: #1E3A8A; /* Dark Blue */
-  --color-primary-hover: #1E40AF;
+  --color-primary: rgb(11, 34, 83);
+  --color-primary-hover: #1e3a8a;
   --color-accent: #38BDF8; /* Sky Blue */
-  --color-text-primary: #1F2937; /* Dark Grey */
+  --color-text-primary: rgb(11, 34, 83);
   --color-text-secondary: #6B7280;
   --color-border: #E5E7EB;
   --color-surface: #FFFFFF;
@@ -25,8 +25,9 @@
   --card-padding: 1.25rem;
   
   /* Typography */
-  --font-base: "Articulat CF", "Inter", -apple-system, sans-serif;
-  --font-size-base: 14px;
+  --font-base: "General Sans", "Inter", -apple-system, sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 24px;
 }
 
 * {
@@ -41,7 +42,8 @@ body {
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   font-size: var(--font-size-base);
-  line-height: 1.4;
+  line-height: var(--line-height-base);
+  font-weight: 500;
 }
 
 h1, h2, h3, h4, h5, h6 {
