@@ -49,7 +49,7 @@ export const AssetCard = ({ asset, isSelected, selectedNetwork, onSelect, onNetw
                     )}
                 </div>
                 <div style={{ flex: 1, textAlign: 'left' }}>
-                    <div style={{ fontSize: '0.9375rem', fontWeight: '600', color: 'var(--color-primary)' }}>Sell {asset.name}</div>
+                    <div style={{ fontSize: '0.9375rem', fontWeight: '500', color: 'var(--color-primary)' }}>Sell {asset.name}</div>
                 </div>
                 {hasMultipleNetworks && (
                     <div style={{ 
@@ -110,7 +110,7 @@ export const WalletDetails = ({ asset, network, formData, handleChange, handleSu
 
     return (
         <div style={{ textAlign: 'left' }}>
-            <h2 style={{ fontSize: '1.125rem', fontWeight: '600', color: 'var(--color-primary)', marginBottom: '1rem' }}>
+            <h2 style={{ fontSize: '1.125rem', fontWeight: '500', color: 'var(--color-primary)', marginBottom: '1rem' }}>
                 {asset.symbol} ({network.networkName}) Wallet Details
             </h2>
 
@@ -123,12 +123,12 @@ export const WalletDetails = ({ asset, network, formData, handleChange, handleSu
                 </div>
 
                 <div style={{ marginBottom: '0.75rem' }}>
-                    <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', fontWeight: '600' }}>DEPOSIT ADDRESS</span>
+                    <span style={{ fontSize: '0.8125rem', color: 'var(--color-text-secondary)', fontWeight: '500' }}>DEPOSIT ADDRESS</span>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
                     <div className="wallet-address-box" style={{ flex: 1, padding: '0.75rem 1rem' }}>
-                        <code style={{ fontSize: '0.875rem', color: 'var(--color-primary)', fontWeight: '600', letterSpacing: '0.01em', wordBreak: 'break-all' }}>
+                        <code style={{ fontSize: '0.875rem', color: 'var(--color-primary)', fontWeight: '500', letterSpacing: '0.01em', wordBreak: 'break-all' }}>
                             {network.walletAddress}
                         </code>
                         <button 
@@ -160,13 +160,13 @@ export const WalletDetails = ({ asset, network, formData, handleChange, handleSu
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
                     </svg>
-                    <p style={{ margin: 0, fontSize: '0.75rem', fontWeight: '600' }}>Min. deposit: 0.00001 {asset.symbol}. Less will not be credited.</p>
+                    <p style={{ margin: 0, fontSize: '0.75rem', fontWeight: '500' }}>Min. deposit: 0.00001 {asset.symbol}. Less will not be credited.</p>
                 </div>
 
                 <form onSubmit={handleSubmit} style={{ borderTop: '1px solid #F3F4F6', paddingTop: '1.25rem' }}>
                     <div className="form-grid-2col" style={{ marginBottom: '1rem', gap: '0.75rem' }}>
                         <div className="form-group">
-                            <label style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.25rem', display: 'block', color: 'var(--color-text-secondary)' }}>AMOUNT SENT ($)</label>
+                            <label style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: '0.25rem', display: 'block', color: 'var(--color-text-secondary)' }}>AMOUNT SENT ($)</label>
                             <input 
                                 type="number" name="amount" value={formData.amount} onChange={handleChange} 
                                 placeholder="0.00" required 
@@ -174,7 +174,7 @@ export const WalletDetails = ({ asset, network, formData, handleChange, handleSu
                             />
                         </div>
                         <div className="form-group">
-                            <label style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.25rem', display: 'block', color: 'var(--color-text-secondary)' }}>SENDING ADDRESS</label>
+                            <label style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: '0.25rem', display: 'block', color: 'var(--color-text-secondary)' }}>SENDING ADDRESS</label>
                             <input 
                                 type="text" name="fromAddress" value={formData.fromAddress} onChange={handleChange} 
                                 placeholder="Your wallet address" required 
@@ -183,7 +183,7 @@ export const WalletDetails = ({ asset, network, formData, handleChange, handleSu
                         </div>
                     </div>
                     <div className="form-group" style={{ marginBottom: '1.25rem' }}>
-                        <label style={{ fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.25rem', display: 'block', color: 'var(--color-text-secondary)' }}>TRANSACTION HASH / TXID</label>
+                        <label style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: '0.25rem', display: 'block', color: 'var(--color-text-secondary)' }}>TRANSACTION HASH / TXID</label>
                         <input 
                             type="text" name="txHash" value={formData.txHash} onChange={handleChange} 
                             placeholder="Paste the transaction ID" required 
@@ -192,7 +192,7 @@ export const WalletDetails = ({ asset, network, formData, handleChange, handleSu
                     </div>
                     <button 
                         type="submit" disabled={submitting} 
-                        style={{ width: '100%', padding: '0.875rem', borderRadius: '5px', background: 'var(--color-primary)', color: '#FFFFFF', fontWeight: '600', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
+                        style={{ width: '100%', padding: '0.875rem', borderRadius: '5px', background: 'var(--color-primary)', color: '#FFFFFF', fontWeight: '500', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
                     >
                         {submitting ? 'Processing...' : 'I have made the payment'}
                     </button>

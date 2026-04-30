@@ -103,7 +103,7 @@ const SellCrypto = () => {
                     
                     {/* LEFT COLUMN: ASSET LIST SIDEBAR */}
                     <div className="asset-list-container">
-                        <h3 style={{ fontSize: '0.7rem', fontWeight: '700', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', letterSpacing: '0.05em', textAlign: 'left' }}>SELECT ASSET TO SELL</h3>
+                        <h3 style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', letterSpacing: '0.05em', textAlign: 'left' }}>SELECT ASSET TO SELL</h3>
                         {assets.map(asset => (
                             <AssetCard 
                                 key={asset._id}

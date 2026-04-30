@@ -96,7 +96,7 @@ const CryptoActions = () => {
                                     padding: '0.25rem 0.75rem',
                                     borderRadius: '20px',
                                     fontSize: '0.7rem',
-                                    fontWeight: '600',
+                                    fontWeight: '500',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.05em'
                                 }}>
@@ -131,7 +131,7 @@ const CryptoActions = () => {
 
                             <h3 style={{ 
                                 fontSize: '1.25rem', 
-                                fontWeight: '600', 
+                                fontWeight: '500', 
                                 color: 'var(--color-primary)', 
                                 marginBottom: '0.75rem' 
                             }}>
