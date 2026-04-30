@@ -15,6 +15,9 @@ export const registerUser = async ({ email, password, referralCode: referrerCode
 
     // Generate unique referral code for the new user
     const userReferralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+    
+    // Generate unique user ID
+    const uniqueId = 'CRD-' + Math.floor(100000 + Math.random() * 900000);
 
     // Check if referred by someone
     let referredBy = null;
@@ -34,7 +37,8 @@ export const registerUser = async ({ email, password, referralCode: referrerCode
         password: hashedPassword,
         role: 'user',
         referralCode: userReferralCode,
-        referredBy
+        referredBy,
+        uniqueId
     });
 
     await user.save();

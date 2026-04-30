@@ -13,6 +13,11 @@ export const getMe = async (req, res) => {
                 id: user._id,
                 email: user.email,
                 role: user.role,
+                fullName: user.fullName,
+                phoneNumber: user.phoneNumber,
+                country: user.country,
+                uniqueId: user.uniqueId,
+                transactionPin: !!user.transactionPin, // boolean to check if set
                 kycStatus: user.kycStatus,
                 createdAt: user.createdAt,
             },

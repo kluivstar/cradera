@@ -25,7 +25,17 @@ export const register = async (req, res) => {
 
         res.status(201).json({
             message: 'User registered successfully',
-            user: { id: user._id, email: user.email, role: user.role },
+            user: { 
+                id: user._id, 
+                email: user.email, 
+                role: user.role,
+                fullName: user.fullName,
+                phoneNumber: user.phoneNumber,
+                country: user.country,
+                uniqueId: user.uniqueId,
+                transactionPin: !!user.transactionPin,
+                kycStatus: user.kycStatus
+            },
             token,
         });
     } catch (err) {
@@ -48,7 +58,17 @@ export const login = async (req, res) => {
 
         res.status(200).json({
             message: 'Login successful',
-            user: { id: user._id, email: user.email, role: user.role },
+            user: { 
+                id: user._id, 
+                email: user.email, 
+                role: user.role,
+                fullName: user.fullName,
+                phoneNumber: user.phoneNumber,
+                country: user.country,
+                uniqueId: user.uniqueId,
+                transactionPin: !!user.transactionPin,
+                kycStatus: user.kycStatus
+            },
             token,
         });
     } catch (err) {
@@ -74,7 +94,17 @@ export const adminLogin = async (req, res) => {
 
         res.status(200).json({
             message: 'Admin login successful',
-            user: { id: user._id, email: user.email, role: user.role },
+            user: { 
+                id: user._id, 
+                email: user.email, 
+                role: user.role,
+                fullName: user.fullName,
+                phoneNumber: user.phoneNumber,
+                country: user.country,
+                uniqueId: user.uniqueId,
+                transactionPin: !!user.transactionPin,
+                kycStatus: user.kycStatus
+            },
             token,
         });
     } catch (err) {

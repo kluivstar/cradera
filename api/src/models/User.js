@@ -12,9 +12,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    uniqueId: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    country: {
+        type: String,
+        trim: true
+    },
     phoneNumber: {
         type: String,
         trim: true
+    },
+    transactionPin: {
+        type: String, // Hashed PIN
     },
     password: {
         type: String,
