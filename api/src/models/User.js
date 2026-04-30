@@ -8,6 +8,14 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
     },
+    fullName: {
+        type: String,
+        trim: true
+    },
+    phoneNumber: {
+        type: String,
+        trim: true
+    },
     password: {
         type: String,
         required: true,
@@ -27,6 +35,19 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
     pendingBalance: {
+        type: Number,
+        default: 0
+    },
+    referralCode: {
+        type: String,
+        unique: true,
+        sparse: true // Allow null for existing users initially
+    },
+    referredBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    referralCount: {
         type: Number,
         default: 0
     }

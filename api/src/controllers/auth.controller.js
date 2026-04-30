@@ -5,6 +5,7 @@ import { registerUser, loginUser, generateToken } from '../services/auth.service
 const registerSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
+    referralCode: Joi.string().allow('', null),
 });
 
 const loginSchema = Joi.object({

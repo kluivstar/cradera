@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
-export const registerUser = async ({ email, password }) => {
+export const registerUser = async ({ email, password, referralCode: referrerCode }) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -13,11 +13,28 @@ export const registerUser = async ({ email, password }) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Generate unique referral code for the new user
+    const userReferralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    // Check if referred by someone
+    let referredBy = null;
+    if (referrerCode) {
+        const referrer = await User.findOne({ referralCode: referrerCode.toUpperCase() });
+        if (referrer) {
+            referredBy = referrer._id;
+            // Increment referrer's count
+            referrer.referralCount += 1;
+            await referrer.save();
+        }
+    }
+
     // Create user
     const user = new User({
         email,
         password: hashedPassword,
-        role: 'user'
+        role: 'user',
+        referralCode: userReferralCode,
+        referredBy
     });
 
     await user.save();
