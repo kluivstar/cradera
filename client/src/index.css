@@ -343,46 +343,39 @@ main {
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  margin: 0.1rem 0.5rem;
-  border-radius: 6px;
-  font-size: 0.8125rem;
+  gap: 10px;
+  padding: 0.625rem 0.875rem;
+  margin: 0.15rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-primary);
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .sidebar-link-icon {
-  color: #9CA3AF; /* Grey icons */
-  font-size: 1.1rem;
+  color: currentColor;
+  font-size: 1.15rem;
   display: flex;
   align-items: center;
   transition: all 0.2s ease;
-  filter: grayscale(1);
-  opacity: 0.7;
-}
-
-.sidebar-link:hover {
-  /* NO hover background as per strict rules */
-  color: var(--color-primary-hover);
+  opacity: 0.85;
 }
 
 .sidebar-link:hover .sidebar-link-icon {
   opacity: 1;
-  filter: grayscale(0);
+  color: var(--color-primary);
 }
 
 .sidebar-link-active {
-  background: var(--color-primary); /* Dark blue background */
-  color: #FFFFFF !important; /* White text */
-  font-weight: 500;
+  background: rgba(11, 34, 83, 0.05) !important;
+  color: var(--color-primary) !important;
+  font-weight: 600;
 }
 
 .sidebar-link-active .sidebar-link-icon {
-  color: #FFFFFF;
-  filter: grayscale(0);
+  color: var(--color-primary);
   opacity: 1;
 }
 
@@ -443,10 +436,10 @@ main {
 
 .sell-crypto-grid {
   display: grid;
-  grid-template-columns: 280px 480px;
-  gap: 2rem;
+  grid-template-columns: 320px 480px;
+  gap: 3rem;
   align-items: start;
-  justify-content: center;
+  justify-content: flex-start;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -492,9 +485,18 @@ main {
 }
 
 .asset-card-active {
+  background: #FFFFFF !important;
+  border: 1px solid var(--color-primary) !important;
+  box-shadow: 0 10px 25px rgba(11, 34, 83, 0.08) !important;
+}
+
+.network-item:hover {
+  background: #F9FAFB;
+}
+
+.network-active {
   background: rgba(11, 34, 83, 0.03) !important;
-  border: 1.5px solid var(--color-primary) !important;
-  box-shadow: 0 8px 20px rgba(11, 34, 83, 0.08) !important;
+  color: var(--color-primary) !important;
 }
 
 .stats-grid {

@@ -13,7 +13,7 @@ const ManageAssets = () => {
         icon: '',
         currentRate: '',
         active: true,
-        supportedNetworks: [{ networkName: '', walletAddress: '', active: true }]
+        supportedNetworks: [{ networkName: '', walletAddress: '', qrCode: '', active: true }]
     });
 
     const fetchAssets = async () => {
@@ -39,7 +39,7 @@ const ManageAssets = () => {
             icon: '',
             currentRate: '',
             active: true,
-            supportedNetworks: [{ networkName: '', walletAddress: '', active: true }]
+            supportedNetworks: [{ networkName: '', walletAddress: '', qrCode: '', active: true }]
         });
         setEditingAsset(null);
     };
@@ -56,15 +56,35 @@ const ManageAssets = () => {
         const newNetworks = [...formData.supportedNetworks];
         newNetworks[index] = { 
             ...newNetworks[index], 
-            [field]: field === 'active' ? value : value 
+            [field]: value 
         };
         setFormData({ ...formData, supportedNetworks: newNetworks });
+    };
+
+    const handleFileChange = (e, index = null) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert('File too large. Max 2MB.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            if (index !== null) {
+                handleNetworkChange(index, 'qrCode', reader.result);
+            } else {
+                setFormData({ ...formData, icon: reader.result });
+            }
+        };
+        reader.readAsDataURL(file);
     };
 
     const addNetwork = () => {
         setFormData({
             ...formData,
-            supportedNetworks: [...formData.supportedNetworks, { networkName: '', walletAddress: '', active: true }]
+            supportedNetworks: [...formData.supportedNetworks, { networkName: '', walletAddress: '', qrCode: '', active: true }]
         });
     };
 
@@ -109,8 +129,8 @@ const ManageAssets = () => {
             currentRate: asset.currentRate || '',
             active: asset.active !== undefined ? asset.active : true,
             supportedNetworks: asset.supportedNetworks?.length > 0 
-                ? asset.supportedNetworks.map(n => ({ ...n })) 
-                : [{ networkName: '', walletAddress: '', active: true }]
+                ? asset.supportedNetworks.map(n => ({ ...n, qrCode: n.qrCode || '' })) 
+                : [{ networkName: '', walletAddress: '', qrCode: '', active: true }]
         });
         setIsModalOpen(true);
     };
@@ -269,8 +289,11 @@ const ManageAssets = () => {
                                 </div>
 
                                 <div className="form-group" style={{ marginBottom: '1rem' }}>
-                                    <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Asset Icon URL (Picture)</label>
-                                    <input name="icon" value={formData.icon} onChange={handleInputChange} placeholder="e.g. https://example.com/btc.png" style={{ width: '100%', padding: '0.625rem', borderRadius: '8px', border: '1px solid var(--color-border)', outline: 'none', fontSize: '0.875rem' }} />
+                                    <label style={{ fontWeight: '500', marginBottom: '0.35rem', fontSize: '0.8125rem' }}>Asset Icon (Picture)</label>
+                                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                        {formData.icon && <img src={formData.icon} alt="Preview" style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />}
+                                        <input type="file" accept="image/*" onChange={(e) => handleFileChange(e)} style={{ fontSize: '0.8125rem' }} />
+                                    </div>
                                 </div>
                                 
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
@@ -289,7 +312,7 @@ const ManageAssets = () => {
                                     
                                     {formData.supportedNetworks.map((net, index) => (
                                         <div key={index} style={{ marginBottom: '1.25rem', padding: '1rem', background: '#F9FAFB', borderRadius: '12px', position: 'relative' }}>
-                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '0.75rem', marginBottom: '1rem' }}>
                                                 <div className="form-group">
                                                     <label style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: '0.25rem' }}>Network Name</label>
                                                     <input value={net.networkName} onChange={(e) => handleNetworkChange(index, 'networkName', e.target.value)} placeholder="e.g. ERC20" required style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '0.8125rem' }} />
@@ -297,6 +320,14 @@ const ManageAssets = () => {
                                                 <div className="form-group">
                                                     <label style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: '0.25rem' }}>Wallet Address</label>
                                                     <input value={net.walletAddress} onChange={(e) => handleNetworkChange(index, 'walletAddress', e.target.value)} placeholder="0x..." required style={{ padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border)', fontSize: '0.8125rem' }} />
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="form-group" style={{ marginBottom: '1rem' }}>
+                                                <label style={{ fontSize: '0.75rem', fontWeight: '500', marginBottom: '0.35rem', display: 'block' }}>Network QR Code</label>
+                                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                                    {net.qrCode && <img src={net.qrCode} alt="QR Preview" style={{ width: '60px', height: '60px', borderRadius: '5px', border: '1px solid #E5E7EB', padding: '2px' }} />}
+                                                    <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, index)} style={{ fontSize: '0.75rem' }} />
                                                 </div>
                                             </div>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -36,6 +36,10 @@ const assetSchema = new mongoose.Schema({
             required: true,
             trim: true
         },
+        qrCode: {
+            type: String,
+            default: ''
+        },
         active: {
             type: Boolean,
             default: true
