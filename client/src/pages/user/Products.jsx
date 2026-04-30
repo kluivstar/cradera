@@ -169,7 +169,7 @@ const Products = () => {
                                         color: '#FFFFFF',
                                         borderRadius: '6px'
                                     }}>
-                                        Sell
+                                        Start Trading
                                     </button>
                                 </div>
                             )}

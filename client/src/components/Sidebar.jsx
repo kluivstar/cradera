@@ -41,7 +41,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         <aside className={`sidebar ${isOpen ? 'sidebar-open-mobile' : ''}`}>
             <div className="sidebar-top">
                 <div className="sidebar-logo">
-                    <img src={logo} alt="Cradera" style={{ height: '182px', width: 'auto', objectFit: 'contain' }} />
+                    <img src={logo} alt="Cradera" style={{ height: '182px', width: 'auto', objectFit: 'contain', marginLeft: '-10px' }} />
                 </div>
                 <button className="sidebar-close-btn" onClick={onClose}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

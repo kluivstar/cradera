@@ -1,48 +1,53 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 import User from '../models/User.js';
 
-export const registerUser = async ({ email, password, referralCode: referrerCode }) => {
+export const registerUser = async ({ email, password, referralCode, username, phoneNumber }) => {
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ 
+        $or: [
+            { email },
+            { username }
+        ]
+    });
+    
     if (existingUser) {
-        throw new Error('User already exists with this email');
+        if (existingUser.email === email) throw new Error('User already exists with this email');
+        if (existingUser.username === username) throw new Error('Username is already taken');
     }
 
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Generate unique referral code for the new user
-    const userReferralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-    
-    // Generate unique user ID
-    const uniqueId = 'CRD-' + Math.floor(100000 + Math.random() * 900000);
+    // Generate my own referral code
+    const myReferralCode = crypto.randomBytes(4).toString('hex').toUpperCase();
 
-    // Check if referred by someone
-    let referredBy = null;
-    if (referrerCode) {
-        const referrer = await User.findOne({ referralCode: referrerCode.toUpperCase() });
+    // Generate unique user ID
+    const uniqueId = 'CRD-' + crypto.randomBytes(3).toString('hex').toUpperCase();
+
+    // Handle being referred
+    let referrer = null;
+    if (referralCode) {
+        referrer = await User.findOne({ referralCode });
         if (referrer) {
-            referredBy = referrer._id;
-            // Increment referrer's count
             referrer.referralCount += 1;
             await referrer.save();
         }
     }
 
-    // Create user
     const user = new User({
         email,
         password: hashedPassword,
-        role: 'user',
-        referralCode: userReferralCode,
-        referredBy,
-        uniqueId
+        username,
+        phoneNumber,
+        referralCode: myReferralCode,
+        uniqueId,
+        referredBy: referrer ? referrer._id : null
     });
 
     await user.save();
-
     return user;
 };
 

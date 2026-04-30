@@ -34,6 +34,7 @@ export const getAllUsers = async (req, res) => {
             users: users.map((u) => ({
                 id: u._id,
                 email: u.email,
+                username: u.username,
                 role: u.role,
                 kycStatus: u.kycStatus || 'unverified',
                 isVerified: u.isVerified || false,

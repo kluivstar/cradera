@@ -5,6 +5,8 @@ import { registerUser, loginUser, generateToken } from '../services/auth.service
 const registerSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
+    username: Joi.string().min(3).max(30).required(),
+    phoneNumber: Joi.string().required(),
     referralCode: Joi.string().allow('', null),
 });
 
@@ -29,17 +31,15 @@ export const register = async (req, res) => {
                 id: user._id, 
                 email: user.email, 
                 role: user.role,
-                fullName: user.fullName,
+                username: user.username,
                 phoneNumber: user.phoneNumber,
-                country: user.country,
                 uniqueId: user.uniqueId,
-                transactionPin: !!user.transactionPin,
-                kycStatus: user.kycStatus
+                country: user.country
             },
             token,
         });
     } catch (err) {
-        if (err.message === 'User already exists with this email') {
+        if (err.message === 'User already exists with this email' || err.message === 'Username is already taken') {
             return res.status(409).json({ error: err.message });
         }
         res.status(500).json({ error: 'Server error during registration' });
@@ -62,11 +62,10 @@ export const login = async (req, res) => {
                 id: user._id, 
                 email: user.email, 
                 role: user.role,
+                uniqueId: user.uniqueId,
                 fullName: user.fullName,
                 phoneNumber: user.phoneNumber,
                 country: user.country,
-                uniqueId: user.uniqueId,
-                transactionPin: !!user.transactionPin,
                 kycStatus: user.kycStatus
             },
             token,
@@ -98,12 +97,7 @@ export const adminLogin = async (req, res) => {
                 id: user._id, 
                 email: user.email, 
                 role: user.role,
-                fullName: user.fullName,
-                phoneNumber: user.phoneNumber,
-                country: user.country,
-                uniqueId: user.uniqueId,
-                transactionPin: !!user.transactionPin,
-                kycStatus: user.kycStatus
+                uniqueId: user.uniqueId
             },
             token,
         });

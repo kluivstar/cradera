@@ -44,7 +44,7 @@ export const getAllAssets = async (req, res) => {
 // @access  Private (Admin)
 export const createAsset = async (req, res) => {
     try {
-        const { name, symbol, icon, currentRate, supportedNetworks } = req.body;
+        const { name, symbol, icon, currentRate, supportedNetworks, active } = req.body;
         
         const existingAsset = await Asset.findOne({ symbol: symbol.toUpperCase() });
         if (existingAsset) {
@@ -56,13 +56,15 @@ export const createAsset = async (req, res) => {
             symbol,
             icon,
             currentRate,
-            supportedNetworks
+            supportedNetworks,
+            active: active !== undefined ? active : true
         });
 
         await asset.save();
         res.status(201).json(asset);
     } catch (err) {
-        res.status(500).json({ error: 'Failed to create asset' });
+        console.error('Create Asset Error:', err);
+        res.status(500).json({ error: err.message || 'Failed to create asset' });
     }
 };
 
@@ -71,13 +73,14 @@ export const createAsset = async (req, res) => {
 // @access  Private (Admin)
 export const updateAsset = async (req, res) => {
     try {
-        const asset = await Asset.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const asset = await Asset.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!asset) {
             return res.status(404).json({ error: 'Asset not found' });
         }
         res.status(200).json(asset);
     } catch (err) {
-        res.status(500).json({ error: 'Failed to update asset' });
+        console.error('Update Asset Error:', err);
+        res.status(500).json({ error: err.message || 'Failed to update asset' });
     }
 };
 
@@ -92,6 +95,7 @@ export const deleteAsset = async (req, res) => {
         }
         res.status(200).json({ message: 'Asset deleted successfully' });
     } catch (err) {
-        res.status(500).json({ error: 'Failed to delete asset' });
+        console.error('Delete Asset Error:', err);
+        res.status(500).json({ error: err.message || 'Failed to delete asset' });
     }
 };

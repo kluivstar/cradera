@@ -45,14 +45,14 @@ export const AuthProvider = ({ children }) => {
         return userData;
     };
 
-    const register = async (email, password) => {
-        const res = await api.post('/auth/register', { email, password });
-        const { token, user: userData } = res.data;
+    const register = async (userData) => {
+        const res = await api.post('/auth/register', userData);
+        const { token, user: userProfile } = res.data;
 
         localStorage.setItem('cradera_token', token);
-        setUser(userData);
+        setUser(userProfile);
 
-        return userData;
+        return userProfile;
     };
 
     const logout = () => {

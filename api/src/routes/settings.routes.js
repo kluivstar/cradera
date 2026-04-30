@@ -6,6 +6,5 @@ const router = express.Router();
 
 router.patch('/profile', protect, updateProfile);
 router.patch('/security', protect, updateSecurity);
-router.patch('/pin', protect, updatePin);
 
 export default router;

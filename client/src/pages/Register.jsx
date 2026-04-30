@@ -3,25 +3,34 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [formData, setFormData] = useState({
+        email: '',
+        username: '',
+        phoneNumber: '',
+        password: '',
+        confirmPassword: '',
+        referralCode: ''
+    });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
     const { register } = useAuth();
     const navigate = useNavigate();
 
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
-        if (password !== confirmPassword) {
+        if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
             return;
         }
 
-        if (password.length < 6) {
+        if (formData.password.length < 6) {
             setError('Password must be at least 6 characters');
             return;
         }
@@ -29,7 +38,7 @@ const Register = () => {
         setLoading(true);
 
         try {
-            await register(email, password);
+            await register(formData);
             navigate('/dashboard');
         } catch (err) {
             setError(err.response?.data?.error || 'Registration failed. Please try again.');
@@ -50,42 +59,77 @@ const Register = () => {
 
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                        <label>Email Address</label>
                         <input
-                            id="email"
+                            name="email"
                             type="email"
                             placeholder="you@example.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formData.email}
+                            onChange={handleChange}
                             required
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label>Username</label>
                         <input
-                            id="password"
+                            name="username"
+                            type="text"
+                            placeholder="Pick a unique username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Phone Number</label>
+                        <input
+                            name="phoneNumber"
+                            type="tel"
+                            placeholder="+1 (555) 000-0000"
+                            value={formData.phoneNumber}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            name="password"
                             type="password"
                             placeholder="At least 6 characters"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={formData.password}
+                            onChange={handleChange}
                             required
                         />
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="confirmPassword">Confirm Password</label>
+                        <label>Confirm Password</label>
                         <input
-                            id="confirmPassword"
+                            name="confirmPassword"
                             type="password"
                             placeholder="Repeat your password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
                             required
                         />
                     </div>
 
-                    <button type="submit" className="auth-btn" disabled={loading}>
+                    <div className="form-group">
+                        <label>Referral Code (Optional)</label>
+                        <input
+                            name="referralCode"
+                            type="text"
+                            placeholder="Enter code if you have one"
+                            value={formData.referralCode}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <button type="submit" className="auth-btn" disabled={loading} style={{ background: 'var(--color-primary)', color: 'white', border: 'none', padding: '0.85rem', borderRadius: '8px', cursor: 'pointer', fontWeight: '500', marginTop: '1rem' }}>
                         {loading ? 'Creating account...' : 'Create Account'}
                     </button>
                 </form>

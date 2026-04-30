@@ -102,7 +102,8 @@ const ManageUsers = () => {
                                             <td style={{ padding: '0.75rem 1rem' }}>
                                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                     <span style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{user.email}</span>
-                                                    <span style={{ fontSize: '0.625rem', color: '#9CA3AF', fontFamily: 'monospace' }}>ID: {user.id}</span>
+                                                    <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '500' }}>@{user.username || 'no-username'}</span>
+                                                    <span style={{ fontSize: '0.625rem', color: '#9CA3AF', fontFamily: 'monospace', marginTop: '0.1rem' }}>ID: {user.id}</span>
                                                 </div>
                                             </td>
                                             <td>

@@ -7,7 +7,6 @@ const KYCSubmission = () => {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [formData, setFormData] = useState({
-        fullName: '',
         idType: 'ID Card',
         idNumber: ''
     });
@@ -98,10 +97,6 @@ const KYCSubmission = () => {
                         <div style={{ background: '#F9FAFB', padding: '1.5rem', borderRadius: '12px', textAlign: 'left', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>FULL NAME</label>
-                                    <p style={{ fontWeight: '500' }}>{kycData.fullName}</p>
-                                </div>
-                                <div>
                                     <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>ID TYPE</label>
                                     <p style={{ fontWeight: '500' }}>{kycData.idType}</p>
                                 </div>
@@ -131,19 +126,6 @@ const KYCSubmission = () => {
                         <form onSubmit={handleSubmit}>
                             {error && <div className="auth-error" style={{ marginBottom: '1.5rem' }}>{error}</div>}
                             {success && <div className="auth-success" style={{ marginBottom: '1.5rem' }}>{success}</div>}
-
-                            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                                <label style={{ fontWeight: '500', marginBottom: '0.5rem' }}>Full Legal Name</label>
-                                <input 
-                                    type="text" 
-                                    name="fullName" 
-                                    value={formData.fullName} 
-                                    onChange={handleChange} 
-                                    placeholder="Enter your full name as it appears on your ID" 
-                                    required 
-                                    style={{ padding: '0.85rem 1rem', borderRadius: '10px' }}
-                                />
-                            </div>
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
                                 <div className="form-group">

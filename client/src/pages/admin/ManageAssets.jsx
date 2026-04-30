@@ -95,11 +95,27 @@ const ManageAssets = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // Basic validation
+        const rate = parseFloat(formData.currentRate);
+        if (isNaN(rate)) {
+            alert('Please enter a valid exchange rate.');
+            return;
+        }
+
+        // Filter out completely empty networks if any
+        const cleanedNetworks = formData.supportedNetworks.filter(n => n.networkName && n.walletAddress);
+        if (cleanedNetworks.length === 0) {
+            alert('Please add at least one supported network with a wallet address.');
+            return;
+        }
+
         try {
             const data = {
                 ...formData,
                 symbol: formData.symbol.toUpperCase(),
-                currentRate: parseFloat(formData.currentRate)
+                currentRate: rate,
+                supportedNetworks: cleanedNetworks
             };
             
             let response;

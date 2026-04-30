@@ -6,13 +6,11 @@ import bcrypt from 'bcryptjs';
 // @access  Private
 export const updateProfile = async (req, res) => {
     try {
-        const { fullName, phoneNumber, country } = req.body;
+        const { phoneNumber } = req.body;
         
         const user = await User.findById(req.user._id);
         
-        if (fullName) user.fullName = fullName;
         if (phoneNumber) user.phoneNumber = phoneNumber;
-        if (country) user.country = country;
 
         await user.save();
 
@@ -30,35 +28,6 @@ export const updateProfile = async (req, res) => {
         });
     } catch (err) {
         res.status(500).json({ error: 'Error updating profile' });
-    }
-};
-
-// @desc    Update transaction PIN
-// @route   PATCH /api/settings/pin
-// @access  Private
-export const updatePin = async (req, res) => {
-    try {
-        const { currentPin, newPin } = req.body;
-
-        const user = await User.findById(req.user._id);
-
-        // If pin already exists, verify current one
-        if (user.transactionPin) {
-            const isMatch = await bcrypt.compare(currentPin, user.transactionPin);
-            if (!isMatch) {
-                return res.status(400).json({ error: 'Incorrect current PIN' });
-            }
-        }
-
-        // Hash new PIN
-        const salt = await bcrypt.genSalt(10);
-        user.transactionPin = await bcrypt.hash(newPin, salt);
-
-        await user.save();
-
-        res.status(200).json({ message: 'Transaction PIN updated successfully' });
-    } catch (err) {
-        res.status(500).json({ error: 'Error updating transaction PIN' });
     }
 };
 
