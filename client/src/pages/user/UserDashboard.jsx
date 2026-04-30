@@ -30,14 +30,14 @@ const UserDashboard = () => {
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                         <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>
-                            Welcome back, <span style={{ color: 'var(--color-accent)' }}>{displayName}</span>
+                            Welcome back, <span style={{ color: '#5170ff' }}>{displayName}</span>
                         </h1>
                         <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your assets and manage your trades with ease.</p>
                     </div>
                     {user?.kycStatus !== 'verified' && (
                         <Link to="/dashboard/kyc" style={{ 
-                            background: 'rgba(56, 189, 248, 0.05)', 
-                            color: 'var(--color-primary)', 
+                            background: '#5170ff', 
+                            color: 'white', 
                             padding: '0.6rem 1.2rem', 
                             borderRadius: '10px', 
                             fontSize: '0.85rem', 
@@ -76,7 +76,7 @@ const UserDashboard = () => {
                                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
                                 <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦0.00</h2>
                                 <div style={{ display: 'flex', gap: '0.75rem' }}>
-                                    <Link to="/dashboard/crypto-actions" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none' }}>
+                                    <Link to="/dashboard/crypto-actions" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', background: '#5170ff', color: 'white' }}>
                                         + Deposit
                                     </Link>
                                     <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px' }}>
