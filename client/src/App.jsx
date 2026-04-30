@@ -21,6 +21,9 @@ import ManageTransactions from './pages/admin/ManageTransactions';
 import Convert from './pages/user/Convert';
 import SellCrypto from './pages/user/SellCrypto';
 import CryptoActions from './pages/user/CryptoActions';
+import Withdraw from './pages/user/Withdraw';
+import Settings from './pages/user/Settings';
+import ManageWithdrawals from './pages/admin/ManageWithdrawals';
 import DashboardLayout from './components/DashboardLayout';
 
 const PlaceholderPage = ({ title }) => (
@@ -99,7 +102,10 @@ function AppRoutes() {
                 <ProtectedRoute><PlaceholderPage title="Referral Program" /></ProtectedRoute>
             } />
             <Route path="/dashboard/settings" element={
-                <ProtectedRoute><PlaceholderPage title="Account Settings" /></ProtectedRoute>
+                <ProtectedRoute><Settings /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/withdraw" element={
+                <ProtectedRoute><Withdraw /></ProtectedRoute>
             } />
             <Route path="/dashboard/support" element={
                 <ProtectedRoute><PlaceholderPage title="Help & Support" /></ProtectedRoute>
@@ -123,6 +129,9 @@ function AppRoutes() {
             } />
             <Route path="/admin/assets" element={
                 <ProtectedRoute adminOnly><ManageAssets /></ProtectedRoute>
+            } />
+            <Route path="/admin/withdrawals" element={
+                <ProtectedRoute adminOnly><ManageWithdrawals /></ProtectedRoute>
             } />
             <Route path="/admin/settings" element={
                 <ProtectedRoute adminOnly><PlaceholderPage title="Platform Settings" /></ProtectedRoute>

@@ -10,6 +10,8 @@ import depositRoutes from './routes/deposit.routes.js';
 import assetRoutes from './routes/asset.routes.js';
 import kycRoutes from './routes/kyc.routes.js';
 import transactionRoutes from './routes/transaction.routes.js';
+import withdrawalRoutes from './routes/withdrawal.routes.js';
+import paymentAccountRoutes from './routes/paymentAccount.routes.js';
 
 // Load environment variables
 dotenv.config();
@@ -32,6 +34,8 @@ app.use('/api/deposits', depositRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/kyc', kycRoutes);
 app.use('/api/transactions', transactionRoutes);
+app.use('/api/withdrawals', withdrawalRoutes);
+app.use('/api/payment-accounts', paymentAccountRoutes);
 
 // Basic health check route
 app.get('/api/health', (req, res) => {

@@ -74,14 +74,14 @@ const UserDashboard = () => {
                         }}>
                             <div style={{ position: 'relative', zIndex: 1 }}>
                                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
-                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦0.00</h2>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦{user?.availableBalance?.toLocaleString() || '0.00'}</h2>
                                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                                     <Link to="/dashboard/crypto-actions" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', background: '#5170ff', color: 'white' }}>
                                         + Deposit
                                     </Link>
-                                    <button className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px' }}>
+                                    <Link to="/dashboard/withdraw" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', color: 'var(--color-primary)', border: '1px solid #ddd' }}>
                                         - Withdrawal
-                                    </button>
+                                    </Link>
                                     <Link to="/dashboard/convert" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M16 3L21 8L16 13"/><path d="M21 8H9C6.23858 8 4 10.2386 4 13V15"/><path d="M8 21L3 16L8 11"/><path d="M3 16H15C17.7614 16 20 13.7614 20 11V9"/>
@@ -111,7 +111,7 @@ const UserDashboard = () => {
 
                     {/* Services Row (Full Width) */}
                     <div className="grid-span-12">
-                        <h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '1rem', color: 'var(--color-primary)' }}>Products</h3>
+                        <h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '1rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
                             <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
                                 <div style={{ 
@@ -127,8 +127,7 @@ const UserDashboard = () => {
                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Buy/Sell Crypto</h4>
                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Trade assets instantly</p>
                             </Link>
-                             <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
-                                 <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                             <Link to="/dashboard/withdraw" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
                                  <div style={{ 
                                      width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
                                      display: 'flex', alignItems: 'center', justifyContent: 'center', 
@@ -136,12 +135,12 @@ const UserDashboard = () => {
                                      color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                                  }}>
                                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                         <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+                                         <path d="M12 1v22M5 15l7 7 7-7"/>
                                      </svg>
                                  </div>
-                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Gift Cards</h4>
-                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
-                             </div>
+                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Withdraw</h4>
+                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Payout to bank/crypto</p>
+                             </Link>
                              <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
                                  <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
                                  <div style={{ 
