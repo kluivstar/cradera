@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import DashboardLayout from '../../components/DashboardLayout';
 import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
 
 const Settings = () => {
     const { user } = useAuth();
+    const location = useLocation();
     const [activeTab, setActiveTab] = useState('profile');
     const [paymentAccounts, setPaymentAccounts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -27,6 +28,15 @@ const Settings = () => {
 
     // Security states
     const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+
+    useEffect(() => {
+        // Handle tab selection via query parameter
+        const params = new URLSearchParams(location.search);
+        const tab = params.get('tab');
+        if (tab && ['profile', 'payment', 'security'].includes(tab)) {
+            setActiveTab(tab);
+        }
+    }, [location.search]);
 
     useEffect(() => {
         if (activeTab === 'payment') {
