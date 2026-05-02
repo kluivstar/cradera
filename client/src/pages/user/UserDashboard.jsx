@@ -25,7 +25,7 @@ const UserDashboard = () => {
     }, []);
 
     return (
-        <DashboardLayout title="Home">
+        <DashboardLayout title="Dashboard">
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
@@ -86,21 +86,6 @@ const UserDashboard = () => {
                                 </div>
                             </div>
                             <div style={{ position: 'absolute', top: '-5%', right: '-2%', fontSize: '8rem', opacity: 0.03, transform: 'rotate(-15deg)', color: 'var(--color-primary)' }}>C</div>
-                        </div>
-                    </div>
-
-                    {/* Quick Stats (4 cols) */}
-                    <div className="grid-span-4 mobile-hide" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <div className="dash-card" style={{ padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                            <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginBottom: '0.1rem' }}>Referral Earnings</p>
-                                <p style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '1rem' }}>₦0.00</p>
-                            </div>
                         </div>
                     </div>
 
