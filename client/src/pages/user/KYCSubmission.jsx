@@ -110,14 +110,14 @@ const KYCSubmission = () => {
     if (loading) return <DashboardLayout><div className="loading-screen"><div className="loading-spinner"></div></div></DashboardLayout>;
 
     const renderStepIndicator = () => (
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem', position: 'relative' }}>
-            <div style={{ position: 'absolute', top: '15px', left: '0', right: '0', height: '2px', background: '#E5E7EB', zIndex: '0' }}></div>
-            <div style={{ position: 'absolute', top: '15px', left: '0', width: `${((step - 1) / 2) * 100}%`, height: '2px', background: 'var(--color-primary)', zIndex: '0', transition: 'width 0.3s ease' }}></div>
+        <div className="kyc-steps" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2.5rem', position: 'relative', padding: '0 1rem' }}>
+            <div style={{ position: 'absolute', top: '15px', left: '20px', right: '20px', height: '2px', background: '#E5E7EB', zIndex: '0' }}></div>
+            <div style={{ position: 'absolute', top: '15px', left: '20px', width: `${((step - 1) / 2) * 85}%`, height: '2px', background: 'var(--color-primary)', zIndex: '0', transition: 'width 0.3s ease' }}></div>
             {[1, 2, 3].map((s) => (
-                <div key={s} style={{ zIndex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div key={s} style={{ zIndex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '60px' }}>
                     <div style={{ 
-                        width: '32px', 
-                        height: '32px', 
+                        width: '30px', 
+                        height: '30px', 
                         borderRadius: '50%', 
                         background: step >= s ? 'var(--color-primary)' : 'white',
                         border: step >= s ? 'none' : '2px solid #E5E7EB',
@@ -126,12 +126,12 @@ const KYCSubmission = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontWeight: '600',
-                        fontSize: '0.875rem',
+                        fontSize: '0.8rem',
                         transition: 'all 0.3s ease'
                     }}>
                         {step > s ? '✓' : s}
                     </div>
-                    <span style={{ fontSize: '0.75rem', marginTop: '0.5rem', fontWeight: '500', color: step >= s ? 'var(--color-primary)' : '#9CA3AF' }}>
+                    <span className="step-label" style={{ fontSize: '0.65rem', marginTop: '0.5rem', fontWeight: '400', color: step >= s ? 'var(--color-primary)' : '#9CA3AF', textAlign: 'center' }}>
                         {s === 1 ? 'Profile' : s === 2 ? 'Document' : 'Identity'}
                     </span>
                 </div>
@@ -197,14 +197,14 @@ const KYCSubmission = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '800px', margin: '0 auto' }}>
-                <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>Identity Verification</h1>
+                <div className="dashboard-header" style={{ marginBottom: '2rem' }}>
+                    <h1 style={{ fontSize: '2rem', fontWeight: '400', color: 'var(--color-primary)' }}>Identity Verification</h1>
                     <p className="dashboard-subtitle">Complete your KYC to unlock all platform features and higher limits.</p>
                 </div>
 
                 {renderStepIndicator()}
 
-                <div className="dash-card" style={{ padding: '3rem' }}>
+                <div className="dash-card kyc-card" style={{ padding: '2rem' }}>
                     {error && <div className="auth-error" style={{ marginBottom: '2rem' }}>{error}</div>}
 
                     {step === 1 && (
@@ -224,24 +224,24 @@ const KYCSubmission = () => {
                                 </div>
                             )}
 
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
+                            <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>USERNAME</label>
-                                    <p style={{ fontWeight: '500', marginTop: '0.25rem' }}>@{user?.username}</p>
+                                    <label style={{ fontSize: '0.7rem', fontWeight: '400', color: '#9CA3AF' }}>USERNAME</label>
+                                    <p style={{ fontWeight: '400', marginTop: '0.25rem', fontSize: '0.9rem' }}>@{user?.username}</p>
                                 </div>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>EMAIL</label>
-                                    <p style={{ fontWeight: '500', marginTop: '0.25rem' }}>{user?.email}</p>
+                                    <label style={{ fontSize: '0.7rem', fontWeight: '400', color: '#9CA3AF' }}>EMAIL</label>
+                                    <p style={{ fontWeight: '400', marginTop: '0.25rem', fontSize: '0.9rem' }}>{user?.email}</p>
                                 </div>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>PHONE NUMBER</label>
-                                    <p style={{ fontWeight: '500', marginTop: '0.25rem', color: user?.phoneNumber ? 'inherit' : '#EF4444' }}>
+                                    <label style={{ fontSize: '0.7rem', fontWeight: '400', color: '#9CA3AF' }}>PHONE NUMBER</label>
+                                    <p style={{ fontWeight: '400', marginTop: '0.25rem', fontSize: '0.9rem', color: user?.phoneNumber ? 'inherit' : '#EF4444' }}>
                                         {user?.phoneNumber || 'Not provided'}
                                     </p>
                                 </div>
                                 <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>COUNTRY</label>
-                                    <p style={{ fontWeight: '500', marginTop: '0.25rem', color: user?.country ? 'inherit' : '#EF4444' }}>
+                                    <label style={{ fontSize: '0.7rem', fontWeight: '400', color: '#9CA3AF' }}>COUNTRY</label>
+                                    <p style={{ fontWeight: '400', marginTop: '0.25rem', fontSize: '0.9rem', color: user?.country ? 'inherit' : '#EF4444' }}>
                                         {user?.country || 'Not set'}
                                     </p>
                                 </div>
@@ -255,15 +255,15 @@ const KYCSubmission = () => {
                     {step === 2 && (
                         <div className="fade-in">
                             <h3 style={{ marginBottom: '1.5rem', fontWeight: '500' }}>Step 2: Document Selection</h3>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2.5rem' }}>
+                            <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2.5rem' }}>
                                 <div className="form-group">
-                                    <label style={{ fontWeight: '500', marginBottom: '0.5rem' }}>ID Document Type</label>
+                                    <label style={{ fontWeight: '400', marginBottom: '0.5rem', fontSize: '0.85rem' }}>ID Document Type</label>
                                     <select 
                                         name="idType" 
                                         value={formData.idType} 
                                         onChange={handleChange} 
                                         required 
-                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: '#F9FAFB', border: '1px solid var(--color-border)' }}
+                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: '#F9FAFB', border: '1px solid var(--color-border)', width: '100%', outline: 'none', fontFamily: 'inherit' }}
                                     >
                                         <option value="ID Card">National ID Card</option>
                                         <option value="Passport">International Passport</option>
@@ -271,7 +271,7 @@ const KYCSubmission = () => {
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label style={{ fontWeight: '500', marginBottom: '0.5rem' }}>ID Number</label>
+                                    <label style={{ fontWeight: '400', marginBottom: '0.5rem', fontSize: '0.85rem' }}>ID Number</label>
                                     <input 
                                         type="text" 
                                         name="idNumber" 
@@ -279,7 +279,7 @@ const KYCSubmission = () => {
                                         onChange={handleChange} 
                                         placeholder="Enter ID number" 
                                         required 
-                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: '#F9FAFB', border: '1px solid var(--color-border)' }}
+                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: '#F9FAFB', border: '1px solid var(--color-border)', width: '100%', outline: 'none', fontFamily: 'inherit' }}
                                     />
                                 </div>
                             </div>

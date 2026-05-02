@@ -899,6 +899,50 @@ main {
   .auth-card {
     padding: 1.75rem;
   }
+
+  [class*="grid-span-"] {
+    grid-column: span 12 !important;
+  }
+
+  .dashboard-content-inner {
+    padding: 1rem;
+  }
+
+  .dash-card {
+    padding: 1.25rem !important;
+  }
+
+  h1 { font-size: 1.5rem !important; }
+  h2 { font-size: 1.25rem !important; }
+  h3 { font-size: 1.1rem !important; }
+
+  .btn {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Specific fix for grid gaps on mobile */
+  .grid-2, .dashboard-grid {
+    gap: 1rem !important;
+  }
+}
+
+/* Global Table Responsiveness */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+  min-width: 600px; /* Force minimum width to trigger scroll on mobile instead of squishing */
+}
+
+/* Small screen button adjustment */
+@media (max-width: 480px) {
+  .btn {
+    width: 100%;
+  }
 }
 
 /* ========================================

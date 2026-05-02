@@ -111,9 +111,9 @@ const Transactions = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem' }}>
+                <div className="dashboard-header-responsive" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1.5rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '2rem' }}>Transaction History</h1>
+                        <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2rem' }}>Transaction History</h1>
                         <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>Track and manage your financial activities on the platform.</p>
                     </div>
                     <button 
