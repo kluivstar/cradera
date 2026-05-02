@@ -35,12 +35,17 @@ const UserDashboard = () => {
                         <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your assets and manage your trades with ease.</p>
                     </div>
                     {user?.kycStatus !== 'verified' && (
-                        <Link to="/dashboard/kyc" className="btn btn-primary btn-kyc-mobile" style={{ 
+                        <Link to="/dashboard/kyc" style={{ 
+                            background: '#5170ff', 
+                            color: 'white', 
+                            padding: '0.6rem 1.2rem', 
+                            borderRadius: '10px', 
+                            fontSize: '0.85rem', 
+                            fontWeight: '500',
                             textDecoration: 'none',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '0.5rem',
-                            background: '#5170ff'
+                            gap: '0.5rem'
                         }}>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
@@ -70,14 +75,14 @@ const UserDashboard = () => {
                             <div style={{ position: 'relative', zIndex: 1 }}>
                                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
                                 <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦{user?.availableBalance?.toLocaleString() || '0.00'}</h2>
-                                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                                    <Link to="/dashboard/crypto-actions" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', background: '#5170ff', color: 'white', flex: '1 1 auto', minWidth: '120px' }}>
+                                <div style={{ display: 'flex', gap: '0.75rem' }}>
+                                    <Link to="/dashboard/crypto-actions" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', background: '#5170ff', color: 'white' }}>
                                         + Deposit
                                     </Link>
-                                    <Link to="/dashboard/withdraw" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', color: 'var(--color-primary)', border: '1px solid #ddd', flex: '1 1 auto', minWidth: '120px' }}>
+                                    <Link to="/dashboard/withdraw" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', color: 'var(--color-primary)', border: '1px solid #ddd' }}>
                                         - Withdrawal
                                     </Link>
-                                    <Link to="/dashboard/convert" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: '1 1 auto', minWidth: '120px', justifyContent: 'center' }}>
+                                    <Link to="/dashboard/convert" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M16 3L21 8L16 13"/><path d="M21 8H9C6.23858 8 4 10.2386 4 13V15"/><path d="M8 21L3 16L8 11"/><path d="M3 16H15C17.7614 16 20 13.7614 20 11V9"/>
                                         </svg>
@@ -105,9 +110,9 @@ const UserDashboard = () => {
                     </div>
 
                     {/* Services Row (Full Width) */}
-                    <div className="grid-span-12" style={{ marginTop: '1rem' }}>
-                        <h3 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
-                        <div className="quick-actions-container">
+                    <div className="grid-span-12">
+                        <h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '1rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
                             <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
                                 <div style={{ 
                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 

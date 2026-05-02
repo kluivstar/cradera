@@ -93,7 +93,7 @@ const SellCrypto = () => {
     if (loading) return (
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '5rem' }}>
-                <div className="sell-crypto-grid" style={{ display: 'grid', gridTemplateColumns: '320px 480px', justifyContent: 'flex-start', gap: '3rem' }}>
+                <div className="sell-crypto-grid" style={{ gridTemplateColumns: '320px 480px', justifyContent: 'flex-start', gap: '3rem' }}>
                     <div className="asset-list-container">
                         <div className="skeleton" style={{ width: '150px', height: '14px', marginBottom: '1.25rem' }}></div>
                         {[1, 2, 3, 4].map(i => (
@@ -112,7 +112,7 @@ const SellCrypto = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '5rem' }}>
-                <div className="sell-crypto-grid" style={{ display: 'grid', gridTemplateColumns: '320px 480px', justifyContent: 'flex-start', gap: '3rem' }}>
+                <div className="sell-crypto-grid" style={{ gridTemplateColumns: '320px 480px', justifyContent: 'flex-start', gap: '3rem' }}>
                     
                     {/* LEFT COLUMN: ASSET LIST SIDEBAR */}
                     <div className="asset-list-container">
@@ -134,25 +134,15 @@ const SellCrypto = () => {
                         {error && <div className="alert-banner alert-danger" style={{ marginBottom: '1rem', textAlign: 'left' }}>{error}</div>}
                         {success && <div className="alert-banner" style={{ background: '#ECFDF5', color: '#065F46', border: '1px solid #A7F3D0', marginBottom: '1rem', textAlign: 'left' }}>{success}</div>}
                         
-                        {assets.length === 0 && !loading ? (
-                            <div className="fintech-card" style={{ padding: '3rem', textAlign: 'center' }}>
-                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="1" style={{ marginBottom: '1rem' }}>
-                                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-                                </svg>
-                                <h3 style={{ fontSize: '1.25rem', color: 'var(--color-primary)', marginBottom: '0.5rem', fontWeight: '500' }}>No Assets Available</h3>
-                                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>There are currently no active assets available for selling. Please check back later.</p>
-                            </div>
-                        ) : (
-                            <WalletDetails 
-                                asset={selectedAsset}
-                                network={selectedNetwork}
-                                formData={formData}
-                                handleChange={handleChange}
-                                handleSubmit={handleSubmit}
-                                submitting={submitting}
-                                copyToClipboard={copyToClipboard}
-                            />
-                        )}
+                        <WalletDetails 
+                            asset={selectedAsset}
+                            network={selectedNetwork}
+                            formData={formData}
+                            handleChange={handleChange}
+                            handleSubmit={handleSubmit}
+                            submitting={submitting}
+                            copyToClipboard={copyToClipboard}
+                        />
                     </div>
                 </div>
             </div>
