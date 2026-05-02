@@ -870,26 +870,10 @@ main {
   z-index: 95;
 }
 
-.mobile-page-title {
-  display: none;
-}
-
 /* ========================================
    Responsive
    ======================================== */
 @media (max-width: 768px) {
-  .mobile-page-title {
-    display: block;
-  }
-  
-  .user-email {
-    display: none;
-  }
-  
-  .referral-earnings-mobile {
-    display: none !important;
-  }
-
   .sidebar {
     position: fixed;
     left: -100%;
@@ -917,8 +901,10 @@ main {
 
   .dashboard-main {
     margin-left: 0;
-    padding: 1rem 10px;
+    padding: 1rem 10px; /* Reduced horizontal padding by 6px (from 16px to 10px) */
     padding-top: calc(var(--topbar-height) + 1rem);
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .dashboard-layout {
@@ -942,7 +928,7 @@ main {
   }
 
   .dashboard-content-inner {
-    padding: 1rem 10px;
+    padding: 1rem;
   }
 
   .dash-card {
@@ -1141,6 +1127,48 @@ main {
   gap: 1rem;
 }
 
+@media (max-width: 768px) {
+  .quick-actions-container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    width: calc(100% + 20px) !important;
+    margin-left: -10px !important;
+    padding: 0.5rem 10px !important;
+    gap: 0.75rem !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .quick-actions-container > * {
+    flex: 0 0 140px !important;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .user-email {
+    display: none !important;
+  }
+
+  .topbar-title {
+    display: block !important;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    flex: 1;
+    text-align: center;
+    margin-left: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .topbar-title {
+    display: none;
+  }
+}
+
 @media (min-width: 1024px) {
   .quick-actions-container {
     display: flex;
@@ -1150,28 +1178,8 @@ main {
   .quick-actions-container > * {
     flex: 1;
   }
-}
-
-@media (max-width: 768px) {
-  .quick-actions-container {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    width: 100% !important;
-    padding-bottom: 0.5rem !important;
-    gap: 0.75rem !important;
-  }
-  .quick-actions-container > * {
-    flex: 0 0 80% !important;
-    min-width: 140px !important;
-  }
-}
-
-@media (min-width: 1024px) {
+  
   .dash-card {
-    width: 80% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    width: 80% !important; /* Reduced width by 20% */
   }
 }
