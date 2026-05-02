@@ -70,9 +70,6 @@ const CryptoActions = () => {
                         <div 
                             key={action.id}
                             onClick={() => action.active && action.to && navigate(action.to)}
-                        <div 
-                            key={action.id}
-                            onClick={() => action.active && action.to && navigate(action.to)}
                             style={{ 
                                 background: 'white',
                                 padding: '1.75rem 1.5rem',
