@@ -186,7 +186,7 @@ main {
   padding: 0.625rem;
   border: none;
   border-radius: 6px;
-  background: var(--color-primary);
+  background: #5170ff;
   color: white;
   font-family: var(--font-base);
   font-size: 0.875rem;
@@ -196,7 +196,7 @@ main {
 }
 
 .auth-btn:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
+  background-color: #3b5bdb;
 }
 
 .auth-footer {
@@ -240,13 +240,13 @@ main {
 }
 
 .btn-primary {
-  background: var(--color-primary);
+  background: #5170ff;
   color: white;
 }
 
 .btn-primary:hover {
-  background: var(--color-primary-hover);
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+  background: #3b5bdb;
+  box-shadow: 0 4px 12px rgba(81, 112, 255, 0.2);
 }
 
 .btn-secondary {
@@ -262,13 +262,13 @@ main {
 }
 
 .btn-accent {
-  background: var(--color-accent);
+  background: #5170ff;
   color: white;
 }
 
 .btn-accent:hover {
-  background: #7dd3fc;
-  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+  background: #3b5bdb;
+  box-shadow: 0 4px 12px rgba(81, 112, 255, 0.2);
 }
 
 /* ========================================
@@ -408,11 +408,11 @@ main {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  border: none !important;
 }
 
 .sidebar-logout-btn:hover {
   background: #FEF2F2;
-  border-color: var(--color-danger);
   color: var(--color-danger);
 }
 

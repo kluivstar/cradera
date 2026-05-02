@@ -334,7 +334,7 @@ const KYCSubmission = () => {
                                             style={{ width: '100%', display: 'block' }}
                                         />
                                         <div style={{ position: 'absolute', bottom: '1rem', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-                                            <button onClick={captureSelfie} className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', background: 'var(--color-accent)' }}>Take Photo</button>
+                                            <button onClick={captureSelfie} className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', background: '#5170ff' }}>Take Photo</button>
                                             <button onClick={() => setIsCameraActive(false)} className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', background: 'white' }}>Cancel</button>
                                         </div>
                                     </div>

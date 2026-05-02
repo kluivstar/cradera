@@ -68,13 +68,13 @@ const Sidebar = ({ isOpen, onClose }) => {
             </nav>
 
             <div className="sidebar-bottom">
-                <button onClick={handleLogout} className="sidebar-logout-btn">
+                <button onClick={handleLogout} className="sidebar-logout-btn" style={{ border: 'none', background: 'transparent', width: '100%' }}>
                     <span className="sidebar-link-icon">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
                         </svg>
                     </span>
-                    <span>Sign Out</span>
+                    <span style={{ fontWeight: '500' }}>Sign Out</span>
                 </button>
             </div>
         </aside>

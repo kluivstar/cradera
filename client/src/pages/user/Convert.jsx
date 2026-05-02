@@ -102,7 +102,7 @@ const Convert = () => {
                             <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem' }}>You will receive approximately</p>
                             <h2 style={{ color: 'var(--color-primary)', fontWeight: '500', marginBottom: '0.5rem' }}>{result.toAmount} {result.toAsset}</h2>
                             <p style={{ fontSize: '0.75rem', color: 'var(--color-accent)' }}>{result.rate}</p>
-                            <button className="btn btn-accent" style={{ marginTop: '1.5rem', width: '100%', padding: '0.75rem', borderRadius: '8px', fontWeight: '500' }}>
+                            <button className="btn btn-primary" style={{ marginTop: '1.5rem', width: '100%', padding: '0.75rem', borderRadius: '8px', fontWeight: '500', background: '#5170ff' }}>
                                 Confirm Conversion
                             </button>
                         </div>

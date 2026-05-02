@@ -27,7 +27,10 @@ export const getDashboardStats = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find().select('-password').sort({ createdAt: -1 });
+        const users = await User.find()
+            .populate('referredBy', 'email username')
+            .select('-password')
+            .sort({ createdAt: -1 });
 
         res.status(200).json({
             count: users.length,
@@ -39,6 +42,9 @@ export const getAllUsers = async (req, res) => {
                 kycStatus: u.kycStatus || 'unverified',
                 isVerified: u.isVerified || false,
                 createdAt: u.createdAt,
+                referralCode: u.referralCode,
+                referralCount: u.referralCount || 0,
+                referredBy: u.referredBy
             })),
         });
     } catch (err) {

@@ -161,13 +161,15 @@ const Products = () => {
                             </p>
                             
                             {product.status === 'Active' && (
-                                <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
+                                <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
                                     <button className="btn" style={{ 
-                                        padding: '0.35rem 0.75rem', 
-                                        fontSize: '0.75rem',
-                                        background: 'var(--color-primary)',
+                                        padding: '0.75rem 1.5rem', 
+                                        fontSize: '0.85rem',
+                                        background: '#5170ff',
                                         color: '#FFFFFF',
-                                        borderRadius: '6px'
+                                        borderRadius: '10px',
+                                        width: '100%',
+                                        fontWeight: '600'
                                     }}>
                                         Start Trading
                                     </button>
@@ -177,6 +179,14 @@ const Products = () => {
                     ))}
                 </div>
             </div>
+            <style>{`
+                .product-card {
+                    padding: 2rem !important;
+                    min-height: 190px !important;
+                    width: calc(100% - 20px) !important;
+                    margin: 0 auto;
+                }
+            `}</style>
         </DashboardLayout>
     );
 };

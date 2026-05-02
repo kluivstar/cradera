@@ -27,64 +27,101 @@ const Referral = () => {
         }
     };
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(stats.referralCode);
-        alert('Referral code copied to clipboard!');
+    const referralLink = `${window.location.origin}/signup?ref=${stats.referralCode}`;
+
+    const copyLinkToClipboard = () => {
+        navigator.clipboard.writeText(referralLink);
+        alert('Referral link copied to clipboard!');
     };
 
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in">
-                <div className="dashboard-header">
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>Referral Program</h1>
-                    <p className="dashboard-subtitle">Invite your friends and earn rewards for every successful signup.</p>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+                <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '2.25rem' }}>Referral Program</h1>
+                    <p className="dashboard-subtitle" style={{ fontSize: '1rem', marginTop: '0.5rem' }}>Invite your friends and earn rewards for every successful transaction they make.</p>
                 </div>
 
-                <div className="grid-2" style={{ gap: '2rem', marginBottom: '2rem' }}>
-                    {/* Referral Code Card */}
-                    <div className="dash-card" style={{ background: 'linear-gradient(135deg, #5170ff 0%, #3b82f6 100%)', color: 'white' }}>
-                        <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', fontWeight: '500' }}>Your Referral Code</h3>
-                        <div style={{ 
-                            background: 'rgba(255, 255, 255, 0.15)', 
-                            padding: '1.5rem', 
-                            borderRadius: '12px', 
-                            display: 'flex', 
-                            justifyContent: 'space-between', 
-                            alignItems: 'center',
-                            backdropFilter: 'blur(10px)',
-                            border: '1px solid rgba(255, 255, 255, 0.2)'
-                        }}>
-                            <span style={{ fontSize: '1.75rem', fontWeight: '700', letterSpacing: '2px' }}>{stats.referralCode || '------'}</span>
-                            <button 
-                                onClick={copyToClipboard}
-                                style={{ 
-                                    background: 'white', 
-                                    color: '#5170ff', 
-                                    border: 'none', 
-                                    padding: '0.6rem 1.2rem', 
-                                    borderRadius: '8px', 
-                                    fontWeight: '600',
-                                    cursor: 'pointer'
-                                }}
-                            >
-                                Copy Code
-                            </button>
+                <div className="dash-card" style={{ 
+                    background: 'linear-gradient(135deg, #5170ff 0%, #3b82f6 100%)', 
+                    color: 'white', 
+                    padding: '2.5rem',
+                    marginBottom: '3rem',
+                    border: 'none',
+                    borderRadius: '24px',
+                    boxShadow: '0 20px 40px rgba(81, 112, 255, 0.15)'
+                }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'center' }}>
+                        <div>
+                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.25rem', fontWeight: '600' }}>Your Referral Link</h3>
+                            <div style={{ 
+                                background: 'rgba(255, 255, 255, 0.15)', 
+                                padding: '1rem 1.25rem', 
+                                borderRadius: '16px', 
+                                display: 'flex', 
+                                justifyContent: 'space-between', 
+                                alignItems: 'center',
+                                backdropFilter: 'blur(10px)',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                marginBottom: '1.5rem'
+                            }}>
+                                <span style={{ fontSize: '0.9rem', fontWeight: '500', opacity: 0.9, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
+                                    {referralLink}
+                                </span>
+                                <button 
+                                    onClick={copyLinkToClipboard}
+                                    style={{ 
+                                        background: 'white', 
+                                        color: '#5170ff', 
+                                        border: 'none', 
+                                        padding: '0.6rem 1.25rem', 
+                                        borderRadius: '10px', 
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        fontSize: '0.85rem',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'transform 0.2s'
+                                    }}
+                                    onMouseDown={(e) => e.target.style.transform = 'scale(0.95)'}
+                                    onMouseUp={(e) => e.target.style.transform = 'scale(1)'}
+                                >
+                                    Copy Link
+                                </button>
+                            </div>
+                            <p style={{ fontSize: '0.9rem', opacity: 0.85, lineHeight: '1.6' }}>
+                                Share this unique link with your network. When they sign up and start trading, you automatically earn commissions on their activities.
+                            </p>
                         </div>
-                        <p style={{ marginTop: '1.5rem', fontSize: '0.85rem', opacity: 0.9 }}>
-                            Share this code with your friends. They enter it during registration, and you both get rewarded!
-                        </p>
-                    </div>
 
-                    {/* Stats Grid */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                        <div className="dash-card" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem' }}>Total Referrals</p>
-                            <h2 style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>{stats.referralCount}</h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.5rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
+                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '600', textTransform: 'uppercase' }}>Total Referrals</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '700' }}>{stats.referralCount}</h2>
+                            </div>
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.5rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
+                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '600', textTransform: 'uppercase' }}>Total Earned</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '700' }}>₦{stats.totalEarned.toLocaleString()}</h2>
+                            </div>
                         </div>
-                        <div className="dash-card" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem' }}>Total Rewards</p>
-                            <h2 style={{ fontSize: '2rem', color: '#10B981' }}>₦{stats.totalEarned.toLocaleString()}</h2>
-                        </div>
+                    </div>
+                </div>
+
+                {/* How it Works Section */}
+                <div style={{ marginBottom: '4rem' }}>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '2rem', textAlign: 'center', color: 'var(--color-primary)' }}>How It Works</h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2rem' }}>
+                        {[
+                            { step: '01', title: 'Share your link', desc: 'Copy your unique referral link and share it with your friends via social media or email.', icon: '🔗' },
+                            { step: '02', title: 'User signs up', desc: 'Your friends sign up to Cradera using your referral link and complete their verification.', icon: '👥' },
+                            { step: '03', title: 'Earn rewards', desc: 'Receive instant rewards and commissions every time your referrals make a transaction.', icon: '💰' }
+                        ].map((item, i) => (
+                            <div key={i} className="dash-card" style={{ padding: '2rem', textAlign: 'center', border: '1px solid #F1F5F9', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                                <div style={{ fontSize: '2rem', marginBottom: '1.25rem' }}>{item.icon}</div>
+                                <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#5170ff', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.75rem' }}>Step {item.step}</span>
+                                <h4 style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.75rem' }}>{item.title}</h4>
+                                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: '1.5' }}>{item.desc}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
 

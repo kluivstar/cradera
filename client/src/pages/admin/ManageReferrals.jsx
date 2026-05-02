@@ -13,10 +13,10 @@ const ManageReferrals = () => {
     const fetchReferrals = async () => {
         try {
             setLoading(true);
-            // We'll just fetch all users and their referrers for now
-            const res = await api.get('/admin/users'); // I'll assume this endpoint exists or create a new one
-            const usersWithReferrers = res.data.users.filter(u => u.referredBy);
-            setReferrals(usersWithReferrers);
+            const res = await api.get('/admin/users');
+            // Show users who were referred by someone
+            const referredUsers = res.data.users.filter(u => u.referredBy);
+            setReferrals(referredUsers);
         } catch (err) {
             console.error('Error fetching referrals');
         } finally {
@@ -28,46 +28,53 @@ const ManageReferrals = () => {
         <DashboardLayout>
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header" style={{ marginBottom: '2rem' }}>
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>Referral Management</h1>
-                    <p className="dashboard-subtitle">Monitor the platform's referral network and growth.</p>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>Referral Network</h1>
+                    <p className="dashboard-subtitle">Track how users are joining and who is driving growth.</p>
                 </div>
 
                 <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
+                    <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #eee' }}>
+                        <h3 style={{ fontSize: '1rem', fontWeight: '600' }}>Recent Referrals</h3>
+                    </div>
                     <div className="table-wrapper" style={{ border: 'none' }}>
                         <table className="data-table">
                             <thead>
                                 <tr>
-                                    <th>Referred User</th>
-                                    <th>Referrer</th>
-                                    <th>Reward</th>
+                                    <th>New User</th>
+                                    <th>Referred By</th>
+                                    <th>Referrer Stats</th>
                                     <th>Status</th>
-                                    <th style={{ textAlign: 'right' }}>Date</th>
+                                    <th style={{ textAlign: 'right' }}>Joined Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {loading ? (
                                     <tr><td colSpan="5" style={{ textAlign: 'center', padding: '3rem' }}><div className="loading-spinner"></div></td></tr>
                                 ) : referrals.length === 0 ? (
-                                    <tr><td colSpan="5" style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-secondary)' }}>No referrals recorded.</td></tr>
+                                    <tr><td colSpan="5" style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-secondary)' }}>No referral activity found.</td></tr>
                                 ) : (
                                     referrals.map((u, index) => (
                                         <tr key={index}>
                                             <td>
-                                                <p style={{ fontWeight: '600', fontSize: '0.85rem' }}>{u.email}</p>
+                                                <p style={{ fontWeight: '600', fontSize: '0.85rem' }}>{u.username}</p>
+                                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{u.email}</p>
                                             </td>
                                             <td>
-                                                <p style={{ fontSize: '0.85rem' }}>{u.referredBy?.email || 'N/A'}</p>
+                                                <p style={{ fontWeight: '500', fontSize: '0.85rem' }}>{u.referredBy?.username || 'System'}</p>
+                                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{u.referredBy?.email}</p>
                                             </td>
                                             <td>
-                                                <p style={{ fontWeight: '600', color: '#10B981' }}>₦0.00</p>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                    <span style={{ fontSize: '0.8rem', fontWeight: '600', background: '#F1F5F9', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                                                        {u.referredBy?.referralCount || 0} Total
+                                                    </span>
+                                                </div>
                                             </td>
                                             <td>
-                                                <span style={{ fontSize: '0.7rem', fontWeight: '700', color: '#10B981', background: 'rgba(16, 185, 129, 0.1)', padding: '0.3rem 0.6rem', borderRadius: '4px' }}>
-                                                    COMPLETED
-                                                </span>
+                                                <span className="status-badge status-confirmed">Active</span>
                                             </td>
                                             <td style={{ textAlign: 'right', fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>
-                                                {new Date(u.createdAt).toLocaleDateString()}
+                                                {new Date(u.createdAt).toLocaleDateString(undefined, { dateStyle: 'medium' })}
                                             </td>
                                         </tr>
                                     ))
