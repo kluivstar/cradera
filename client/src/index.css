@@ -655,7 +655,7 @@ main {
    ======================================== */
 .dash-card {
   background: var(--color-bg);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: var(--card-padding);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   border: none;
@@ -917,12 +917,19 @@ main {
 
   .announcement-bar {
     left: 0;
+    padding: 2px 1rem; /* removed 1px vertical from 3px */
+    height: auto;
+    min-height: 34px;
   }
 
   .topbar {
     left: 0;
     top: var(--announcement-height, 40px);
-    padding: 0 0.75rem;
+    padding: 4px 0.75rem; /* 4px vertical padding on mobile */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .dashboard-main {
@@ -996,6 +1003,7 @@ main {
 
   .referral-main-card {
     padding: 1.25rem !important;
+    border-radius: 8px !important;
   }
 
   .admin-main-grid {

@@ -30,9 +30,9 @@ const UserDashboard = () => {
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                         <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>
-                            Welcome back, <span style={{ color: '#5170ff' }}>{displayName}</span>
+                            Hello, <span style={{ color: '#5170ff' }}>{displayName}</span>
                         </h1>
-                        <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your assets and manage your trades with ease.</p>
+                        
                     </div>
                     {user?.kycStatus !== 'verified' && (
                         <Link to="/dashboard/kyc" className="btn btn-primary btn-kyc-mobile mobile-hide" style={{ 
