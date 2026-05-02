@@ -54,8 +54,8 @@ const Referral = () => {
                     borderRadius: '24px',
                     boxShadow: '0 20px 40px rgba(81, 112, 255, 0.15)'
                 }}>
-                    <div className="referral-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <div style={{ flex: '1 1 300px' }}>
+                    <div className="referral-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'center' }}>
+                        <div>
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '1.25rem', fontWeight: '400' }}>Your Referral Link</h3>
                             <div className="referral-link-container" style={{ 
                                 background: 'rgba(255, 255, 255, 0.1)', 
@@ -96,16 +96,14 @@ const Referral = () => {
                             </p>
                         </div>
 
-                        <div style={{ flex: '1 1 300px' }}>
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', width: '100%' }}>
-                                <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
-                                    <p style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.4rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Referrals</p>
-                                    <h2 style={{ fontSize: '2rem', fontWeight: '400' }}>{stats.referralCount}</h2>
-                                </div>
-                                <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
-                                    <p style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.4rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Earned</p>
-                                    <h2 style={{ fontSize: '2rem', fontWeight: '400' }}>₦{stats.totalEarned.toLocaleString()}</h2>
-                                </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', width: '100%' }}>
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
+                                <p style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.4rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Referrals</p>
+                                <h2 style={{ fontSize: '2rem', fontWeight: '400' }}>{stats.referralCount}</h2>
+                            </div>
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
+                                <p style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.4rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Earned</p>
+                                <h2 style={{ fontSize: '2rem', fontWeight: '400' }}>₦{stats.totalEarned.toLocaleString()}</h2>
                             </div>
                         </div>
                     </div>

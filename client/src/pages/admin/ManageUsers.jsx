@@ -51,18 +51,18 @@ const ManageUsers = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                <div className="dashboard-header-responsive" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>User Management</h1>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>View and manage platform users and their verification status.</p>
+                        <h1 style={{ fontWeight: '400', color: 'var(--color-primary)' }}>User Management</h1>
+                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', fontWeight: '300' }}>View and manage platform users and their verification status.</p>
                     </div>
-                    <div className="form-group" style={{ marginBottom: 0, width: '260px' }}>
+                    <div className="form-group" style={{ marginBottom: 0, width: '100%', maxWidth: '300px' }}>
                         <input 
                             type="text" 
                             placeholder="Search by email or ID..." 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', fontSize: '0.875rem' }}
+                            style={{ padding: '0.65rem 1rem', borderRadius: '10px', fontSize: '0.875rem', width: '100%', border: '1px solid var(--color-border)', outline: 'none', fontFamily: 'inherit' }}
                         />
                     </div>
                 </div>
