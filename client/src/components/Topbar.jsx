@@ -15,7 +15,7 @@ const Topbar = ({ onMenuClick, title }) => {
                 </button>
                 {title && <h2 className="topbar-title" style={{ margin: 0 }}>{title}</h2>}
             </div>
-            <div className="topbar-user" style={{ cursor: 'pointer', flexShrink: 0, marginLeft: 0 }} onClick={() => window.location.href='/dashboard/settings?tab=profile'}>
+            <div className="topbar-user topbar-user-desktop" style={{ cursor: 'pointer', flexShrink: 0, marginLeft: 0 }} onClick={() => window.location.href='/dashboard/settings?tab=profile'}>
                 <span className="user-email">{user?.email}</span>
                 <div style={{ 
                     width: '36px', 

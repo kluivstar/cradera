@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
 
 const Sidebar = ({ isOpen, onClose }) => {
-    const { logout, isAdmin } = useAuth();
+    const { logout, isAdmin, user } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -40,8 +40,24 @@ const Sidebar = ({ isOpen, onClose }) => {
     return (
         <aside className={`sidebar ${isOpen ? 'sidebar-open-mobile' : ''}`}>
             <div className="sidebar-top">
-                <div className="sidebar-logo">
+                {/* Logo — hidden on mobile, shown on desktop */}
+                <div className="sidebar-logo sidebar-logo-desktop">
                     <img src={logo} alt="Cradera" style={{ height: '182px', width: 'auto', objectFit: 'contain', marginLeft: '-10px' }} />
+                </div>
+                {/* User avatar — shown on mobile only, in place of logo */}
+                <div className="sidebar-user-mobile" onClick={() => { window.location.href='/dashboard/settings?tab=profile'; onClose(); }} style={{ cursor: 'pointer' }}>
+                    <div style={{
+                        width: '42px', height: '42px', borderRadius: '50%',
+                        background: '#5170ff', display: 'flex', alignItems: 'center',
+                        justifyContent: 'center', color: 'white', fontWeight: '600',
+                        fontSize: '1.1rem', textTransform: 'uppercase', flexShrink: 0
+                    }}>
+                        {user?.username?.charAt(0) || user?.email?.charAt(0)}
+                    </div>
+                    <div>
+                        <p style={{ fontWeight: '500', fontSize: '0.9rem', color: 'var(--color-primary)', margin: 0 }}>{user?.username || user?.email?.split('@')[0]}</p>
+                        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', margin: 0 }}>{user?.email}</p>
+                    </div>
                 </div>
                 <button className="sidebar-close-btn" onClick={onClose}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

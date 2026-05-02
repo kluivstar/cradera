@@ -91,67 +91,87 @@ const UserDashboard = () => {
 
                 </div>{/* end dashboard-grid */}
 
-                {/* Quick Actions — full width, outside grid */}
+                {/* Quick Actions — full width row with square cards */}
                 <div style={{ marginTop: '1.5rem', width: '100%' }}>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
-                    <div className="quick-actions-container">
-                        <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
-                            <div style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', width: '100%' }}>
+                        <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ 
+                            textDecoration: 'none', textAlign: 'center', 
+                            flex: '1 1 0', aspectRatio: '10/7',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                            padding: '1rem'
+                        }}>
+                            <div className="quick-action-card-icon" style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                marginBottom: '0.75rem',
                                 color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                             }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
                                 </svg>
                             </div>
-                            <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Buy/Sell Crypto</h4>
-                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Trade assets instantly</p>
+                            <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Buy/Sell</h4>
+                            <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>Crypto</p>
                         </Link>
-                        <Link to="/dashboard/withdraw" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
-                            <div style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                        <Link to="/dashboard/withdraw" className="dash-card service-hover" style={{ 
+                            textDecoration: 'none', textAlign: 'center',
+                            flex: '1 1 0', aspectRatio: '10/7',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                            padding: '1rem'
+                        }}>
+                            <div className="quick-action-card-icon" style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                marginBottom: '0.75rem',
                                 color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                             }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M12 1v22M5 15l7 7 7-7"/>
                                 </svg>
                             </div>
-                            <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Withdraw</h4>
-                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Payout to bank/crypto</p>
+                            <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Withdraw</h4>
+                            <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>To bank/crypto</p>
                         </Link>
-                        <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
-                            <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
-                            <div style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                        <div className="dash-card" style={{ 
+                            textAlign: 'center', opacity: 0.6, position: 'relative',
+                            flex: '1 1 0', aspectRatio: '10/7',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                            padding: '1rem'
+                        }}>
+                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                            <div className="quick-action-card-icon" style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                marginBottom: '0.75rem',
                                 color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                             }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
                                 </svg>
                             </div>
-                            <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Bill Payments</h4>
-                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
+                            <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Bills</h4>
+                            <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
                         </div>
-                        <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
-                            <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
-                            <div style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                        <div className="dash-card" style={{ 
+                            textAlign: 'center', opacity: 0.6, position: 'relative',
+                            flex: '1 1 0', aspectRatio: '10/7',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                            padding: '1rem'
+                        }}>
+                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                            <div className="quick-action-card-icon" style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                marginBottom: '0.75rem',
                                 color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                             }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                                 </svg>
                             </div>
-                            <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Vault</h4>
-                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
+                            <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Vault</h4>
+                            <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
                         </div>
                     </div>
                 </div>

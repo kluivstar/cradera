@@ -434,7 +434,7 @@ main {
   right: 0;
   left: var(--sidebar-width);
   height: var(--topbar-height);
-  background: rgba(255, 255, 255, 0.8);
+  background: #f9fafb;
   backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
@@ -1197,6 +1197,16 @@ main {
     display: none !important;
   }
 
+  /* Hide desktop logo on mobile */
+  .sidebar-logo-desktop {
+    display: none !important;
+  }
+
+  /* Show sidebar user block on mobile */
+  .sidebar-user-mobile {
+    display: flex !important;
+  }
+
   .topbar-title {
     display: block !important;
     font-size: 1rem;
@@ -1206,34 +1216,82 @@ main {
     text-align: left;
     margin-left: 0.75rem;
   }
+
+  /* Scale quick-action card content to fit smaller 10/7 cards */
+  .quick-action-card-icon {
+    width: 28px !important;
+    height: 28px !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .quick-action-card-icon svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+  .quick-action-card-title {
+    font-size: 0.72rem !important;
+    margin-bottom: 0.1rem !important;
+  }
+  .quick-action-card-sub {
+    font-size: 0.62rem !important;
+  }
 }
 
 @media (min-width: 769px) {
   .topbar-title {
     display: none;
   }
+  /* Hide sidebar user block on desktop */
+  .sidebar-user-mobile {
+    display: none !important;
+  }
+  /* Show desktop logo on desktop */
+  .sidebar-logo-desktop {
+    display: block !important;
+  }
 }
 
 @media (min-width: 1024px) {
-  /* Quick action children: full width, flex row */
-  .quick-actions-container {
-    flex-direction: column !important;
-  }
-  .quick-actions-container > * {
-    flex: unset !important;
-    width: 100% !important;
+  /* Always show topbar user icon at 1024px+ */
+  .topbar-user-desktop {
     display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    text-align: left !important;
-    gap: 1rem !important;
   }
-  .quick-actions-container > * > div:first-child {
-    flex-shrink: 0;
-    margin: 0 !important;
+  /* Show user email at 1024px+ */
+  .user-email {
+    display: inline !important;
   }
-  .quick-actions-container > * > h4,
-  .quick-actions-container > * > p {
-    margin: 0 !important;
+}
+
+/* Sidebar user block — base hidden, shown on mobile via media query */
+.sidebar-user-mobile {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+/* 375px — small phone: topbar vertical padding + wider quick action cards */
+@media (max-width: 375px) {
+  .topbar {
+    padding: 4px 0.75rem !important;
+  }
+  /* Quick action cards: 30% wider (130px → ~169px) */
+  .quick-actions-container > * {
+    min-width: 169px !important;
+  }
+  .quick-action-card-icon {
+    width: 36px !important;
+    height: 36px !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .quick-action-card-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .quick-action-card-title {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.15rem !important;
+  }
+  .quick-action-card-sub {
+    font-size: 0.68rem !important;
   }
 }
