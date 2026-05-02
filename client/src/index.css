@@ -954,6 +954,15 @@ main {
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
   }
+
+  .referral-main-card {
+    padding: 1.25rem !important;
+  }
+
+  .referral-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
 }
 
 /* Global Table Responsiveness */

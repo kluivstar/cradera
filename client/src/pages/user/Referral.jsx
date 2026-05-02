@@ -45,28 +45,29 @@ const Referral = () => {
                     </div>
                 </div>
 
-                <div className="dash-card" style={{ 
-                    background: 'linear-gradient(135deg, #5170ff 0%, #3b82f6 100%)', 
+                <div className="dash-card referral-main-card" style={{ 
+                    background: 'linear-gradient(135deg, #5170ff 0%, #3d58cc 100%)', 
                     color: 'white', 
-                    padding: '2.5rem',
+                    padding: '2rem',
                     marginBottom: '3rem',
                     border: 'none',
                     borderRadius: '24px',
                     boxShadow: '0 20px 40px rgba(81, 112, 255, 0.15)'
                 }}>
-                    <div className="referral-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', alignItems: 'center' }}>
+                    <div className="referral-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'center' }}>
                         <div>
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '1.25rem', fontWeight: '400' }}>Your Referral Link</h3>
-                            <div style={{ 
-                                background: 'rgba(255, 255, 255, 0.15)', 
-                                padding: '1rem 1.25rem', 
-                                borderRadius: '16px', 
+                            <div className="referral-link-container" style={{ 
+                                background: 'rgba(255, 255, 255, 0.1)', 
+                                padding: '0.75rem 1rem', 
+                                borderRadius: '12px', 
                                 display: 'flex', 
                                 justifyContent: 'space-between', 
                                 alignItems: 'center',
-                                backdropFilter: 'blur(10px)',
                                 border: '1px solid rgba(255, 255, 255, 0.2)',
-                                marginBottom: '1.5rem'
+                                marginBottom: '1.5rem',
+                                width: '100%',
+                                overflow: 'hidden'
                             }}>
                                 <span style={{ fontSize: '0.9rem', fontWeight: '400', opacity: 0.9, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
                                     {referralLink}
