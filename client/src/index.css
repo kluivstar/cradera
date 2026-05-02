@@ -870,10 +870,26 @@ main {
   z-index: 95;
 }
 
+.mobile-page-title {
+  display: none;
+}
+
 /* ========================================
    Responsive
    ======================================== */
 @media (max-width: 768px) {
+  .mobile-page-title {
+    display: block;
+  }
+  
+  .user-email {
+    display: none;
+  }
+  
+  .referral-earnings-mobile {
+    display: none !important;
+  }
+
   .sidebar {
     position: fixed;
     left: -100%;
@@ -901,7 +917,7 @@ main {
 
   .dashboard-main {
     margin-left: 0;
-    padding: 1rem;
+    padding: 1rem 10px;
     padding-top: calc(var(--topbar-height) + 1rem);
   }
 
@@ -926,7 +942,7 @@ main {
   }
 
   .dashboard-content-inner {
-    padding: 1rem;
+    padding: 1rem 10px;
   }
 
   .dash-card {
@@ -1133,5 +1149,29 @@ main {
   }
   .quick-actions-container > * {
     flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .quick-actions-container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    padding-bottom: 0.5rem !important;
+    gap: 0.75rem !important;
+  }
+  .quick-actions-container > * {
+    flex: 0 0 80% !important;
+    min-width: 140px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dash-card {
+    width: 80% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
