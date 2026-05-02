@@ -39,9 +39,11 @@ const CryptoActions = () => {
                 flexDirection: 'column', 
                 alignItems: 'center', 
                 justifyContent: 'center', 
-                minHeight: '70vh',
-                maxWidth: '800px',
-                margin: '0 auto'
+                minHeight: '60vh',
+                width: '100%',
+                maxWidth: '700px',
+                margin: '0 auto',
+                padding: '1rem'
             }}>
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                     <h1 style={{ 
@@ -60,18 +62,21 @@ const CryptoActions = () => {
 
                 <div style={{ 
                     display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-                    gap: '1.5rem', 
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
+                    gap: '1.25rem', 
                     width: '100%' 
                 }}>
                     {actions.map((action) => (
                         <div 
                             key={action.id}
                             onClick={() => action.active && action.to && navigate(action.to)}
+                        <div 
+                            key={action.id}
+                            onClick={() => action.active && action.to && navigate(action.to)}
                             style={{ 
                                 background: 'white',
-                                padding: '2.5rem 2rem',
-                                borderRadius: '24px',
+                                padding: '1.75rem 1.5rem',
+                                borderRadius: '20px',
                                 textAlign: 'center',
                                 cursor: action.active ? 'pointer' : 'not-allowed',
                                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -82,7 +87,7 @@ const CryptoActions = () => {
                                 opacity: action.active ? 1 : 0.6,
                                 filter: action.active ? 'none' : 'grayscale(0.5)',
                                 boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
-                                border: '1px solid transparent'
+                                border: '1px solid var(--color-border)'
                             }}
                             className={action.active ? 'action-card-active' : ''}
                         >
@@ -105,15 +110,15 @@ const CryptoActions = () => {
                             )}
 
                             <div style={{ 
-                                width: '72px', 
-                                height: '72px', 
-                                borderRadius: '22px', 
+                                width: '60px', 
+                                height: '60px', 
+                                borderRadius: '18px', 
                                 background: '#F3F4F6',
                                 color: action.active ? 'var(--color-primary)' : '#9CA3AF',
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 justifyContent: 'center',
-                                marginBottom: '1.75rem'
+                                marginBottom: '1.25rem'
                             }}>
                                 <div style={{
                                     width: '44px',
@@ -129,11 +134,11 @@ const CryptoActions = () => {
                                 </div>
                             </div>
 
-                            <h3 style={{ 
-                                fontSize: '1.25rem', 
-                                fontWeight: '500', 
+                             <h3 style={{ 
+                                fontSize: '1.1rem', 
+                                fontWeight: '400', 
                                 color: 'var(--color-primary)', 
-                                marginBottom: '0.75rem' 
+                                marginBottom: '0.5rem' 
                             }}>
                                 {action.title}
                             </h3>
