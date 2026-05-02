@@ -37,10 +37,10 @@ const Referral = () => {
 
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto', fontWeight: '500' }}>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto', fontWeight: '400' }}>
                 <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '2.25rem' }}>Referral Program</h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '1rem', marginTop: '0.5rem', fontWeight: '500' }}>Invite your friends and earn rewards for every successful transaction they make.</p>
+                    <h1 style={{ fontWeight: '900', color: 'var(--color-primary)', fontSize: '2.25rem' }}>Referral Program</h1>
+                    <p className="dashboard-subtitle" style={{ fontSize: '1rem', marginTop: '0.5rem', fontWeight: '400' }}>Invite your friends and earn rewards for every successful transaction they make.</p>
                 </div>
 
                 <div className="dash-card" style={{ 

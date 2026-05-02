@@ -29,10 +29,10 @@ const UserDashboard = () => {
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>
+                        <h1 style={{ fontWeight: '900', color: 'var(--color-primary)' }}>
                             Welcome back, <span style={{ color: '#5170ff' }}>{displayName}</span>
                         </h1>
-                        <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your assets and manage your trades with ease.</p>
+                        <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', fontWeight: '400' }}>Monitor your assets and manage your trades with ease.</p>
                     </div>
                     {user?.kycStatus !== 'verified' && (
                         <Link to="/dashboard/kyc" style={{ 
@@ -73,8 +73,8 @@ const UserDashboard = () => {
                             justifyContent: 'center'
                         }}>
                             <div style={{ position: 'relative', zIndex: 1 }}>
-                                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
-                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦{user?.availableBalance?.toLocaleString() || '0.00'}</h2>
+                                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '400' }}>Available Balance</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦{user?.availableBalance?.toLocaleString() || '0.00'}</h2>
                                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                                     <Link to="/dashboard/crypto-actions" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '10px', textDecoration: 'none', background: '#5170ff', color: 'white' }}>
                                         + Deposit
@@ -111,7 +111,7 @@ const UserDashboard = () => {
 
                     {/* Services Row (Full Width) */}
                     <div className="grid-span-12">
-                        <h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '1rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
+                        <h3 style={{ fontSize: '1.1rem', fontWeight: '900', marginBottom: '1rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
                             <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
                                 <div style={{ 
@@ -218,10 +218,11 @@ const UserDashboard = () => {
                                                     <td style={{ padding: '0.75rem 1rem' }}>
                                                         <p style={{ fontWeight: '500', color: 'var(--color-primary)', marginBottom: '0.1rem', fontSize: '0.875rem' }}>{tx.type === 'deposit' ? 'Wallet Top-up' : tx.type}</p>
                                                         <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{new Date(tx.date).toLocaleString()}</p>
+                                                        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '400' }}>{new Date(tx.date).toLocaleString()}</p>
                                                     </td>
                                                     <td style={{ padding: '0.75rem 1rem' }}>
                                                         <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>{tx.asset}</p>
-                                                        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{tx.details?.network}</p>
+                                                        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '400' }}>{tx.details?.network}</p>
                                                     </td>
                                                     <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
                                                         <p style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>₦{tx.amount.toLocaleString()}</p>

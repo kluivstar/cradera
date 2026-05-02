@@ -25,7 +25,8 @@
   --card-padding: 1.25rem;
   
   /* Typography */
-  --font-base: "General Sans", "Inter", -apple-system, sans-serif;
+  --font-base: "Avenir Light", "Avenir Next", "Avenir", "Inter", -apple-system, sans-serif;
+  --font-heading: "Avenir Heavy", "Avenir Next Heavy", "Avenir Next", "Avenir", "Inter", -apple-system, sans-serif;
   --font-size-base: 16px;
   --line-height-base: 24px;
 }
@@ -43,22 +44,23 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
-  font-weight: 500;
+  font-weight: 400; /* Light feel */
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-weight: 900; /* Heavy */
   color: var(--color-text-primary);
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-h1 { font-size: 1.75rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.1rem; }
-h5 { font-size: 1rem; }
-h6 { font-size: 0.875rem; }
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
 
 /* ========================================
    App Container & Header (Home page)
