@@ -459,6 +459,19 @@ main {
 }
 
 .grid-span-12 { grid-column: span 12; }
+
+.admin-main-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .admin-main-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
 .grid-span-8 { grid-column: span 8; }
 .grid-span-6 { grid-column: span 6; }
 .grid-span-4 { grid-column: span 4; }
@@ -953,6 +966,32 @@ main {
   .settings-responsive-grid {
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
+  }
+
+  .admin-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Modal responsiveness */
+  [style*="max-width: 540px"], [style*="max-width: 600px"] {
+    max-width: 95% !important;
+    margin: 1rem !important;
+    padding: 1.25rem !important;
+  }
+
+  [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  [style*="grid-template-columns: 1fr 1.5fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-header-responsive {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 
   .referral-main-card {

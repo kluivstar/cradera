@@ -173,10 +173,10 @@ const ManageAssets = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                <div className="dashboard-header-responsive" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Asset Management</h1>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem' }}>Configure trading assets, exchange rates, and wallet networks.</p>
+                        <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Asset Management</h1>
+                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', fontWeight: '300' }}>Configure trading assets, exchange rates, and wallet networks.</p>
                     </div>
                     <button 
                         className="btn btn-primary"
@@ -184,7 +184,7 @@ const ManageAssets = () => {
                             resetForm();
                             setIsModalOpen(true);
                         }}
-                        style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', fontSize: '0.875rem' }}
+                        style={{ padding: '0.5rem 1.25rem', borderRadius: '8px', fontSize: '0.875rem', fontWeight: '700' }}
                     >
                         + Add Asset
                     </button>

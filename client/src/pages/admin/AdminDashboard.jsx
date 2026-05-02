@@ -33,9 +33,11 @@ const AdminDashboard = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Command Center</h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Real-time overview of Cradera's platform health and operations.</p>
+                <div className="dashboard-header dashboard-header-responsive" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                    <div>
+                        <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Command Center</h1>
+                        <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', fontWeight: '300' }}>Real-time overview of Cradera's platform health and operations.</p>
+                    </div>
                 </div>
 
                 {error && <div className="auth-error" style={{ marginBottom: '2rem' }}>{error}</div>}
