@@ -89,136 +89,137 @@ const UserDashboard = () => {
                         </div>
                     </div>
 
-                    {/* Services Row (Full Width) */}
-                    <div className="grid-span-12" style={{ marginTop: '1rem' }}>
-                        <h3 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
-                        <div className="quick-actions-container">
-                            <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
-                                <div style={{ 
-                                    width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                    marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
-                                    color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                                }}>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
-                                    </svg>
-                                </div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Buy/Sell Crypto</h4>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Trade assets instantly</p>
-                            </Link>
-                             <Link to="/dashboard/withdraw" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
-                                 <div style={{ 
-                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
-                                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                     marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
-                                     color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                                 }}>
-                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                         <path d="M12 1v22M5 15l7 7 7-7"/>
-                                     </svg>
-                                 </div>
-                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Withdraw</h4>
-                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Payout to bank/crypto</p>
-                             </Link>
-                             <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
-                                 <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
-                                 <div style={{ 
-                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
-                                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                     marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
-                                     color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                                 }}>
-                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-                                     </svg>
-                                 </div>
-                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Bill Payments</h4>
-                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
-                             </div>
-                             <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
-                                 <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
-                                 <div style={{ 
-                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
-                                     display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                     marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
-                                     color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                                 }}>
-                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                     </svg>
-                                 </div>
-                                 <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Vault</h4>
-                                 <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
-                             </div>
+                </div>{/* end dashboard-grid */}
+
+                {/* Quick Actions — full width, outside grid */}
+                <div style={{ marginTop: '1.5rem', width: '100%' }}>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
+                    <div className="quick-actions-container">
+                        <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
+                            <div style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                            }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
+                                </svg>
+                            </div>
+                            <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Buy/Sell Crypto</h4>
+                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Trade assets instantly</p>
+                        </Link>
+                        <Link to="/dashboard/withdraw" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
+                            <div style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                            }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M12 1v22M5 15l7 7 7-7"/>
+                                </svg>
+                            </div>
+                            <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Withdraw</h4>
+                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Payout to bank/crypto</p>
+                        </Link>
+                        <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
+                            <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                            <div style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                            }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                                </svg>
+                            </div>
+                            <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Bill Payments</h4>
+                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
+                        </div>
+                        <div className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem', opacity: 0.7, position: 'relative' }}>
+                            <span style={{ position: 'absolute', top: '0.75rem', right: '0.75rem', fontSize: '0.6rem', fontWeight: '600', padding: '0.2rem 0.4rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                            <div style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
+                                color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                            }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </div>
+                            <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem' }}>Vault</h4>
+                            <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
                         </div>
                     </div>
-
-                    {/* Recent Transactions (Full Width) */}
-                    <div style={{ gridColumn: 'span 12' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                            <h3 style={{ fontSize: '1.1rem', fontWeight: '500', color: 'var(--color-primary)' }}>Recent Activity</h3>
-                            <Link to="/dashboard/transactions" style={{ fontSize: '0.85rem', color: 'var(--color-accent)', fontWeight: '500', textDecoration: 'none' }}>View All</Link>
-                        </div>
-                        <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
-                            {loading ? (
-                                <div style={{ padding: '2rem', textAlign: 'center' }}><div className="loading-spinner"></div></div>
-                            ) : transactions.length === 0 ? (
-                                <div style={{ padding: '4rem', textAlign: 'center' }}>
-                                    <p style={{ color: 'var(--color-text-secondary)' }}>No recent activity to show.</p>
-                                </div>
-                            ) : (
-                                <div className="table-wrapper" style={{ border: 'none' }}>
-                                    <table className="data-table">
-                                        <tbody>
-                                            {transactions.map(tx => (
-                                                <tr key={tx.id}>
-                                                    <td style={{ padding: '0.75rem 1rem', width: '50px' }}>
-                                                        <div style={{ 
-                                                            width: '32px', height: '32px', borderRadius: '8px', 
-                                                            background: tx.status === 'confirmed' ? 'rgba(16, 185, 129, 0.08)' : 'white', 
-                                                            display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                                            color: 'var(--color-primary)', boxShadow: tx.status === 'confirmed' ? 'none' : '0 2px 6px rgba(0,0,0,0.04)'
-                                                        }}>
-                                                            {tx.status === 'confirmed' ? (
-                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                                                    <polyline points="20 6 9 17 4 12"/>
-                                                                </svg>
-                                                            ) : (
-                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                                    {tx.type === 'deposit' ? (
-                                                                        <path d="M12 5v14M5 12l7 7 7-7"/>
-                                                                    ) : (
-                                                                        <path d="M12 19V5M5 12l7-7 7 7"/>
-                                                                    )}
-                                                                </svg>
-                                                            )}
-                                                        </div>
-                                                    </td>
-                                                    <td style={{ padding: '0.75rem 1rem' }}>
-                                                        <p style={{ fontWeight: '500', color: 'var(--color-primary)', marginBottom: '0.1rem', fontSize: '0.875rem' }}>{tx.type === 'deposit' ? 'Wallet Top-up' : tx.type}</p>
-                                                        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{new Date(tx.date).toLocaleString()}</p>
-                                                    </td>
-                                                    <td style={{ padding: '0.75rem 1rem' }}>
-                                                        <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>{tx.asset}</p>
-                                                        <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{tx.details?.network}</p>
-                                                    </td>
-                                                    <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
-                                                        <p style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>₦{tx.amount.toLocaleString()}</p>
-                                                        <p style={{ fontSize: '0.7rem', fontWeight: '500', color: tx.status === 'confirmed' ? 'var(--color-accent)' : '#F59E0B' }}>
-                                                            {tx.status.toUpperCase()}
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
                 </div>
+
+                {/* Recent Transactions — full width, outside grid */}
+                <div style={{ marginTop: '1.5rem', width: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                        <h3 style={{ fontSize: '1.1rem', fontWeight: '500', color: 'var(--color-primary)' }}>Recent Activity</h3>
+                        <Link to="/dashboard/transactions" style={{ fontSize: '0.85rem', color: 'var(--color-accent)', fontWeight: '500', textDecoration: 'none' }}>View All</Link>
+                    </div>
+                    <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
+                        {loading ? (
+                            <div style={{ padding: '2rem', textAlign: 'center' }}><div className="loading-spinner"></div></div>
+                        ) : transactions.length === 0 ? (
+                            <div style={{ padding: '4rem', textAlign: 'center' }}>
+                                <p style={{ color: 'var(--color-text-secondary)' }}>No recent activity to show.</p>
+                            </div>
+                        ) : (
+                            <div className="table-wrapper" style={{ border: 'none' }}>
+                                <table className="data-table">
+                                    <tbody>
+                                        {transactions.map(tx => (
+                                            <tr key={tx.id}>
+                                                <td style={{ padding: '0.75rem 1rem', width: '50px' }}>
+                                                    <div style={{ 
+                                                        width: '32px', height: '32px', borderRadius: '8px', 
+                                                        background: tx.status === 'confirmed' ? 'rgba(16, 185, 129, 0.08)' : 'white', 
+                                                        display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                                        color: 'var(--color-primary)', boxShadow: tx.status === 'confirmed' ? 'none' : '0 2px 6px rgba(0,0,0,0.04)'
+                                                    }}>
+                                                        {tx.status === 'confirmed' ? (
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                                <polyline points="20 6 9 17 4 12"/>
+                                                            </svg>
+                                                        ) : (
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                                {tx.type === 'deposit' ? (
+                                                                    <path d="M12 5v14M5 12l7 7 7-7"/>
+                                                                ) : (
+                                                                    <path d="M12 19V5M5 12l7-7 7 7"/>
+                                                                )}
+                                                            </svg>
+                                                        )}
+                                                    </div>
+                                                </td>
+                                                <td style={{ padding: '0.75rem 1rem' }}>
+                                                    <p style={{ fontWeight: '500', color: 'var(--color-primary)', marginBottom: '0.1rem', fontSize: '0.875rem' }}>{tx.type === 'deposit' ? 'Wallet Top-up' : tx.type}</p>
+                                                    <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{new Date(tx.date).toLocaleString()}</p>
+                                                </td>
+                                                <td style={{ padding: '0.75rem 1rem' }}>
+                                                    <p style={{ fontWeight: '500', fontSize: '0.875rem' }}>{tx.asset}</p>
+                                                    <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{tx.details?.network}</p>
+                                                </td>
+                                                <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
+                                                    <p style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>₦{tx.amount.toLocaleString()}</p>
+                                                    <p style={{ fontSize: '0.7rem', fontWeight: '500', color: tx.status === 'confirmed' ? 'var(--color-accent)' : '#F59E0B' }}>
+                                                        {tx.status.toUpperCase()}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
             </div>
             <style>{`
                 .service-hover { transition: all 0.3s ease; }
