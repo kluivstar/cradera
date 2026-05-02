@@ -97,11 +97,11 @@ const Referral = () => {
                         </div>
 
                         <div className="referral-stats-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', width: '100%' }}>
-                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '12px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
                                 <p style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.4rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Referrals</p>
                                 <h2 style={{ fontSize: '2rem', fontWeight: '400' }}>{stats.referralCount}</h2>
                             </div>
-                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '12px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
                                 <p style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.4rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Earned</p>
                                 <h2 style={{ fontSize: '2rem', fontWeight: '400' }}>₦{stats.totalEarned.toLocaleString()}</h2>
                             </div>
@@ -118,8 +118,8 @@ const Referral = () => {
                             { step: '02', title: 'User signs up', desc: 'Your friends sign up to Cradera using your referral link and complete their verification.', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg> },
                             { step: '03', title: 'Earn rewards', desc: 'Receive instant rewards and commissions every time your referrals make a transaction.', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> }
                         ].map((item, i) => (
-                            <div key={i} className="dash-card" style={{ padding: '2rem', textAlign: 'center', border: '1px solid #F1F5F9', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
-                                <div style={{ color: '#5170ff', marginBottom: '1.25rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
+                            <div key={i} className="dash-card" style={{ padding: '2rem', textAlign: 'center', border: '1px solid #F1F5F9', boxShadow: '0 4px 6px rgba(0,0,0,0.02)', borderRadius: '12px' }}>
+                                <div style={{ color: '#94a3b8', marginBottom: '1.25rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
                                 <span style={{ fontSize: '0.75rem', fontWeight: '400', color: '#5170ff', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.75rem' }}>Step {item.step}</span>
                                 <h4 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '0.75rem' }}>{item.title}</h4>
                                 <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: '1.5', fontWeight: '300' }}>{item.desc}</p>
