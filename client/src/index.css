@@ -1274,29 +1274,38 @@ main {
   padding: 0.5rem 0;
 }
 
-/* 375px — small phone: topbar vertical padding + wider quick action cards */
+/* 375px — small phone: topbar vertical padding + tightly scaled quick action cards */
 @media (max-width: 375px) {
   .topbar {
     padding: 4px 0.75rem !important;
   }
-  /* Quick action cards: 30% wider (130px → ~169px) */
+  /* Card min-width: 30% more than default 130px */
   .quick-actions-container > * {
     min-width: 169px !important;
+    padding: 0.6rem 0.5rem !important; /* Reduce internal padding to fit content */
   }
+  /* Icon container: compact */
   .quick-action-card-icon {
-    width: 36px !important;
-    height: 36px !important;
-    margin-bottom: 0.5rem !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+    margin-bottom: 0.3rem !important;
+    box-shadow: none !important;
   }
+  /* SVG icon: scale down to match container */
   .quick-action-card-icon svg {
-    width: 18px !important;
-    height: 18px !important;
+    width: 14px !important;
+    height: 14px !important;
   }
+  /* Title text */
   .quick-action-card-title {
-    font-size: 0.8rem !important;
-    margin-bottom: 0.15rem !important;
-  }
-  .quick-action-card-sub {
     font-size: 0.68rem !important;
+    margin-bottom: 0.1rem !important;
+    line-height: 1.2 !important;
+  }
+  /* Subtitle text */
+  .quick-action-card-sub {
+    font-size: 0.58rem !important;
+    line-height: 1.2 !important;
   }
 }
