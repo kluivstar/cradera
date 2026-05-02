@@ -1,4 +1,4 @@
-@import url('https://fonts.cdnfonts.com/css/general-sans');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&family=Montserrat:wght@300;700&display=swap');
 
 :root {
   /* Colors */
@@ -16,7 +16,7 @@
   --color-success: #10B981;
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
-
+  
   /* Spacing & Layout */
   --sidebar-width: 230px; /* Reduced from 280px */
   --topbar-height: 56px; /* Reduced from 72px */
@@ -25,8 +25,8 @@
   --card-padding: 1.25rem;
   
   /* Typography */
-  --font-base: "Avenir Light", "Avenir Next", "Avenir", "Inter", -apple-system, sans-serif;
-  --font-heading: "Avenir Heavy", "Avenir Next Heavy", "Avenir Next", "Avenir", "Inter", -apple-system, sans-serif;
+  --font-base: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-auth: 'Montserrat', 'Avenir', -apple-system, sans-serif;
   --font-size-base: 16px;
   --line-height-base: 24px;
 }
@@ -44,23 +44,22 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
-  font-weight: 400; /* Light feel */
+  font-weight: 300;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 900; /* Heavy */
+  font-weight: 400;
   color: var(--color-text-primary);
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
-h1 { font-size: 2.25rem; }
-h2 { font-size: 1.75rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
-h5 { font-size: 1.1rem; }
-h6 { font-size: 1rem; }
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.1rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
 
 /* ========================================
    App Container & Header (Home page)
@@ -125,6 +124,8 @@ main {
   min-height: 100vh;
   padding: 1rem;
   background: #F9FAFB;
+  font-family: var(--font-auth);
+  font-weight: 300;
 }
 
 .auth-card {
@@ -141,9 +142,15 @@ main {
   margin-bottom: 1rem;
 }
 
+.auth-card h2, .auth-logo {
+  font-family: var(--font-auth);
+  font-weight: 700 !important;
+  color: var(--color-primary);
+}
+
 .auth-logo {
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--color-primary);
   margin-bottom: 0.15rem;
 }
@@ -190,9 +197,9 @@ main {
   border-radius: 6px;
   background: #5170ff;
   color: white;
-  font-family: var(--font-base);
+  font-family: var(--font-auth);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -234,7 +241,7 @@ main {
   border-radius: 6px;
   font-family: var(--font-base);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
   gap: 0.5rem;
@@ -352,7 +359,7 @@ main {
   border-radius: 8px;
   font-size: 16px;
   line-height: 32px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-primary);
   background: rgba(0, 0, 0, 0);
   text-decoration: none;
@@ -762,7 +769,7 @@ main {
 
 .stat-value {
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-text-primary);
 }
 

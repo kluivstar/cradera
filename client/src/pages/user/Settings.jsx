@@ -130,10 +130,10 @@ const Settings = () => {
     };
 
     // Style constants for reuse
-    const containerStyle = { fontWeight: '400' };
-    const headingStyle = { fontWeight: '900', margin: 0 };
+    const containerStyle = { fontWeight: '500' };
+    const headingStyle = { fontWeight: '500', margin: 0 };
     const cardStyle = { padding: '2rem', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.03)', background: 'white', borderRadius: '16px' };
-    const inputStyle = { border: 'none', background: '#f8fafc', padding: '0.85rem', borderRadius: '12px', width: '100%', outline: 'none', fontWeight: '400' };
+    const inputStyle = { border: 'none', background: '#f8fafc', padding: '0.85rem', borderRadius: '12px', width: '100%', outline: 'none', fontWeight: '500' };
 
     const renderPaymentSettings = () => (
         <div className="fade-in">
@@ -342,7 +342,7 @@ const Settings = () => {
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                         </div>
                         <h3 style={{ ...headingStyle, fontSize: '1.25rem', marginBottom: '0.5rem' }}>Account Status</h3>
-                        <p style={{ color: 'var(--color-text-secondary)', marginBottom: '1.5rem', maxWidth: '240px', fontWeight: '400' }}>
+                        <p style={{ color: 'var(--color-text-secondary)', marginBottom: '1.5rem', maxWidth: '240px', fontWeight: '500' }}>
                             {isUnverified ? "Your account is currently unverified. Complete KYC to lift limits." : "Your account is verified and fully operational."}
                         </p>
                         
@@ -401,18 +401,18 @@ const Settings = () => {
                         <h2 style={{ ...headingStyle, fontSize: '1.5rem', marginBottom: '1.5rem' }}>Change Password</h2>
                         <form onSubmit={handleUpdatePassword}>
                             <div className="form-group" style={{ marginBottom: '1rem' }}>
-                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600' }}>CURRENT PASSWORD</label>
+                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '500' }}>CURRENT PASSWORD</label>
                                 <input type="password" style={inputStyle} value={passwords.currentPassword} onChange={(e) => setPasswords({...passwords, currentPassword: e.target.value})} required />
                             </div>
                             <div className="form-group" style={{ marginBottom: '1rem' }}>
-                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600' }}>NEW PASSWORD</label>
+                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '500' }}>NEW PASSWORD</label>
                                 <input type="password" style={inputStyle} value={passwords.newPassword} onChange={(e) => setPasswords({...passwords, newPassword: e.target.value})} required />
                             </div>
                             <div className="form-group" style={{ marginBottom: '2rem' }}>
-                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600' }}>CONFIRM NEW PASSWORD</label>
+                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '500' }}>CONFIRM NEW PASSWORD</label>
                                 <input type="password" style={inputStyle} value={passwords.confirmPassword} onChange={(e) => setPasswords({...passwords, confirmPassword: e.target.value})} required />
                             </div>
-                            <button type="submit" style={{ width: '100%', background: '#5170ff', padding: '1rem', borderRadius: '12px', border: 'none', color: 'white', cursor: 'pointer', fontWeight: '900' }}>Update Securely</button>
+                            <button type="submit" style={{ width: '100%', background: '#5170ff', padding: '1rem', borderRadius: '12px', border: 'none', color: 'white', cursor: 'pointer', fontWeight: '500' }}>Update Securely</button>
                         </form>
                     </div>
                 </div>
