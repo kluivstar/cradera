@@ -1125,7 +1125,7 @@ main {
   gap: 1rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .quick-actions-container {
     display: flex;
     flex-direction: row;
@@ -1133,5 +1133,6 @@ main {
   }
   .quick-actions-container > * {
     flex: 1;
+    min-width: 160px;
   }
 }
