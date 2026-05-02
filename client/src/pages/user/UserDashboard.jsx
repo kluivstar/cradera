@@ -107,7 +107,7 @@ const UserDashboard = () => {
                     {/* Services Row (Full Width) */}
                     <div className="grid-span-12" style={{ marginTop: '1rem' }}>
                         <h3 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem' }}>
+                        <div className="quick-actions-container">
                             <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ textDecoration: 'none', textAlign: 'center', padding: '1.5rem 1rem' }}>
                                 <div style={{ 
                                     width: '40px', height: '40px', borderRadius: '10px', background: 'white', 

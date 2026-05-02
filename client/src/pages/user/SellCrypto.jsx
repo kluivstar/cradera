@@ -92,7 +92,20 @@ const SellCrypto = () => {
 
     if (loading) return (
         <DashboardLayout>
-            <div className="loading-screen"><div className="loading-spinner"></div></div>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '5rem' }}>
+                <div className="sell-crypto-grid" style={{ gridTemplateColumns: '320px 480px', justifyContent: 'flex-start', gap: '3rem' }}>
+                    <div className="asset-list-container">
+                        <div className="skeleton" style={{ width: '150px', height: '14px', marginBottom: '1.25rem' }}></div>
+                        {[1, 2, 3, 4].map(i => (
+                            <div key={i} className="fintech-card skeleton" style={{ height: '70px', marginBottom: '0.75rem', width: '100%', border: 'none' }}></div>
+                        ))}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        <div className="skeleton" style={{ width: '250px', height: '24px', marginBottom: '1rem' }}></div>
+                        <div className="fintech-card skeleton" style={{ height: '400px', width: '100%', border: 'none' }}></div>
+                    </div>
+                </div>
+            </div>
         </DashboardLayout>
     );
 

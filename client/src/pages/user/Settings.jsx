@@ -180,7 +180,7 @@ const Settings = () => {
                                         <div>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                 <p style={{ fontWeight: '500', fontSize: '1rem', margin: 0 }}>{acc.accountName}</p>
-                                                {acc.isDefault && <span style={{ fontSize: '0.6rem', padding: '0.2rem 0.5rem', background: '#5170ff', color: 'white', borderRadius: '6px', fontWeight: '600', textTransform: 'uppercase' }}>Default</span>}
+                                                {acc.isDefault && <span style={{ fontSize: '0.6rem', padding: '0.2rem 0.5rem', background: '#5170ff', color: 'white', borderRadius: '6px', fontWeight: '400', textTransform: 'uppercase' }}>Default</span>}
                                             </div>
                                             <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.25rem', margin: 0 }}>
                                                 {acc.type === 'bank' ? `${acc.bankName} • ${acc.accountNumber.slice(-4)}` : `${acc.network} • ${acc.cryptoWalletAddress.slice(0, 6)}...${acc.cryptoWalletAddress.slice(-4)}`}
@@ -188,7 +188,7 @@ const Settings = () => {
                                         </div>
                                     </div>
                                     {!acc.isDefault && (
-                                        <button onClick={() => handleSetDefault(acc._id)} style={{ fontSize: '0.8rem', color: '#5170ff', fontWeight: '600', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}>Make Default</button>
+                                        <button onClick={() => handleSetDefault(acc._id)} style={{ fontSize: '0.8rem', color: '#5170ff', fontWeight: '400', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}>Make Default</button>
                                     )}
                                 </div>
                             ))
@@ -206,8 +206,8 @@ const Settings = () => {
                     <form onSubmit={handleAddAccount}>
                         <div style={{ marginBottom: '2rem' }}>
                             <div style={{ display: 'flex', gap: '0.5rem', background: '#f8fafc', padding: '0.35rem', borderRadius: '12px' }}>
-                                <button type="button" onClick={() => setAccountType('bank')} style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', border: 'none', background: accountType === 'bank' ? 'white' : 'transparent', color: accountType === 'bank' ? '#5170ff' : '#64748b', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s', boxShadow: accountType === 'bank' ? '0 2px 10px rgba(0,0,0,0.06)' : 'none', fontSize: '0.9rem' }}>Bank Transfer</button>
-                                <button type="button" onClick={() => setAccountType('crypto')} style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', border: 'none', background: accountType === 'crypto' ? 'white' : 'transparent', color: accountType === 'crypto' ? '#5170ff' : '#64748b', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s', boxShadow: accountType === 'crypto' ? '0 2px 10px rgba(0,0,0,0.06)' : 'none', fontSize: '0.9rem' }}>Crypto Wallet</button>
+                                <button type="button" onClick={() => setAccountType('bank')} style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', border: 'none', background: accountType === 'bank' ? 'white' : 'transparent', color: accountType === 'bank' ? '#5170ff' : '#64748b', fontWeight: '400', cursor: 'pointer', transition: 'all 0.2s', boxShadow: accountType === 'bank' ? '0 2px 10px rgba(0,0,0,0.06)' : 'none', fontSize: '0.9rem' }}>Bank Transfer</button>
+                                <button type="button" onClick={() => setAccountType('crypto')} style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', border: 'none', background: accountType === 'crypto' ? 'white' : 'transparent', color: accountType === 'crypto' ? '#5170ff' : '#64748b', fontWeight: '400', cursor: 'pointer', transition: 'all 0.2s', boxShadow: accountType === 'crypto' ? '0 2px 10px rgba(0,0,0,0.06)' : 'none', fontSize: '0.9rem' }}>Crypto Wallet</button>
                             </div>
                         </div>
 
@@ -247,7 +247,7 @@ const Settings = () => {
                             )}
                         </div>
 
-                        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '2.5rem', background: '#5170ff', padding: '1rem', borderRadius: '12px', fontWeight: '600', border: 'none', color: 'white', cursor: 'pointer', boxShadow: '0 8px 20px rgba(81, 112, 255, 0.2)', fontSize: '1rem' }}>
+                        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '2.5rem', background: '#5170ff', padding: '1rem', borderRadius: '12px', fontWeight: '400', border: 'none', color: 'white', cursor: 'pointer', boxShadow: '0 8px 20px rgba(81, 112, 255, 0.2)', fontSize: '1rem' }}>
                             Confirm & Save
                         </button>
                     </form>
@@ -276,7 +276,6 @@ const Settings = () => {
                                     <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', fontWeight: '500' }}>USERNAME</p>
                                     <p style={{ fontWeight: '500', margin: 0 }}>@{user?.username || 'Not set'}</p>
                                 </div>
-                                <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontStyle: 'italic', alignSelf: 'center' }}>Immutable</span>
                             </div>
 
                             <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>
