@@ -1,174 +1,225 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 import api from '../../utils/api';
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [assets, setAssets] = useState([]);
+    const [filters, setFilters] = useState({
+        status: '',
+        asset: '',
+        startDate: '',
+        endDate: ''
+    });
 
-    const fetchTransactions = async () => {
+    const fetchAssets = async () => {
+        try {
+            const res = await api.get('/assets');
+            setAssets(res.data);
+        } catch (err) {
+            console.error('Failed to fetch assets');
+        }
+    };
+
+    const fetchTransactions = useCallback(async () => {
         try {
             setLoading(true);
-            const res = await api.get('/transactions');
+            const queryParams = new URLSearchParams();
+            if (filters.status) queryParams.append('status', filters.status);
+            if (filters.asset) queryParams.append('asset', filters.asset);
+            if (filters.startDate) queryParams.append('startDate', filters.startDate);
+            if (filters.endDate) queryParams.append('endDate', filters.endDate);
+
+            const res = await api.get(`/transactions?${queryParams.toString()}`);
             setTransactions(res.data);
         } catch (err) {
             console.error('Failed to fetch transactions');
         } finally {
             setLoading(false);
         }
-    };
+    }, [filters]);
+
+    useEffect(() => {
+        fetchAssets();
+    }, []);
 
     useEffect(() => {
         fetchTransactions();
-    }, []);
+    }, [fetchTransactions]);
 
-    const filteredTransactions = transactions.filter(tx => {
-        const query = searchQuery.toLowerCase();
-        return (
-            tx.asset?.toLowerCase().includes(query) ||
-            tx.status?.toLowerCase().includes(query) ||
-            tx.details?.hash?.toLowerCase().includes(query)
-        );
-    });
+    const handleFilterChange = (e) => {
+        setFilters({ ...filters, [e.target.name]: e.target.value });
+    };
+
+    const resetFilters = () => {
+        setFilters({ status: '', asset: '', startDate: '', endDate: '' });
+    };
+
+    const exportToPDF = () => {
+        const doc = new jsPDF();
+        
+        // Header
+        doc.setFontSize(20);
+        doc.setTextColor(11, 34, 83);
+        doc.text("Transaction Statement", 14, 22);
+        
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 30);
+        if (filters.startDate || filters.endDate) {
+            doc.text(`Period: ${filters.startDate || 'Start'} to ${filters.endDate || 'Present'}`, 14, 35);
+        }
+
+        const tableColumn = ["Date", "Type", "Asset", "Amount", "Status", "Details"];
+        const tableRows = [];
+
+        transactions.forEach(tx => {
+            const rowData = [
+                new Date(tx.date).toLocaleDateString(),
+                tx.type.toUpperCase().replace('_', ' '),
+                tx.asset,
+                tx.amount.toLocaleString(),
+                tx.status.toUpperCase(),
+                tx.details
+            ];
+            tableRows.push(rowData);
+        });
+
+        doc.autoTable({
+            head: [tableColumn],
+            body: tableRows,
+            startY: 45,
+            theme: 'striped',
+            headStyles: { fillColor: [11, 34, 83], textColor: [255, 255, 255] },
+            alternateRowStyles: { fillColor: [249, 250, 251] },
+        });
+
+        doc.save(`Cradera_Statement_${new Date().getTime()}.pdf`);
+    };
 
     const getStatusStyle = (status) => {
-        switch (status) {
-            case 'confirmed': return { background: '#DEF7EC', color: '#03543F' };
-            case 'pending': return { background: '#FEF3C7', color: '#92400E' };
-            case 'rejected': return { background: '#FDE2E2', color: '#9B1C1C' };
-            default: return {};
-        }
+        const s = status.toLowerCase();
+        if (['confirmed', 'paid', 'approved', 'completed'].includes(s)) return { background: '#DEF7EC', color: '#03543F' };
+        if (['pending', 'processing'].includes(s)) return { background: '#FEF3C7', color: '#92400E' };
+        if (['rejected', 'failed'].includes(s)) return { background: '#FDE2E2', color: '#9B1C1C' };
+        return { background: '#F3F4F6', color: '#374151' };
     };
 
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in">
-                <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>Transaction History</h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your deposit and activity history.</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem' }}>
+                    <div>
+                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '2rem' }}>Transaction History</h1>
+                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>Track and manage your financial activities on the platform.</p>
+                    </div>
+                    <button 
+                        onClick={exportToPDF}
+                        disabled={transactions.length === 0}
+                        className="btn btn-primary" 
+                        style={{ padding: '0.75rem 1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', borderRadius: '10px' }}
+                    >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Export Statement
+                    </button>
                 </div>
 
-                {loading ? (
-                    <div className="loading-screen"><div className="loading-spinner"></div></div>
-                ) : (
-                    <>
-                        <div style={{ marginBottom: '1.25rem', display: 'flex', justifyContent: 'flex-start' }}>
-                            <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
-                                <svg style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9CA3AF' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                                </svg>
-                                <input 
-                                    type="text" 
-                                    placeholder="Search by hash, asset, status..." 
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    style={{ 
-                                        width: '100%', 
-                                        padding: '0.5rem 1rem 0.5rem 2.25rem', 
-                                        fontSize: '0.8125rem', 
-                                        borderRadius: '8px', 
-                                        border: '1px solid var(--color-border)',
-                                        background: '#FFFFFF',
-                                        outline: 'none',
-                                        fontFamily: 'var(--font-base)',
-                                        fontWeight: '500'
-                                    }}
-                                />
-                            </div>
+                {/* Filters Section */}
+                <div className="dash-card" style={{ padding: '1.5rem', marginBottom: '2rem', border: 'none', background: '#F8FAFC' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', alignItems: 'flex-end' }}>
+                        <div className="form-group">
+                            <label style={{ fontSize: '0.7rem', fontWeight: '600', color: '#64748B', marginBottom: '0.5rem', display: 'block' }}>STATUS</label>
+                            <select name="status" value={filters.status} onChange={handleFilterChange} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #E2E8F0', outline: 'none' }}>
+                                <option value="">All Statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed / Paid</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
                         </div>
-
-                        <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
-                            <div className="table-wrapper">
-                                <table className="data-table">
-                                    <thead style={{ background: '#F9FAFB' }}>
-                                        <tr>
-                                            <th style={{ padding: '0.75rem 1rem' }}>Type</th>
-                                            <th>Asset</th>
-                                            <th>Amount</th>
-                                            <th>Network</th>
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                            <th style={{ textAlign: 'right', paddingRight: '1rem' }}>ID/Hash</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {filteredTransactions.length === 0 ? (
-                                            <tr>
-                                                <td colSpan="7" style={{ textAlign: 'center', padding: '3rem' }}>
-                                                    <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center', opacity: 0.1 }}>
-                                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-                                                        </svg>
-                                                    </div>
-                                                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>No matching transactions found.</p>
-                                                </td>
-                                            </tr>
-                                        ) : (
-                                            filteredTransactions.map((tx) => (
-                                            <tr key={tx.id}>
-                                                <td style={{ padding: '0.625rem 1rem' }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                        <div style={{ 
-                                                            width: '28px', height: '28px', borderRadius: '6px', 
-                                                            background: tx.status === 'confirmed' ? 'rgba(16, 185, 129, 0.08)' : (tx.type === 'deposit' ? 'rgba(56, 189, 248, 0.1)' : 'rgba(30, 58, 138, 0.1)'),
-                                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                                            color: tx.status === 'confirmed' ? '#10B981' : (tx.type === 'deposit' ? 'var(--color-accent)' : 'var(--color-primary)'),
-                                                            fontSize: '0.875rem'
-                                                        }}>
-                                                            {tx.status === 'confirmed' ? (
-                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                                                    <polyline points="20 6 9 17 4 12"/>
-                                                                </svg>
-                                                            ) : (
-                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                                                    {tx.type === 'deposit' ? (
-                                                                        <path d="M12 5v14M5 12l7 7 7-7"/>
-                                                                    ) : (
-                                                                        <path d="M12 19V5M5 12l7-7 7 7"/>
-                                                                    )}
-                                                                </svg>
-                                                            )}
-                                                        </div>
-                                                        <span style={{ fontWeight: '500', textTransform: 'capitalize', fontSize: '0.875rem' }}>{tx.type}</span>
-                                                    </div>
-                                                </td>
-                                                <td style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '0.875rem' }}>{tx.asset}</td>
-                                                <td style={{ fontWeight: '500', fontSize: '0.875rem' }}>{tx.amount.toLocaleString()}</td>
-                                                <td>
-                                                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '500' }}>
-                                                        {tx.details?.network}
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span className="status-badge" style={{ 
-                                                        ...getStatusStyle(tx.status),
-                                                        padding: '0.25rem 0.6rem',
-                                                        borderRadius: '4px',
-                                                        fontSize: '0.7rem',
-                                                        fontWeight: '500'
-                                                    }}>
-                                                        {tx.status.toUpperCase()}
-                                                    </span>
-                                                </td>
-                                                <td style={{ color: 'var(--color-text-secondary)', fontSize: '0.8125rem' }}>
-                                                    {new Date(tx.date).toLocaleDateString()}
-                                                </td>
-                                                <td style={{ textAlign: 'right', paddingRight: '1rem' }}>
-                                                    <code style={{ fontSize: '0.7rem', color: '#9CA3AF', background: '#F3F4F6', padding: '0.15rem 0.4rem', borderRadius: '4px' }}>
-                                                        {tx.details?.hash?.substring(0, 8)}...
-                                                    </code>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )}
-                                </tbody>
-                            </table>
+                        <div className="form-group">
+                            <label style={{ fontSize: '0.7rem', fontWeight: '600', color: '#64748B', marginBottom: '0.5rem', display: 'block' }}>ASSET</label>
+                            <select name="asset" value={filters.asset} onChange={handleFilterChange} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #E2E8F0', outline: 'none' }}>
+                                <option value="">All Assets</option>
+                                <option value="USD">USD</option>
+                                {assets.map(a => <option key={a._id} value={a.symbol}>{a.name} ({a.symbol})</option>)}
+                            </select>
                         </div>
+                        <div className="form-group">
+                            <label style={{ fontSize: '0.7rem', fontWeight: '600', color: '#64748B', marginBottom: '0.5rem', display: 'block' }}>FROM DATE</label>
+                            <input type="date" name="startDate" value={filters.startDate} onChange={handleFilterChange} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #E2E8F0', outline: 'none' }} />
+                        </div>
+                        <div className="form-group">
+                            <label style={{ fontSize: '0.7rem', fontWeight: '600', color: '#64748B', marginBottom: '0.5rem', display: 'block' }}>TO DATE</label>
+                            <input type="date" name="endDate" value={filters.endDate} onChange={handleFilterChange} style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #E2E8F0', outline: 'none' }} />
+                        </div>
+                        <button onClick={resetFilters} style={{ padding: '0.65rem', borderRadius: '8px', border: '1px solid #E2E8F0', background: 'white', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '500' }}>
+                            Reset
+                        </button>
                     </div>
-                </>
-            )}
-        </div>
+                </div>
+
+                <div className="dash-card" style={{ padding: '0', border: 'none', boxShadow: '0 4px 25px rgba(0,0,0,0.03)' }}>
+                    <div className="table-wrapper">
+                        <table className="data-table">
+                            <thead>
+                                <tr>
+                                    <th style={{ padding: '1rem' }}>Transaction Type</th>
+                                    <th>Asset</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th style={{ textAlign: 'right', paddingRight: '1.5rem' }}>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {loading ? (
+                                    <tr><td colSpan="6" style={{ textAlign: 'center', padding: '4rem' }}><div className="loading-spinner"></div></td></tr>
+                                ) : transactions.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="6" style={{ textAlign: 'center', padding: '4rem' }}>
+                                            <p style={{ color: '#94A3B8' }}>No transactions found for the selected filters.</p>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    transactions.map((tx) => (
+                                        <tr key={tx.id}>
+                                            <td style={{ padding: '1rem' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                                    <div style={{ 
+                                                        width: '32px', height: '32px', borderRadius: '8px', 
+                                                        background: tx.type === 'deposit' ? 'rgba(16, 185, 129, 0.1)' : (tx.type === 'withdrawal' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(81, 112, 255, 0.1)'),
+                                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                        color: tx.type === 'deposit' ? '#10B981' : (tx.type === 'withdrawal' ? '#EF4444' : '#5170FF')
+                                                    }}>
+                                                        {tx.type === 'deposit' ? '↓' : (tx.type === 'withdrawal' ? '↑' : '★')}
+                                                    </div>
+                                                    <span style={{ fontWeight: '500', textTransform: 'capitalize' }}>{tx.type.replace('_', ' ')}</span>
+                                                </div>
+                                            </td>
+                                            <td style={{ fontWeight: '600', color: 'var(--color-primary)' }}>{tx.asset}</td>
+                                            <td style={{ fontWeight: '600' }}>{tx.amount.toLocaleString()}</td>
+                                            <td>
+                                                <span className="status-badge" style={{ ...getStatusStyle(tx.status), padding: '0.35rem 0.75rem', borderRadius: '6px' }}>
+                                                    {tx.status.toUpperCase()}
+                                                </span>
+                                            </td>
+                                            <td style={{ color: '#64748B', fontSize: '0.85rem' }}>
+                                                {new Date(tx.date).toLocaleDateString()}
+                                            </td>
+                                            <td style={{ textAlign: 'right', paddingRight: '1.5rem', color: '#94A3B8', fontSize: '0.8rem' }}>
+                                                {tx.details}
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </DashboardLayout>
     );
 };

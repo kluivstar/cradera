@@ -6,7 +6,7 @@ import User from '../models/User.js';
 // @access  Private
 export const submitKYC = async (req, res) => {
     try {
-        const { fullName, idType, idNumber } = req.body;
+        const { fullName, idType, idNumber, idFrontImage, selfieImage } = req.body;
 
         // Check if user already has a pending or approved KYC
         const existingKYC = await KYC.findOne({ user: req.user.id, status: { $in: ['pending', 'approved'] } });
@@ -16,9 +16,11 @@ export const submitKYC = async (req, res) => {
 
         const kyc = new KYC({
             user: req.user.id,
-            fullName,
+            fullName: fullName || req.user.fullName || 'User', // Fallback to user's full name or generic 'User'
             idType,
-            idNumber
+            idNumber,
+            idFrontImage,
+            selfieImage
         });
 
         await kyc.save();

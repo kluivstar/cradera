@@ -8,7 +8,7 @@ const kycSchema = new mongoose.Schema({
     },
     fullName: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     idType: {
@@ -24,6 +24,10 @@ const kycSchema = new mongoose.Schema({
     idFrontImage: {
         type: String,
         default: 'https://via.placeholder.com/400x250?text=ID+Front+Preview'
+    },
+    selfieImage: {
+        type: String,
+        default: ''
     },
     status: {
         type: String,

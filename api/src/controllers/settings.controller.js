@@ -6,11 +6,12 @@ import bcrypt from 'bcryptjs';
 // @access  Private
 export const updateProfile = async (req, res) => {
     try {
-        const { phoneNumber } = req.body;
+        const { phoneNumber, country } = req.body;
         
         const user = await User.findById(req.user._id);
         
         if (phoneNumber) user.phoneNumber = phoneNumber;
+        if (country) user.country = country;
 
         await user.save();
 

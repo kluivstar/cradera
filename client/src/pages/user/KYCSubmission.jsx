@@ -1,17 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import DashboardLayout from '../../components/DashboardLayout';
 import api from '../../utils/api';
+import { useAuth } from '../../context/AuthContext';
+import Webcam from 'react-webcam';
 
 const KYCSubmission = () => {
+    const { user } = useAuth();
     const [kycData, setKycData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
+    const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         idType: 'ID Card',
-        idNumber: ''
+        idNumber: '',
+        idFrontImage: '',
+        selfieImage: ''
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [isCameraActive, setIsCameraActive] = useState(false);
+
+    const webcamRef = useRef(null);
 
     const fetchKycStatus = async () => {
         try {
@@ -33,8 +43,38 @@ const KYCSubmission = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleFileUpload = async (e, field) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            setError('File size exceeds 5MB limit');
+            return;
+        }
+
+        try {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData(prev => ({ ...prev, [field]: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        } catch (err) {
+            setError('Failed to process image');
+        }
+    };
+
+    const captureSelfie = useCallback(() => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        setFormData(prev => ({ ...prev, selfieImage: imageSrc }));
+        setIsCameraActive(false);
+    }, [webcamRef]);
+
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
+        
+        if (!formData.idFrontImage) return setError('Please upload your ID front image');
+        if (!formData.selfieImage) return setError('Please capture or upload a selfie');
+
         setSubmitting(true);
         setError('');
         setSuccess('');
@@ -42,6 +82,7 @@ const KYCSubmission = () => {
         try {
             await api.post('/kyc', formData);
             setSuccess('KYC documents submitted successfully! Our team will review them shortly.');
+            setStep(4); // Success state
             fetchKycStatus();
         } catch (err) {
             setError(err.response?.data?.error || 'Failed to submit KYC');
@@ -50,17 +91,61 @@ const KYCSubmission = () => {
         }
     };
 
+    const nextStep = () => {
+        if (step === 1 && (!user?.phoneNumber || !user?.country)) {
+            return setError('Please ensure your profile information (Phone & Country) is complete in Settings.');
+        }
+        if (step === 2 && !formData.idNumber) {
+            return setError('Please enter your ID number');
+        }
+        setError('');
+        setStep(step + 1);
+    };
+
+    const prevStep = () => {
+        setError('');
+        setStep(step - 1);
+    };
+
     if (loading) return <DashboardLayout><div className="loading-screen"><div className="loading-spinner"></div></div></DashboardLayout>;
 
-    return (
-        <DashboardLayout>
-            <div className="dashboard-content fade-in" style={{ maxWidth: '800px', margin: '0 auto' }}>
-                <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>Identity Verification</h1>
-                    <p className="dashboard-subtitle">Complete your KYC to unlock all platform features and higher limits.</p>
+    const renderStepIndicator = () => (
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem', position: 'relative' }}>
+            <div style={{ position: 'absolute', top: '15px', left: '0', right: '0', height: '2px', background: '#E5E7EB', zIndex: '0' }}></div>
+            <div style={{ position: 'absolute', top: '15px', left: '0', width: `${((step - 1) / 2) * 100}%`, height: '2px', background: 'var(--color-primary)', zIndex: '0', transition: 'width 0.3s ease' }}></div>
+            {[1, 2, 3].map((s) => (
+                <div key={s} style={{ zIndex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ 
+                        width: '32px', 
+                        height: '32px', 
+                        borderRadius: '50%', 
+                        background: step >= s ? 'var(--color-primary)' : 'white',
+                        border: step >= s ? 'none' : '2px solid #E5E7EB',
+                        color: step >= s ? 'white' : '#9CA3AF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: '600',
+                        fontSize: '0.875rem',
+                        transition: 'all 0.3s ease'
+                    }}>
+                        {step > s ? '✓' : s}
+                    </div>
+                    <span style={{ fontSize: '0.75rem', marginTop: '0.5rem', fontWeight: '500', color: step >= s ? 'var(--color-primary)' : '#9CA3AF' }}>
+                        {s === 1 ? 'Profile' : s === 2 ? 'Document' : 'Identity'}
+                    </span>
                 </div>
+            ))}
+        </div>
+    );
 
-                {kycData ? (
+    if (kycData && step < 4) {
+        return (
+            <DashboardLayout>
+                <div className="dashboard-content fade-in" style={{ maxWidth: '800px', margin: '0 auto' }}>
+                    <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
+                        <h1 style={{ fontSize: '2.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>KYC Status</h1>
+                    </div>
                     <div className="dash-card" style={{ padding: '3rem', textAlign: 'center' }}>
                         <div style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
                             {kycData.status === 'approved' ? (
@@ -94,23 +179,6 @@ const KYCSubmission = () => {
                              'We are currently reviewing your documents. This usually takes 24-48 hours.'}
                         </p>
 
-                        <div style={{ background: '#F9FAFB', padding: '1.5rem', borderRadius: '12px', textAlign: 'left', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-                                <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>ID TYPE</label>
-                                    <p style={{ fontWeight: '500' }}>{kycData.idType}</p>
-                                </div>
-                                <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>ID NUMBER</label>
-                                    <p style={{ fontWeight: '500' }}>{kycData.idNumber}</p>
-                                </div>
-                                <div>
-                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>SUBMITTED ON</label>
-                                    <p style={{ fontWeight: '500' }}>{new Date(kycData.createdAt).toLocaleDateString()}</p>
-                                </div>
-                            </div>
-                        </div>
-
                         {kycData.status === 'rejected' && (
                             <button 
                                 onClick={() => setKycData(null)} 
@@ -121,13 +189,73 @@ const KYCSubmission = () => {
                             </button>
                         )}
                     </div>
-                ) : (
-                    <div className="dash-card" style={{ padding: '3rem' }}>
-                        <form onSubmit={handleSubmit}>
-                            {error && <div className="auth-error" style={{ marginBottom: '1.5rem' }}>{error}</div>}
-                            {success && <div className="auth-success" style={{ marginBottom: '1.5rem' }}>{success}</div>}
+                </div>
+            </DashboardLayout>
+        );
+    }
 
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+    return (
+        <DashboardLayout>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '800px', margin: '0 auto' }}>
+                <div className="dashboard-header" style={{ marginBottom: '3rem' }}>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>Identity Verification</h1>
+                    <p className="dashboard-subtitle">Complete your KYC to unlock all platform features and higher limits.</p>
+                </div>
+
+                {renderStepIndicator()}
+
+                <div className="dash-card" style={{ padding: '3rem' }}>
+                    {error && <div className="auth-error" style={{ marginBottom: '2rem' }}>{error}</div>}
+
+                    {step === 1 && (
+                        <div className="fade-in">
+                            <h3 style={{ marginBottom: '1.5rem', fontWeight: '500' }}>Step 1: Personal Information</h3>
+                            
+                            {(!user?.phoneNumber || !user?.country) && (
+                                <div style={{ background: '#FFF7ED', border: '1px solid #FFEDD5', padding: '1rem', borderRadius: '12px', marginBottom: '2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                    <div style={{ color: '#EA580C' }}>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <p style={{ fontSize: '0.85rem', color: '#9A3412', margin: 0, fontWeight: '500' }}>Profile Incomplete</p>
+                                        <p style={{ fontSize: '0.8rem', color: '#C2410C', margin: '0.25rem 0 0 0' }}>Please update your phone number and country in settings to continue.</p>
+                                    </div>
+                                    <Link to="/dashboard/settings?tab=profile" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.75rem', whiteSpace: 'nowrap' }}>Go to Settings</Link>
+                                </div>
+                            )}
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
+                                <div>
+                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>USERNAME</label>
+                                    <p style={{ fontWeight: '500', marginTop: '0.25rem' }}>@{user?.username}</p>
+                                </div>
+                                <div>
+                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>EMAIL</label>
+                                    <p style={{ fontWeight: '500', marginTop: '0.25rem' }}>{user?.email}</p>
+                                </div>
+                                <div>
+                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>PHONE NUMBER</label>
+                                    <p style={{ fontWeight: '500', marginTop: '0.25rem', color: user?.phoneNumber ? 'inherit' : '#EF4444' }}>
+                                        {user?.phoneNumber || 'Not provided'}
+                                    </p>
+                                </div>
+                                <div>
+                                    <label style={{ fontSize: '0.75rem', fontWeight: '500', color: '#9CA3AF' }}>COUNTRY</label>
+                                    <p style={{ fontWeight: '500', marginTop: '0.25rem', color: user?.country ? 'inherit' : '#EF4444' }}>
+                                        {user?.country || 'Not set'}
+                                    </p>
+                                </div>
+                            </div>
+                            <button onClick={nextStep} className="btn btn-primary" style={{ width: '100%', padding: '1rem', borderRadius: '12px' }}>
+                                Next Step: Document Selection
+                            </button>
+                        </div>
+                    )}
+
+                    {step === 2 && (
+                        <div className="fade-in">
+                            <h3 style={{ marginBottom: '1.5rem', fontWeight: '500' }}>Step 2: Document Selection</h3>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2.5rem' }}>
                                 <div className="form-group">
                                     <label style={{ fontWeight: '500', marginBottom: '0.5rem' }}>ID Document Type</label>
                                     <select 
@@ -135,7 +263,7 @@ const KYCSubmission = () => {
                                         value={formData.idType} 
                                         onChange={handleChange} 
                                         required 
-                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', outline: 'none', background: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.02)' }}
+                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: '#F9FAFB', border: '1px solid var(--color-border)' }}
                                     >
                                         <option value="ID Card">National ID Card</option>
                                         <option value="Passport">International Passport</option>
@@ -151,42 +279,117 @@ const KYCSubmission = () => {
                                         onChange={handleChange} 
                                         placeholder="Enter ID number" 
                                         required 
-                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px' }}
+                                        style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: '#F9FAFB', border: '1px solid var(--color-border)' }}
                                     />
                                 </div>
                             </div>
+                            <div style={{ display: 'flex', gap: '1rem' }}>
+                                <button onClick={prevStep} className="btn btn-secondary" style={{ flex: 1, padding: '1rem', borderRadius: '12px' }}>Back</button>
+                                <button onClick={nextStep} className="btn btn-primary" style={{ flex: 2, padding: '1rem', borderRadius: '12px' }}>Next Step: Verification</button>
+                            </div>
+                        </div>
+                    )}
 
-                            <div style={{ marginBottom: '2.5rem' }}>
-                                <label style={{ display: 'block', fontWeight: '500', marginBottom: '1rem' }}>Upload ID Document (Front)</label>
+                    {step === 3 && (
+                        <div className="fade-in">
+                            <h3 style={{ marginBottom: '1.5rem', fontWeight: '500' }}>Step 3: Identity Verification</h3>
+                            
+                            {/* ID Front Upload */}
+                            <div style={{ marginBottom: '2rem' }}>
+                                <label style={{ display: 'block', fontWeight: '500', marginBottom: '1rem', fontSize: '0.9rem' }}>Upload ID Document (Front)</label>
                                 <div style={{ 
-                                    background: '#F9FAFB',
+                                    background: formData.idFrontImage ? 'white' : '#F9FAFB',
                                     borderRadius: '16px', 
-                                    padding: '3rem', 
+                                    padding: formData.idFrontImage ? '1rem' : '3rem', 
                                     textAlign: 'center',
                                     cursor: 'pointer',
-                                    border: '2px dashed var(--color-border)'
+                                    border: '2px dashed var(--color-border)',
+                                    position: 'relative'
                                 }}>
-                                    <div style={{ marginBottom: '1rem', color: 'var(--color-primary)', opacity: 0.5 }}>
-                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
-                                        </svg>
-                                    </div>
-                                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>Click to upload or drag and drop</p>
-                                    <p style={{ fontSize: '0.75rem', color: '#9CA3AF', marginTop: '0.5rem' }}>JPG, PNG or PDF (Max 5MB)</p>
+                                    <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'idFrontImage')} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
+                                    {formData.idFrontImage ? (
+                                        <img src={formData.idFrontImage} alt="ID Front" style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '8px' }} />
+                                    ) : (
+                                        <>
+                                            <div style={{ marginBottom: '1rem', color: 'var(--color-primary)', opacity: 0.5 }}>
+                                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>
+                                                </svg>
+                                            </div>
+                                            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>Click to upload ID photo</p>
+                                        </>
+                                    )}
                                 </div>
                             </div>
 
-                            <button 
-                                type="submit" 
-                                className="btn btn-primary" 
-                                disabled={submitting} 
-                                style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', fontWeight: '500', borderRadius: '12px' }}
-                            >
-                                {submitting ? 'Submitting Documents...' : 'Submit for Verification'}
-                            </button>
-                        </form>
+                            {/* Selfie Capture */}
+                            <div style={{ marginBottom: '2.5rem' }}>
+                                <label style={{ display: 'block', fontWeight: '500', marginBottom: '1rem', fontSize: '0.9rem' }}>Live Selfie Capture</label>
+                                {isCameraActive ? (
+                                    <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', background: 'black' }}>
+                                        <Webcam
+                                            audio={false}
+                                            ref={webcamRef}
+                                            screenshotFormat="image/jpeg"
+                                            style={{ width: '100%', display: 'block' }}
+                                        />
+                                        <div style={{ position: 'absolute', bottom: '1rem', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+                                            <button onClick={captureSelfie} className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', background: 'var(--color-accent)' }}>Take Photo</button>
+                                            <button onClick={() => setIsCameraActive(false)} className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', background: 'white' }}>Cancel</button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div style={{ 
+                                        background: formData.selfieImage ? 'white' : '#F9FAFB',
+                                        borderRadius: '16px', 
+                                        padding: formData.selfieImage ? '1rem' : '2.5rem', 
+                                        textAlign: 'center',
+                                        border: '2px dashed var(--color-border)',
+                                        position: 'relative'
+                                    }}>
+                                        {formData.selfieImage ? (
+                                            <img src={formData.selfieImage} alt="Selfie" style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover', margin: '0 auto' }} />
+                                        ) : (
+                                            <div style={{ marginBottom: '1rem', color: 'var(--color-primary)', opacity: 0.5 }}>
+                                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                                                </svg>
+                                            </div>
+                                        )}
+                                        <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem' }}>
+                                            <button onClick={() => setIsCameraActive(true)} className="btn btn-secondary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.8rem' }}>
+                                                {formData.selfieImage ? 'Retake Selfie' : 'Use Camera'}
+                                            </button>
+                                            <label className="btn btn-secondary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.8rem', cursor: 'pointer' }}>
+                                                Upload Selfie
+                                                <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'selfieImage')} style={{ display: 'none' }} />
+                                            </label>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div style={{ display: 'flex', gap: '1rem' }}>
+                                <button onClick={prevStep} className="btn btn-secondary" style={{ flex: 1, padding: '1rem', borderRadius: '12px' }}>Back</button>
+                                <button 
+                                    onClick={handleSubmit} 
+                                    className="btn btn-primary" 
+                                    disabled={submitting || !formData.idFrontImage || !formData.selfieImage} 
+                                    style={{ flex: 2, padding: '1rem', borderRadius: '12px' }}
+                                >
+                                    {submitting ? 'Submitting...' : 'Complete Verification'}
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                    
+                    <div style={{ marginTop: '2.5rem', paddingTop: '1.5rem', borderTop: '1px solid #F3F4F6', textAlign: 'center' }}>
+                        <p style={{ fontSize: '0.75rem', color: '#9CA3AF', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Your data is securely encrypted and used solely for identity verification purposes.
+                        </p>
                     </div>
-                )}
+                </div>
             </div>
         </DashboardLayout>
     );

@@ -145,13 +145,23 @@ const ManageKYC = () => {
                                 </div>
                             </div>
 
-                            <div style={{ marginBottom: '1.5rem' }}>
-                                <h4 style={{ fontSize: '0.625rem', fontWeight: '500', color: '#9CA3AF', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Document Image (Front)</h4>
-                                <img 
-                                    src={selectedKYC.idFrontImage} 
-                                    alt="ID Front" 
-                                    style={{ width: '100%', borderRadius: '8px', border: '1px solid var(--color-border)' }}
-                                />
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.5rem' }}>
+                                <div>
+                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '500', color: '#9CA3AF', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Document Image (Front)</h4>
+                                    <img 
+                                        src={selectedKYC.idFrontImage} 
+                                        alt="ID Front" 
+                                        style={{ width: '100%', borderRadius: '8px', border: '1px solid var(--color-border)' }}
+                                    />
+                                </div>
+                                <div>
+                                    <h4 style={{ fontSize: '0.625rem', fontWeight: '500', color: '#9CA3AF', marginBottom: '0.5rem', textTransform: 'uppercase' }}>Selfie Image</h4>
+                                    <img 
+                                        src={selectedKYC.selfieImage} 
+                                        alt="Selfie" 
+                                        style={{ width: '100%', borderRadius: '8px', border: '1px solid var(--color-border)', aspectRatio: '1', objectFit: 'cover' }}
+                                    />
+                                </div>
                             </div>
 
                             {selectedKYC.status === 'pending' ? (

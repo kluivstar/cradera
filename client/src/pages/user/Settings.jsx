@@ -25,6 +25,8 @@ const Settings = () => {
     // Profile states
     const [isEditingPhone, setIsEditingPhone] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || '');
+    const [isEditingCountry, setIsEditingCountry] = useState(false);
+    const [country, setCountry] = useState(user?.country || '');
 
     // Security states
     const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
@@ -44,6 +46,7 @@ const Settings = () => {
         }
         if (user) {
             setPhoneNumber(user.phoneNumber || '');
+            setCountry(user.country || '');
         }
     }, [activeTab, user]);
 
@@ -86,6 +89,16 @@ const Settings = () => {
             setIsEditingPhone(false);
         } catch (err) {
             alert(err.response?.data?.error || 'Error updating phone');
+        }
+    };
+
+    const handleUpdateCountry = async () => {
+        try {
+            await api.patch('/settings/profile', { country });
+            alert('Country updated');
+            setIsEditingCountry(false);
+        } catch (err) {
+            alert(err.response?.data?.error || 'Error updating country');
         }
     };
 
@@ -275,10 +288,32 @@ const Settings = () => {
                             </div>
 
                             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem' }}>
-                                <div>
+                                <div style={{ flex: 1 }}>
                                     <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', fontWeight: '500' }}>COUNTRY</p>
-                                    <p style={{ fontWeight: '500', margin: 0 }}>{user?.country || 'Not set'}</p>
+                                    {isEditingCountry ? (
+                                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                                            <select style={{ ...inputStyle, padding: '0.5rem' }} value={country} onChange={(e) => setCountry(e.target.value)}>
+                                                <option value="">Select Country</option>
+                                                <option value="Nigeria">Nigeria</option>
+                                                <option value="United States">United States</option>
+                                                <option value="United Kingdom">United Kingdom</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Ghana">Ghana</option>
+                                                <option value="South Africa">South Africa</option>
+                                                <option value="Kenya">Kenya</option>
+                                            </select>
+                                            <button onClick={handleUpdateCountry} className="btn btn-primary" style={{ padding: '0.5rem 1rem', background: '#5170ff', border: 'none', borderRadius: '8px', color: 'white', cursor: 'pointer' }}>Save</button>
+                                            <button onClick={() => setIsEditingCountry(false)} style={{ padding: '0.5rem 1rem', background: '#eee', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>Cancel</button>
+                                        </div>
+                                    ) : (
+                                        <p style={{ fontWeight: '500', margin: 0 }}>{user?.country || 'Not set'}</p>
+                                    )}
                                 </div>
+                                {!isEditingCountry && (
+                                    <button onClick={() => setIsEditingCountry(true)} style={{ background: 'none', border: 'none', color: '#5170ff', cursor: 'pointer', alignSelf: 'center' }}>
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
