@@ -35,7 +35,7 @@ const UserDashboard = () => {
                         <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your assets and manage your trades with ease.</p>
                     </div>
                     {user?.kycStatus !== 'verified' && (
-                        <Link to="/dashboard/kyc" className="btn btn-primary" style={{ 
+                        <Link to="/dashboard/kyc" className="btn btn-primary btn-kyc-mobile" style={{ 
                             textDecoration: 'none',
                             display: 'flex',
                             alignItems: 'center',

@@ -455,6 +455,7 @@ main {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1.25rem;
+  justify-content: center;
 }
 
 .grid-span-12 { grid-column: span 12; }
@@ -939,6 +940,19 @@ main {
   /* Specific fix for grid gaps on mobile */
   .grid-2, .dashboard-grid {
     gap: 1rem !important;
+  }
+
+  /* KYC Button smaller on mobile */
+  .btn-kyc-mobile {
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  .settings-responsive-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
   }
 }
 

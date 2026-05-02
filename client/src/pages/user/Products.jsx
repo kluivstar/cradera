@@ -102,7 +102,8 @@ const Products = () => {
                 <div className="dashboard-grid" style={{ 
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                    gap: '1.25rem'
+                    gap: '1.25rem',
+                    justifyContent: 'center'
                 }}>
                     {products.map((product) => (
                         <div key={product.id} onClick={() => handleProductClick(product)} className="dash-card" style={{ 
