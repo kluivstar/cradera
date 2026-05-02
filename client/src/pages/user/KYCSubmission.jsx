@@ -360,10 +360,6 @@ const KYCSubmission = () => {
                                             <button onClick={() => setIsCameraActive(true)} className="btn btn-secondary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.8rem' }}>
                                                 {formData.selfieImage ? 'Retake Selfie' : 'Use Camera'}
                                             </button>
-                                            <label className="btn btn-secondary" style={{ padding: '0.6rem 1.25rem', fontSize: '0.8rem', cursor: 'pointer' }}>
-                                                Upload Selfie
-                                                <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'selfieImage')} style={{ display: 'none' }} />
-                                            </label>
                                         </div>
                                     </div>
                                 )}
