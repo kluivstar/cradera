@@ -644,6 +644,11 @@ main {
   margin-left: auto;
 }
 
+/* Hidden on all screens by default, shown only at 1024px+ */
+.topbar-user-desktop {
+  display: none;
+}
+
 .user-email {
   font-size: 0.875rem;
   color: var(--color-text-primary);
@@ -1273,10 +1278,6 @@ main {
 @media (max-width: 375px) {
   .topbar {
     padding: 4px 0.75rem !important;
-  }
-  /* Hide user icon from topbar on small phones */
-  .topbar-user-desktop {
-    display: none !important;
   }
   /* Quick action cards: 30% wider (130px → ~169px) */
   .quick-actions-container > * {
