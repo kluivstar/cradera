@@ -130,14 +130,14 @@ const Settings = () => {
     };
 
     // Style constants for reuse
-    const containerStyle = { fontWeight: '500' };
-    const headingStyle = { fontWeight: '500', margin: 0 };
+    const containerStyle = { fontFamily: 'var(--font-base)', fontWeight: '300' };
+    const headingStyle = { fontFamily: 'var(--font-base)', fontWeight: '400', margin: 0 };
     const cardStyle = { padding: '2rem', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.03)', background: 'white', borderRadius: '16px' };
-    const inputStyle = { border: 'none', background: '#f8fafc', padding: '0.85rem', borderRadius: '12px', width: '100%', outline: 'none', fontWeight: '500' };
+    const inputStyle = { fontFamily: 'inherit', border: 'none', background: '#f8fafc', padding: '0.85rem', borderRadius: '12px', width: '100%', outline: 'none', fontWeight: '400' };
 
     const renderPaymentSettings = () => (
         <div className="fade-in">
-            <div className="grid-2" style={{ gap: '2.5rem' }}>
+            <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2.5rem' }}>
                 {/* Saved Payouts - Left Side */}
                 <div className="dash-card" style={cardStyle}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
@@ -261,7 +261,7 @@ const Settings = () => {
 
         return (
             <div className="fade-in">
-                <div className="grid-2" style={{ gap: '2.5rem' }}>
+                <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2.5rem' }}>
                     <div className="dash-card" style={cardStyle}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
                             <h3 style={headingStyle}>Personal Information</h3>

@@ -37,10 +37,10 @@ const Referral = () => {
 
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto', fontWeight: '500' }}>
+            <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto', fontWeight: '300' }}>
                 <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '2.25rem' }}>Referral Program</h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '1rem', marginTop: '0.5rem', fontWeight: '500' }}>Invite your friends and earn rewards for every successful transaction they make.</p>
+                    <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2.25rem' }}>Referral Program</h1>
+                    <p className="dashboard-subtitle" style={{ fontSize: '1rem', marginTop: '0.5rem', fontWeight: '300' }}>Invite your friends and earn rewards for every successful transaction they make.</p>
                 </div>
 
                 <div className="dash-card" style={{ 
@@ -54,7 +54,7 @@ const Referral = () => {
                 }}>
                     <div className="referral-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'center' }}>
                         <div>
-                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.25rem', fontWeight: '500' }}>Your Referral Link</h3>
+                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.25rem', fontWeight: '400' }}>Your Referral Link</h3>
                             <div style={{ 
                                 background: 'rgba(255, 255, 255, 0.15)', 
                                 padding: '1rem 1.25rem', 
@@ -66,7 +66,7 @@ const Referral = () => {
                                 border: '1px solid rgba(255, 255, 255, 0.2)',
                                 marginBottom: '1.5rem'
                             }}>
-                                <span style={{ fontSize: '0.9rem', fontWeight: '500', opacity: 0.9, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
+                                <span style={{ fontSize: '0.9rem', fontWeight: '400', opacity: 0.9, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
                                     {referralLink}
                                 </span>
                                 <button 
@@ -78,7 +78,7 @@ const Referral = () => {
                                         border: 'none', 
                                         padding: '0.6rem 1.25rem', 
                                         borderRadius: '10px', 
-                                        fontWeight: '600',
+                                        fontWeight: '400',
                                         cursor: 'pointer',
                                         fontSize: '0.85rem',
                                         whiteSpace: 'nowrap',
@@ -88,19 +88,19 @@ const Referral = () => {
                                     Copy Link
                                 </button>
                             </div>
-                            <p style={{ fontSize: '0.9rem', opacity: 0.85, lineHeight: '1.6', fontWeight: '500' }}>
+                            <p style={{ fontSize: '0.9rem', opacity: 0.85, lineHeight: '1.6', fontWeight: '300' }}>
                                 Share this unique link with your network. When they sign up and start trading, you automatically earn commissions on their activities.
                             </p>
                         </div>
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                             <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.5rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
-                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '500', textTransform: 'uppercase' }}>Total Referrals</p>
-                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500' }}>{stats.referralCount}</h2>
+                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Referrals</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '400' }}>{stats.referralCount}</h2>
                             </div>
                             <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.5rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
-                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '500', textTransform: 'uppercase' }}>Total Earned</p>
-                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500' }}>₦{stats.totalEarned.toLocaleString()}</h2>
+                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Earned</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '400' }}>₦{stats.totalEarned.toLocaleString()}</h2>
                             </div>
                         </div>
                     </div>
@@ -117,9 +117,9 @@ const Referral = () => {
                         ].map((item, i) => (
                             <div key={i} className="dash-card" style={{ padding: '2rem', textAlign: 'center', border: '1px solid #F1F5F9', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
                                 <div style={{ color: '#5170ff', marginBottom: '1.25rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
-                                <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#5170ff', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.75rem' }}>Step {item.step}</span>
-                                <h4 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '0.75rem' }}>{item.title}</h4>
-                                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: '1.5', fontWeight: '500' }}>{item.desc}</p>
+                                <span style={{ fontSize: '0.75rem', fontWeight: '400', color: '#5170ff', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.75rem' }}>Step {item.step}</span>
+                                <h4 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '0.75rem' }}>{item.title}</h4>
+                                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: '1.5', fontWeight: '300' }}>{item.desc}</p>
                             </div>
                         ))}
                     </div>
