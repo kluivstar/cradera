@@ -999,7 +999,7 @@ main {
   }
 
   .referral-grid {
-    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
     gap: 1.5rem !important;
   }
 }
