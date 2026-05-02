@@ -21,8 +21,13 @@ export const getMyReferrals = async (req, res) => {
 // @access  Private
 export const getReferralStats = async (req, res) => {
     try {
-        const user = await User.findById(req.user._id).select('referralCode referralCount');
+        let user = await User.findById(req.user._id).select('referralCode referralCount');
         
+        if (!user.referralCode) {
+            user.referralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+            await user.save();
+        }
+
         const totalEarned = await ReferralTransaction.aggregate([
             { $match: { referrerId: req.user._id, status: 'paid' } },
             { $group: { _id: null, total: { $sum: '$rewardAmount' } } }
@@ -30,7 +35,7 @@ export const getReferralStats = async (req, res) => {
 
         res.status(200).json({
             referralCode: user.referralCode,
-            referralCount: user.referralCount,
+            referralCount: user.referralCount || 0,
             totalEarned: totalEarned.length > 0 ? totalEarned[0].total : 0
         });
     } catch (err) {

@@ -35,109 +35,99 @@ const Referral = () => {
         alert('Referral link copied to clipboard!');
     };
 
-    const scrollToHistory = () => {
-        document.getElementById('referral-history')?.scrollIntoView({ behavior: 'smooth' });
-    };
-
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto', fontWeight: '500' }}>
-                <div className="dashboard-header" style={{ marginBottom: '2rem' }}>
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '1.75rem' }}>Referral Program</h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Invite your friends and earn rewards for every successful transaction.</p>
+                <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
+                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', fontSize: '2.25rem' }}>Referral Program</h1>
+                    <p className="dashboard-subtitle" style={{ fontSize: '1rem', marginTop: '0.5rem', fontWeight: '500' }}>Invite your friends and earn rewards for every successful transaction they make.</p>
                 </div>
 
-                {/* Section 1: The Dashboard */}
-                <div className="dash-card referral-dashboard-grid" style={{ padding: '0', overflow: 'hidden', border: 'none', marginBottom: '2.5rem', display: 'grid', gridTemplateColumns: '1fr 320px', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.04)' }}>
-                    {/* Left: Invite Info */}
-                    <div style={{ padding: '2.5rem', background: 'white' }}>
-                        <h3 style={{ fontSize: '1.25rem', marginBottom: '1rem', fontWeight: '600' }}>Invite your friends</h3>
-                        <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '2rem', maxWidth: '400px' }}>
-                            Share your referral link with friends. When they sign up and trade, you'll earn a commission on every transaction they make.
-                        </p>
-                        
-                        <div style={{ background: '#F9FAFB', padding: '0.75rem 1rem', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid #F1F5F9' }}>
-                            <span style={{ fontSize: '0.85rem', color: 'var(--color-text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
-                                {referralLink}
-                            </span>
-                            <button onClick={copyLinkToClipboard} style={{ background: 'none', border: 'none', color: '#5170ff', fontWeight: '600', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                                Copy
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Right: Stats Section */}
-                    <div style={{ padding: '2.5rem', background: '#5170ff', color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <div style={{ marginBottom: '1.5rem' }}>
-                            <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Referrals</p>
-                            <h2 style={{ fontSize: '2.5rem', fontWeight: '600' }}>{stats.referralCount}</h2>
-                        </div>
-                        <div style={{ marginBottom: '2rem' }}>
-                            <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Earnings</p>
-                            <h2 style={{ fontSize: '2.5rem', fontWeight: '600' }}>₦{stats.totalEarned.toLocaleString()}</h2>
-                        </div>
-                        <button 
-                            onClick={scrollToHistory}
-                            style={{ 
+                <div className="dash-card" style={{ 
+                    background: 'linear-gradient(135deg, #5170ff 0%, #3b82f6 100%)', 
+                    color: 'white', 
+                    padding: '2.5rem',
+                    marginBottom: '3rem',
+                    border: 'none',
+                    borderRadius: '24px',
+                    boxShadow: '0 20px 40px rgba(81, 112, 255, 0.15)'
+                }}>
+                    <div className="referral-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+                        <div>
+                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.25rem', fontWeight: '500' }}>Your Referral Link</h3>
+                            <div style={{ 
                                 background: 'rgba(255, 255, 255, 0.15)', 
-                                border: '1px solid rgba(255, 255, 255, 0.3)', 
-                                color: 'white', 
-                                padding: '0.75rem', 
-                                borderRadius: '12px', 
-                                fontSize: '0.85rem', 
-                                fontWeight: '600', 
-                                cursor: 'pointer',
-                                transition: 'all 0.2s'
-                            }}
-                            onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.2)'}
-                            onMouseLeave={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.15)'}
-                        >
-                            View Details
-                        </button>
+                                padding: '1rem 1.25rem', 
+                                borderRadius: '16px', 
+                                display: 'flex', 
+                                justifyContent: 'space-between', 
+                                alignItems: 'center',
+                                backdropFilter: 'blur(10px)',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                marginBottom: '1.5rem'
+                            }}>
+                                <span style={{ fontSize: '0.9rem', fontWeight: '500', opacity: 0.9, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
+                                    {referralLink}
+                                </span>
+                                <button 
+                                    onClick={copyLinkToClipboard}
+                                    disabled={!stats.referralCode}
+                                    style={{ 
+                                        background: 'white', 
+                                        color: '#5170ff', 
+                                        border: 'none', 
+                                        padding: '0.6rem 1.25rem', 
+                                        borderRadius: '10px', 
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        fontSize: '0.85rem',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'transform 0.2s'
+                                    }}
+                                >
+                                    Copy Link
+                                </button>
+                            </div>
+                            <p style={{ fontSize: '0.9rem', opacity: 0.85, lineHeight: '1.6', fontWeight: '500' }}>
+                                Share this unique link with your network. When they sign up and start trading, you automatically earn commissions on their activities.
+                            </p>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.5rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
+                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '500', textTransform: 'uppercase' }}>Total Referrals</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500' }}>{stats.referralCount}</h2>
+                            </div>
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.5rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
+                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem', fontWeight: '500', textTransform: 'uppercase' }}>Total Earned</p>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500' }}>₦{stats.totalEarned.toLocaleString()}</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Section 2: How It Works (Quick Action Style) */}
-                <div style={{ marginBottom: '3.5rem' }}>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>How it works</h3>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+                {/* How it Works Section */}
+                <div style={{ marginBottom: '4rem' }}>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: '500', marginBottom: '2rem', textAlign: 'center', color: 'var(--color-primary)' }}>How It Works</h3>
+                    <div className="how-it-works-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
                         {[
-                            { 
-                                title: 'Share your link', 
-                                desc: 'Send your link to friends', 
-                                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg> 
-                            },
-                            { 
-                                title: 'Friends sign up', 
-                                desc: 'They join and verify account', 
-                                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> 
-                            },
-                            { 
-                                title: 'Earn commissions', 
-                                desc: 'Get paid on every trade', 
-                                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg> 
-                            }
+                            { step: '01', title: 'Share your link', desc: 'Copy your unique referral link and share it with your friends via social media or email.', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> },
+                            { step: '02', title: 'User signs up', desc: 'Your friends sign up to Cradera using your referral link and complete their verification.', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg> },
+                            { step: '03', title: 'Earn rewards', desc: 'Receive instant rewards and commissions every time your referrals make a transaction.', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> }
                         ].map((item, i) => (
-                            <div key={i} className="dash-card" style={{ textAlign: 'center', padding: '1.5rem 1rem' }}>
-                                <div style={{ 
-                                    width: '40px', height: '40px', borderRadius: '10px', background: 'white', 
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                    marginBottom: '0.75rem', margin: '0 auto 0.75rem auto',
-                                    color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                                }}>
-                                    {item.icon}
-                                </div>
-                                <h4 style={{ color: 'var(--color-primary)', fontSize: '0.95rem', marginBottom: '0.25rem', fontWeight: '600' }}>{item.title}</h4>
-                                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>{item.desc}</p>
+                            <div key={i} className="dash-card" style={{ padding: '2rem', textAlign: 'center', border: '1px solid #F1F5F9', boxShadow: '0 4px 6px rgba(0,0,0,0.02)' }}>
+                                <div style={{ color: '#5170ff', marginBottom: '1.25rem', display: 'flex', justifyContent: 'center' }}>{item.icon}</div>
+                                <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#5170ff', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '0.75rem' }}>Step {item.step}</span>
+                                <h4 style={{ fontSize: '1.1rem', fontWeight: '500', marginBottom: '0.75rem' }}>{item.title}</h4>
+                                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', lineHeight: '1.5', fontWeight: '500' }}>{item.desc}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* Section 3: History Table */}
-                <div id="referral-history" className="dash-card" style={{ padding: '0', overflow: 'hidden', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.02)' }}>
-                    <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #F1F5F9' }}>
+                {/* History Table */}
+                <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
+                    <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #eee' }}>
                         <h3 style={{ fontSize: '1rem', fontWeight: '600' }}>Referral History</h3>
                     </div>
                     <div className="table-wrapper" style={{ border: 'none' }}>
@@ -162,8 +152,8 @@ const Referral = () => {
                                             </td>
                                             <td>{new Date(ref.createdAt).toLocaleDateString()}</td>
                                             <td style={{ textAlign: 'right' }}>
-                                                <span style={{ fontSize: '0.7rem', fontWeight: '700', color: '#10B981', background: 'rgba(16, 185, 129, 0.1)', padding: '0.3rem 0.6rem', borderRadius: '4px', textTransform: 'uppercase' }}>
-                                                    ACTIVE
+                                                <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#10B981', background: 'rgba(16, 185, 129, 0.1)', padding: '0.3rem 0.6rem', borderRadius: '4px' }}>
+                                                    SUCCESS
                                                 </span>
                                             </td>
                                         </tr>
@@ -174,13 +164,6 @@ const Referral = () => {
                     </div>
                 </div>
             </div>
-            <style>{`
-                @media (max-width: 768px) {
-                    .referral-dashboard-grid {
-                        grid-template-columns: 1fr !important;
-                    }
-                }
-            `}</style>
         </DashboardLayout>
     );
 };
