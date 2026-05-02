@@ -767,6 +767,13 @@ main {
   margin-bottom: 2rem;
 }
 
+.referral-stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
 .stat-card {
   background: var(--color-bg);
   border-radius: 10px;
@@ -963,14 +970,33 @@ main {
     padding: 1.25rem !important;
   }
 
+  .admin-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
   .referral-grid {
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
   }
 
-  .admin-main-grid {
+  /* Referral Stats & Link stacking */
+  .referral-stats-container {
     grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+  }
+
+  .referral-link-container {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: stretch !important;
+    padding: 1.25rem !important;
+  }
+
+  .referral-link-text {
+    margin-right: 0 !important;
+    margin-bottom: 0.5rem !important;
+    white-space: normal !important;
+    word-break: break-all !important;
   }
 }
 

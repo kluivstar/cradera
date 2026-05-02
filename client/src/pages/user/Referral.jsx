@@ -69,7 +69,7 @@ const Referral = () => {
                                 width: '100%',
                                 overflow: 'hidden'
                             }}>
-                                <span style={{ fontSize: '0.9rem', fontWeight: '400', opacity: 0.9, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
+                                <span className="referral-link-text" style={{ fontSize: '0.9rem', fontWeight: '400', opacity: 0.9, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginRight: '1rem' }}>
                                     {referralLink}
                                 </span>
                                 <button 
@@ -96,7 +96,7 @@ const Referral = () => {
                             </p>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', width: '100%' }}>
+                        <div className="referral-stats-container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', width: '100%' }}>
                             <div style={{ background: 'rgba(255, 255, 255, 0.1)', padding: '1.25rem', borderRadius: '20px', textAlign: 'center', backdropFilter: 'blur(5px)' }}>
                                 <p style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.4rem', fontWeight: '400', textTransform: 'uppercase' }}>Total Referrals</p>
                                 <h2 style={{ fontSize: '2rem', fontWeight: '400' }}>{stats.referralCount}</h2>
