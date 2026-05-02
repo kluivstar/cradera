@@ -1274,6 +1274,10 @@ main {
   .topbar {
     padding: 4px 0.75rem !important;
   }
+  /* Hide user icon from topbar on small phones */
+  .topbar-user-desktop {
+    display: none !important;
+  }
   /* Quick action cards: 30% wider (130px → ~169px) */
   .quick-actions-container > * {
     min-width: 169px !important;
