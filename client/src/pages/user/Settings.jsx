@@ -138,100 +138,119 @@ const Settings = () => {
     const renderPaymentSettings = () => (
         <div className="fade-in">
             <div className="grid-2" style={{ gap: '2.5rem' }}>
+                {/* Saved Payouts - Left Side */}
                 <div className="dash-card" style={cardStyle}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2.5rem' }}>
-                        <h3 style={headingStyle}>New Payout Method</h3>
-                    </div>
-                    
-                    <form onSubmit={handleAddAccount}>
-                        <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                            <div style={{ display: 'flex', gap: '0.5rem', background: '#f8fafc', padding: '0.35rem', borderRadius: '12px' }}>
-                                <button type="button" onClick={() => setAccountType('bank')} style={{ flex: 1, padding: '0.65rem', borderRadius: '10px', border: 'none', background: accountType === 'bank' ? 'white' : 'transparent', color: accountType === 'bank' ? '#5170ff' : '#64748b', fontWeight: '500', cursor: 'pointer', transition: 'all 0.2s', boxShadow: accountType === 'bank' ? '0 2px 8px rgba(0,0,0,0.05)' : 'none' }}>Bank</button>
-                                <button type="button" onClick={() => setAccountType('crypto')} style={{ flex: 1, padding: '0.65rem', borderRadius: '10px', border: 'none', background: accountType === 'crypto' ? 'white' : 'transparent', color: accountType === 'crypto' ? '#5170ff' : '#64748b', fontWeight: '500', cursor: 'pointer', transition: 'all 0.2s', boxShadow: accountType === 'crypto' ? '0 2px 8px rgba(0,0,0,0.05)' : 'none' }}>Crypto</button>
-                            </div>
-                        </div>
-
-                        <div className="form-group" style={{ marginBottom: '1.25rem' }}>
-                            <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '500' }}>ACCOUNT LABEL</label>
-                            <input type="text" style={inputStyle} value={accountName} onChange={(e) => setAccountName(e.target.value)} required placeholder="e.g. My Savings" />
-                        </div>
-
-                        {accountType === 'bank' ? (
-                            <div style={{ display: 'grid', gap: '1.25rem' }}>
-                                <div className="form-group">
-                                    <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '500' }}>BANK NAME</label>
-                                    <input type="text" style={inputStyle} value={bankName} onChange={(e) => setBankName(e.target.value)} required />
-                                </div>
-                                <div className="form-group">
-                                    <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '500' }}>ACCOUNT NUMBER</label>
-                                    <input type="text" style={inputStyle} value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} required />
-                                </div>
-                            </div>
-                        ) : (
-                            <div style={{ display: 'grid', gap: '1.25rem' }}>
-                                <div className="form-group">
-                                    <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '500' }}>NETWORK</label>
-                                    <select style={inputStyle} value={network} onChange={(e) => setNetwork(e.target.value)}>
-                                        <option value="TRC20">Tether (TRC20)</option>
-                                        <option value="ERC20">Tether (ERC20)</option>
-                                        <option value="SOL">Solana</option>
-                                        <option value="BTC">Bitcoin</option>
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '500' }}>WALLET ADDRESS</label>
-                                    <input type="text" style={inputStyle} value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)} required />
-                                </div>
-                            </div>
-                        )}
-                        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem', background: '#5170ff', padding: '1rem', borderRadius: '12px', fontWeight: '500', border: 'none', color: 'white', cursor: 'pointer' }}>Save Account</button>
-                    </form>
-                </div>
-
-                <div className="dash-card" style={{ ...cardStyle, display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
-                        <h3 style={headingStyle}>Saved Payouts</h3>
+                        <h3 style={headingStyle}>Saved Payout Methods</h3>
                         <div style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem', background: '#f8fafc', borderRadius: '8px', color: '#64748b', fontWeight: '500' }}>
-                            {paymentAccounts.length} Methods
+                            {paymentAccounts.length} Total
                         </div>
                     </div>
                     
-                    <div style={{ flex: 1, overflowY: 'auto', maxHeight: '400px', display: 'grid', gap: '1rem' }}>
-                        {loading ? <div className="loading-spinner"></div> : paymentAccounts.length === 0 ? (
-                            <div style={{ textAlign: 'center', padding: '3rem 0' }}>
-                                <p style={{ color: '#94a3b8', fontSize: '0.9rem' }}>No payout methods saved.</p>
+                    <div style={{ display: 'grid', gap: '1.5rem' }}>
+                        {loading ? (
+                            <div style={{ textAlign: 'center', padding: '2rem' }}><div className="loading-spinner"></div></div>
+                        ) : paymentAccounts.length === 0 ? (
+                            <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+                                <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem auto', color: '#94a3b8' }}>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                </div>
+                                <p style={{ color: '#94a3b8', fontSize: '0.9rem', margin: 0 }}>No payout methods saved yet.</p>
                             </div>
                         ) : (
                             paymentAccounts.map(acc => (
                                 <div key={acc._id} style={{ 
-                                    padding: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                                    background: '#f8fafc', borderRadius: '14px', border: 'none'
+                                    padding: '1.25rem', 
+                                    display: 'flex', 
+                                    justifyContent: 'space-between', 
+                                    alignItems: 'center',
+                                    background: '#f8fafc', 
+                                    borderRadius: '16px',
+                                    border: acc.isDefault ? '1px solid rgba(81, 112, 255, 0.2)' : '1px solid transparent',
+                                    transition: 'all 0.2s'
                                 }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                        <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#5170ff', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+                                        <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#5170ff', boxShadow: '0 4px 10px rgba(0,0,0,0.03)' }}>
                                             {acc.type === 'bank' ? (
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M3 10h18M5 10V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M8 21v-7M12 21v-7M16 21v-7"/></svg>
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M3 10h18M5 10V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M8 21v-7M12 21v-7M16 21v-7"/></svg>
                                             ) : (
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                                             )}
                                         </div>
                                         <div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                                                <p style={{ fontWeight: '500', fontSize: '0.95rem', margin: 0 }}>{acc.accountName}</p>
-                                                {acc.isDefault && <span style={{ fontSize: '0.6rem', padding: '0.1rem 0.35rem', background: '#5170ff', color: 'white', borderRadius: '4px' }}>DEF</span>}
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                <p style={{ fontWeight: '500', fontSize: '1rem', margin: 0 }}>{acc.accountName}</p>
+                                                {acc.isDefault && <span style={{ fontSize: '0.6rem', padding: '0.2rem 0.5rem', background: '#5170ff', color: 'white', borderRadius: '6px', fontWeight: '600', textTransform: 'uppercase' }}>Default</span>}
                                             </div>
-                                            <p style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.2rem', margin: 0 }}>
-                                                {acc.type === 'bank' ? acc.bankName : acc.network}
+                                            <p style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.25rem', margin: 0 }}>
+                                                {acc.type === 'bank' ? `${acc.bankName} • ${acc.accountNumber.slice(-4)}` : `${acc.network} • ${acc.cryptoWalletAddress.slice(0, 6)}...${acc.cryptoWalletAddress.slice(-4)}`}
                                             </p>
                                         </div>
                                     </div>
                                     {!acc.isDefault && (
-                                        <button onClick={() => handleSetDefault(acc._id)} style={{ fontSize: '0.75rem', color: '#5170ff', fontWeight: '500', background: 'none', border: 'none', cursor: 'pointer' }}>Set Default</button>
+                                        <button onClick={() => handleSetDefault(acc._id)} style={{ fontSize: '0.8rem', color: '#5170ff', fontWeight: '600', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s' }}>Make Default</button>
                                     )}
                                 </div>
                             ))
                         )}
                     </div>
+                </div>
+
+                {/* Add New Method - Right Side */}
+                <div className="dash-card" style={cardStyle}>
+                    <div style={{ marginBottom: '2.5rem' }}>
+                        <h3 style={headingStyle}>Add New Method</h3>
+                        <p style={{ color: '#64748b', fontSize: '0.875rem', marginTop: '0.5rem' }}>Choose your preferred payout destination.</p>
+                    </div>
+                    
+                    <form onSubmit={handleAddAccount}>
+                        <div style={{ marginBottom: '2rem' }}>
+                            <div style={{ display: 'flex', gap: '0.5rem', background: '#f8fafc', padding: '0.35rem', borderRadius: '12px' }}>
+                                <button type="button" onClick={() => setAccountType('bank')} style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', border: 'none', background: accountType === 'bank' ? 'white' : 'transparent', color: accountType === 'bank' ? '#5170ff' : '#64748b', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s', boxShadow: accountType === 'bank' ? '0 2px 10px rgba(0,0,0,0.06)' : 'none', fontSize: '0.9rem' }}>Bank Transfer</button>
+                                <button type="button" onClick={() => setAccountType('crypto')} style={{ flex: 1, padding: '0.75rem', borderRadius: '10px', border: 'none', background: accountType === 'crypto' ? 'white' : 'transparent', color: accountType === 'crypto' ? '#5170ff' : '#64748b', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s', boxShadow: accountType === 'crypto' ? '0 2px 10px rgba(0,0,0,0.06)' : 'none', fontSize: '0.9rem' }}>Crypto Wallet</button>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gap: '1.5rem' }}>
+                            <div className="form-group">
+                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600', letterSpacing: '0.05em' }}>LABEL / NAME</label>
+                                <input type="text" style={inputStyle} value={accountName} onChange={(e) => setAccountName(e.target.value)} required placeholder="e.g. Personal Savings" />
+                            </div>
+
+                            {accountType === 'bank' ? (
+                                <>
+                                    <div className="form-group">
+                                        <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600', letterSpacing: '0.05em' }}>BANK NAME</label>
+                                        <input type="text" style={inputStyle} value={bankName} onChange={(e) => setBankName(e.target.value)} required placeholder="Select bank" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600', letterSpacing: '0.05em' }}>ACCOUNT NUMBER</label>
+                                        <input type="text" style={inputStyle} value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} required placeholder="10-digit number" />
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="form-group">
+                                        <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600', letterSpacing: '0.05em' }}>NETWORK</label>
+                                        <select style={inputStyle} value={network} onChange={(e) => setNetwork(e.target.value)}>
+                                            <option value="TRC20">Tether (USDT - TRC20)</option>
+                                            <option value="ERC20">Tether (USDT - ERC20)</option>
+                                            <option value="SOL">Solana (SOL)</option>
+                                            <option value="BTC">Bitcoin (BTC)</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600', letterSpacing: '0.05em' }}>WALLET ADDRESS</label>
+                                        <input type="text" style={inputStyle} value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)} required placeholder="Paste address here" />
+                                    </div>
+                                </>
+                            )}
+                        </div>
+
+                        <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '2.5rem', background: '#5170ff', padding: '1rem', borderRadius: '12px', fontWeight: '600', border: 'none', color: 'white', cursor: 'pointer', boxShadow: '0 8px 20px rgba(81, 112, 255, 0.2)', fontSize: '1rem' }}>
+                            Confirm & Save
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
