@@ -35,17 +35,12 @@ const UserDashboard = () => {
                         <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>Monitor your assets and manage your trades with ease.</p>
                     </div>
                     {user?.kycStatus !== 'verified' && (
-                        <Link to="/dashboard/kyc" style={{ 
-                            background: '#5170ff', 
-                            color: 'white', 
-                            padding: '0.6rem 1.2rem', 
-                            borderRadius: '10px', 
-                            fontSize: '0.85rem', 
-                            fontWeight: '500',
+                        <Link to="/dashboard/kyc" className="btn btn-primary" style={{ 
                             textDecoration: 'none',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '0.5rem'
+                            gap: '0.5rem',
+                            background: '#5170ff'
                         }}>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>

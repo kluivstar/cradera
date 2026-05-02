@@ -431,15 +431,24 @@ main {
 .topbar {
   position: fixed;
   top: 0;
-  left: var(--sidebar-width);
   right: 0;
+  left: var(--sidebar-width);
   height: var(--topbar-height);
-  background: var(--color-bg);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.25rem;
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--color-border);
   z-index: 90;
+  transition: all 0.3s;
+}
+
+.sticky-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 95;
 }
 
 .dashboard-grid {
@@ -910,6 +919,12 @@ main {
 
   .dash-card {
     padding: 1.25rem !important;
+    overflow: hidden; /* Prevent content outflow */
+  }
+
+  .referral-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
   }
 
   h1 { font-size: 1.5rem !important; }

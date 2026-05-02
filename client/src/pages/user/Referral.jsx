@@ -54,7 +54,7 @@ const Referral = () => {
                     borderRadius: '24px',
                     boxShadow: '0 20px 40px rgba(81, 112, 255, 0.15)'
                 }}>
-                    <div className="referral-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+                    <div className="referral-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', alignItems: 'center' }}>
                         <div>
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '1.25rem', fontWeight: '400' }}>Your Referral Link</h3>
                             <div style={{ 
@@ -111,7 +111,7 @@ const Referral = () => {
                 {/* How it Works Section */}
                 <div style={{ marginBottom: '4rem' }}>
                     <h3 style={{ fontSize: '1.5rem', fontWeight: '500', marginBottom: '2rem', textAlign: 'center', color: 'var(--color-primary)' }}>How It Works</h3>
-                    <div className="how-it-works-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
+                    <div className="how-it-works-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
                         {[
                             { step: '01', title: 'Share your link', desc: 'Copy your unique referral link and share it with your friends via social media or email.', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> },
                             { step: '02', title: 'User signs up', desc: 'Your friends sign up to Cradera using your referral link and complete their verification.', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg> },

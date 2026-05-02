@@ -130,11 +130,11 @@ const Products = () => {
                                 </div>
                                 <span style={{ 
                                     fontSize: '0.65rem', 
-                                    fontWeight: '500', 
+                                    fontWeight: '400', 
                                     padding: '0.2rem 0.5rem', 
                                     borderRadius: '4px',
-                                    background: product.status === 'Active' ? 'rgba(56, 189, 248, 0.1)' : '#F3F4F6',
-                                    color: product.status === 'Active' ? 'var(--color-primary)' : '#9CA3AF',
+                                    background: product.status === 'Active' ? 'rgba(16, 185, 129, 0.1)' : '#F3F4F6',
+                                    color: product.status === 'Active' ? '#10B981' : '#9CA3AF',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.05em'
                                 }}>
@@ -162,14 +162,14 @@ const Products = () => {
                             
                             {product.status === 'Active' && (
                                 <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
-                                    <button className="btn" style={{ 
+                                    <button className="btn btn-primary" style={{ 
                                         padding: '0.75rem 1.5rem', 
                                         fontSize: '0.85rem',
                                         background: '#5170ff',
                                         color: '#FFFFFF',
                                         borderRadius: '10px',
                                         width: '100%',
-                                        fontWeight: '600'
+                                        fontWeight: '700'
                                     }}>
                                         Start Trading
                                     </button>

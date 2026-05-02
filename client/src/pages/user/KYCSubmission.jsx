@@ -196,7 +196,7 @@ const KYCSubmission = () => {
 
     return (
         <DashboardLayout>
-            <div className="dashboard-content fade-in" style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <div className="dashboard-content fade-in" style={{ width: '100%', maxWidth: '800px', margin: '0 auto' }}>
                 <div className="dashboard-header" style={{ marginBottom: '2rem' }}>
                     <h1 style={{ fontSize: '2rem', fontWeight: '400', color: 'var(--color-primary)' }}>Identity Verification</h1>
                     <p className="dashboard-subtitle">Complete your KYC to unlock all platform features and higher limits.</p>
@@ -204,7 +204,7 @@ const KYCSubmission = () => {
 
                 {renderStepIndicator()}
 
-                <div className="dash-card kyc-card" style={{ padding: '2rem' }}>
+                <div className="dash-card kyc-card" style={{ padding: '1.5rem', width: '100%' }}>
                     {error && <div className="auth-error" style={{ marginBottom: '2rem' }}>{error}</div>}
 
                     {step === 1 && (
@@ -246,7 +246,7 @@ const KYCSubmission = () => {
                                     </p>
                                 </div>
                             </div>
-                            <button onClick={nextStep} className="btn btn-primary" style={{ width: '100%', padding: '1rem', borderRadius: '12px' }}>
+                            <button onClick={nextStep} className="btn btn-primary" style={{ width: '100%', padding: '1rem', borderRadius: '7px', fontWeight: '700' }}>
                                 Next Step: Document Selection
                             </button>
                         </div>
@@ -283,9 +283,9 @@ const KYCSubmission = () => {
                                     />
                                 </div>
                             </div>
-                            <div style={{ display: 'flex', gap: '1rem' }}>
-                                <button onClick={prevStep} className="btn btn-secondary" style={{ flex: 1, padding: '1rem', borderRadius: '12px' }}>Back</button>
-                                <button onClick={nextStep} className="btn btn-primary" style={{ flex: 2, padding: '1rem', borderRadius: '12px' }}>Next Step: Verification</button>
+                            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                                <button onClick={prevStep} className="btn btn-secondary" style={{ flex: '1 1 auto', padding: '1rem', borderRadius: '7px' }}>Back</button>
+                                <button onClick={nextStep} className="btn btn-primary" style={{ flex: '2 1 auto', padding: '1rem', borderRadius: '7px', fontWeight: '700' }}>Next Step: Verification</button>
                             </div>
                         </div>
                     )}
@@ -365,13 +365,13 @@ const KYCSubmission = () => {
                                 )}
                             </div>
 
-                            <div style={{ display: 'flex', gap: '1rem' }}>
-                                <button onClick={prevStep} className="btn btn-secondary" style={{ flex: 1, padding: '1rem', borderRadius: '12px' }}>Back</button>
+                            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                                <button onClick={prevStep} className="btn btn-secondary" style={{ flex: '1 1 auto', padding: '1rem', borderRadius: '7px' }}>Back</button>
                                 <button 
                                     onClick={handleSubmit} 
                                     className="btn btn-primary" 
                                     disabled={submitting || !formData.idFrontImage || !formData.selfieImage} 
-                                    style={{ flex: 2, padding: '1rem', borderRadius: '12px' }}
+                                    style={{ flex: '2 1 auto', padding: '1rem', borderRadius: '7px', fontWeight: '400' }}
                                 >
                                     {submitting ? 'Submitting...' : 'Complete Verification'}
                                 </button>
