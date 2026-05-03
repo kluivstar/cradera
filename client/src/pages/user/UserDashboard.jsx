@@ -85,7 +85,11 @@ const UserDashboard = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div style={{ position: 'absolute', top: '-5%', right: '-2%', fontSize: '8rem', opacity: 0.03, transform: 'rotate(-15deg)', color: 'var(--color-primary)' }}>C</div>
+                            {/* Abstract Textures */}
+                            <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '200px', height: '200px', borderRadius: '50%', background: 'linear-gradient(135deg, #5170ff 0%, transparent 100%)', opacity: 0.04, filter: 'blur(40px)', zIndex: 0 }}></div>
+                            <div style={{ position: 'absolute', bottom: '-20%', left: '-5%', width: '150px', height: '150px', borderRadius: '50%', background: 'linear-gradient(135deg, #5170ff 0%, transparent 100%)', opacity: 0.03, filter: 'blur(30px)', zIndex: 0 }}></div>
+                            <div style={{ position: 'absolute', top: '10%', left: '40%', width: '100px', height: '100px', border: '2px solid #5170ff', borderRadius: '20%', opacity: 0.02, transform: 'rotate(45deg)', zIndex: 0 }}></div>
+                            <div style={{ position: 'absolute', top: '-5%', right: '-2%', fontSize: '8rem', opacity: 0.03, transform: 'rotate(-15deg)', color: 'var(--color-primary)', fontWeight: '900', zIndex: 0 }}>C</div>
                         </div>
                     </div>
 
@@ -99,7 +103,7 @@ const UserDashboard = () => {
                             textDecoration: 'none', textAlign: 'center', 
                             flex: '1 1 0', aspectRatio: '10/7',
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                            padding: '1rem'
+                            padding: '1.5rem'
                         }}>
                             <div className="quick-action-card-icon" style={{ 
                                 width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 

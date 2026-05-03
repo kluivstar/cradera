@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
@@ -6,6 +7,11 @@ const ANNOUNCEMENT = "🎉 Cradera is live! Sell your crypto instantly and get p
 
 const DashboardLayout = ({ children, title }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Only show back button if we are not on the main dashboard home
+    const showBack = location.pathname !== '/dashboard';
 
     return (
         <div
@@ -20,7 +26,30 @@ const DashboardLayout = ({ children, title }) => {
             </div>
             <div className="dashboard-main">
                 <Topbar onMenuClick={() => setIsSidebarOpen(true)} title={title} />
-                <div className="dashboard-content-inner">
+                <div className="dashboard-content-inner" style={{ padding: '0 1rem 2rem 1rem' }}>
+                    {showBack && (
+                        <button 
+                            onClick={() => navigate(-1)} 
+                            style={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: '0.5rem', 
+                                background: 'transparent', 
+                                border: 'none', 
+                                color: 'var(--color-text-secondary)', 
+                                cursor: 'pointer',
+                                marginBottom: '1rem',
+                                padding: '0.5rem 0',
+                                fontSize: '0.9rem',
+                                fontWeight: '500'
+                            }}
+                        >
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+                            </svg>
+                            Back
+                        </button>
+                    )}
                     {children}
                 </div>
             </div>

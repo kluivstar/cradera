@@ -106,93 +106,118 @@ const Withdraw = () => {
     }
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title="Withdrawal">
             <div className="dashboard-content fade-in">
-                <div className="dashboard-header">
-                    <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>Withdraw Funds</h1>
-                    <p className="dashboard-subtitle">Request a payout to your saved bank or crypto accounts.</p>
+                <div className="dashboard-header-responsive" style={{ marginBottom: '2.5rem' }}>
+                    <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2rem' }}>Withdraw Funds</h1>
+                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem', fontWeight: '300' }}>Request a payout to your saved bank or crypto accounts.</p>
                 </div>
 
-                <div className="grid-2" style={{ gap: '2rem', alignItems: 'start' }}>
+                <div className="withdrawal-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', alignItems: 'start' }}>
                     {/* Withdrawal Form */}
-                    <div className="dash-card">
-                        <div style={{ marginBottom: '2rem' }}>
-                            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.25rem' }}>Available Balance</p>
-                            <h2 style={{ fontSize: '2rem', fontWeight: '500', color: '#5170ff' }}>₦{user?.availableBalance?.toLocaleString() || '0.00'}</h2>
+                    <div className="dash-card" style={{ padding: '2rem', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.04)' }}>
+                        <div style={{ 
+                            background: 'linear-gradient(135deg, #5170ff 0%, #3b5bdb 100%)', 
+                            padding: '1.5rem', 
+                            borderRadius: '12px', 
+                            color: 'white', 
+                            marginBottom: '2rem',
+                            position: 'relative',
+                            overflow: 'hidden'
+                        }}>
+                            <div style={{ position: 'relative', zIndex: 1 }}>
+                                <p style={{ fontSize: '0.8rem', opacity: 0.8, marginBottom: '0.5rem' }}>Available Balance</p>
+                                <h2 style={{ fontSize: '1.75rem', fontWeight: '600' }}>₦{user?.availableBalance?.toLocaleString() || '0.00'}</h2>
+                            </div>
+                            <div style={{ position: 'absolute', bottom: '-20%', right: '-10%', fontSize: '5rem', opacity: 0.1, transform: 'rotate(-15deg)', fontWeight: '900' }}>₦</div>
                         </div>
 
                         <form onSubmit={handleWithdraw}>
-                            <div className="form-group">
-                                <label>Amount (₦)</label>
-                                <input 
-                                    type="number" 
-                                    className="form-input" 
-                                    value={amount} 
-                                    onChange={(e) => setAmount(e.target.value)} 
-                                    placeholder="Enter amount" 
-                                    required 
-                                    min="1"
-                                />
+                            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                                <label style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748B', marginBottom: '0.5rem', display: 'block', textTransform: 'uppercase' }}>AMOUNT (₦)</label>
+                                <div style={{ position: 'relative' }}>
+                                    <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontWeight: '600' }}>₦</span>
+                                    <input 
+                                        type="number" 
+                                        className="form-input" 
+                                        value={amount} 
+                                        onChange={(e) => setAmount(e.target.value)} 
+                                        placeholder="0.00" 
+                                        required 
+                                        min="1"
+                                        style={{ width: '100%', padding: '0.8rem 1rem 0.8rem 2.2rem', borderRadius: '10px', border: '1px solid #E2E8F0', outline: 'none', fontSize: '1.1rem', fontWeight: '500' }}
+                                    />
+                                </div>
                             </div>
 
-                            <div className="form-group">
-                                <label>Payout Account</label>
+                            <div className="form-group" style={{ marginBottom: '2rem' }}>
+                                <label style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748B', marginBottom: '0.5rem', display: 'block', textTransform: 'uppercase' }}>PAYOUT ACCOUNT</label>
                                 <select 
                                     className="form-input" 
                                     value={selectedAccountId} 
                                     onChange={(e) => setSelectedAccountId(e.target.value)}
                                     required
+                                    style={{ width: '100%', padding: '0.8rem 1rem', borderRadius: '10px', border: '1px solid #E2E8F0', outline: 'none', fontSize: '0.95rem', background: 'white' }}
                                 >
                                     {paymentAccounts.map(acc => (
                                         <option key={acc._id} value={acc._id}>
-                                            {acc.accountName} ({acc.type === 'bank' ? acc.bankName : acc.network})
+                                            {acc.accountName} — {acc.type === 'bank' ? acc.bankName : acc.network}
                                         </option>
                                     ))}
                                 </select>
                             </div>
 
-                            <button type="submit" disabled={submitting} className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', background: '#5170ff' }}>
+                            <button type="submit" disabled={submitting} className="btn btn-primary" style={{ width: '100%', padding: '1rem', borderRadius: '12px', background: '#5170ff', border: 'none', color: 'white', fontWeight: '600', fontSize: '1rem', cursor: 'pointer', transition: 'all 0.2s', boxShadow: '0 4px 15px rgba(81, 112, 255, 0.3)' }}>
                                 {submitting ? 'Processing...' : 'Withdraw Funds'}
                             </button>
                         </form>
                     </div>
 
                     {/* Withdrawal History */}
-                    <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
-                        <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid #eee' }}>
-                            <h3 style={{ fontSize: '1rem', fontWeight: '600' }}>Withdrawal History</h3>
+                    <div className="dash-card" style={{ padding: '0', overflow: 'hidden', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.04)' }}>
+                        <div style={{ padding: '1.5rem', borderBottom: '1px solid #F1F5F9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--color-primary)' }}>Withdrawal History</h3>
+                            <span style={{ fontSize: '0.75rem', color: '#94A3B8', fontWeight: '500' }}>Recent Requests</span>
                         </div>
                         <div className="table-wrapper" style={{ border: 'none' }}>
                             <table className="data-table">
                                 <thead>
-                                    <tr>
-                                        <th>Amount</th>
-                                        <th>Method</th>
-                                        <th>Status</th>
-                                        <th style={{ textAlign: 'right' }}>Date</th>
+                                    <tr style={{ background: '#F8FAFC' }}>
+                                        <th style={{ padding: '1rem 1.5rem', fontSize: '0.7rem', color: '#64748B' }}>AMOUNT</th>
+                                        <th style={{ fontSize: '0.7rem', color: '#64748B' }}>STATUS</th>
+                                        <th style={{ textAlign: 'right', paddingRight: '1.5rem', fontSize: '0.7rem', color: '#64748B' }}>DATE</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {withdrawals.length === 0 ? (
                                         <tr>
-                                            <td colSpan="4" style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-secondary)' }}>No withdrawals yet.</td>
+                                            <td colSpan="3" style={{ textAlign: 'center', padding: '4rem', color: '#94A3B8' }}>
+                                                <div style={{ marginBottom: '1rem' }}><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                                                No withdrawals yet.
+                                            </td>
                                         </tr>
                                     ) : (
                                         withdrawals.map(w => (
-                                            <tr key={w._id}>
-                                                <td style={{ fontWeight: '600' }}>₦{w.amount.toLocaleString()}</td>
-                                                <td>
-                                                    <span style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', borderRadius: '4px', background: '#F3F4F6', color: '#4B5563', textTransform: 'uppercase', fontWeight: '600' }}>
-                                                        {w.payoutMethod}
-                                                    </span>
+                                            <tr key={w._id} style={{ borderBottom: '1px solid #F8FAFC' }}>
+                                                <td style={{ padding: '1.25rem 1.5rem' }}>
+                                                    <div style={{ fontWeight: '600', color: 'var(--color-primary)', fontSize: '1rem' }}>₦{w.amount.toLocaleString()}</div>
+                                                    <div style={{ fontSize: '0.7rem', color: '#94A3B8', textTransform: 'uppercase', marginTop: '0.2rem' }}>{w.payoutMethod}</div>
                                                 </td>
                                                 <td>
-                                                    <span style={{ color: getStatusColor(w.status), fontWeight: '600', fontSize: '0.75rem', textTransform: 'uppercase' }}>
+                                                    <span style={{ 
+                                                        color: getStatusColor(w.status), 
+                                                        background: `${getStatusColor(w.status)}15`,
+                                                        padding: '0.35rem 0.75rem', 
+                                                        borderRadius: '6px',
+                                                        fontWeight: '600', 
+                                                        fontSize: '0.7rem', 
+                                                        textTransform: 'uppercase' 
+                                                    }}>
                                                         {w.status}
                                                     </span>
                                                 </td>
-                                                <td style={{ textAlign: 'right', fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
-                                                    {new Date(w.createdAt).toLocaleDateString()}
+                                                <td style={{ textAlign: 'right', paddingRight: '1.5rem', color: '#64748B', fontSize: '0.85rem' }}>
+                                                    {new Date(w.createdAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}
                                                 </td>
                                             </tr>
                                         ))

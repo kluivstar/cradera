@@ -922,15 +922,16 @@ main {
 
   .announcement-bar {
     left: 0;
-    padding: 2px 1rem; /* removed 1px vertical from 3px */
+    padding: 2px 1rem;
     height: auto;
     min-height: 34px;
+    line-height: 1; /* reduced from default ~20px by ~10px */
   }
 
   .topbar {
     left: 0;
     top: var(--announcement-height, 40px);
-    padding: 4px 0.75rem; /* 4px vertical padding on mobile */
+    padding: 12px 0.75rem; /* increased vertical by 8px: 4px → 12px */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1191,7 +1192,7 @@ main {
   }
   .quick-actions-container > * {
     flex: 0 0 auto !important;
-    min-width: 130px !important;
+    min-width: 156px !important; /* 130px × 1.2 = 156px (+20%) */
   }
 
   .mobile-hide {
@@ -1274,38 +1275,48 @@ main {
   padding: 0.5rem 0;
 }
 
-/* 375px — small phone: topbar vertical padding + tightly scaled quick action cards */
+/* 375px — small phone: icon + title only, no subtitle */
 @media (max-width: 375px) {
   .topbar {
     padding: 4px 0.75rem !important;
   }
-  /* Card min-width: 30% more than default 130px */
-  .quick-actions-container > * {
-    min-width: 169px !important;
-    padding: 0.6rem 0.5rem !important; /* Reduce internal padding to fit content */
+
+  /* Container: 5px padding */
+  .quick-actions-container {
+    padding: 5px !important;
   }
-  /* Icon container: compact */
+
+  /* Card: +10% wider (203px → 223px) + extra 5px width + 15px forced height */
+  .quick-actions-container > * {
+    min-width: 228px !important; /* 223 + 5px extra width */
+    min-height: 171px !important; /* aspect-ratio height at 223px ≈ 156px + 15px */
+    padding: 0.65rem 0.5rem !important;
+  }
+
+  /* Icon container */
   .quick-action-card-icon {
-    width: 28px !important;
-    height: 28px !important;
+    width: 30px !important;
+    height: 30px !important;
     border-radius: 6px !important;
-    margin-bottom: 0.3rem !important;
+    margin-bottom: 0.35rem !important;
     box-shadow: none !important;
   }
-  /* SVG icon: scale down to match container */
+
+  /* SVG icon */
   .quick-action-card-icon svg {
-    width: 14px !important;
-    height: 14px !important;
+    width: 15px !important;
+    height: 15px !important;
   }
-  /* Title text */
+
+  /* Title: only text shown */
   .quick-action-card-title {
-    font-size: 0.68rem !important;
-    margin-bottom: 0.1rem !important;
+    font-size: 0.72rem !important;
+    margin-bottom: 0 !important;
     line-height: 1.2 !important;
   }
-  /* Subtitle text */
+
+  /* Hide subtitle completely */
   .quick-action-card-sub {
-    font-size: 0.58rem !important;
-    line-height: 1.2 !important;
+    display: none !important;
   }
 }
