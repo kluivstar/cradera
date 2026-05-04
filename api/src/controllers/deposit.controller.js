@@ -1,4 +1,6 @@
 import Deposit from '../models/Deposit.js';
+import User from '../models/User.js';
+import syncService from '../services/syncService.js';
 
 // @desc    Create a new deposit
 // @route   POST /api/deposits
@@ -79,6 +81,12 @@ export const confirmDeposit = async (req, res) => {
 
         await deposit.save();
 
+        // Notify User
+        const user = await User.findById(deposit.userId);
+        if (user) {
+            await syncService.handleTransactionUpdate(user, { ...deposit.toObject(), type: 'deposit' }, 'confirmed');
+        }
+
         res.status(200).json({
             message: 'Deposit confirmed successfully',
             deposit
@@ -110,6 +118,12 @@ export const rejectDeposit = async (req, res) => {
         if (adminNotes) deposit.adminNotes = adminNotes;
 
         await deposit.save();
+
+        // Notify User
+        const user = await User.findById(deposit.userId);
+        if (user) {
+            await syncService.handleTransactionUpdate(user, { ...deposit.toObject(), type: 'deposit' }, 'rejected');
+        }
 
         res.status(200).json({
             message: 'Deposit rejected successfully',

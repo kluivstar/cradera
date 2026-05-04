@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { NotificationProvider } from './context/NotificationContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import Home from './pages/Home';
@@ -26,6 +27,9 @@ import Settings from './pages/user/Settings';
 import ManageWithdrawals from './pages/admin/ManageWithdrawals';
 import Referral from './pages/user/Referral';
 import ManageReferrals from './pages/admin/ManageReferrals';
+import NotificationsPage from './pages/user/Notifications';
+import SessionsPage from './pages/user/Sessions';
+import AdminBroadcast from './pages/admin/Broadcast';
 import DashboardLayout from './components/DashboardLayout';
 
 const PlaceholderPage = ({ title }) => (
@@ -109,6 +113,12 @@ function AppRoutes() {
             <Route path="/dashboard/withdraw" element={
                 <ProtectedRoute><Withdraw /></ProtectedRoute>
             } />
+            <Route path="/dashboard/notifications" element={
+                <ProtectedRoute><NotificationsPage /></ProtectedRoute>
+            } />
+            <Route path="/dashboard/security" element={
+                <ProtectedRoute><SessionsPage /></ProtectedRoute>
+            } />
             <Route path="/dashboard/support" element={
                 <ProtectedRoute><PlaceholderPage title="Help & Support" /></ProtectedRoute>
             } />
@@ -138,6 +148,9 @@ function AppRoutes() {
             <Route path="/admin/withdrawals" element={
                 <ProtectedRoute adminOnly><ManageWithdrawals /></ProtectedRoute>
             } />
+            <Route path="/admin/broadcast" element={
+                <ProtectedRoute adminOnly><AdminBroadcast /></ProtectedRoute>
+            } />
             <Route path="/admin/settings" element={
                 <ProtectedRoute adminOnly><PlaceholderPage title="Platform Settings" /></ProtectedRoute>
             } />
@@ -152,7 +165,9 @@ function App() {
     return (
         <Router>
             <AuthProvider>
-                <AppRoutes />
+                <NotificationProvider>
+                    <AppRoutes />
+                </NotificationProvider>
             </AuthProvider>
         </Router>
     );

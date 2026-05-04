@@ -314,7 +314,7 @@ main {
   background: var(--color-bg);
   display: flex;
   flex-direction: column;
-  z-index: 100;
+  z-index: 110;
   padding: 20px 10px 0 10px;
 }
 
@@ -457,7 +457,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 1.5rem;
+  padding: 10px 1.5rem; /* Added extra 10px vertical padding */
   z-index: 91;
   font-size: 0.8rem;
   color: #92400e;
@@ -1177,22 +1177,75 @@ main {
     padding: 3px 1rem;
     height: auto;
     min-height: 36px;
+    line-height: 1.1;
+  }
+
+  .dashboard-header,
+  .dashboard-header-responsive {
+    display: none !important;
+  }
+
+  .topbar-title {
+    font-weight: 400 !important;
+    font-size: 16px !important; /* Font 16px */
+  }
+
+  /* Reduce topbar icon sizes */
+  .notification-trigger svg {
+    width: 21px !important; /* Increased by 5px */
+    height: 21px !important;
+  }
+
+  /* Red dot animation */
+  .notification-trigger span {
+    animation: pulse-red 2s infinite;
+  }
+
+  @keyframes pulse-red {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  }
+
+  .notification-menu-mobile {
+    width: calc(100vw - 40px) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    top: 60px !important;
+  }
+
+  .notification-trigger {
+    padding: 6px !important;
+    border-radius: 8px !important;
   }
 
   .quick-actions-container {
     flex-wrap: nowrap !important;
     overflow-x: auto;
-    gap: 0.75rem !important;
+    gap: 7px !important; /* Reduced gap by 5px */
     padding-bottom: 0.5rem;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  .quick-actions-container::-webkit-scrollbar {
-    display: none;
-  }
   .quick-actions-container > * {
     flex: 0 0 auto !important;
-    min-width: 156px !important; /* 130px × 1.2 = 156px (+20%) */
+    width: 59px !important;
+    height: 82px !important; /* Increased height by 10px */
+    min-width: 59px !important;
+    min-height: 82px !important;
+    padding: 5px !important;
+    font-size: 10px !important;
+  }
+
+  .quick-action-card-title {
+    font-size: 10px !important;
+  }
+
+  .mobile-menu-btn svg {
+    width: 21px !important;
+    height: 21px !important;
+    margin-top: 4px !important;
   }
 
   .mobile-hide {
@@ -1261,10 +1314,93 @@ main {
   .topbar-user-desktop {
     display: flex !important;
   }
-  /* Show user email at 1024px+ */
+  /* Hide user email at 1024px+ */
   .user-email {
-    display: inline !important;
+    display: none !important;
   }
+
+  .sidebar {
+    margin-top: 10px !important;
+    z-index: 2100 !important;
+  }
+
+  .topbar {
+    margin-top: -12px !important; /* Negative margin top as requested */
+    margin-bottom: 10px !important;
+    position: sticky !important;
+    z-index: 1000 !important;
+  }
+
+  /* dash-card service-hover: 216px by 110px */
+  .dash-card.service-hover {
+    width: 216px !important;
+    height: 110px !important;
+    padding: 10px !important;
+    aspect-ratio: auto !important;
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important; /* Aligned to left */
+    text-align: left !important;
+    background: #f7f9fb !important;
+  }
+
+  .quick-action-card-icon {
+    margin-left: 0 !important;
+    background: white !important;
+    border-radius: 50% !important;
+    padding: 4px !important;
+  }
+
+  .quick-action-container {
+    background: white !important;
+    padding: 1.5rem !important;
+    border-radius: 20px !important;
+  }
+
+  /* available balance card: 418px by 159px */
+  .balance-card {
+    width: 418px !important;
+    height: 159px !important;
+    padding: 10px !important;
+    min-height: 159px !important;
+  }
+
+  .balance-card h2 {
+    font-size: 16px !important;
+  }
+
+  .quick-action-card-title {
+    font-size: 20px !important;
+  }
+
+  .btn.btn-primary {
+    padding-left: calc(1.05rem - 7px) !important;
+    padding-right: calc(1.05rem - 7px) !important;
+  }
+
+  /* action-card-active: 298px by 182px, left aligned */
+  .action-card-active {
+    width: 298px !important;
+    height: 182px !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    padding: 1.5rem !important;
+  }
+
+  .dashboard-content {
+    align-items: flex-start !important;
+  }
+
+  .kyc-container-desktop {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: flex-start !important;
+  }
+}
+
+.kyc-container-desktop {
+  display: none;
 }
 
 /* Sidebar user block — base hidden, shown on mobile via media query */
@@ -1275,10 +1411,17 @@ main {
   padding: 0.5rem 0;
 }
 
+@media (min-width: 1440px) {
+  .dashboard-content-inner {
+    padding-left: 17px !important;
+    padding-right: 17px !important;
+  }
+}
+
 /* 375px — small phone: icon + title only, no subtitle */
 @media (max-width: 375px) {
   .topbar {
-    padding: 4px 0.75rem !important;
+    padding: 12px 0.75rem !important; /* Increased vertical padding by 8px (4px -> 12px) */
   }
 
   /* Container: 5px padding */

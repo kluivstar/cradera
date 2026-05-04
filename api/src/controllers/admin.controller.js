@@ -1,6 +1,8 @@
 import User from '../models/User.js';
 import Deposit from '../models/Deposit.js';
 import KYC from '../models/KYC.js';
+import Notification from '../models/Notification.js';
+import { emailQueue } from '../modules/queues/emailQueue.js';
 
 export const getDashboardStats = async (req, res) => {
     try {
@@ -12,15 +14,23 @@ export const getDashboardStats = async (req, res) => {
         const confirmedDeposits = await Deposit.find({ status: 'confirmed' });
         const totalVolume = confirmedDeposits.reduce((acc, curr) => acc + (curr.amount || 0), 0);
 
+        // Queue & Notification stats
+        const totalNotifications = await Notification.countDocuments();
+        const queueStats = await emailQueue.getJobCounts('completed', 'failed', 'waiting', 'active');
+
         res.status(200).json({
             stats: {
                 totalUsers,
                 pendingDeposits,
                 pendingKYC,
-                totalVolume
+                totalVolume,
+                totalNotifications,
+                failedEmails: queueStats.failed || 0,
+                waitingEmails: queueStats.waiting || 0
             }
         });
     } catch (err) {
+        console.error('Stats Error:', err);
         res.status(500).json({ error: 'Server error fetching stats' });
     }
 };

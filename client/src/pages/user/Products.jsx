@@ -94,9 +94,7 @@ const Products = () => {
                     <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>
                         Products
                     </h1>
-                    <p className="dashboard-subtitle" style={{ fontSize: '0.875rem' }}>
-                        Access our wide range of digital financial services.
-                    </p>
+                    
                 </div>
 
                 <div className="dashboard-grid" style={{ 

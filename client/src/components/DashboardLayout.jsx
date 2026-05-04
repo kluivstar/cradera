@@ -5,7 +5,7 @@ import Topbar from './Topbar';
 
 const ANNOUNCEMENT = "🎉 Cradera is live! Sell your crypto instantly and get paid in Naira.";
 
-const DashboardLayout = ({ children, title }) => {
+const DashboardLayout = ({ children, title, headerContent }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -25,8 +25,8 @@ const DashboardLayout = ({ children, title }) => {
                 {ANNOUNCEMENT}
             </div>
             <div className="dashboard-main">
-                <Topbar onMenuClick={() => setIsSidebarOpen(true)} title={title} />
-                <div className="dashboard-content-inner" style={{ padding: '0 1rem 2rem 1rem' }}>
+                <Topbar onMenuClick={() => setIsSidebarOpen(true)} title={title} headerContent={headerContent} />
+                <div className="dashboard-content-inner" style={{ padding: '0 25px 2rem 25px' }}>
                     {showBack && (
                         <button 
                             onClick={() => navigate(-1)} 

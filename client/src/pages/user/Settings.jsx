@@ -424,7 +424,7 @@ const Settings = () => {
             <div className="dashboard-content fade-in" style={containerStyle}>
                 <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
                     <h1 style={{ ...headingStyle, fontSize: '2rem', color: 'var(--color-primary)' }}>Account Settings</h1>
-                    <p style={{ color: 'var(--color-text-secondary)', marginTop: '0.5rem', margin: 0 }}>Manage your personal data, payout methods and security.</p>
+                
                 </div>
                 
                 <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '3rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>

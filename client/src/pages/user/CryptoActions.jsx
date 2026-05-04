@@ -37,15 +37,15 @@ const CryptoActions = () => {
             <div className="dashboard-content fade-in" style={{ 
                 display: 'flex', 
                 flexDirection: 'column', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
+                alignItems: 'flex-start', 
+                justifyContent: 'flex-start', 
                 minHeight: '60vh',
                 width: '100%',
-                maxWidth: '700px',
-                margin: '0 auto',
+                maxWidth: '1200px',
+                margin: '0',
                 padding: '1rem'
             }}>
-                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                <div style={{ textAlign: 'left', marginBottom: '2rem' }}>
                     <h1 style={{ 
                         fontSize: '2rem', 
                         fontWeight: '500', 
@@ -55,14 +55,11 @@ const CryptoActions = () => {
                     }}>
                         What would you like to do?
                     </h1>
-                    <p style={{ color: 'var(--color-text-secondary)', fontSize: '1rem' }}>
-                        Select an action to proceed with your digital assets.
-                    </p>
                 </div>
 
-                <div style={{ 
+                <div className="crypto-actions-grid" style={{ 
                     display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
                     gap: '1.25rem', 
                     width: '100%' 
                 }}>
@@ -74,13 +71,13 @@ const CryptoActions = () => {
                                 background: 'white',
                                 padding: '1.75rem 1.5rem',
                                 borderRadius: '20px',
-                                textAlign: 'center',
+                                textAlign: 'left',
                                 cursor: action.active ? 'pointer' : 'not-allowed',
                                 transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                                 position: 'relative',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                alignItems: 'center',
+                                alignItems: 'flex-start',
                                 opacity: action.active ? 1 : 0.6,
                                 filter: action.active ? 'none' : 'grayscale(0.5)',
                                 boxShadow: '0 4px 20px rgba(0,0,0,0.03)',

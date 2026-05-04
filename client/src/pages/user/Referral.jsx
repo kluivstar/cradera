@@ -41,7 +41,7 @@ const Referral = () => {
                 <div className="dashboard-header-responsive" style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
                     <div>
                         <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2.25rem' }}>Referral Program</h1>
-                        <p className="dashboard-subtitle" style={{ fontSize: '1rem', marginTop: '0.5rem', fontWeight: '300' }}>Invite your friends and earn rewards for every successful transaction they make.</p>
+                        
                     </div>
                 </div>
 

@@ -1,6 +1,7 @@
 import Withdrawal from '../models/Withdrawal.js';
 import User from '../models/User.js';
 import PaymentAccount from '../models/PaymentAccount.js';
+import syncService from '../services/syncService.js';
 
 // @desc    Create a new withdrawal
 // @route   POST /api/withdrawals
@@ -102,6 +103,12 @@ export const processWithdrawal = async (req, res) => {
 
         await withdrawal.save();
 
+        // Notify User
+        const user = await User.findById(withdrawal.userId);
+        if (user) {
+            await syncService.handleTransactionUpdate(user, { ...withdrawal.toObject(), type: 'withdrawal' }, 'processing');
+        }
+
         res.status(200).json({
             message: 'Withdrawal marked as processing',
             withdrawal
@@ -138,6 +145,12 @@ export const payWithdrawal = async (req, res) => {
         if (adminNotes) withdrawal.adminNotes = adminNotes;
 
         await withdrawal.save();
+
+        // Notify User
+        // Note: user was already fetched for balance update on line 131
+        if (user) {
+            await syncService.handleTransactionUpdate(user, { ...withdrawal.toObject(), type: 'withdrawal' }, 'completed');
+        }
 
         res.status(200).json({
             message: 'Withdrawal marked as paid',
@@ -176,6 +189,12 @@ export const rejectWithdrawal = async (req, res) => {
         if (adminNotes) withdrawal.adminNotes = adminNotes;
 
         await withdrawal.save();
+
+        // Notify User
+        // Note: user was already fetched for balance update on line 168
+        if (user) {
+            await syncService.handleTransactionUpdate(user, { ...withdrawal.toObject(), type: 'withdrawal' }, 'rejected');
+        }
 
         res.status(200).json({
             message: 'Withdrawal rejected and funds reverted',

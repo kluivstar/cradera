@@ -14,6 +14,9 @@ import withdrawalRoutes from './routes/withdrawal.routes.js';
 import paymentAccountRoutes from './routes/paymentAccount.routes.js';
 import referralRoutes from './routes/referral.routes.js';
 import settingsRoutes from './routes/settings.routes.js';
+import notificationRoutes from './routes/notification.routes.js';
+import sessionRoutes from './routes/session.routes.js';
+import './modules/queues/emailWorker.js'; // Start BullMQ worker
 
 // Load environment variables
 dotenv.config();
@@ -40,6 +43,8 @@ app.use('/api/withdrawals', withdrawalRoutes);
 app.use('/api/payment-accounts', paymentAccountRoutes);
 app.use('/api/referrals', referralRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/sessions', sessionRoutes);
 
 // Basic health check route
 app.get('/api/health', (req, res) => {

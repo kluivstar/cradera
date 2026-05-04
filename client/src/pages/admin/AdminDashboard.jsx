@@ -41,7 +41,8 @@ const AdminDashboard = () => {
                 {error && <div className="auth-error" style={{ marginBottom: '2rem' }}>{error}</div>}
 
                 {/* Performance Highlights */}
-                <div className="stats-grid" style={{ marginBottom: '2rem' }}>
+                {/* Platform Highlights */}
+                <div className="stats-grid" style={{ marginBottom: '1.5rem' }}>
                     <div className="dash-card" style={{ padding: '1.25rem' }}>
                         <p style={{ fontSize: '0.7rem', fontWeight: '400', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Users</p>
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem' }}>
@@ -65,6 +66,27 @@ const AdminDashboard = () => {
                         <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Platform Volume</p>
                         <h2 style={{ fontSize: '1.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>₦{(stats.totalVolume || 0).toLocaleString()}</h2>
                     </div>
+                </div>
+
+                {/* System Monitoring */}
+                <div className="stats-grid" style={{ marginBottom: '2rem' }}>
+                    <div className="dash-card" style={{ padding: '1.25rem' }}>
+                        <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Global Alerts Sent</p>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: '500', color: 'var(--color-primary)' }}>{stats.totalNotifications || 0}</h2>
+                    </div>
+                    <div className="dash-card" style={{ padding: '1.25rem', borderLeft: stats.failedEmails > 0 ? '4px solid #ef4444' : 'none' }}>
+                        <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Failed Emails</p>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: '500', color: stats.failedEmails > 0 ? '#ef4444' : 'var(--color-primary)' }}>{stats.failedEmails || 0}</h2>
+                    </div>
+                    <div className="dash-card" style={{ padding: '1.25rem' }}>
+                        <p style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Queued Emails</p>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: '500', color: '#5170ff' }}>{stats.waitingEmails || 0}</h2>
+                    </div>
+                    <Link to="/admin/broadcast" style={{ textDecoration: 'none' }}>
+                        <div className="dash-card" style={{ padding: '1.25rem', background: '#5170ff', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                            <span style={{ fontWeight: '600', fontSize: '0.9rem' }}>Send New Broadcast</span>
+                        </div>
+                    </Link>
                 </div>
 
                 <div className="admin-main-grid">

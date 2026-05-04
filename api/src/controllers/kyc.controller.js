@@ -1,5 +1,6 @@
 import KYC from '../models/KYC.js';
 import User from '../models/User.js';
+import syncService from '../services/syncService.js';
 
 // @desc    Submit KYC documents
 // @route   POST /api/kyc
@@ -77,7 +78,12 @@ export const verifyKYC = async (req, res) => {
 
         // Update user's kycStatus
         const userStatus = status === 'approved' ? 'verified' : 'rejected';
-        await User.findByIdAndUpdate(kyc.user, { kycStatus: userStatus });
+        const user = await User.findByIdAndUpdate(kyc.user, { kycStatus: userStatus }, { new: true });
+
+        // Notify User
+        if (user) {
+            await syncService.handleKYCUpdate(user, status, rejectionReason);
+        }
 
         res.status(200).json(kyc);
     } catch (err) {

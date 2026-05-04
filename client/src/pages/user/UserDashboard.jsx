@@ -24,37 +24,25 @@ const UserDashboard = () => {
         fetchDashboardData();
     }, []);
 
+    const headerContent = (
+        <div className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+                <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', margin: 0 }}>
+                    Hello, <span style={{ color: '#5170ff' }}>{displayName}</span>
+                </h1>
+            </div>
+        </div>
+    );
+
     return (
-        <DashboardLayout title="Dashboard">
+        <DashboardLayout title="Dashboard" headerContent={headerContent}>
             <div className="dashboard-content fade-in">
-                <div className="dashboard-header" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                        <h1 style={{ fontWeight: '500', color: 'var(--color-primary)' }}>
-                            Hello, <span style={{ color: '#5170ff' }}>{displayName}</span>
-                        </h1>
-                        
-                    </div>
-                    {user?.kycStatus !== 'verified' && (
-                        <Link to="/dashboard/kyc" className="btn btn-primary btn-kyc-mobile mobile-hide" style={{ 
-                            textDecoration: 'none',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            background: '#5170ff'
-                        }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                            </svg>
-                            Complete KYC
-                        </Link>
-                    )}
-                </div>
 
                 <div className="dashboard-grid">
                     
                     {/* Main Balance Card (8 cols) */}
                     <div className="grid-span-8">
-                        <div className="dash-card" style={{ 
+                        <div className="dash-card balance-card" style={{ 
                             background: 'white', 
                             color: 'var(--color-primary)', 
                             padding: '1.5rem 2rem',
@@ -93,10 +81,28 @@ const UserDashboard = () => {
                         </div>
                     </div>
 
+                    {/* KYC Button (4 cols on desktop) */}
+                    {user?.kycStatus !== 'verified' && (
+                        <div className="grid-span-4 kyc-container-desktop">
+                            <Link to="/dashboard/kyc" className="btn btn-primary" style={{ 
+                                textDecoration: 'none',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                background: '#5170ff'
+                            }}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                Complete KYC
+                            </Link>
+                        </div>
+                    )}
+
                 </div>{/* end dashboard-grid */}
 
                 {/* Quick Actions — full width row with square cards */}
-                <div style={{ marginTop: '1.5rem', width: '100%' }}>
+                <div className='quick-action-container' style={{ marginTop: '1.5rem', width: '100%' }}>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
                     <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', width: '100%' }}>
                         <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ 
@@ -137,7 +143,7 @@ const UserDashboard = () => {
                             <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Withdraw</h4>
                             <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>To bank/crypto</p>
                         </Link>
-                        <div className="dash-card" style={{ 
+                        <div className="dash-card service-hover" style={{ 
                             textAlign: 'center', opacity: 0.6, position: 'relative',
                             flex: '1 1 0', aspectRatio: '10/7',
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -157,7 +163,7 @@ const UserDashboard = () => {
                             <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Bills</h4>
                             <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
                         </div>
-                        <div className="dash-card" style={{ 
+                        <div className="dash-card service-hover" style={{ 
                             textAlign: 'center', opacity: 0.6, position: 'relative',
                             flex: '1 1 0', aspectRatio: '10/7',
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
