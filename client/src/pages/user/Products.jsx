@@ -169,7 +169,7 @@ const Products = () => {
                                             fontSize: '0.85rem',
                                             background: '#5170ff',
                                             color: '#FFFFFF',
-                                            borderRadius: '10px',
+                                            borderRadius: '5px',
                                             width: '100%',
                                             fontWeight: '700',
                                             cursor: 'pointer'
