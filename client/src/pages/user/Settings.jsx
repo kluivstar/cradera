@@ -22,11 +22,13 @@ const Settings = () => {
     const [walletAddress, setWalletAddress] = useState('');
     const [network, setNetwork] = useState('TRC20');
 
-    // Profile states
     const [isEditingPhone, setIsEditingPhone] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || '');
     const [isEditingCountry, setIsEditingCountry] = useState(false);
     const [country, setCountry] = useState(user?.country || '');
+    const [isEditingEmail, setIsEditingEmail] = useState(false);
+    const [emailValue, setEmailValue] = useState(user?.email || '');
+    const [passwordForEmail, setPasswordForEmail] = useState('');
 
     // Security states
     const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
@@ -54,6 +56,7 @@ const Settings = () => {
         if (user) {
             setPhoneNumber(user.phoneNumber || '');
             setCountry(user.country || '');
+            setEmailValue(user.email || '');
         }
     }, [activeTab, user]);
 
@@ -107,6 +110,17 @@ const Settings = () => {
             setIsEditingCountry(false);
         } catch (err) {
             showToast(err.response?.data?.error || 'Error updating country', 'error');
+        }
+    };
+
+    const handleUpdateEmail = async () => {
+        try {
+            await api.patch('/settings/profile', { email: emailValue, password: passwordForEmail });
+            showToast('Email updated successfully', 'success');
+            setIsEditingEmail(false);
+            setPasswordForEmail('');
+        } catch (err) {
+            showToast(err.response?.data?.error || 'Error updating email', 'error');
         }
     };
 
@@ -270,7 +284,7 @@ const Settings = () => {
 
         return (
             <div className="fade-in">
-                <div className="grid-2 settings-responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2.5rem' }}>
+                <div className="grid-2 settings-responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(0, 1fr))', gap: '2.5rem' }}>
                     <div className="dash-card" style={cardStyle}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
                             <h3 style={headingStyle}>Personal Information</h3>
@@ -280,46 +294,84 @@ const Settings = () => {
                         </div>
                         
                         <div style={{ display: 'grid', gap: '2rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>
+                            <div className="settings-profile-row" style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>
                                 <div>
                                     <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', fontWeight: '500' }}>USERNAME</p>
                                     <p style={{ fontWeight: '500', margin: 0 }}>@{user?.username || 'Not set'}</p>
                                 </div>
                             </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>
-                                <div>
-                                    <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', fontWeight: '500' }}>EMAIL ADDRESS</p>
-                                    <p style={{ fontWeight: '500', color: '#94a3b8', margin: 0 }}>{user?.email}</p>
-                                </div>
-                            </div>
-
-                            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>
+                            <div className="settings-profile-row" style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>
                                 <div style={{ flex: 1 }}>
-                                    <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', fontWeight: '500' }}>PHONE NUMBER</p>
-                                    {isEditingPhone ? (
-                                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
-                                            <input type="text" style={{ ...inputStyle, padding: '0.5rem' }} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-                                            <button onClick={handleUpdatePhone} className="btn btn-primary" style={{ padding: '0.5rem 1rem', background: '#5170ff', border: 'none', borderRadius: '5px', color: 'white', cursor: 'pointer' }}>Save</button>
-                                            <button onClick={() => setIsEditingPhone(false)} style={{ padding: '0.5rem 1rem', background: '#eee', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Cancel</button>
+                                    <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', fontWeight: '500' }}>EMAIL ADDRESS</p>
+                                    {isEditingEmail ? (
+                                        <div className="settings-edit-card" style={{ 
+                                            display: 'grid', 
+                                            gap: '1rem', 
+                                            marginTop: '1rem', 
+                                            padding: '1.25rem', 
+                                            background: '#f8fafc', 
+                                            borderRadius: '12px',
+                                            border: '1px solid #e2e8f0',
+                                            width: '100%',
+                                            boxSizing: 'border-box'
+                                        }}>
+                                            <div className="form-group">
+                                                <label style={{ fontSize: '0.7rem', color: '#64748b', marginBottom: '0.4rem', display: 'block', fontWeight: '600' }}>NEW EMAIL ADDRESS</label>
+                                                <input type="email" style={{ ...inputStyle, background: 'white', border: '1px solid #e2e8f0' }} value={emailValue} onChange={(e) => setEmailValue(e.target.value)} placeholder="e.g. new@example.com" />
+                                            </div>
+                                            <div className="form-group">
+                                                <label style={{ fontSize: '0.7rem', color: '#64748b', marginBottom: '0.4rem', display: 'block', fontWeight: '600' }}>CONFIRM WITH PASSWORD</label>
+                                                <input type="password" style={{ ...inputStyle, background: 'white', border: '1px solid #e2e8f0' }} value={passwordForEmail} onChange={(e) => setPasswordForEmail(e.target.value)} placeholder="Type current password" />
+                                            </div>
+                                            <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
+                                                <button onClick={handleUpdateEmail} className="btn btn-primary" style={{ flex: 1, padding: '0.75rem', borderRadius: '5px' }}>Change Email Address</button>
+                                                <button onClick={() => { setIsEditingEmail(false); setPasswordForEmail(''); setEmailValue(user.email); }} style={{ padding: '0.75rem 1.25rem', background: 'white', border: '1px solid #e2e8f0', borderRadius: '5px', color: '#64748b', cursor: 'pointer' }}>Cancel</button>
+                                            </div>
                                         </div>
                                     ) : (
-                                        <p style={{ fontWeight: '500', margin: 0 }}>{user?.phoneNumber || 'Not set'}</p>
+                                        <p style={{ fontWeight: '500', color: '#1e293b', margin: 0 }}>{user?.email}</p>
                                     )}
                                 </div>
-                                {!isEditingPhone && (
-                                    <button onClick={() => setIsEditingPhone(true)} style={{ background: 'none', border: 'none', color: '#5170ff', cursor: 'pointer', alignSelf: 'center' }}>
+                                {!isEditingEmail && (
+                                    <button onClick={() => setIsEditingEmail(true)} style={{ background: 'none', border: 'none', color: '#5170ff', cursor: 'pointer', alignSelf: 'center' }}>
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                                     </button>
                                 )}
                             </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem' }}>
+                            <div className="settings-profile-row" style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>
+                                <div style={{ flex: 1 }}>
+                                    <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', fontWeight: '500' }}>PHONE NUMBER</p>
+                                    {isEditingPhone ? (
+                                        <div className="settings-edit-card" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem', width: '100%', boxSizing: 'border-box' }}>
+                                            <input type="text" style={{ ...inputStyle, padding: '0.5rem', flex: '1 1 200px' }} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                                            <button onClick={handleUpdatePhone} className="btn btn-primary" style={{ padding: '0.5rem 1rem', background: '#5170ff', border: 'none', borderRadius: '5px', color: 'white', cursor: 'pointer' }}>Save</button>
+                                            <button onClick={() => setIsEditingPhone(false)} style={{ padding: '0.5rem 1rem', background: '#eee', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Cancel</button>
+                                        </div>
+                                    ) : (
+                                        <p style={{ fontWeight: '500', margin: 0, color: user?.kycStatus === 'verified' ? '#64748b' : 'inherit' }}>{user?.phoneNumber || 'Not set'}</p>
+                                    )}
+                                </div>
+                                {!isEditingPhone && (
+                                    user?.kycStatus === 'verified' ? (
+                                        <div title="Locked - KYC Verified" style={{ color: '#94a3b8', cursor: 'not-allowed', alignSelf: 'center' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                        </div>
+                                    ) : (
+                                        <button onClick={() => setIsEditingPhone(true)} style={{ background: 'none', border: 'none', color: '#5170ff', cursor: 'pointer', alignSelf: 'center' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                        </button>
+                                    )
+                                )}
+                            </div>
+
+                            <div className="settings-profile-row" style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem' }}>
                                 <div style={{ flex: 1 }}>
                                     <p style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.25rem', fontWeight: '500' }}>COUNTRY</p>
                                     {isEditingCountry ? (
-                                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
-                                            <select style={{ ...inputStyle, padding: '0.5rem' }} value={country} onChange={(e) => setCountry(e.target.value)}>
+                                        <div className="settings-edit-card" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem', width: '100%', boxSizing: 'border-box' }}>
+                                            <select style={{ ...inputStyle, padding: '0.5rem', flex: '1 1 200px' }} value={country} onChange={(e) => setCountry(e.target.value)}>
                                                 <option value="">Select Country</option>
                                                 <option value="Nigeria">Nigeria</option>
                                                 <option value="United States">United States</option>
@@ -333,13 +385,19 @@ const Settings = () => {
                                             <button onClick={() => setIsEditingCountry(false)} style={{ padding: '0.5rem 1rem', background: '#eee', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Cancel</button>
                                         </div>
                                     ) : (
-                                        <p style={{ fontWeight: '500', margin: 0 }}>{user?.country || 'Not set'}</p>
+                                        <p style={{ fontWeight: '500', margin: 0, color: user?.kycStatus === 'verified' ? '#64748b' : 'inherit' }}>{user?.country || 'Not set'}</p>
                                     )}
                                 </div>
                                 {!isEditingCountry && (
-                                    <button onClick={() => setIsEditingCountry(true)} style={{ background: 'none', border: 'none', color: '#5170ff', cursor: 'pointer', alignSelf: 'center' }}>
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                                    </button>
+                                    user?.kycStatus === 'verified' ? (
+                                        <div title="Locked - KYC Verified" style={{ color: '#94a3b8', cursor: 'not-allowed', alignSelf: 'center' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                        </div>
+                                    ) : (
+                                        <button onClick={() => setIsEditingCountry(true)} style={{ background: 'none', border: 'none', color: '#5170ff', cursor: 'pointer', alignSelf: 'center' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                        </button>
+                                    )
                                 )}
                             </div>
                         </div>

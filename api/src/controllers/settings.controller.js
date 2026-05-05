@@ -6,12 +6,39 @@ import bcrypt from 'bcryptjs';
 // @access  Private
 export const updateProfile = async (req, res) => {
     try {
-        const { phoneNumber, country } = req.body;
+        const { phoneNumber, country, email, password } = req.body;
         
         const user = await User.findById(req.user._id);
         
-        if (phoneNumber) user.phoneNumber = phoneNumber;
-        if (country) user.country = country;
+        // 1. Handle Phone & Country (Locked after KYC)
+        if (phoneNumber || country) {
+            if (user.kycStatus === 'verified') {
+                return res.status(403).json({ error: 'Your identity is verified. Please contact support to change your registered phone or country.' });
+            }
+            if (phoneNumber) user.phoneNumber = phoneNumber;
+            if (country) user.country = country;
+        }
+
+        // 2. Handle Email (Password Protected)
+        if (email && email !== user.email) {
+            if (!password) {
+                return res.status(400).json({ error: 'Current password is required to change email' });
+            }
+
+            // Verify password
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res.status(401).json({ error: 'Incorrect password. Email change denied.' });
+            }
+
+            // Check if email already taken
+            const emailExists = await User.findOne({ email: email.toLowerCase() });
+            if (emailExists) {
+                return res.status(400).json({ error: 'Email is already in use by another account' });
+            }
+
+            user.email = email.toLowerCase();
+        }
 
         await user.save();
 
@@ -28,6 +55,7 @@ export const updateProfile = async (req, res) => {
             }
         });
     } catch (err) {
+        console.error('Update profile error:', err);
         res.status(500).json({ error: 'Error updating profile' });
     }
 };

@@ -49,7 +49,7 @@ export const AssetCard = ({ asset, isSelected, selectedNetwork, onSelect, onNetw
                     )}
                 </div>
                 <div style={{ flex: 1, textAlign: 'left' }}>
-                    <div style={{ fontSize: '0.9375rem', fontWeight: '500', color: 'var(--color-primary)' }}>Sell {asset.name}</div>
+                    <div style={{ fontSize: '16px', fontWeight: '500', color: 'var(--color-primary)' }}>Sell {asset.name}</div>
                 </div>
                 {hasMultipleNetworks && (
                     <div style={{ 
@@ -192,7 +192,7 @@ export const WalletDetails = ({ asset, network, formData, handleChange, handleSu
                     </div>
                     <button 
                         type="submit" disabled={submitting} 
-                        style={{ width: '100%', padding: '0.875rem', borderRadius: '5px', background: '#5170ff', color: '#FFFFFF', fontWeight: '500', border: 'none', cursor: 'pointer', fontSize: '0.875rem' }}
+                        style={{ width: '100%', padding: '16px', borderRadius: '5px', background: '#5170ff', color: '#FFFFFF', fontWeight: '500', border: 'none', cursor: 'pointer', fontSize: '16px' }}
                     >
                         {submitting ? 'Processing...' : 'I have made the payment'}
                     </button>

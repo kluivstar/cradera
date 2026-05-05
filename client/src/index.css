@@ -1512,3 +1512,66 @@ main {
     font-size: 0.8rem !important;
   }
 }
+
+@media (max-width: 600px) {
+  .settings-profile-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1rem;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .settings-profile-row > div {
+    width: 100% !important;
+  }
+
+  .settings-profile-row button {
+    align-self: center !important;
+    margin-top: 0.5rem;
+  }
+  
+  .settings-responsive-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .settings-edit-card {
+    padding: 1rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .dashboard-content-inner {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  
+  .dash-card {
+    padding: 1rem !important;
+    border-radius: 12px !important;
+  }
+  
+  .settings-edit-card {
+    padding: 0.75rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  .settings-profile-row {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  input, select {
+    font-size: 14px !important;
+    padding: 0.5rem !important;
+  }
+  
+  .btn {
+    padding: 0.6rem 0.8rem !important;
+    font-size: 13px !important;
+  }
+}

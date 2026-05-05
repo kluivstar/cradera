@@ -112,11 +112,11 @@ const SellCrypto = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '5rem' }}>
-                <div className="sell-crypto-grid" style={{ justifyContent: 'flex-start', gap: '3rem' }}>
+                <div className="sell-crypto-grid" style={{ justifyContent: 'flex-start', gap: '0rem',  }}>
                     
                     {/* LEFT COLUMN: ASSET LIST SIDEBAR */}
                     <div className="asset-list-container">
-                        <h3 style={{ fontSize: '0.7rem', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', letterSpacing: '0.05em', textAlign: 'left' }}>SELECT ASSET TO SELL</h3>
+                        <h3 style={{ fontSize: '16px', fontWeight: '500', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', letterSpacing: '0.05em', textAlign: 'left' }}>SELECT ASSET TO SELL</h3>
                         {assets.map(asset => (
                             <AssetCard 
                                 key={asset._id}
