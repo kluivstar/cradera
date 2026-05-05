@@ -5,7 +5,8 @@ import {
     getMyDeposits,
     getAllDeposits,
     confirmDeposit,
-    rejectDeposit
+    rejectDeposit,
+    inProgressDeposit
 } from '../controllers/deposit.controller.js';
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.get('/me', protect, getMyDeposits);
 router.get('/', protect, adminOnly, getAllDeposits);
 router.post('/:id/confirm', protect, adminOnly, confirmDeposit);
 router.post('/:id/reject', protect, adminOnly, rejectDeposit);
+router.post('/:id/in-progress', protect, adminOnly, inProgressDeposit);
 
 export default router;

@@ -93,7 +93,7 @@ const SellCrypto = () => {
     if (loading) return (
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '5rem' }}>
-                <div className="sell-crypto-grid" style={{ gridTemplateColumns: '320px 480px', justifyContent: 'flex-start', gap: '3rem' }}>
+                <div className="sell-crypto-grid" style={{ justifyContent: 'flex-start', gap: '3rem' }}>
                     <div className="asset-list-container">
                         <div className="skeleton" style={{ width: '150px', height: '14px', marginBottom: '1.25rem' }}></div>
                         {[1, 2, 3, 4].map(i => (
@@ -112,7 +112,7 @@ const SellCrypto = () => {
     return (
         <DashboardLayout>
             <div className="dashboard-content fade-in" style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '5rem' }}>
-                <div className="sell-crypto-grid" style={{ gridTemplateColumns: '320px 480px', justifyContent: 'flex-start', gap: '3rem' }}>
+                <div className="sell-crypto-grid" style={{ justifyContent: 'flex-start', gap: '3rem' }}>
                     
                     {/* LEFT COLUMN: ASSET LIST SIDEBAR */}
                     <div className="asset-list-container">

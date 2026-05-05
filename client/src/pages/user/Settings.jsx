@@ -31,6 +31,13 @@ const Settings = () => {
     // Security states
     const [passwords, setPasswords] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
 
+    // Toast state
+    const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+    const showToast = (message, type = 'success') => {
+        setToast({ show: true, message, type });
+        setTimeout(() => setToast(prev => ({ ...prev, show: false })), 4000);
+    };
+
     useEffect(() => {
         // Handle tab selection via query parameter
         const params = new URLSearchParams(location.search);
@@ -74,58 +81,60 @@ const Settings = () => {
                 network: accountType === 'crypto' ? network : undefined,
             };
             await api.post('/payment-accounts', data);
-            alert('Payment account added successfully');
+            showToast('Payment account added successfully', 'success');
             fetchPaymentAccounts();
             setAccountName(''); setBankName(''); setAccountNumber(''); setWalletAddress('');
         } catch (err) {
-            alert(err.response?.data?.error || 'Error adding account');
+            console.error('Add account error:', err);
+            showToast(err.response?.data?.error || 'Error adding account. Please check your details.', 'error');
         }
     };
 
     const handleUpdatePhone = async () => {
         try {
             await api.patch('/settings/profile', { phoneNumber });
-            alert('Phone number updated');
+            showToast('Phone number updated', 'success');
             setIsEditingPhone(false);
         } catch (err) {
-            alert(err.response?.data?.error || 'Error updating phone');
+            showToast(err.response?.data?.error || 'Error updating phone', 'error');
         }
     };
 
     const handleUpdateCountry = async () => {
         try {
             await api.patch('/settings/profile', { country });
-            alert('Country updated');
+            showToast('Country updated', 'success');
             setIsEditingCountry(false);
         } catch (err) {
-            alert(err.response?.data?.error || 'Error updating country');
+            showToast(err.response?.data?.error || 'Error updating country', 'error');
         }
     };
 
     const handleUpdatePassword = async (e) => {
         e.preventDefault();
         if (passwords.newPassword !== passwords.confirmPassword) {
-            return alert('Passwords do not match');
+            return showToast('Passwords do not match', 'error');
         }
         try {
             await api.patch('/settings/security', {
                 currentPassword: passwords.currentPassword,
                 newPassword: passwords.newPassword
             });
-            alert('Password updated successfully');
+            showToast('Password updated successfully', 'success');
             setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
             setShowPasswordModal(false);
         } catch (err) {
-            alert(err.response?.data?.error || 'Error updating password');
+            showToast(err.response?.data?.error || 'Error updating password', 'error');
         }
     };
 
     const handleSetDefault = async (id) => {
         try {
             await api.patch(`/payment-accounts/${id}`, { isDefault: true });
+            showToast('Payment account set as default', 'success');
             fetchPaymentAccounts();
         } catch (err) {
-            alert('Error updating default account');
+            showToast('Error updating default account', 'error');
         }
     };
 
@@ -462,6 +471,34 @@ const Settings = () => {
                 {activeTab === 'payment' && renderPaymentSettings()}
                 {activeTab === 'profile' && renderProfileSettings()}
                 {activeTab === 'security' && renderSecuritySettings()}
+            </div>
+
+            {/* Modern Toast Notification */}
+            <div style={{
+                position: 'fixed',
+                bottom: '2rem',
+                right: '2rem',
+                zIndex: 9999,
+                background: toast.type === 'error' ? '#fee2e2' : '#dcfce7',
+                color: toast.type === 'error' ? '#ef4444' : '#166534',
+                padding: '1rem 1.5rem',
+                borderRadius: '12px',
+                boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                fontWeight: '500',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                transform: toast.show ? 'translateY(0)' : 'translateY(20px)',
+                opacity: toast.show ? 1 : 0,
+                pointerEvents: toast.show ? 'auto' : 'none'
+            }}>
+                {toast.type === 'error' ? (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                ) : (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                )}
+                {toast.message}
             </div>
         </DashboardLayout>
     );

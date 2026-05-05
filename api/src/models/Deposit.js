@@ -27,7 +27,7 @@ const depositSchema = new mongoose.Schema({
     toAddress: String,
     status: {
         type: String,
-        enum: ['pending', 'confirmed', 'rejected'],
+        enum: ['pending', 'confirmed', 'rejected', 'in-progress'],
         default: 'pending'
     },
     verifiedBy: {

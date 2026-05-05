@@ -2,6 +2,7 @@ import User from '../models/User.js';
 import Deposit from '../models/Deposit.js';
 import KYC from '../models/KYC.js';
 import Notification from '../models/Notification.js';
+import AdminLog from '../models/AdminLog.js';
 import { emailQueue } from '../modules/queues/emailQueue.js';
 
 export const getDashboardStats = async (req, res) => {
@@ -72,6 +73,7 @@ export const updateUser = async (req, res) => {
     }
 };
 
+
 export const deleteUser = async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
@@ -79,5 +81,25 @@ export const deleteUser = async (req, res) => {
         res.status(200).json({ message: 'User deleted successfully' });
     } catch (err) {
         res.status(500).json({ error: 'Failed to delete user' });
+    }
+};
+
+export const getAdmins = async (req, res) => {
+    try {
+        const admins = await User.find({ role: 'admin' }).select('-password').sort({ createdAt: -1 });
+        res.status(200).json({ admins });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch admins' });
+    }
+};
+
+export const getActivityLogs = async (req, res) => {
+    try {
+        const logs = await AdminLog.find()
+            .populate('adminId', 'email username')
+            .sort({ createdAt: -1 });
+        res.status(200).json({ logs });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch activity logs' });
     }
 };

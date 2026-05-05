@@ -104,13 +104,13 @@ const Products = () => {
                     justifyContent: 'center'
                 }}>
                     {products.map((product) => (
-                        <div key={product.id} onClick={() => handleProductClick(product)} className="dash-card" style={{ 
+                        <div key={product.id} className="dash-card" style={{ 
                             padding: '1.25rem',
                             display: 'flex',
                             flexDirection: 'column',
                             minHeight: '180px',
                             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                            cursor: product.status === 'Active' ? 'pointer' : 'default',
+                            cursor: 'default',
                             background: '#FFFFFF'
                         }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
@@ -161,15 +161,20 @@ const Products = () => {
                             
                             {product.status === 'Active' && (
                                 <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
-                                    <button className="btn btn-primary" style={{ 
-                                        padding: '0.75rem 1.5rem', 
-                                        fontSize: '0.85rem',
-                                        background: '#5170ff',
-                                        color: '#FFFFFF',
-                                        borderRadius: '10px',
-                                        width: '100%',
-                                        fontWeight: '700'
-                                    }}>
+                                    <button 
+                                        onClick={() => handleProductClick(product)}
+                                        className="btn btn-primary" 
+                                        style={{ 
+                                            padding: '0.75rem 1.5rem', 
+                                            fontSize: '0.85rem',
+                                            background: '#5170ff',
+                                            color: '#FFFFFF',
+                                            borderRadius: '10px',
+                                            width: '100%',
+                                            fontWeight: '700',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
                                         Start Trading
                                     </button>
                                 </div>

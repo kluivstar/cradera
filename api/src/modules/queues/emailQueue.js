@@ -21,8 +21,12 @@ export const emailQueue = new Queue('email-queue', {
  */
 export const addEmailToQueue = async (data) => {
     try {
-        await emailQueue.add('send-email', data);
-        console.log(`Email job added to queue for: ${data.to}`);
+        // PAUSED: Email system is temporarily disabled to prevent Resend/domain errors.
+        console.log(`[PAUSED] Email job skipped for: ${data.to}`);
+        return;
+        
+        // await emailQueue.add('send-email', data);
+        // console.log(`Email job added to queue for: ${data.to}`);
     } catch (error) {
         console.error('Failed to add email job to queue:', error.message);
     }

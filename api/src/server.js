@@ -16,7 +16,7 @@ import referralRoutes from './routes/referral.routes.js';
 import settingsRoutes from './routes/settings.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
 import sessionRoutes from './routes/session.routes.js';
-import './modules/queues/emailWorker.js'; // Start BullMQ worker
+// import './modules/queues/emailWorker.js'; // PAUSED: Stop BullMQ worker to prevent timeouts/errors
 
 // Load environment variables
 dotenv.config();

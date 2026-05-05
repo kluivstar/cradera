@@ -30,6 +30,7 @@ import ManageReferrals from './pages/admin/ManageReferrals';
 import NotificationsPage from './pages/user/Notifications';
 import SessionsPage from './pages/user/Sessions';
 import AdminBroadcast from './pages/admin/Broadcast';
+import ManageAdminLogs from './pages/admin/ManageAdminLogs';
 import DashboardLayout from './components/DashboardLayout';
 
 const PlaceholderPage = ({ title }) => (
@@ -150,6 +151,9 @@ function AppRoutes() {
             } />
             <Route path="/admin/broadcast" element={
                 <ProtectedRoute adminOnly><AdminBroadcast /></ProtectedRoute>
+            } />
+            <Route path="/admin/logs" element={
+                <ProtectedRoute adminOnly><ManageAdminLogs /></ProtectedRoute>
             } />
             <Route path="/admin/settings" element={
                 <ProtectedRoute adminOnly><PlaceholderPage title="Platform Settings" /></ProtectedRoute>

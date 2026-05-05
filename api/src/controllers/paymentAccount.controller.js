@@ -30,7 +30,8 @@ export const createPaymentAccount = async (req, res) => {
             paymentAccount
         });
     } catch (err) {
-        res.status(500).json({ error: 'Error adding payment account' });
+        console.error('PaymentAccount creation error:', err);
+        res.status(500).json({ error: err.message || 'Error adding payment account' });
     }
 };
 

@@ -439,10 +439,11 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
+  padding: 0 1.2rem;
   border-bottom: none;
   z-index: 90;
   transition: all 0.3s;
+  margin-top: -25px;
 }
 
 /* Announcement Bar */
@@ -457,7 +458,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 1.5rem; /* Added extra 10px vertical padding */
+  padding: 10px calc(1.5rem + 5px);
   z-index: 91;
   font-size: 0.8rem;
   color: #92400e;
@@ -489,7 +490,6 @@ main {
 
 .sell-crypto-grid {
   display: grid;
-  grid-template-columns: 320px 480px;
   gap: 3rem;
   align-items: start;
   justify-content: flex-start;
@@ -967,7 +967,7 @@ main {
   }
 
   .dashboard-content-inner {
-    padding: 1rem;
+    padding: 8px;
   }
 
   .dash-card {
@@ -1346,10 +1346,17 @@ main {
   }
 
   .quick-action-card-icon {
+    width: 32px !important;
+    height: 32px !important;
     margin-left: 0 !important;
     background: white !important;
-    border-radius: 50% !important;
+    border-radius: 15px !important;
     padding: 4px !important;
+  }
+
+  .quick-action-card-icon svg {
+    width: 16px !important;
+    height: 16px !important;
   }
 
   .quick-action-container {
@@ -1461,5 +1468,38 @@ main {
   /* Hide subtitle completely */
   .quick-action-card-sub {
     display: none !important;
+  }
+
+  .crypto-actions-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.6rem !important;
+    justify-items: center !important;
+  }
+  
+  .crypto-actions-grid > div {
+    max-width: 320px;
+    width: 100%;
+    padding: 1.55rem 1rem !important;
+  }
+
+  .crypto-actions-grid .icon-container {
+    width: 48px !important;
+    height: 48px !important;
+    margin-bottom: 0.6rem !important;
+  }
+
+  .crypto-actions-grid .icon-inner {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .crypto-actions-grid h3 {
+    margin-bottom: 0.25rem !important;
+    line-height: 1 !important;
+  }
+
+  .crypto-actions-grid p {
+    line-height: 1.2 !important;
+    font-size: 0.8rem !important;
   }
 }

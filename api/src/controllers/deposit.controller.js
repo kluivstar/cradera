@@ -1,5 +1,6 @@
 import Deposit from '../models/Deposit.js';
 import User from '../models/User.js';
+import AdminLog from '../models/AdminLog.js';
 import syncService from '../services/syncService.js';
 
 // @desc    Create a new deposit
@@ -81,11 +82,22 @@ export const confirmDeposit = async (req, res) => {
 
         await deposit.save();
 
-        // Notify User
+        // Update User Balance
         const user = await User.findById(deposit.userId);
         if (user) {
+            user.availableBalance += deposit.amount;
+            await user.save();
             await syncService.handleTransactionUpdate(user, { ...deposit.toObject(), type: 'deposit' }, 'confirmed');
         }
+
+        // Log action
+        await AdminLog.create({
+            adminId: req.user._id,
+            action: 'VERIFIED_DEPOSIT',
+            targetId: deposit._id,
+            targetType: 'Deposit',
+            details: `Confirmed deposit of ${deposit.amount} ${deposit.assetType}. TX: ${deposit.txHash}`
+        });
 
         res.status(200).json({
             message: 'Deposit confirmed successfully',
@@ -125,11 +137,63 @@ export const rejectDeposit = async (req, res) => {
             await syncService.handleTransactionUpdate(user, { ...deposit.toObject(), type: 'deposit' }, 'rejected');
         }
 
+        // Log action
+        await AdminLog.create({
+            adminId: req.user._id,
+            action: 'DECLINED_DEPOSIT',
+            targetId: deposit._id,
+            targetType: 'Deposit',
+            details: `Rejected deposit of ${deposit.amount} ${deposit.assetType}. TX: ${deposit.txHash}`
+        });
+
         res.status(200).json({
             message: 'Deposit rejected successfully',
             deposit
         });
     } catch (err) {
         res.status(500).json({ error: 'Error rejecting deposit' });
+    }
+};
+
+// @desc    Set deposit to in-progress
+// @route   POST /api/deposits/:id/in-progress
+// @access  Private (Admin)
+export const inProgressDeposit = async (req, res) => {
+    try {
+        const deposit = await Deposit.findById(req.params.id);
+
+        if (!deposit) {
+            return res.status(404).json({ error: 'Deposit not found' });
+        }
+
+        if (deposit.status !== 'pending') {
+            return res.status(400).json({ error: 'Deposit already processed' });
+        }
+
+        deposit.status = 'in-progress';
+        deposit.verifiedBy = req.user._id;
+        await deposit.save();
+
+        // Notify User
+        const user = await User.findById(deposit.userId);
+        if (user) {
+            await syncService.handleTransactionUpdate(user, { ...deposit.toObject(), type: 'deposit' }, 'in-progress');
+        }
+
+        // Log action
+        await AdminLog.create({
+            adminId: req.user._id,
+            action: 'IN_PROGRESS_DEPOSIT',
+            targetId: deposit._id,
+            targetType: 'Deposit',
+            details: `Set deposit of ${deposit.amount} ${deposit.assetType} to in-progress. TX: ${deposit.txHash}`
+        });
+
+        res.status(200).json({
+            message: 'Deposit set to in-progress',
+            deposit
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'Error processing deposit' });
     }
 };

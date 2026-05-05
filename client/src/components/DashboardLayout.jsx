@@ -16,7 +16,7 @@ const DashboardLayout = ({ children, title, headerContent }) => {
     return (
         <div
             className={`dashboard-layout ${isSidebarOpen ? 'sidebar-open' : ''}`}
-            style={{ '--announcement-height': '40px' }}
+            style={{ '--announcement-height': '60px' }}
         >
             <style>{`:root { --announcement-height: 40px; }`}</style>
             <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
@@ -24,9 +24,9 @@ const DashboardLayout = ({ children, title, headerContent }) => {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 {ANNOUNCEMENT}
             </div>
-            <div className="dashboard-main">
+            <div className="dashboard-main" >
                 <Topbar onMenuClick={() => setIsSidebarOpen(true)} title={title} headerContent={headerContent} />
-                <div className="dashboard-content-inner" style={{ padding: '0 25px 2rem 25px' }}>
+                <div className="dashboard-content-inner" style={{ padding: '0 25px 2rem 25px', borderRadius: '10px' }}>
                     {showBack && (
                         <button 
                             onClick={() => navigate(-1)} 
@@ -39,6 +39,7 @@ const DashboardLayout = ({ children, title, headerContent }) => {
                                 color: 'var(--color-text-secondary)', 
                                 cursor: 'pointer',
                                 marginBottom: '1rem',
+                                marginTop: '-3rem',
                                 padding: '0.5rem 0',
                                 fontSize: '0.9rem',
                                 fontWeight: '500'
