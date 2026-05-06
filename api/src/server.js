@@ -33,11 +33,28 @@ app.use(mongoSanitize()); // Prevent NoSQL injection
 app.use(morgan('dev')); // Request logging
 
 // CORS Configuration
+const allowedOrigins = [
+    config.clientUrl?.replace(/\/$/, ""), // Remove trailing slash if present
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://127.0.0.1:5173'
+].filter(Boolean);
+
 const corsOptions = {
-    origin: [config.clientUrl, 'http://localhost:5173', 'http://localhost:3000'],
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1 || config.env === 'development') {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
 
