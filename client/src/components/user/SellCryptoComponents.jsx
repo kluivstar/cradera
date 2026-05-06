@@ -28,20 +28,21 @@ export const AssetCard = ({ asset, isSelected, selectedNetwork, onSelect, onNetw
                 }}
             >
                 <div style={{ 
-                    width: '36px', 
-                    height: '36px', 
+                    width: '25px', 
+                    height: '25px', 
                     borderRadius: '50%', 
                     background: isSelected ? 'var(--color-primary)' : '#F3F4F6', 
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    flexShrink: 0
                 }}>
                     {asset.icon ? (
                         <img src={asset.icon} alt={asset.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     ) : (
                         <div style={{ color: isSelected ? '#FFFFFF' : 'var(--color-primary)' }}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                                 <circle cx="12" cy="12" r="12"/>
                                 <path d="M12 6v12M12 6l-3 3M12 6l3 3M12 18l-3-3M12 18l3-3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                             </svg>

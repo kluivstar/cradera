@@ -82,6 +82,16 @@ app.get('/', (req, res) => {
     });
 });
 
+// Backward Compatibility: Redirect /api/... to /api/v1/...
+app.use((req, res, next) => {
+    if (req.url.startsWith('/api/') && !req.url.startsWith('/api/v1/')) {
+        const newUrl = req.url.replace('/api/', '/api/v1/');
+        console.log(`[CORS/LEGACY] Redirecting ${req.url} to ${newUrl}`);
+        req.url = newUrl;
+    }
+    next();
+});
+
 // Health Check Route
 app.get('/api/v1/health', (req, res) => {
     res.status(200).json({ 

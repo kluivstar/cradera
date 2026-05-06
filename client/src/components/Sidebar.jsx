@@ -46,7 +46,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                     <img src={logo} alt="Cradera" style={{ height: '182px', width: 'auto', objectFit: 'contain', marginLeft: '-10px' }} />
                 </div>
                 {/* User avatar — shown on mobile only, in place of logo */}
-                <div className="sidebar-user-mobile" onClick={() => { window.location.href='/dashboard/settings?tab=profile'; onClose(); }} style={{ cursor: 'pointer' }}>
+                <div className="sidebar-user-mobile" onClick={() => { navigate('/dashboard/settings?tab=profile'); onClose(); }} style={{ cursor: 'pointer' }}>
                     <div style={{
                         width: '42px', height: '42px', borderRadius: '50%',
                         background: '#5170ff', display: 'flex', alignItems: 'center',

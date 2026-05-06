@@ -3,9 +3,16 @@
  * Uses Vite's import.meta.env for environment-specific variables
  */
 
-// Use VITE_ prefix for Vite environment variables
-// Falls back to localhost for development if not provided
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+// Get base URL from environment or default to local
+let baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+
+// Auto-fix: If the URL is provided but missing the /api/v1 suffix, append it
+// This prevents 404s if the user forgets to add the suffix in deployment settings
+if (baseUrl && !baseUrl.endsWith('/api/v1') && !baseUrl.endsWith('/api/v1/')) {
+    baseUrl = baseUrl.replace(/\/$/, '') + '/api/v1';
+}
+
+export const API_BASE_URL = baseUrl;
 
 export const API_ENDPOINTS = {
     auth: `${API_BASE_URL}/auth`,

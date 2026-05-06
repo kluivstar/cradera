@@ -635,14 +635,15 @@ main {
     padding-left: 1rem;
     padding-right: 1rem;
     -webkit-overflow-scrolling: touch;
+    gap: 0.75rem; /* Tighter gap for mobile */
   }
   .asset-list-container::-webkit-scrollbar {
     display: none;
   }
   .asset-list-container > div {
     flex: 0 0 auto;
-    min-width: 160px;
-    padding: 1rem !important;
+    min-width: 140px; /* Reduced min-width for better fit */
+    padding: 0.75rem !important; /* Slightly tighter padding */
   }
 }
 
@@ -994,7 +995,8 @@ main {
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+    gap: 1rem;
   }
 
   .auth-card {
@@ -1224,15 +1226,19 @@ main {
     display: none !important;
   }
 
+  body {
+    font-size: 17px !important; /* Increased from 16px */
+  }
+
   .topbar-title {
     font-weight: 400 !important;
-    font-size: 16px !important; /* Font 16px */
+    font-size: 17px !important; /* Font 17px (base + 1px) */
   }
 
   /* Reduce topbar icon sizes */
   .notification-trigger svg {
-    width: 21px !important; /* Increased by 5px */
-    height: 21px !important;
+    width: 24px !important; /* Increased by 3px (from 21px) */
+    height: 24px !important;
   }
 
   /* Red dot animation */
@@ -1269,21 +1275,19 @@ main {
   }
 
   .quick-actions-container {
-    flex-wrap: nowrap !important;
-    overflow-x: auto;
-    gap: 7px !important; /* Reduced gap by 5px */
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    flex-wrap: wrap !important; /* Allow wrapping on tablets */
+    overflow-x: visible;
+    gap: 10px !important;
+    padding-bottom: 0;
+    justify-content: center;
   }
   .quick-actions-container > * {
-    flex: 0 0 auto !important;
-    width: 59px !important;
-    height: 82px !important; /* Increased height by 10px */
-    min-width: 59px !important;
-    min-height: 82px !important;
-    padding: 5px !important;
-    font-size: 10px !important;
+    flex: 0 0 calc(50% - 10px) !important; /* 2 items per row on smaller tablets */
+    max-width: 140px;
+    height: auto !important;
+    min-height: 100px !important;
+    padding: 1rem !important;
+    font-size: 0.8rem !important;
   }
 
   .quick-action-card-title {
@@ -1291,8 +1295,8 @@ main {
   }
 
   .mobile-menu-btn svg {
-    width: 21px !important;
-    height: 21px !important;
+    width: 24px !important; /* Increased by 3px (from 21px) */
+    height: 24px !important;
     margin-top: 4px !important;
   }
 
