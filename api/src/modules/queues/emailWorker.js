@@ -2,7 +2,7 @@ import { Worker } from 'bullmq';
 import redisConnection from '../../config/redis.js';
 import { sendTransactionalEmail } from '../emails/emailService.js';
 
-const emailWorker = new Worker('email-queue', async (job) => {
+const emailWorker = redisConnection ? new Worker('email-queue', async (job) => {
     const { to, subject, templateName, context } = job.data;
     
     console.log(`Processing email job for: ${to} (Template: ${templateName})`);
@@ -17,14 +17,16 @@ const emailWorker = new Worker('email-queue', async (job) => {
 }, {
     connection: redisConnection,
     concurrency: 5 // Process 5 emails at once
-});
+}) : null;
 
-emailWorker.on('completed', (job) => {
-    console.log(`Job ${job.id} (email) completed`);
-});
+if (emailWorker) {
+    emailWorker.on('completed', (job) => {
+        console.log(`Job ${job.id} (email) completed`);
+    });
 
-emailWorker.on('failed', (job, err) => {
-    console.error(`Job ${job.id} (email) failed:`, err.message);
-});
+    emailWorker.on('failed', (job, err) => {
+        console.error(`Job ${job.id} (email) failed:`, err.message);
+    });
+}
 
 export default emailWorker;

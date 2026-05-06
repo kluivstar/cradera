@@ -1,8 +1,8 @@
 import { Queue } from 'bullmq';
 import redisConnection from '../../config/redis.js';
 
-// Create a new queue
-export const emailQueue = new Queue('email-queue', {
+// Create a new queue only if redis is available
+export const emailQueue = redisConnection ? new Queue('email-queue', {
     connection: redisConnection,
     defaultJobOptions: {
         attempts: 3,
@@ -13,7 +13,7 @@ export const emailQueue = new Queue('email-queue', {
         removeOnComplete: true,
         removeOnFail: false,
     },
-});
+}) : null;
 
 /**
  * Add an email job to the queue
