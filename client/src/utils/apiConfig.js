@@ -4,18 +4,8 @@
  */
 
 // Use VITE_ prefix for Vite environment variables
-// Falls back to NEXT_PUBLIC_ for compatibility or localhost for development
-const rawApiUrl = import.meta.env.VITE_API_URL || import.meta.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
-
-// 1. Strip trailing slash
-let sanitizedUrl = rawApiUrl.replace(/\/$/, "");
-
-// 2. Ensure /api/v1 suffix exists (Deployment insurance)
-if (!sanitizedUrl.includes('/api/v1') && !sanitizedUrl.includes('localhost')) {
-    sanitizedUrl = `${sanitizedUrl}/api/v1`;
-}
-
-export const API_BASE_URL = sanitizedUrl;
+// Falls back to localhost for development if not provided
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
 
 export const API_ENDPOINTS = {
     auth: `${API_BASE_URL}/auth`,

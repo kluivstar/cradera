@@ -34,7 +34,7 @@ app.use(morgan('dev')); // Request logging
 
 // CORS Configuration
 const allowedOrigins = [
-    config.frontendUrl?.replace(/\/$/, ""), // Remove trailing slash if present
+    config.clientUrl?.replace(/\/$/, ""), // Remove trailing slash if present
     'http://localhost:5173',
     'http://localhost:3000',
     'http://127.0.0.1:5173'
