@@ -109,11 +109,10 @@ const Transactions = () => {
     };
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title="Transaction History">
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header-responsive" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1.5rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2rem' }}>Transaction History</h1>
                         
                     </div>
                     <button 

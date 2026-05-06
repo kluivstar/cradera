@@ -84,7 +84,7 @@ const Withdraw = () => {
 
     if (paymentAccounts.length === 0) {
         return (
-            <DashboardLayout>
+            <DashboardLayout title="Withdraw Funds">
                 <div className="dashboard-content fade-in">
                     <div className="dash-card" style={{ textAlign: 'center', padding: '5rem 2rem' }}>
                         <div style={{ marginBottom: '1.5rem', color: '#9CA3AF' }}>
@@ -106,10 +106,9 @@ const Withdraw = () => {
     }
 
     return (
-        <DashboardLayout title="Withdrawal">
+        <DashboardLayout title="Withdraw Funds">
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header-responsive" style={{ marginBottom: '2.5rem' }}>
-                    <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2rem' }}>Withdraw Funds</h1>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem', fontWeight: '300' }}>Request a payout to your saved bank or crypto accounts.</p>
                 </div>
 

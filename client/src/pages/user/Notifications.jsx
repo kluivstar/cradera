@@ -50,7 +50,6 @@ const NotificationsPage = () => {
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header-responsive" style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2rem' }}>Notifications</h1>
                         <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>Stay updated with your account activity.</p>
                     </div>
                     <button 

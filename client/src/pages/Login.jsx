@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getErrorMessage } from '../utils/errorUtils';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -21,7 +21,7 @@ const Login = () => {
             await login(email, password);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.error || 'Login failed. Please try again.');
+            setError(getErrorMessage(err, 'Login failed. Please try again.'));
         } finally {
             setLoading(false);
         }

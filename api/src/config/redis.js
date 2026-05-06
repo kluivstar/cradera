@@ -1,9 +1,7 @@
 import IORedis from 'ioredis';
-import dotenv from 'dotenv';
+import config from './env.js';
 
-dotenv.config();
-
-const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
+const redisUrl = config.redisUrl;
 
 const redisConnection = new IORedis(redisUrl, {
     maxRetriesPerRequest: null, // Required for BullMQ

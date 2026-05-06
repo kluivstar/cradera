@@ -36,11 +36,10 @@ const Referral = () => {
     };
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title="Referral Program">
             <div className="dashboard-content fade-in" style={{ maxWidth: '1000px', margin: '0 auto', fontWeight: '300' }}>
                 <div className="dashboard-header-responsive" style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2.25rem' }}>Referral Program</h1>
                         
                     </div>
                 </div>

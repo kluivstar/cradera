@@ -1,16 +1,12 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import config from './env.js';
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGODB_URI);
+        const conn = await mongoose.connect(config.mongoUri);
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
         console.error(`Error connecting to MongoDB: ${error.message}`);
-        // Only exit process if not in a test environment or if deemed critical, 
-        // but for app initialization it's standard.
         process.exit(1);
     }
 };

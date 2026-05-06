@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 import api from '../../utils/api';
+import { getErrorMessage } from '../../utils/errorUtils';
 
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [actionId, setActionId] = useState(null); // Track which user is being processed
 
     const fetchUsers = async () => {
         try {
@@ -26,20 +28,26 @@ const ManageUsers = () => {
     const handleVerifyUser = async (userId, currentStatus) => {
         const newStatus = currentStatus === 'verified' ? 'unverified' : 'verified';
         try {
+            setActionId(userId);
             await api.patch(`/admin/users/${userId}`, { kycStatus: newStatus });
-            fetchUsers();
+            await fetchUsers();
         } catch (err) {
-            alert('Failed to update user status');
+            alert(getErrorMessage(err, 'Failed to update user status'));
+        } finally {
+            setActionId(null);
         }
     };
 
     const handleDeleteUser = async (userId) => {
         if (!window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) return;
         try {
+            setActionId(userId);
             await api.delete(`/admin/users/${userId}`);
-            fetchUsers();
+            await fetchUsers();
         } catch (err) {
-            alert('Failed to delete user');
+            alert(getErrorMessage(err, 'Failed to delete user'));
+        } finally {
+            setActionId(null);
         }
     };
 
@@ -49,11 +57,10 @@ const ManageUsers = () => {
     );
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title="User Management">
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header-responsive" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
                     <div>
-                        <h1 style={{ fontWeight: '400', color: 'var(--color-primary)' }}>User Management</h1>
                         <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.875rem', fontWeight: '300' }}>View and manage platform users and their verification status.</p>
                     </div>
                     <div className="form-group" style={{ marginBottom: 0, width: '100%', maxWidth: '300px' }}>
@@ -125,13 +132,15 @@ const ManageUsers = () => {
                                                         onClick={() => handleVerifyUser(user.id, user.kycStatus)}
                                                         className="btn btn-secondary"
                                                         style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', borderRadius: '4px' }}
+                                                        disabled={actionId === user.id}
                                                     >
-                                                        {user.kycStatus === 'verified' ? 'Revoke' : 'Verify'}
+                                                        {actionId === user.id ? 'Processing...' : (user.kycStatus === 'verified' ? 'Revoke' : 'Verify')}
                                                     </button>
                                                     <button 
                                                         onClick={() => handleDeleteUser(user.id)}
                                                         className="btn btn-secondary"
                                                         style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem', borderRadius: '4px', color: 'var(--color-danger)', borderColor: 'rgba(239, 68, 68, 0.2)' }}
+                                                        disabled={actionId === user.id}
                                                     >
                                                         Delete
                                                     </button>

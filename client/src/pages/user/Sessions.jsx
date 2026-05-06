@@ -54,7 +54,6 @@ const SessionsPage = () => {
         <DashboardLayout title="Security & Sessions">
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header-responsive" style={{ marginBottom: '2.5rem' }}>
-                    <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', fontSize: '2rem' }}>Security & Sessions</h1>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>Manage your active login sessions and secure your account.</p>
                 </div>
 

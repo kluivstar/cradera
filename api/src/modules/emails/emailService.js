@@ -1,9 +1,7 @@
 import { Resend } from 'resend';
-import dotenv from 'dotenv';
+import config from '../../config/env.js';
 
-dotenv.config();
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(config.resendApiKey);
 
 const FROM_EMAIL = 'onboarding@resend.dev'; // Use for testing until domain is verified
 
@@ -72,7 +70,7 @@ const getEmailHtml = (templateName, context) => {
                 <h1 style="color: #5170ff;">Welcome to Cradera, ${context.name}!</h1>
                 <p>We're excited to have you on board. Cradera is the fastest way to sell your crypto and get paid in Naira instantly.</p>
                 <p>Start your journey today by completing your KYC and adding a payout method.</p>
-                <a href="${process.env.FRONTEND_URL}/dashboard" style="display: inline-block; padding: 12px 24px; background: #5170ff; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 20px;">Go to Dashboard</a>
+                <a href="${config.frontendUrl}/dashboard" style="display: inline-block; padding: 12px 24px; background: #5170ff; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 20px;">Go to Dashboard</a>
             `;
             break;
         
@@ -123,7 +121,7 @@ const getEmailHtml = (templateName, context) => {
     return `
         <div style="${baseStyle}">
             <div style="text-align: center; margin-bottom: 30px;">
-                <img src="${process.env.LOGO_URL || 'https://cradera.com/logo.png'}" alt="Cradera" style="height: 40px;">
+                <img src="${config.logoUrl}" alt="Cradera" style="height: 40px;">
             </div>
             ${content}
             ${footer}

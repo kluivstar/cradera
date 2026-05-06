@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import DashboardLayout from '../../components/DashboardLayout';
 import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
+import { getErrorMessage } from '../../utils/errorUtils';
 
 const Settings = () => {
     const { user } = useAuth();
@@ -89,7 +90,7 @@ const Settings = () => {
             setAccountName(''); setBankName(''); setAccountNumber(''); setWalletAddress('');
         } catch (err) {
             console.error('Add account error:', err);
-            showToast(err.response?.data?.error || 'Error adding account. Please check your details.', 'error');
+            showToast(getErrorMessage(err, 'Error adding account. Please check your details.'), 'error');
         }
     };
 
@@ -99,7 +100,7 @@ const Settings = () => {
             showToast('Phone number updated', 'success');
             setIsEditingPhone(false);
         } catch (err) {
-            showToast(err.response?.data?.error || 'Error updating phone', 'error');
+            showToast(getErrorMessage(err, 'Error updating phone'), 'error');
         }
     };
 
@@ -109,7 +110,7 @@ const Settings = () => {
             showToast('Country updated', 'success');
             setIsEditingCountry(false);
         } catch (err) {
-            showToast(err.response?.data?.error || 'Error updating country', 'error');
+            showToast(getErrorMessage(err, 'Error updating country'), 'error');
         }
     };
 
@@ -120,7 +121,7 @@ const Settings = () => {
             setIsEditingEmail(false);
             setPasswordForEmail('');
         } catch (err) {
-            showToast(err.response?.data?.error || 'Error updating email', 'error');
+            showToast(getErrorMessage(err, 'Error updating email'), 'error');
         }
     };
 
@@ -138,7 +139,7 @@ const Settings = () => {
             setPasswords({ currentPassword: '', newPassword: '', confirmPassword: '' });
             setShowPasswordModal(false);
         } catch (err) {
-            showToast(err.response?.data?.error || 'Error updating password', 'error');
+            showToast(getErrorMessage(err, 'Error updating password'), 'error');
         }
     };
 
@@ -236,7 +237,7 @@ const Settings = () => {
 
                         <div style={{ display: 'grid', gap: '1.5rem' }}>
                             <div className="form-group">
-                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600', letterSpacing: '0.05em' }}>LABEL / NAME</label>
+                                <label style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.5rem', display: 'block', fontWeight: '600', letterSpacing: '0.05em' }}>Account Name</label>
                                 <input type="text" style={inputStyle} value={accountName} onChange={(e) => setAccountName(e.target.value)} required placeholder="e.g. Personal Savings" />
                             </div>
 
@@ -487,10 +488,9 @@ const Settings = () => {
     );
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title="Account Settings">
             <div className="dashboard-content fade-in" style={containerStyle}>
                 <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
-                    <h1 style={{ ...headingStyle, fontSize: '2rem', color: 'var(--color-primary)' }}>Account Settings</h1>
                 
                 </div>
                 

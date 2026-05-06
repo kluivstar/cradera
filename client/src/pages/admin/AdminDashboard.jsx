@@ -31,10 +31,9 @@ const AdminDashboard = () => {
     }, []);
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title="Command Center">
             <div className="dashboard-content fade-in">
                 <div className="dashboard-header" style={{ marginBottom: '1.5rem' }}>
-                    <h1 style={{ fontWeight: '400', color: 'var(--color-primary)', letterSpacing: '-0.02em' }}>Command Center</h1>
                     <p className="dashboard-subtitle" style={{ fontSize: '0.875rem', fontWeight: '300' }}>Real-time overview of Cradera's platform health and operations.</p>
                 </div>
 

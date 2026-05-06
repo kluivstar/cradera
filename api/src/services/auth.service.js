@@ -69,8 +69,8 @@ export const loginUser = async ({ email, password, roleRequired = 'user' }) => {
     return user;
 };
 
+import config from '../config/env.js';
+
 export const generateToken = (userId, role) => {
-    const secret = process.env.JWT_SECRET || 'secret';
-    const expiresIn = process.env.JWT_EXPIRATION || '7d';
-    return jwt.sign({ userId, role }, secret, { expiresIn });
+    return jwt.sign({ userId, role }, config.jwtSecret, { expiresIn: config.jwtExpiration });
 };
