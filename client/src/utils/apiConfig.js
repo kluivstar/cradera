@@ -5,7 +5,8 @@
 
 // Use VITE_ prefix for Vite environment variables
 // Falls back to localhost for development if not provided
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+export const API_BASE_URL = rawApiUrl.replace(/\/$/, "");
 
 export const API_ENDPOINTS = {
     auth: `${API_BASE_URL}/auth`,
