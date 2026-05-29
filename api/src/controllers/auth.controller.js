@@ -23,6 +23,7 @@ const loginSchema = Joi.object({
 
 export const register = async (req, res) => {
     try {
+        // validate the request body
         const { error, value } = registerSchema.validate(req.body);
         if (error) {
             return res.status(400).json({ error: error.details[0].message });

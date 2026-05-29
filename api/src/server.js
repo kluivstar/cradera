@@ -28,7 +28,7 @@ connectDB();
 const app = express();
 
 // Security Middlewares
-app.use(helmet()); // Security headers
+app.use(helmet()); // Security headers 
 app.use(mongoSanitize()); // Prevent NoSQL injection
 app.use(morgan('dev')); // Request logging
 
