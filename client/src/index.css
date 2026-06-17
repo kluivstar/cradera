@@ -2,6 +2,16 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('./Fonts/WEB/fonts/ClashDisplay-Regular.woff2') format('woff2'),
+       url('./Fonts/WEB/fonts/ClashDisplay-Regular.woff') format('woff'),
+       url('./Fonts/WEB/fonts/ClashDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Colors */
   --color-bg: #FFFFFF;
@@ -27,8 +37,8 @@
   --card-padding: 1.25rem;
   
   /* Typography */
-  --font-base: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-auth: 'Montserrat', 'Avenir', -apple-system, sans-serif;
+  --font-base: 'ClashDisplay', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-auth: 'ClashDisplay', 'Avenir', -apple-system, sans-serif;
   --font-size-base: 16px;
   --line-height-base: 24px;
 }
@@ -46,7 +56,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 h1, h2, h3, h4, h5, h6 {
