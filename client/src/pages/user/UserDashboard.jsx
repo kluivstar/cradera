@@ -294,6 +294,7 @@ const UserDashboard = () => {
                 @media (max-width: 768px) {
                     .desktop-greeting { display: none !important; }
                     .mobile-greeting { display: block !important; }
+                    .dashboard-grid { margin-top: -8px; }
                 }
             `}</style>
         </DashboardLayout>
