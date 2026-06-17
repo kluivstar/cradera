@@ -8,7 +8,19 @@ const UserDashboard = () => {
     const { user } = useAuth();
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isBalanceVisible, setIsBalanceVisible] = useState(true);
+    const [currency, setCurrency] = useState('NGN');
     const displayName = user?.email?.split('@')[0];
+
+    const exchangeRate = 1500;
+    const balanceNGN = user?.availableBalance || 0;
+    const balanceUSD = balanceNGN / exchangeRate;
+    
+    const displayBalance = currency === 'NGN' 
+        ? `₦${balanceNGN.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}` 
+        : `$${balanceUSD.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    
+    const hiddenBalance = '******';
 
     useEffect(() => {
         const fetchDashboardData = async () => {
@@ -27,8 +39,8 @@ const UserDashboard = () => {
     const headerContent = (
         <div className="dashboard-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
-                <h1 style={{ fontWeight: '500', color: 'var(--color-primary)', margin: 0 }}>
-                    Hello, <span style={{ color: '#5170ff' }}>{displayName}</span>
+                <h1 className="desktop-greeting" style={{ fontWeight: '500', color: 'var(--color-primary)', margin: 0 }}>
+                    Hello, <span style={{ color: '#5170ff' }}>{displayName}</span> 👋
                 </h1>
             </div>
         </div>
@@ -37,6 +49,12 @@ const UserDashboard = () => {
     return (
         <DashboardLayout title="Dashboard" headerContent={headerContent}>
             <div className="dashboard-content fade-in">
+
+                <div className="mobile-greeting" style={{ marginBottom: '1rem', display: 'none' }}>
+                    <h2 style={{ fontWeight: '500', color: 'var(--color-primary)', margin: 0, fontSize: '1.5rem' }}>
+                        Hello, <span style={{ color: '#5170ff' }}>{displayName}</span> 👋
+                    </h2>
+                </div>
 
                 <div className="dashboard-grid">
                     
@@ -56,12 +74,31 @@ const UserDashboard = () => {
                             justifyContent: 'center'
                         }}>
                             <div style={{ position: 'relative', zIndex: 1 }}>
-                                <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem', fontWeight: '500' }}>Available Balance</p>
-                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>₦{user?.availableBalance?.toLocaleString() || '0.00'}</h2>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', fontWeight: '500', margin: 0 }}>Available Balance</p>
+                                        <button onClick={() => setIsBalanceVisible(!isBalanceVisible)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex', alignItems: 'center', padding: '0.2rem', borderRadius: '50%', transition: 'background 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.background='#f1f5f9'} onMouseOut={(e) => e.currentTarget.style.background='none'} title="Toggle Balance Visibility">
+                                            {isBalanceVisible ? (
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                            ) : (
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                                            )}
+                                        </button>
+                                    </div>
+                                    <div style={{ position: 'relative', display: 'inline-block' }}>
+                                        <select value={currency} onChange={(e) => setCurrency(e.target.value)} style={{ padding: '0.35rem 1.75rem 0.35rem 0.85rem', borderRadius: '20px', border: '1px solid #e2e8f0', background: '#ffffff', fontSize: '0.75rem', fontWeight: '600', outline: 'none', cursor: 'pointer', color: '#0f172a', appearance: 'none', transition: 'all 0.2s ease', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+                                            <option value="NGN">NGN</option>
+                                            <option value="USD">USD</option>
+                                        </select>
+                                        <div style={{ position: 'absolute', right: '0.65rem', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#64748b' }}>
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>
+                                    {isBalanceVisible ? displayBalance : hiddenBalance}
+                                </h2>
                                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                                    <Link to="/dashboard/crypto-actions" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '5px', textDecoration: 'none', background: '#5170ff', color: 'white', flex: '1 1 auto', minWidth: '120px' }}>
-                                        + Deposit
-                                    </Link>
                                     <Link to="/dashboard/withdraw" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '5px', textDecoration: 'none', color: 'var(--color-primary)', border: '1px solid #ddd', flex: '1 1 auto', minWidth: '120px' }}>
                                         - Withdrawal
                                     </Link>
@@ -109,13 +146,13 @@ const UserDashboard = () => {
                             textDecoration: 'none', textAlign: 'center', 
                             flex: '1 1 0', aspectRatio: '10/7',
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                            padding: '1.5rem'
+                            padding: '1.5rem', background: '#eff6ff', border: '1px solid #dbeafe'
                         }}>
                             <div className="quick-action-card-icon" style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 
+                                width: '40px', height: '40px', borderRadius: '10px', background: '#dbeafe', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
                                 marginBottom: '0.75rem',
-                                color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                                color: '#1e40af', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                             }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
@@ -128,13 +165,13 @@ const UserDashboard = () => {
                             textDecoration: 'none', textAlign: 'center',
                             flex: '1 1 0', aspectRatio: '10/7',
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                            padding: '1rem'
+                            padding: '1rem', background: '#f0fdf4', border: '1px solid #dcfce7'
                         }}>
                             <div className="quick-action-card-icon" style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 
+                                width: '40px', height: '40px', borderRadius: '10px', background: '#dcfce7', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
                                 marginBottom: '0.75rem',
-                                color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                                color: '#166534', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                             }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M12 1v22M5 15l7 7 7-7"/>
@@ -147,14 +184,14 @@ const UserDashboard = () => {
                             textAlign: 'center', opacity: 0.6, position: 'relative',
                             flex: '1 1 0', aspectRatio: '10/7',
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                            padding: '1rem'
+                            padding: '1rem', background: '#fefce8', border: '1px solid #fef08a'
                         }}>
-                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#fef08a', borderRadius: '4px', color: '#854d0e', textTransform: 'uppercase' }}>Soon</span>
                             <div className="quick-action-card-icon" style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 
+                                width: '40px', height: '40px', borderRadius: '10px', background: '#fef08a', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
                                 marginBottom: '0.75rem',
-                                color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                                color: '#854d0e', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                             }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
@@ -167,14 +204,14 @@ const UserDashboard = () => {
                             textAlign: 'center', opacity: 0.6, position: 'relative',
                             flex: '1 1 0', aspectRatio: '10/7',
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                            padding: '1rem'
+                            padding: '1rem', background: '#faf5ff', border: '1px solid #e9d5ff'
                         }}>
-                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#F3F4F6', borderRadius: '4px', color: '#9CA3AF', textTransform: 'uppercase' }}>Soon</span>
+                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#e9d5ff', borderRadius: '4px', color: '#6b21a8', textTransform: 'uppercase' }}>Soon</span>
                             <div className="quick-action-card-icon" style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: '#f8fafc', 
+                                width: '40px', height: '40px', borderRadius: '10px', background: '#e9d5ff', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
                                 marginBottom: '0.75rem',
-                                color: 'var(--color-primary)', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                                color: '#6b21a8', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
                             }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
@@ -254,6 +291,10 @@ const UserDashboard = () => {
             <style>{`
                 .service-hover { transition: all 0.3s ease; }
                 .service-hover:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(56, 189, 248, 0.1); }
+                @media (max-width: 768px) {
+                    .desktop-greeting { display: none !important; }
+                    .mobile-greeting { display: block !important; }
+                }
             `}</style>
         </DashboardLayout>
     );
