@@ -5,6 +5,13 @@ import { NotificationProvider } from './context/NotificationContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import Home from './pages/Home';
+import PublicHome from './pages/public/Home';
+import About from './pages/public/About';
+import Services from './pages/public/Services';
+import Contact from './pages/public/Contact';
+import FAQ from './pages/public/FAQ';
+import Privacy from './pages/public/Privacy';
+import Terms from './pages/public/Terms';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminLogin from './pages/AdminLogin';
@@ -68,8 +75,13 @@ const GuestRoute = ({ children }) => {
 function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-
+            <Route path="/" element={<PublicHome />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="/login" element={
                 <GuestRoute><Login /></GuestRoute>
             } />

@@ -1,0 +1,529 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Cradera | Swap Digital Assets Without The Uncertainty</title>
+<meta content="Nigeria's most reliable digital asset marketplace for crypto and gift cards." name="description">
+<!-- External Assets -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom shadows from Design System */
+        .shadow-card {
+            box-shadow: 0px 4px 20px rgba(81, 112, 255, 0.08);
+        }
+        .shadow-premium {
+            box-shadow: 0px 10px 40px rgba(81, 112, 255, 0.12);
+        }
+        /* Glassmorphism */
+        .glass-nav {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<!-- Theme Configuration based on {{DATA:DESIGN_SYSTEM:DESIGN_SYSTEM_1}} -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary": "#5170ff",
+                "secondary": "#00677f",
+                "primary-container": "#4767f6",
+                "tertiary-fixed": "#ffdad7",
+                "primary-fixed-dim": "#b9c3ff",
+                "on-primary-fixed-variant": "#0032c2",
+                "surface-tint": "#2b4ede",
+                "surface-container": "#e5eeff",
+                "outline-variant": "#c4c5d7",
+                "inverse-on-surface": "#eaf1ff",
+                "error": "#ba1a1a",
+                "on-background": "#0b1c30",
+                "on-surface-variant": "#444655",
+                "surface-bright": "#f8f9ff",
+                "on-secondary-fixed": "#001f28",
+                "surface-container-high": "#dce9ff",
+                "on-primary": "#ffffff",
+                "on-error": "#ffffff",
+                "error-container": "#ffdad6",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#f8f9ff",
+                "on-primary-fixed": "#001258",
+                "outline": "#747686",
+                "on-tertiary-fixed": "#410004",
+                "on-tertiary": "#ffffff",
+                "on-primary-container": "#fffbff",
+                "surface-dim": "#cbdbf5",
+                "surface-container-highest": "#d3e4fe",
+                "on-tertiary-container": "#fffbff",
+                "primary-fixed": "#dee1ff",
+                "tertiary-fixed-dim": "#ffb3ae",
+                "surface-variant": "#d3e4fe",
+                "tertiary": "#b51824",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed-variant": "#004e60",
+                "on-surface": "#0b1c30",
+                "inverse-surface": "#213145",
+                "secondary-fixed": "#b7eaff",
+                "on-tertiary-fixed-variant": "#930015",
+                "background": "#f8f9ff",
+                "secondary-container": "#00ccf9",
+                "inverse-primary": "#b9c3ff",
+                "tertiary-container": "#d93539",
+                "surface-container-low": "#eff4ff",
+                "on-secondary-container": "#005266",
+                "on-error-container": "#93000a",
+                "secondary-fixed-dim": "#4cd6ff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.5rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "container-margin": "20px",
+                "sm": "8px",
+                "xl": "32px",
+                "2xl": "48px",
+                "md": "16px",
+                "gutter": "16px",
+                "xs": "4px",
+                "base": "4px",
+                "lg": "24px"
+            },
+            "fontFamily": {
+                "body-lg": ["Outfit"],
+                "label-sm": ["Outfit"],
+                "display-lg": ["Clash Display"],
+                "headline-lg-mobile": ["Clash Display"],
+                "headline-lg": ["Clash Display"],
+                "label-md": ["Outfit"],
+                "body-md": ["Outfit"],
+                "headline-md": ["Clash Display"]
+            },
+            "fontSize": {
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar - Modern Fixed Premium -->
+<header class="fixed top-0 z-100 glass-nav bg-white/70 border-b border-outline-variant/30 shadow-sm m-md rounded-2xl inset-x-0">
+<nav class="flex justify-between items-center px-container-margin py-md max-w-7xl mx-auto">
+<div class="flex items-center gap-xl">
+<a class="text-headline-md font-headline-md text-primary tracking-tight" href="#">Cradera</a>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#services">Services</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#features">Features</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#faq">FAQ</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#about">About</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant font-label-md text-label-md hover:text-primary active:scale-95 transition-all">Login</button>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-full font-label-md text-label-md shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-95 transition-all">Create Account</button>
+</div>
+</nav>
+</header>
+<main class="pt-[72px]">
+<!-- Hero Section: Single Column & Centered -->
+<section class="relative overflow-hidden pt-2xl pb-2xl md:pt-[100px] md:pb-[140px] px-container-margin">
+<div class="max-w-4xl mx-auto flex flex-col items-center text-center space-y-xl">
+<!-- Text Content -->
+<div class="space-y-lg flex flex-col items-center">
+<div class="inline-flex items-center gap-sm bg-primary/10 border border-primary/20 px-md py-xs rounded-full">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-primary font-label-md text-label-md tracking-wide">Fast • Secure • Transparent</span>
+</div>
+<h1 class="font-headline-lg-mobile md:font-display-lg text-headline-lg-mobile md:text-display-lg text-on-background leading-tight max-w-3xl">
+                    Swap Digital Assets Without The <span class="text-primary">Uncertainty</span>
+</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl">
+                    Cradera provides the most reliable way for Nigerians to convert crypto and gift cards to instant cash at industry-best rates.
+                </p>
+<div class="flex flex-wrap justify-center gap-md pt-sm">
+<button class="bg-primary text-on-primary px-xl py-md rounded-xl font-headline-md text-headline-md shadow-premium hover:shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all">
+                        Start Swapping
+                    </button>
+</div>
+</div>
+<!-- Hero Image: Layered Screens -->
+<div class="relative w-full max-w-[600px] mt-xl">
+<div class="relative mx-auto w-full max-w-[340px] md:max-w-[400px]">
+<!-- Shield Card (Floating Top) -->
+<div class="absolute -top-8 -left-12 z-30 bg-white p-md rounded-2xl shadow-premium border border-primary/10 w-44 md:w-48 animate-bounce" style="animation-duration: 4s">
+<div class="flex items-center gap-sm mb-xs text-primary">
+<span class="material-symbols-outlined fill text-[20px]">verified_user</span>
+<span class="font-label-md text-label-md">Cradera Shield</span>
+</div>
+<p class="text-[11px] text-left text-outline">Transaction protected by 2FA &amp; escrow security.</p>
+</div>
+<!-- Main Phone Screen -->
+<div class="relative z-20 rounded-[40px] border-8 border-on-background bg-on-background shadow-2xl overflow-hidden aspect-9/19.5 w-full">
+<img class="w-full h-full object-cover opacity-90" data-alt="Fintech app interface on mobile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgl6iNYQghDPv7srC3_V2niR3Oh5sZQKkBAmodRygfA0e-4Pqy-xvU_6gupcOXnuMgGDSJn4tpP65JIL2iZ_AY9NR-LWizXOGX3B7BCpQNO2tmyBMgTvBccSLbhlztkmZqrT4Ld5u3_FNLPdN5-DChYBhwbcrZQXb7PgwJZePdVEEE1P2EIkNqbg3qC3bkn-ueRwEX-CKMXEudY2GdwJQFGsS4TnLfNA42qVqGkEu5TyA57Yqy5ZFmQyLR3VvgHBtwe3CLECYKYEae">
+</div>
+<!-- Rate Lock Card (Floating Right) -->
+<div class="absolute top-1/2 -right-16 z-30 bg-white p-md rounded-2xl shadow-premium border border-primary/10 w-48 md:w-52 transform -translate-y-1/2">
+<div class="flex justify-between items-center mb-sm">
+<span class="font-label-sm text-label-sm text-outline">LOCKED RATE</span>
+<span class="text-error font-bold text-xs">04:59</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="bg-secondary-container/20 p-xs rounded-lg">
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div class="text-left">
+<p class="font-headline-md text-headline-md text-on-background">₦1,450/$</p>
+<p class="text-[10px] text-outline font-medium uppercase">Best Market Rate</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Background Decorative Element -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -z-10"></div>
+</section>
+<!-- Services Section -->
+<section class="py-2xl px-container-margin bg-white" id="services">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-2xl">
+<h2 class="font-headline-lg text-headline-lg md:text-[40px] text-on-background mb-md">What Can You Do On Cradera?</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">From high-limit crypto withdrawals to gift card liquidation, we've built a suite of tools for the modern Nigerian trader.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-lg">
+<!-- Service 1 -->
+<div class="group bg-surface rounded-3xl p-xl shadow-card border border-outline-variant/20 hover:border-primary/40 transition-all">
+<div class="w-16 h-16 bg-primary-container/10 rounded-2xl flex items-center justify-center text-primary mb-xl group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px] fill">currency_bitcoin</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-sm">Crypto To Cash</h3>
+<p class="text-on-surface-variant mb-xl">Sell BTC, USDT, ETH and more at the best market rates. Instant Naira settlement to any local bank.</p>
+<a class="inline-flex items-center gap-sm text-primary font-bold hover:gap-md transition-all" href="#">
+                        Trade Crypto <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<!-- Service 2 -->
+<div class="group bg-surface rounded-3xl p-xl shadow-card border border-outline-variant/20 hover:border-primary/40 transition-all">
+<div class="w-16 h-16 bg-secondary-container/10 rounded-2xl flex items-center justify-center text-secondary mb-xl group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px] fill">card_giftcard</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-sm">Gift Card Trading</h3>
+<p class="text-on-surface-variant mb-xl">Redeem iTunes, Amazon, Sephora, and 20+ other cards. High rates and zero hidden charges.</p>
+<a class="inline-flex items-center gap-sm text-primary font-bold hover:gap-md transition-all" href="#">
+                        Sell Gift Cards <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<!-- Service 3 -->
+<div class="group bg-surface rounded-3xl p-xl shadow-card border border-outline-variant/20 hover:border-primary/40 transition-all">
+<div class="w-16 h-16 bg-tertiary-container/10 rounded-2xl flex items-center justify-center text-tertiary mb-xl group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px] fill">swap_horiz</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-sm">Digital Asset Exchange</h3>
+<p class="text-on-surface-variant mb-xl">Swap between different digital assets with minimal slippage and enterprise-grade security.</p>
+<a class="inline-flex items-center gap-sm text-primary font-bold hover:gap-md transition-all" href="#">
+                        Explore Exchange <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+</div><div class="grid md:grid-cols-2 gap-lg mt-lg">
+<div class="bg-surface-container-low rounded-3xl p-xl flex items-center gap-xl border border-outline-variant/10">
+<div class="hidden sm:block w-24 h-24 bg-primary rounded-full shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[40px]">account_balance</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md mb-xs">Fast Bank Withdrawals</h4>
+<p class="text-on-surface-variant">Proprietary payout engine ensures your Naira hits your bank in under 60 seconds. Guaranteed.</p>
+</div>
+</div>
+<div class="bg-inverse-surface rounded-3xl p-xl flex items-center gap-xl">
+<div class="hidden sm:block w-24 h-24 bg-primary-fixed-dim rounded-full shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed text-[40px]">rocket_launch</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-white mb-xs">Coming Soon: Global Payouts</h4>
+<p class="text-on-surface-variant/80">We're expanding. Soon you'll be able to pay international bills and suppliers directly via Cradera.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Advantages Section -->
+<section class="py-2xl px-container-margin bg-surface-container-low" id="features">
+<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-2xl items-center">
+<div class="space-y-lg">
+<h2 class="font-headline-lg text-headline-lg md:text-[40px] text-on-background">Why Choose Cradera?</h2>
+<p class="text-on-surface-variant font-body-lg">We didn't just build another app; we solved the trust deficit in the Nigerian peer-to-peer economy.</p>
+<div class="space-y-md">
+<div class="flex gap-md">
+<div class="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background">Cradera Shield</h4>
+<p class="text-on-surface-variant">Multi-sig wallets and automated escrow systems protect every kobo you trade.</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">lock_clock</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background">Instant Rate Lock</h4>
+<p class="text-on-surface-variant">No more surprises. The rate you see is the rate you get, locked for 15 minutes.</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">track_changes</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background">Live Tracking</h4>
+<p class="text-on-surface-variant">Real-time confirmation updates. You're never in the dark about your asset status.</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">redeem</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-on-background">Loyalty Rewards</h4>
+<p class="text-on-surface-variant">Earn points on every transaction and redeem them for higher rates or lower fees.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="rounded-3xl overflow-hidden shadow-premium aspect-square">
+<img class="w-full h-full object-cover" data-alt="Successful entrepreneur using Cradera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDzaHe4Kg34w9OchtW9lgBjqtavXLVanj2E2uj1sMwTchn0sQFETh2bvjzx8ftbk_lTUsHX-2qicuD-TzPFTIMq6Cga6PwxCxDB1Z6cDJJTKgwg6yILJvtraHz8IymroL2bbL3K8V8-TCX26xK9MmrG4oXCRbFW972SjBQud5oTglThrQAF4KXR3qOwWu-PiaJyxXm4jSUKfhZW-EY8P1aiggUZaPIIT1ut1be-zq1PCgSZ2npZye7tGbnx-Q3BjiSHpwGSwMgSQgP">
+</div>
+<!-- Stats Overlay -->
+<div class="absolute -bottom-10 -left-10 bg-on-background text-white p-xl rounded-3xl shadow-2xl hidden lg:block">
+<p class="font-display-lg text-display-lg text-primary">₦1B+</p>
+<p class="font-label-md text-label-md text-outline tracking-[0.2em] uppercase">Volume Processed</p>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works Section -->
+<section class="py-2xl px-container-margin bg-white overflow-hidden">
+<div class="max-w-7xl mx-auto text-center mb-2xl">
+<h2 class="font-headline-lg text-headline-lg md:text-[40px] text-on-background mb-md">Swap Assets in 3 Simple Steps</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Speed is our DNA. Complete your entire transaction cycle in less than 5 minutes.</p>
+</div>
+<div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-xl relative">
+<div class="relative z-10 bg-surface p-xl rounded-[40px] border border-outline-variant/20 shadow-card text-center flex flex-col items-center group">
+<div class="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center text-white mb-xl transform -rotate-6 group-hover:rotate-0 transition-transform">
+<span class="material-symbols-outlined text-[40px]">check_circle</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-md">Select Asset</h4>
+<p class="text-on-surface-variant">Choose your crypto or gift card type. Get an instant, locked rate that reflects current market reality.</p>
+</div>
+<div class="relative z-10 bg-surface p-xl rounded-[40px] border border-outline-variant/20 shadow-card text-center flex flex-col items-center group">
+<div class="w-20 h-20 bg-secondary rounded-3xl flex items-center justify-center text-white mb-xl transform rotate-3 group-hover:rotate-0 transition-transform">
+<span class="material-symbols-outlined text-[40px]">send</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-md">Submit Transaction</h4>
+<p class="text-on-surface-variant">Send your asset to our secure wallet or upload card details. Our system verifies authenticity in seconds.</p>
+</div>
+<div class="relative z-10 bg-surface p-xl rounded-[40px] border border-outline-variant/20 shadow-card text-center flex flex-col items-center group">
+<div class="w-20 h-20 bg-tertiary rounded-3xl flex items-center justify-center text-white mb-xl transform -rotate-2 group-hover:rotate-0 transition-transform">
+<span class="material-symbols-outlined text-[40px]">account_balance_wallet</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-md">Receive Payment</h4>
+<p class="text-on-surface-variant">Funds are automatically disbursed to your linked bank account. No manual intervention, no delays.</p>
+</div>
+<div class="hidden md:block absolute top-1/2 left-0 w-full h-[2px] bg-outline-variant/30 z-0"></div>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="py-2xl px-container-margin bg-primary text-on-primary">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-lg mb-2xl">
+<div class="max-w-2xl">
+<p class="font-label-md text-label-md uppercase tracking-[0.3em] opacity-70 mb-sm">The Cradera Commitment</p>
+<h2 class="font-headline-lg text-headline-lg md:text-[40px]">Built On A Foundation Of Trust</h2>
+</div>
+<button class="bg-white text-primary px-xl py-md rounded-xl font-bold active:scale-95 transition-all">View Our Security Audit</button>
+</div>
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-lg">
+<div class="bg-white/10 p-lg rounded-2xl border border-white/10 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[32px] mb-md">bolt</span>
+<h5 class="font-headline-md text-headline-md mb-xs">Fast Settlements</h5>
+<p class="text-sm opacity-80">98% of our transactions are completed and paid in under 2 minutes.</p>
+</div>
+<div class="bg-white/10 p-lg rounded-2xl border border-white/10 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[32px] mb-md">visibility</span>
+<h5 class="font-headline-md text-headline-md mb-xs">Transparent Rates</h5>
+<p class="text-sm opacity-80">Zero commissions. The rate you see on your dashboard is the exact Naira amount you receive.</p>
+</div>
+<div class="bg-white/10 p-lg rounded-2xl border border-white/10 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[32px] mb-md">shield_person</span>
+<h5 class="font-headline-md text-headline-md mb-xs">Secure Trading</h5>
+<p class="text-sm opacity-80">Bank-level SSL encryption and 2-Factor Authentication protect every account action.</p>
+</div>
+<div class="bg-white/10 p-lg rounded-2xl border border-white/10 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[32px] mb-md">chat_bubble</span>
+<h5 class="font-headline-md text-headline-md mb-xs">Human Support</h5>
+<p class="text-sm opacity-80">Talk to a real human, not a bot. Our support team is active 24/7 on WhatsApp and LiveChat.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-2xl px-container-margin bg-surface" id="faq">
+<div class="max-w-3xl mx-auto">
+<div class="text-center mb-2xl">
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-md">Frequently Asked Questions</h2>
+<p class="text-on-surface-variant">Everything you need to know about trading on Cradera.</p>
+</div>
+<div class="space-y-md">
+<div class="group bg-white rounded-2xl border border-outline-variant/30 overflow-hidden transition-all hover:border-primary/50">
+<button class="w-full flex items-center justify-between p-lg text-left" onclick="toggleAccordion(this)">
+<span class="font-headline-md text-headline-md text-on-background">How long does it take to get paid?</span>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+<div class="px-lg pb-lg text-on-surface-variant">
+                            Most transactions are processed automatically. For Crypto, once confirmed on the blockchain, settlement is instant. For Gift Cards, it typically takes 2-5 minutes depending on the card type.
+                        </div>
+</div>
+</div>
+<div class="group bg-white rounded-2xl border border-outline-variant/30 overflow-hidden transition-all hover:border-primary/50">
+<button class="w-full flex items-center justify-between p-lg text-left" onclick="toggleAccordion(this)">
+<span class="font-headline-md text-headline-md text-on-background">Are there any hidden fees?</span>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+<div class="px-lg pb-lg text-on-surface-variant">
+                            No. Cradera operates on a "What You See Is What You Get" (WYSIWYG) model. The rate displayed during your trade includes all processing costs.
+                        </div>
+</div>
+</div>
+<div class="group bg-white rounded-2xl border border-outline-variant/30 overflow-hidden transition-all hover:border-primary/50">
+<button class="w-full flex items-center justify-between p-lg text-left" onclick="toggleAccordion(this)">
+<span class="font-headline-md text-headline-md text-on-background">Is my account secure?</span>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+<div class="px-lg pb-lg text-on-surface-variant">
+                            Absolutely. We use industry-standard encryption, 2FA, and our proprietary Cradera Shield escrow system to ensure your assets and data are always safe.
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="py-2xl px-container-margin">
+<div class="max-w-7xl mx-auto relative rounded-[48px] bg-on-background p-2xl overflow-hidden text-center">
+<div class="relative z-10">
+<h2 class="font-display-lg text-display-lg text-white mb-md">Ready To Swap Smarter?</h2>
+<p class="text-outline text-body-lg max-w-2xl mx-auto mb-xl">Join 50,000+ Nigerians who trust Cradera for their digital asset liquidation. High rates, zero stress.</p>
+<div class="flex flex-col sm:flex-row gap-md justify-center">
+<button class="bg-primary text-on-primary px-2xl py-md rounded-2xl font-headline-md text-headline-md flex items-center justify-center gap-sm hover:scale-105 active:scale-95 transition-all">
+                        Get Started Now <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+<button class="bg-white/10 text-white px-2xl py-md rounded-2xl font-headline-md text-headline-md border border-white/20 hover:bg-white/20 transition-all">
+                        Contact Sales
+                    </button>
+</div>
+</div>
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/20 rounded-full blur-[80px]"></div>
+<div class="absolute -bottom-24 -right-24 w-80 h-80 bg-secondary/10 rounded-full blur-[100px]"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-container-margin bg-surface-container-lowest border-t border-outline-variant">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-lg mb-xl">
+<div>
+<h3 class="text-headline-md font-headline-md text-primary mb-lg">Cradera</h3>
+<p class="text-on-surface-variant font-body-md text-body-md pr-md">Africa's premium digital asset exchange. Fast, reliable, and secure.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-lg uppercase tracking-wider">Company</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-lg uppercase tracking-wider">Services</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Crypto Trade</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Gift Cards</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Exchange</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-lg uppercase tracking-wider">Legal</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant font-label-sm text-label-sm hover:text-primary transition-colors" href="#">AML Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-lg border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-md">
+<p class="text-on-surface-variant font-label-sm text-label-sm">© 2024 Cradera. All rights reserved. Secured by Enterprise-Grade Encryption.</p>
+<div class="flex gap-md">
+<a class="text-outline hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-outline hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">chat</span></a>
+<a class="text-outline hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">group</span></a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+    function toggleAccordion(button) {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('.material-symbols-outlined');
+        
+        icon.style.transform = content.style.maxHeight ? 'rotate(0deg)' : 'rotate(180deg)';
+        
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            document.querySelectorAll('.max-h-screen').forEach(el => {
+                if (el !== content) el.style.maxHeight = null;
+            });
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100');
+                entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+        observer.observe(section);
+    });
+</script>
+</body></html>
