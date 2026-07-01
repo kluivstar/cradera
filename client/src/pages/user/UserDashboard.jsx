@@ -149,7 +149,7 @@ const UserDashboard = () => {
                             padding: '1.5rem', background: '#eff6ff', border: '1px solid #dbeafe'
                         }}>
                             <div className="quick-action-card-icon" style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: '#dbeafe', 
+                                width: '40px', height: '40px', borderRadius: '10px', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
                                 marginBottom: '0.75rem',
                                 color: '#1e40af', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
@@ -168,7 +168,7 @@ const UserDashboard = () => {
                             padding: '1rem', background: '#f0fdf4', border: '1px solid #dcfce7'
                         }}>
                             <div className="quick-action-card-icon" style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: '#dcfce7', 
+                                width: '40px', height: '40px', borderRadius: '10px', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
                                 marginBottom: '0.75rem',
                                 color: '#166534', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
@@ -186,7 +186,7 @@ const UserDashboard = () => {
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                             padding: '1rem', background: '#fefce8', border: '1px solid #fef08a'
                         }}>
-                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#fef08a', borderRadius: '4px', color: '#854d0e', textTransform: 'uppercase' }}>Soon</span>
+                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', borderRadius: '4px', color: '#854d0e', textTransform: 'uppercase' }}>Soon</span>
                             <div className="quick-action-card-icon" style={{ 
                                 width: '40px', height: '40px', borderRadius: '10px', background: '#fef08a', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
@@ -208,7 +208,7 @@ const UserDashboard = () => {
                         }}>
                             <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#e9d5ff', borderRadius: '4px', color: '#6b21a8', textTransform: 'uppercase' }}>Soon</span>
                             <div className="quick-action-card-icon" style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', background: '#e9d5ff', 
+                                width: '40px', height: '40px', borderRadius: '10px', 
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', 
                                 marginBottom: '0.75rem',
                                 color: '#6b21a8', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
