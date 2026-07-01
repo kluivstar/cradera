@@ -216,8 +216,18 @@ const Wallet = () => {
                                 alignItems: 'center',
                                 gap: '0.75rem'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <div style={{
+                                    width: '38px',
+                                    height: '38px',
+                                    borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)',
+                                    border: '1px solid rgba(16, 185, 129, 0.2)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: '0 8px 16px rgba(16, 185, 129, 0.08)'
+                                }}>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="12" cy="12" r="10" />
                                         <path d="M9 16V8h3a3 3 0 0 1 0 6H9M8 12h8" />
                                     </svg>
@@ -241,8 +251,18 @@ const Wallet = () => {
                                 gap: '0.75rem',
                                 position: 'relative'
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <div style={{
+                                    width: '38px',
+                                    height: '38px',
+                                    borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)',
+                                    border: '1px solid rgba(16, 185, 129, 0.2)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: '0 8px 16px rgba(16, 185, 129, 0.08)'
+                                }}>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="12" cy="12" r="10" />
                                         <path d="M12 6v12M15 8H11.5a2.5 2.5 0 0 0 0 5h1a2.5 2.5 0 0 1 0 5H9" />
                                     </svg>
