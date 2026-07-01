@@ -76,3 +76,34 @@ export const updatePaymentAccount = async (req, res) => {
         res.status(500).json({ error: 'Error updating payment account' });
     }
 };
+
+// @desc    Delete a payment account
+// @route   DELETE /api/payment-accounts/:id
+// @access  Private (User)
+export const deletePaymentAccount = async (req, res) => {
+    try {
+        const account = await PaymentAccount.findOne({ _id: req.params.id, userId: req.user._id });
+
+        if (!account) {
+            return res.status(404).json({ error: 'Payment account not found' });
+        }
+
+        const wasDefault = account.isDefault;
+        await PaymentAccount.deleteOne({ _id: req.params.id });
+
+        // If the deleted account was default, set the next available one as default
+        if (wasDefault) {
+            const nextAccount = await PaymentAccount.findOne({ userId: req.user._id });
+            if (nextAccount) {
+                nextAccount.isDefault = true;
+                await nextAccount.save();
+            }
+        }
+
+        res.status(200).json({
+            message: 'Payment account deleted successfully'
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'Error deleting payment account' });
+    }
+};

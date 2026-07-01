@@ -2,6 +2,7 @@ import Deposit from '../models/Deposit.js';
 import User from '../models/User.js';
 import AdminLog from '../models/AdminLog.js';
 import syncService from '../services/syncService.js';
+import Ledger from '../models/Ledger.js';
 
 // @desc    Create a new deposit
 // @route   POST /api/deposits
@@ -87,6 +88,19 @@ export const confirmDeposit = async (req, res) => {
         if (user) {
             user.availableBalance += deposit.amount;
             await user.save();
+
+            // Create ledger entry
+            await Ledger.create({
+                userId: user._id,
+                type: 'credit',
+                walletType: 'fiat',
+                amount: deposit.amount,
+                category: 'deposit',
+                description: `Confirmed crypto deposit (${deposit.assetType}) via ${deposit.network}`,
+                runningBalance: user.availableBalance,
+                status: 'completed'
+            });
+
             await syncService.handleTransactionUpdate(user, { ...deposit.toObject(), type: 'deposit' }, 'confirmed');
         }
 
