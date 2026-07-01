@@ -54,6 +54,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    giftPoints: {
+        type: Number,
+        default: 0
+    },
     referralCode: {
         type: String,
         unique: true,

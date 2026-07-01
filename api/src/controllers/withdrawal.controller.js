@@ -2,6 +2,7 @@ import Withdrawal from '../models/Withdrawal.js';
 import User from '../models/User.js';
 import PaymentAccount from '../models/PaymentAccount.js';
 import syncService from '../services/syncService.js';
+import Ledger from '../models/Ledger.js';
 
 // @desc    Create a new withdrawal
 // @route   POST /api/withdrawals
@@ -41,6 +42,18 @@ export const createWithdrawal = async (req, res) => {
         user.pendingBalance += amount;
         await user.save();
 
+        // Create ledger entry
+        await Ledger.create({
+            userId: user._id,
+            type: 'debit',
+            walletType: 'fiat',
+            amount,
+            category: 'withdrawal',
+            description: `Withdrawal request submitted via ${payoutMethod}`,
+            runningBalance: user.availableBalance,
+            status: 'pending'
+        });
+
         res.status(201).json({
             message: 'Withdrawal request submitted successfully',
             withdrawal
@@ -55,10 +68,27 @@ export const createWithdrawal = async (req, res) => {
 // @access  Private (User)
 export const getMyWithdrawals = async (req, res) => {
     try {
-        const withdrawals = await Withdrawal.find({ userId: req.user._id })
-            .populate('payoutAccountId')
-            .sort({ createdAt: -1 });
-        res.status(200).json({ withdrawals });
+        const { page = 1, limit = 10 } = req.query;
+        const skip = (parseInt(page) - 1) * parseInt(limit);
+
+        const [withdrawals, total] = await Promise.all([
+            Withdrawal.find({ userId: req.user._id })
+                .populate('payoutAccountId')
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(parseInt(limit)),
+            Withdrawal.countDocuments({ userId: req.user._id })
+        ]);
+
+        res.status(200).json({
+            withdrawals,
+            pagination: {
+                total,
+                page: parseInt(page),
+                limit: parseInt(limit),
+                pages: Math.ceil(total / parseInt(limit))
+            }
+        });
     } catch (err) {
         res.status(500).json({ error: 'Error fetching your withdrawals' });
     }
@@ -146,6 +176,18 @@ export const payWithdrawal = async (req, res) => {
 
         await withdrawal.save();
 
+        // Update ledger status
+        const ledgerEntry = await Ledger.findOne({
+            userId: withdrawal.userId,
+            amount: withdrawal.amount,
+            category: 'withdrawal',
+            status: 'pending'
+        }).sort({ createdAt: -1 });
+        if (ledgerEntry) {
+            ledgerEntry.status = 'completed';
+            await ledgerEntry.save();
+        }
+
         // Notify User
         // Note: user was already fetched for balance update on line 131
         if (user) {
@@ -189,6 +231,29 @@ export const rejectWithdrawal = async (req, res) => {
         if (adminNotes) withdrawal.adminNotes = adminNotes;
 
         await withdrawal.save();
+
+        // Update ledger status and create refund entry
+        const ledgerEntry = await Ledger.findOne({
+            userId: withdrawal.userId,
+            amount: withdrawal.amount,
+            category: 'withdrawal',
+            status: 'pending'
+        }).sort({ createdAt: -1 });
+        if (ledgerEntry) {
+            ledgerEntry.status = 'rejected';
+            await ledgerEntry.save();
+        }
+
+        await Ledger.create({
+            userId: user._id,
+            type: 'credit',
+            walletType: 'fiat',
+            amount: withdrawal.amount,
+            category: 'bonus',
+            description: 'Refund for rejected withdrawal request',
+            runningBalance: user.availableBalance,
+            status: 'completed'
+        });
 
         // Notify User
         // Note: user was already fetched for balance update on line 168

@@ -153,6 +153,17 @@ const Settings = () => {
         }
     };
 
+    const handleDeleteAccount = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this payout method?')) return;
+        try {
+            await api.delete(`/payment-accounts/${id}`);
+            showToast('Payment account deleted successfully', 'success');
+            fetchPaymentAccounts();
+        } catch (err) {
+            showToast('Error deleting account', 'error');
+        }
+    };
+
     // Style constants for reuse
     const containerStyle = { fontFamily: 'var(--font-base)', fontWeight: '300' };
     const headingStyle = { fontFamily: 'var(--font-base)', fontWeight: '400', margin: 0 };
@@ -183,7 +194,7 @@ const Settings = () => {
                             </div>
                         ) : (
                             paymentAccounts.map(acc => (
-                                <div key={acc._id} style={{ 
+                                <div key={acc._id} className="payout-card" style={{ 
                                     padding: '1.25rem', 
                                     display: 'flex', 
                                     justifyContent: 'space-between', 
@@ -191,7 +202,8 @@ const Settings = () => {
                                     background: '#f8fafc', 
                                     borderRadius: '16px',
                                     border: acc.isDefault ? '1px solid rgba(81, 112, 255, 0.2)' : '1px solid transparent',
-                                    transition: 'all 0.2s'
+                                    transition: 'all 0.2s',
+                                    width: '100%'
                                 }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
                                         <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#5170ff', boxShadow: '0 4px 10px rgba(0,0,0,0.03)' }}>
@@ -211,9 +223,31 @@ const Settings = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    {!acc.isDefault && (
-                                        <button onClick={() => handleSetDefault(acc._id)} style={{ fontSize: '0.8rem', color: '#5170ff', fontWeight: '400', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '5px', cursor: 'pointer', transition: 'all 0.2s' }}>Make Default</button>
-                                    )}
+                                    <div className="payout-actions" style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                        {!acc.isDefault && (
+                                            <button onClick={() => handleSetDefault(acc._id)} className="make-default-btn" style={{ fontSize: '0.8rem', color: '#5170ff', fontWeight: '400', background: 'white', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '5px', cursor: 'pointer', transition: 'all 0.2s' }}>Make Default</button>
+                                        )}
+                                        <button 
+                                            onClick={() => handleDeleteAccount(acc._id)} 
+                                            className="delete-btn"
+                                            title="Delete Payout Method"
+                                            style={{ 
+                                                fontSize: '0.8rem', 
+                                                color: '#ef4444', 
+                                                background: 'white', 
+                                                border: '1px solid #fecaca', 
+                                                padding: '0.5rem', 
+                                                borderRadius: '5px', 
+                                                cursor: 'pointer', 
+                                                transition: 'all 0.2s',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         )}
@@ -489,7 +523,40 @@ const Settings = () => {
 
     return (
         <DashboardLayout title="Account Settings">
-            <div className="dashboard-content fade-in" style={containerStyle}>
+            <style>{`
+                @media (max-width: 600px) {
+                    .payout-card {
+                        flex-direction: column !important;
+                        align-items: flex-start !important;
+                        gap: 1rem !important;
+                    }
+                    .payout-actions {
+                        width: 100% !important;
+                        display: flex !important;
+                        justify-content: flex-start !important;
+                        gap: 0.5rem !important;
+                    }
+                    .settings-wrapper *, 
+                    .settings-wrapper p, 
+                    .settings-wrapper span, 
+                    .settings-wrapper div, 
+                    .settings-wrapper label, 
+                    .settings-wrapper h3, 
+                    .settings-wrapper button, 
+                    .settings-wrapper input, 
+                    .settings-wrapper select {
+                        font-weight: 400 !important;
+                    }
+                    .make-default-btn {
+                        padding: 0.35rem 0.65rem !important;
+                        font-size: 0.75rem !important;
+                    }
+                    .delete-btn {
+                        padding: 0.35rem !important;
+                    }
+                }
+            `}</style>
+            <div className="dashboard-content fade-in settings-wrapper" style={containerStyle}>
                 <div className="dashboard-header" style={{ marginBottom: '2.5rem' }}>
                 
                 </div>
