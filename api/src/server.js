@@ -22,6 +22,7 @@ import settingsRoutes from './routes/settings.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
 import sessionRoutes from './routes/session.routes.js';
 import ledgerRoutes from './routes/ledger.routes.js';
+import timelineRoutes from './routes/timeline.routes.js';
 
 // Connect to Database
 connectDB();
@@ -119,6 +120,7 @@ app.use(`${apiPrefix}/settings`, settingsRoutes);
 app.use(`${apiPrefix}/notifications`, notificationRoutes);
 app.use(`${apiPrefix}/sessions`, sessionRoutes);
 app.use(`${apiPrefix}/ledger`, ledgerRoutes);
+app.use(`${apiPrefix}/timeline`, timelineRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

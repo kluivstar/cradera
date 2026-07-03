@@ -30,6 +30,11 @@ const withdrawalSchema = new mongoose.Schema({
         enum: ['pending', 'processing', 'paid', 'rejected'],
         default: 'pending'
     },
+    timelineStatus: {
+        type: String,
+        enum: ['INITIATED', 'DEPOSIT_DETECTED', 'BLOCKCHAIN_CONFIRMING', 'PROCESSING', 'PAYOUT_SENT', 'COMPLETED', 'FAILED'],
+        default: 'INITIATED'
+    },
     adminNotes: String,
     processedBy: {
         type: mongoose.Schema.Types.ObjectId,

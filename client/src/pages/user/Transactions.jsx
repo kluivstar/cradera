@@ -3,11 +3,13 @@ import DashboardLayout from '../../components/DashboardLayout';
 import api from '../../utils/api';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import TransactionTimelineComponent from '../../components/user/TransactionTimelineComponent';
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [assets, setAssets] = useState([]);
+    const [selectedTxId, setSelectedTxId] = useState(null);
     const [filters, setFilters] = useState({
         status: '',
         asset: '',
@@ -170,15 +172,16 @@ const Transactions = () => {
                                     <th>Amount</th>
                                     <th>Status</th>
                                     <th>Date</th>
-                                    <th style={{ textAlign: 'right', paddingRight: '1.5rem' }}>Details</th>
+                                    <th>Details</th>
+                                    <th style={{ textAlign: 'right', paddingRight: '1.5rem' }}>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {loading ? (
-                                    <tr><td colSpan="6" style={{ textAlign: 'center', padding: '4rem' }}><div className="loading-spinner"></div></td></tr>
+                                    <tr><td colSpan="7" style={{ textAlign: 'center', padding: '4rem' }}><div className="loading-spinner"></div></td></tr>
                                 ) : transactions.length === 0 ? (
                                     <tr>
-                                        <td colSpan="6" style={{ textAlign: 'center', padding: '4rem' }}>
+                                        <td colSpan="7" style={{ textAlign: 'center', padding: '4rem' }}>
                                             <p style={{ color: '#94A3B8' }}>No transactions found for the selected filters.</p>
                                         </td>
                                     </tr>
@@ -208,8 +211,29 @@ const Transactions = () => {
                                             <td style={{ color: '#64748B', fontSize: '0.85rem' }}>
                                                 {new Date(tx.date).toLocaleDateString()}
                                             </td>
-                                            <td style={{ textAlign: 'right', paddingRight: '1.5rem', color: '#94A3B8', fontSize: '0.8rem' }}>
+                                            <td style={{ color: '#64748B', fontSize: '0.8rem' }}>
                                                 {tx.details}
+                                            </td>
+                                            <td style={{ textAlign: 'right', paddingRight: '1.5rem' }}>
+                                                {(tx.type === 'deposit' || tx.type === 'withdrawal') ? (
+                                                    <button 
+                                                        onClick={() => setSelectedTxId(tx.id)}
+                                                        style={{ 
+                                                            fontSize: '0.8rem', 
+                                                            color: '#5170ff', 
+                                                            background: 'rgba(81, 112, 255, 0.1)', 
+                                                            border: 'none', 
+                                                            padding: '0.35rem 0.75rem', 
+                                                            borderRadius: '6px', 
+                                                            cursor: 'pointer',
+                                                            fontWeight: '600'
+                                                        }}
+                                                    >
+                                                        Track
+                                                    </button>
+                                                ) : (
+                                                    <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>-</span>
+                                                )}
                                             </td>
                                         </tr>
                                     ))
@@ -219,6 +243,19 @@ const Transactions = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Live Progress Tracking Modal */}
+            {selectedTxId && (
+                <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
+                    <div className="dash-card" style={{ padding: '2rem', width: '100%', maxWidth: '480px', position: 'relative', borderRadius: '20px', background: 'white' }}>
+                        <button onClick={() => setSelectedTxId(null)} style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', outline: 'none' }}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
+                        <h3 style={{ fontSize: '1.25rem', fontWeight: '500', color: 'var(--color-primary)', margin: '0 0 1.5rem 0', textAlign: 'left' }}>Transaction Progress Tracker</h3>
+                        <TransactionTimelineComponent transactionId={selectedTxId} onClose={() => setSelectedTxId(null)} />
+                    </div>
+                </div>
+            )}
         </DashboardLayout>
     );
 };

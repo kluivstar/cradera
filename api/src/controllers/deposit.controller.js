@@ -3,6 +3,7 @@ import User from '../models/User.js';
 import AdminLog from '../models/AdminLog.js';
 import syncService from '../services/syncService.js';
 import Ledger from '../models/Ledger.js';
+import TransactionTimeline from '../models/TransactionTimeline.js';
 
 // @desc    Create a new deposit
 // @route   POST /api/deposits
@@ -19,6 +20,15 @@ export const createDeposit = async (req, res) => {
             txHash,
             fromAddress,
             toAddress
+        });
+
+        // Create initial timeline event
+        await TransactionTimeline.create({
+            transactionId: deposit._id,
+            transactionType: 'deposit',
+            status: 'INITIATED',
+            description: `Deposit claim initiated for ${amount} ${assetType} on ${network} network.`,
+            performedBy: req.user._id
         });
 
         res.status(201).json({
@@ -77,6 +87,7 @@ export const confirmDeposit = async (req, res) => {
         }
 
         deposit.status = 'confirmed';
+        deposit.timelineStatus = 'COMPLETED';
         deposit.verifiedBy = req.user._id;
         deposit.verifiedAt = Date.now();
         if (adminNotes) deposit.adminNotes = adminNotes;
@@ -103,6 +114,15 @@ export const confirmDeposit = async (req, res) => {
 
             await syncService.handleTransactionUpdate(user, { ...deposit.toObject(), type: 'deposit' }, 'confirmed');
         }
+
+        // Create timeline completed event
+        await TransactionTimeline.create({
+            transactionId: deposit._id,
+            transactionType: 'deposit',
+            status: 'COMPLETED',
+            description: 'Deposit confirmed by administrator. Balance credited.',
+            performedBy: req.user._id
+        });
 
         // Log action
         await AdminLog.create({
@@ -139,6 +159,7 @@ export const rejectDeposit = async (req, res) => {
         }
 
         deposit.status = 'rejected';
+        deposit.timelineStatus = 'FAILED';
         deposit.verifiedBy = req.user._id;
         deposit.verifiedAt = Date.now();
         if (adminNotes) deposit.adminNotes = adminNotes;
@@ -150,6 +171,15 @@ export const rejectDeposit = async (req, res) => {
         if (user) {
             await syncService.handleTransactionUpdate(user, { ...deposit.toObject(), type: 'deposit' }, 'rejected');
         }
+
+        // Create timeline failed event
+        await TransactionTimeline.create({
+            transactionId: deposit._id,
+            transactionType: 'deposit',
+            status: 'FAILED',
+            description: `Deposit rejected by administrator. Reason: ${adminNotes || 'None provided'}`,
+            performedBy: req.user._id
+        });
 
         // Log action
         await AdminLog.create({

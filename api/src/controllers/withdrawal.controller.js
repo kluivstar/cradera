@@ -3,6 +3,7 @@ import User from '../models/User.js';
 import PaymentAccount from '../models/PaymentAccount.js';
 import syncService from '../services/syncService.js';
 import Ledger from '../models/Ledger.js';
+import TransactionTimeline from '../models/TransactionTimeline.js';
 
 // @desc    Create a new withdrawal
 // @route   POST /api/withdrawals
@@ -52,6 +53,15 @@ export const createWithdrawal = async (req, res) => {
             description: `Withdrawal request submitted via ${payoutMethod}`,
             runningBalance: user.availableBalance,
             status: 'pending'
+        });
+
+        // Create initial timeline event
+        await TransactionTimeline.create({
+            transactionId: withdrawal._id,
+            transactionType: 'withdrawal',
+            status: 'INITIATED',
+            description: `Withdrawal request of ₦${amount} submitted via ${payoutMethod}.`,
+            performedBy: user._id
         });
 
         res.status(201).json({
@@ -127,6 +137,7 @@ export const processWithdrawal = async (req, res) => {
         }
 
         withdrawal.status = 'processing';
+        withdrawal.timelineStatus = 'PROCESSING';
         withdrawal.processedBy = req.user._id;
         withdrawal.processedAt = Date.now();
         if (adminNotes) withdrawal.adminNotes = adminNotes;
@@ -138,6 +149,15 @@ export const processWithdrawal = async (req, res) => {
         if (user) {
             await syncService.handleTransactionUpdate(user, { ...withdrawal.toObject(), type: 'withdrawal' }, 'processing');
         }
+
+        // Create processing timeline event
+        await TransactionTimeline.create({
+            transactionId: withdrawal._id,
+            transactionType: 'withdrawal',
+            status: 'PROCESSING',
+            description: `Withdrawal request is being processed. Payout dispatch pending.`,
+            performedBy: req.user._id
+        });
 
         res.status(200).json({
             message: 'Withdrawal marked as processing',
@@ -170,6 +190,7 @@ export const payWithdrawal = async (req, res) => {
         await user.save();
 
         withdrawal.status = 'paid';
+        withdrawal.timelineStatus = 'COMPLETED';
         withdrawal.processedBy = req.user._id;
         withdrawal.processedAt = Date.now();
         if (adminNotes) withdrawal.adminNotes = adminNotes;
@@ -193,6 +214,15 @@ export const payWithdrawal = async (req, res) => {
         if (user) {
             await syncService.handleTransactionUpdate(user, { ...withdrawal.toObject(), type: 'withdrawal' }, 'completed');
         }
+
+        // Create completed timeline event
+        await TransactionTimeline.create({
+            transactionId: withdrawal._id,
+            transactionType: 'withdrawal',
+            status: 'COMPLETED',
+            description: `Withdrawal successfully paid. Funds sent to destination account.`,
+            performedBy: req.user._id
+        });
 
         res.status(200).json({
             message: 'Withdrawal marked as paid',
@@ -226,6 +256,7 @@ export const rejectWithdrawal = async (req, res) => {
         await user.save();
 
         withdrawal.status = 'rejected';
+        withdrawal.timelineStatus = 'FAILED';
         withdrawal.processedBy = req.user._id;
         withdrawal.processedAt = Date.now();
         if (adminNotes) withdrawal.adminNotes = adminNotes;
@@ -260,6 +291,15 @@ export const rejectWithdrawal = async (req, res) => {
         if (user) {
             await syncService.handleTransactionUpdate(user, { ...withdrawal.toObject(), type: 'withdrawal' }, 'rejected');
         }
+
+        // Create failed timeline event
+        await TransactionTimeline.create({
+            transactionId: withdrawal._id,
+            transactionType: 'withdrawal',
+            status: 'FAILED',
+            description: `Withdrawal rejected by administrator. Reason: ${adminNotes || 'None provided'}. Funds refunded.`,
+            performedBy: req.user._id
+        });
 
         res.status(200).json({
             message: 'Withdrawal rejected and funds reverted',
