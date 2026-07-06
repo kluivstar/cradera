@@ -28,8 +28,8 @@ api.interceptors.response.use(
     (error) => {
         if (error.response && error.response.status === 401) {
             localStorage.removeItem('cradera_token');
-            // Only redirect if not already on login page
-            if (window.location.pathname !== '/login') {
+            // Only redirect if not already on login or admin login page
+            if (window.location.pathname !== '/login' && window.location.pathname !== '/admin/login') {
                 window.location.href = '/login';
             }
         }
