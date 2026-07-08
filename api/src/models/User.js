@@ -58,6 +58,14 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    rewardPoints: {
+        type: Number,
+        default: 0
+    },
+    lifetimeRewards: {
+        type: Number,
+        default: 0
+    },
     referralCode: {
         type: String,
         unique: true,

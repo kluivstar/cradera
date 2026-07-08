@@ -40,6 +40,8 @@ import AdminBroadcast from './pages/admin/Broadcast';
 import ManageAdminLogs from './pages/admin/ManageAdminLogs';
 import Wallet from './pages/user/Wallet';
 import ManageWallets from './pages/admin/ManageWallets';
+import Rewards from './pages/user/Rewards';
+import ManageRewards from './pages/admin/ManageRewards';
 import DashboardLayout from './components/DashboardLayout';
 
 const PlaceholderPage = ({ title }) => (
@@ -104,6 +106,9 @@ function AppRoutes() {
             <Route path="/dashboard/wallet" element={
                 <ProtectedRoute><Wallet /></ProtectedRoute>
             } />
+            <Route path="/dashboard/rewards" element={
+                <ProtectedRoute><Rewards /></ProtectedRoute>
+            } />
             <Route path="/dashboard/transactions" element={
                 <ProtectedRoute><Transactions /></ProtectedRoute>
             } />
@@ -150,6 +155,9 @@ function AppRoutes() {
             } />
             <Route path="/admin/wallets" element={
                 <ProtectedRoute adminOnly><ManageWallets /></ProtectedRoute>
+            } />
+            <Route path="/admin/rewards" element={
+                <ProtectedRoute adminOnly><ManageRewards /></ProtectedRoute>
             } />
             <Route path="/admin/deposits" element={
                 <ProtectedRoute adminOnly><ManageDeposits /></ProtectedRoute>

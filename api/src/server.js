@@ -23,9 +23,27 @@ import notificationRoutes from './routes/notification.routes.js';
 import sessionRoutes from './routes/session.routes.js';
 import ledgerRoutes from './routes/ledger.routes.js';
 import timelineRoutes from './routes/timeline.routes.js';
+import rewardRoutes from './routes/reward.routes.js';
+import RewardCampaign from './models/RewardCampaign.js';
 
 // Connect to Database
-connectDB();
+connectDB().then(async () => {
+    // Seed default campaigns
+    try {
+        const count = await RewardCampaign.countDocuments();
+        if (count === 0) {
+            await RewardCampaign.create([
+                { name: 'Trading Rewards Program', type: 'trading', rate: 1.5 },
+                { name: 'Direct Referral Rewards', type: 'referral', rate: 100 },
+                { name: 'Promo Sign-on Campaigns', type: 'promo', rate: 50 },
+                { name: 'Monthly Loyalty Bonus', type: 'loyalty', rate: 10 }
+            ]);
+            console.log('[SEED] Default reward campaigns seeded successfully');
+        }
+    } catch (err) {
+        console.error('[SEED] Failed to seed default reward campaigns:', err.message);
+    }
+});
 
 const app = express();
 
@@ -121,6 +139,7 @@ app.use(`${apiPrefix}/notifications`, notificationRoutes);
 app.use(`${apiPrefix}/sessions`, sessionRoutes);
 app.use(`${apiPrefix}/ledger`, ledgerRoutes);
 app.use(`${apiPrefix}/timeline`, timelineRoutes);
+app.use(`${apiPrefix}/rewards`, rewardRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
