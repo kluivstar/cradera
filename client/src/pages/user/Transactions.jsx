@@ -247,11 +247,16 @@ const Transactions = () => {
             {/* Live Progress Tracking Modal */}
             {selectedTxId && (
                 <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(4px)' }}>
-                    <div className="dash-card" style={{ padding: '2rem', width: '100%', maxWidth: '480px', position: 'relative', borderRadius: '20px', background: 'white' }}>
+                    <style>{`
+                        .tracker-modal-card * {
+                            font-weight: 400 !important;
+                        }
+                    `}</style>
+                    <div className="dash-card tracker-modal-card" style={{ padding: '2rem', width: '100%', maxWidth: '480px', position: 'relative', borderRadius: '20px', background: 'white' }}>
                         <button onClick={() => setSelectedTxId(null)} style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', outline: 'none' }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                         </button>
-                        <h3 style={{ fontSize: '1.25rem', fontWeight: '500', color: 'var(--color-primary)', margin: '0 0 1.5rem 0', textAlign: 'left' }}>Transaction Progress Tracker</h3>
+                        <h3 style={{ fontSize: '1.25rem', color: 'var(--color-primary)', margin: '0 0 1.5rem 0', textAlign: 'left' }}>Transaction Progress Tracker</h3>
                         <TransactionTimelineComponent transactionId={selectedTxId} onClose={() => setSelectedTxId(null)} />
                     </div>
                 </div>
