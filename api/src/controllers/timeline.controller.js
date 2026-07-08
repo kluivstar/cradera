@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import TransactionTimeline from '../models/TransactionTimeline.js';
 import Deposit from '../models/Deposit.js';
 import Withdrawal from '../models/Withdrawal.js';
@@ -13,6 +14,10 @@ export const getTransactionTimeline = async (req, res) => {
     try {
         const { transactionId } = req.params;
 
+        if (!mongoose.Types.ObjectId.isValid(transactionId)) {
+            return res.status(400).json({ error: 'Invalid transaction ID format' });
+        }
+
         // Verify transaction exists and belongs to the user
         let tx = await Deposit.findById(transactionId);
         let type = 'deposit';
@@ -26,7 +31,10 @@ export const getTransactionTimeline = async (req, res) => {
         }
 
         // Access check: must be owner or admin
-        if (req.user.role !== 'admin' && tx.userId.toString() !== req.user._id.toString()) {
+        const txUserId = tx.userId ? tx.userId.toString() : '';
+        const reqUserId = req.user && req.user._id ? req.user._id.toString() : '';
+
+        if (req.user.role !== 'admin' && txUserId !== reqUserId) {
             return res.status(403).json({ error: 'Access denied' });
         }
 
@@ -54,6 +62,10 @@ export const updateTransactionTimeline = async (req, res) => {
     try {
         const { transactionId } = req.params;
         const { status, description, adminAction } = req.body;
+
+        if (!mongoose.Types.ObjectId.isValid(transactionId)) {
+            return res.status(400).json({ error: 'Invalid transaction ID format' });
+        }
 
         const validStatuses = ['INITIATED', 'DEPOSIT_DETECTED', 'BLOCKCHAIN_CONFIRMING', 'PROCESSING', 'PAYOUT_SENT', 'COMPLETED', 'FAILED'];
         if (!status || !validStatuses.includes(status)) {
