@@ -32,7 +32,6 @@ import CryptoActions from './pages/user/CryptoActions';
 import Withdraw from './pages/user/Withdraw';
 import Settings from './pages/user/Settings';
 import ManageWithdrawals from './pages/admin/ManageWithdrawals';
-import Referral from './pages/user/Referral';
 import ManageReferrals from './pages/admin/ManageReferrals';
 import NotificationsPage from './pages/user/Notifications';
 import SessionsPage from './pages/user/Sessions';
@@ -40,7 +39,7 @@ import AdminBroadcast from './pages/admin/Broadcast';
 import ManageAdminLogs from './pages/admin/ManageAdminLogs';
 import Wallet from './pages/user/Wallet';
 import ManageWallets from './pages/admin/ManageWallets';
-import Rewards from './pages/user/Rewards';
+import Earn from './pages/user/Earn';
 import ManageRewards from './pages/admin/ManageRewards';
 import DashboardLayout from './components/DashboardLayout';
 
@@ -106,8 +105,8 @@ function AppRoutes() {
             <Route path="/dashboard/wallet" element={
                 <ProtectedRoute><Wallet /></ProtectedRoute>
             } />
-            <Route path="/dashboard/rewards" element={
-                <ProtectedRoute><Rewards /></ProtectedRoute>
+            <Route path="/dashboard/earn" element={
+                <ProtectedRoute><Earn /></ProtectedRoute>
             } />
             <Route path="/dashboard/transactions" element={
                 <ProtectedRoute><Transactions /></ProtectedRoute>
@@ -126,9 +125,6 @@ function AppRoutes() {
             } />
             <Route path="/dashboard/convert" element={
                 <ProtectedRoute><Convert /></ProtectedRoute>
-            } />
-            <Route path="/dashboard/referral" element={
-                <ProtectedRoute><Referral /></ProtectedRoute>
             } />
             <Route path="/dashboard/settings" element={
                 <ProtectedRoute><Settings /></ProtectedRoute>
