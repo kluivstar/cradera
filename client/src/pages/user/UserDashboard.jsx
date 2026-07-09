@@ -76,7 +76,7 @@ const UserDashboard = () => {
                             <div style={{ position: 'relative', zIndex: 1 }}>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <p style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', fontWeight: '500', margin: 0 }}>Available Balance</p>
+                                        <p className="balance-label" style={{ fontSize: '0.875rem', color: 'var(--color-text-secondary)', fontWeight: '500', margin: 0 }}>Available Balance</p>
                                         <button onClick={() => setIsBalanceVisible(!isBalanceVisible)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', display: 'flex', alignItems: 'center', padding: '0.2rem', borderRadius: '50%', transition: 'background 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.background='#f1f5f9'} onMouseOut={(e) => e.currentTarget.style.background='none'} title="Toggle Balance Visibility">
                                             {isBalanceVisible ? (
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -86,7 +86,7 @@ const UserDashboard = () => {
                                         </button>
                                     </div>
                                     <div style={{ position: 'relative', display: 'inline-block' }}>
-                                        <select value={currency} onChange={(e) => setCurrency(e.target.value)} style={{ padding: '0.35rem 1.75rem 0.35rem 0.85rem', borderRadius: '20px', border: '1px solid #e2e8f0', background: '#ffffff', fontSize: '0.75rem', fontWeight: '600', outline: 'none', cursor: 'pointer', color: '#0f172a', appearance: 'none', transition: 'all 0.2s ease', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+                                        <select className="currency-select" value={currency} onChange={(e) => setCurrency(e.target.value)} style={{ padding: '0.35rem 1.75rem 0.35rem 0.85rem', borderRadius: '20px', border: '1px solid #e2e8f0', background: '#ffffff', fontSize: '0.75rem', fontWeight: '600', outline: 'none', cursor: 'pointer', color: '#0f172a', appearance: 'none', transition: 'all 0.2s ease', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
                                             <option value="NGN">NGN</option>
                                             <option value="USD">USD</option>
                                         </select>
@@ -95,14 +95,14 @@ const UserDashboard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <h2 style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>
+                                <h2 className="balance-value" style={{ fontSize: '2.5rem', fontWeight: '500', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>
                                     {isBalanceVisible ? displayBalance : hiddenBalance}
                                 </h2>
                                 <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                                    <Link to="/dashboard/withdraw" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '5px', textDecoration: 'none', color: 'var(--color-primary)', border: '1px solid #ddd', flex: '1 1 auto', minWidth: '120px' }}>
+                                    <Link to="/dashboard/withdraw" className="btn btn-primary balance-action-btn" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '5px', textDecoration: 'none', color: 'white', background: '#5170FF', border: '1px solid #5170FF', flex: '1 1 auto', minWidth: '120px', textAlign: 'center' }}>
                                         - Withdrawal
                                     </Link>
-                                    <Link to="/dashboard/convert" className="btn btn-secondary" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '5px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: '1 1 auto', minWidth: '120px', justifyContent: 'center' }}>
+                                    <Link to="/dashboard/convert" className="btn btn-secondary balance-action-btn" style={{ padding: '0.6rem 1.5rem', fontWeight: '500', borderRadius: '5px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', flex: '1 1 auto', minWidth: '120px', justifyContent: 'center' }}>
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                             <path d="M16 3L21 8L16 13"/><path d="M21 8H9C6.23858 8 4 10.2386 4 13V15"/><path d="M8 21L3 16L8 11"/><path d="M3 16H15C17.7614 16 20 13.7614 20 11V9"/>
                                         </svg>
@@ -140,7 +140,7 @@ const UserDashboard = () => {
 
                 {/* Quick Actions — full width row with square cards */}
                 <div className='quick-action-container' style={{ marginTop: '1.5rem', width: '100%' }}>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
+                    <h3 className="quick-actions-title" style={{ fontSize: '1.1rem', fontWeight: '400', marginBottom: '1.25rem', color: 'var(--color-primary)' }}>Quick Actions</h3>
                     <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', width: '100%' }}>
                         <Link to="/dashboard/crypto-actions" className="dash-card service-hover" style={{ 
                             textDecoration: 'none', textAlign: 'center', 
@@ -159,7 +159,6 @@ const UserDashboard = () => {
                                 </svg>
                             </div>
                             <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Buy/Sell</h4>
-                            <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>Crypto</p>
                         </Link>
                         <Link to="/dashboard/withdraw" className="dash-card service-hover" style={{ 
                             textDecoration: 'none', textAlign: 'center',
@@ -178,7 +177,24 @@ const UserDashboard = () => {
                                 </svg>
                             </div>
                             <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Withdraw</h4>
-                            <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>To bank/crypto</p>
+                        </Link>
+                        <Link to="/dashboard/earn" className="dash-card service-hover" style={{ 
+                            textDecoration: 'none', textAlign: 'center',
+                            flex: '1 1 0', aspectRatio: '10/7',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                            padding: '1rem', background: '#faf5ff', border: '1px solid #e9d5ff'
+                        }}>
+                            <div className="quick-action-card-icon" style={{ 
+                                width: '40px', height: '40px', borderRadius: '10px', 
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                marginBottom: '0.75rem',
+                                color: '#6b21a8', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                            }}>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12zm-7-8c-1.66 0-3-1.34-3-3h2c0 .55.45 1 1 1s1-.45 1-1h2c0 1.66-1.34 3-3 3z"/>
+                                </svg>
+                            </div>
+                            <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Earn</h4>
                         </Link>
                         <div className="dash-card service-hover" style={{ 
                             textAlign: 'center', opacity: 0.6, position: 'relative',
@@ -198,27 +214,6 @@ const UserDashboard = () => {
                                 </svg>
                             </div>
                             <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Bills</h4>
-                            <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
-                        </div>
-                        <div className="dash-card service-hover" style={{ 
-                            textAlign: 'center', opacity: 0.6, position: 'relative',
-                            flex: '1 1 0', aspectRatio: '10/7',
-                            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                            padding: '1rem', background: '#faf5ff', border: '1px solid #e9d5ff'
-                        }}>
-                            <span style={{ position: 'absolute', top: '0.6rem', right: '0.6rem', fontSize: '0.55rem', fontWeight: '600', padding: '0.15rem 0.35rem', background: '#e9d5ff', borderRadius: '4px', color: '#6b21a8', textTransform: 'uppercase' }}>Soon</span>
-                            <div className="quick-action-card-icon" style={{ 
-                                width: '40px', height: '40px', borderRadius: '10px', 
-                                display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                                marginBottom: '0.75rem',
-                                color: '#6b21a8', boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                            }}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                </svg>
-                            </div>
-                            <h4 className="quick-action-card-title" style={{ color: 'var(--color-primary)', fontSize: '0.85rem', marginBottom: '0.2rem', fontWeight: '500' }}>Vault</h4>
-                            <p className="quick-action-card-sub" style={{ fontSize: '0.7rem', color: 'var(--color-text-secondary)' }}>Coming soon</p>
                         </div>
                     </div>
                 </div>
@@ -226,7 +221,7 @@ const UserDashboard = () => {
                 {/* Recent Transactions — full width, outside grid */}
                 <div style={{ marginTop: '1.5rem', width: '100%' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                        <h3 style={{ fontSize: '1.1rem', fontWeight: '500', color: 'var(--color-primary)' }}>Recent Activity</h3>
+                        <h3 className="recent-transactions-title" style={{ fontSize: '1.1rem', fontWeight: '500', color: 'var(--color-primary)' }}>Recent Transactions</h3>
                         <Link to="/dashboard/transactions" style={{ fontSize: '0.85rem', color: 'var(--color-accent)', fontWeight: '500', textDecoration: 'none' }}>View All</Link>
                     </div>
                     <div className="dash-card" style={{ padding: '0', overflow: 'hidden' }}>
@@ -295,6 +290,13 @@ const UserDashboard = () => {
                     .desktop-greeting { display: none !important; }
                     .mobile-greeting { display: block !important; }
                     .dashboard-grid { margin-top: -8px; }
+                    .balance-label { font-size: 16px !important; }
+                    .balance-value { font-size: 16px !important; }
+                    .currency-select { font-size: 13px !important; }
+                    .balance-action-btn { font-size: 15px !important; }
+                    .recent-transactions-title, .quick-actions-title { font-size: 12px !important; }
+                    .quick-action-card-title { font-size: 10px !important; }
+                    .quick-action-card-icon svg { width: 10px !important; height: 10px !important; }
                 }
             `}</style>
         </DashboardLayout>

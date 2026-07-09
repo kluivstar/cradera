@@ -210,7 +210,7 @@ const Earn = () => {
                                                         type="button"
                                                         onClick={() => setConvertAmount(rewardsData.availablePoints)}
                                                         className="rewards-max-btn"
-                                                        style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#5170FF', fontSize: '0.75rem', fontWeight: '600', cursor: 'pointer' }}
+                                                        style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#9CA3AF', fontSize: '0.75rem', fontWeight: '600', cursor: 'pointer' }}
                                                     >
                                                         MAX
                                                     </button>
@@ -267,25 +267,25 @@ const Earn = () => {
                                                 title: 'Trading Rewards', 
                                                 desc: 'Earn reward multipliers on every completed trade transaction.', 
                                                 rate: '1.5 pts / trade',
-                                                icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5170FF" strokeWidth="2"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg> 
+                                                icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg> 
                                             },
                                             { 
                                                 title: 'Referral Rewards', 
                                                 desc: 'Invite friends using your link and earn flat bonuses when verified.', 
                                                 rate: '100 pts / refer',
-                                                icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5170FF" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                                icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                                             },
                                             { 
                                                 title: 'Promotional Rewards', 
                                                 desc: 'Participate in sign-on events and platform giveaways.', 
                                                 rate: '50 pts / event',
-                                                icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5170FF" strokeWidth="2"><rect x="3" y="8" width="18" height="4"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>
+                                                icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2"><rect x="3" y="8" width="18" height="4"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>
                                             },
                                             { 
                                                 title: 'Loyalty Rewards', 
                                                 desc: 'Receive loyalty increments based on account active durations.', 
                                                 rate: '10 pts / month',
-                                                icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5170FF" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                                icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                                             }
                                         ].map((c, i) => {
                                             const activeC = rewardsData.activeCampaigns.find(ac => ac.type === ['trading', 'referral', 'promo', 'loyalty'][i]);

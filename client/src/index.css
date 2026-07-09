@@ -1630,4 +1630,8 @@ main {
     padding: 0.6rem 0.8rem !important;
     font-size: 13px !important;
   }
+
+  .topbar {
+    margin-top: -12px !important;
+  }
 }
