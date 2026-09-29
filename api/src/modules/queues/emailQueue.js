@@ -1,34 +1,21 @@
-import { Queue } from 'bullmq';
-import redisConnection from '../../config/redis.js';
+import { sendTransactionalEmail } from '../emails/emailService.js';
 
-// Create a new queue only if redis is available
-export const emailQueue = redisConnection ? new Queue('email-queue', {
-    connection: redisConnection,
-    defaultJobOptions: {
-        attempts: 3,
-        backoff: {
-            type: 'exponential',
-            delay: 5000,
-        },
-        removeOnComplete: true,
-        removeOnFail: false,
-    },
-}) : null;
+// We mock the queue export so we don't break controllers that try to use `emailQueue.getJobCounts(...)`
+export const emailQueue = {
+    getJobCounts: async () => ({ completed: 0, failed: 0, waiting: 0, active: 0 })
+};
 
 /**
- * Add an email job to the queue
+ * Send an email directly (bypassing Redis/BullMQ queue)
  * @param {Object} data - Email details (to, subject, templateName, context)
  */
 export const addEmailToQueue = async (data) => {
     try {
-        // PAUSED: Email system is temporarily disabled to prevent Resend/domain errors.
-        console.log(`[PAUSED] Email job skipped for: ${data.to}`);
-        return;
-        
-        // await emailQueue.add('send-email', data);
-        // console.log(`Email job added to queue for: ${data.to}`);
+        console.log(`Sending email directly (no queue) to: ${data.to}`);
+        await sendTransactionalEmail(data.to, data.subject, data.templateName, data.context);
+        console.log(`Email sent successfully to: ${data.to}`);
     } catch (error) {
-        console.error('Failed to add email job to queue:', error.message);
+        console.error('Failed to send email:', error.message);
     }
 };
 
