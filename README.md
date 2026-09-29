@@ -1,3 +1,4 @@
+<img width="946" height="437" alt="cradera" src="https://github.com/user-attachments/assets/8912654b-5b89-41b0-8707-344677ec39f3" />
 # Cradera FinTech platform MVP
 
 Cradera is a premium digital asset platform tailored for strict manual custodial services, Institutional clients, and elite VIP users. The workflow requires clients to register, pass Identity Verification (KYC), and coordinate transactions manually.
