@@ -15,18 +15,17 @@ export const emailQueue = redisConnection ? new Queue('email-queue', {
     },
 }) : null;
 
+import { sendTransactionalEmail } from '../emails/emailService.js';
+
 /**
  * Add an email job to the queue
  * @param {Object} data - Email details (to, subject, templateName, context)
  */
 export const addEmailToQueue = async (data) => {
     try {
-        // PAUSED: Email system is temporarily disabled to prevent Resend/domain errors.
-        console.log(`[PAUSED] Email job skipped for: ${data.to}`);
-        return;
-        
-        // await emailQueue.add('send-email', data);
-        // console.log(`Email job added to queue for: ${data.to}`);
+        // Bypassing Redis queue to send email directly
+        await sendTransactionalEmail(data.to, data.subject, data.templateName, data.context);
+        console.log(`Email sent directly for: ${data.to}`);
     } catch (error) {
         console.error('Failed to add email job to queue:', error.message);
     }
